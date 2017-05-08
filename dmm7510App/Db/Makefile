@@ -5,8 +5,6 @@ include $(TOP)/configure/CONFIG
 
 # Install databases, templates & substitutions like this
 DB += dmm7510.db
-DB += dcct.db
-DB += ict.db
 
 # If <anyname>.db template is not named <anyname>*.template add
 # <anyname>_TEMPLATE = <templatename>

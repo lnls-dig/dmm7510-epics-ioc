@@ -1,4 +1,4 @@
-#!../../bin/linux-x86_64/diagnostics
+#!../../bin/linux-x86_64/dmm7510
 
 ## You may have to change myexample to something else
 ## everywhere it appears in this file
@@ -22,11 +22,11 @@ epicsEnvSet DMM1_line ""
 
 # ################################
 
-epicsEnvSet("STREAM_PROTOCOL_PATH", "$(TOP)/diagnosticsApp/Db")
+epicsEnvSet("STREAM_PROTOCOL_PATH", "$(TOP)/dmm7510App/Db")
 
 ## Register all support components
-dbLoadDatabase "dbd/diagnostics.dbd"
-diagnostics_registerRecordDeviceDriver pdbbase
+dbLoadDatabase "dbd/dmm7510.dbd"
+dmm7510_registerRecordDeviceDriver pdbbase
 
 asSetFilename("$(TOP)/accessSecurityFile.acf")
 
