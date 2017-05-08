@@ -1,0 +1,80 @@
+########################################################################
+# DCCT Readigns
+# Desc: Readings and associated configurations.
+
+# Incluir proteção que impede a alteração do Range
+# caso o Trigger Model esteja rodando.
+record(mbbo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel"){
+  field(DESC, "DCCT full-scale range")
+  field(ZRST, "20mA")
+  field(ONST, "200mA")
+  field(TWST, "2A")
+  field(THST, "20A")
+  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RangeCalc1")
+}
+
+# Necessário definir os pinos de saída digital do multímetro
+# que serão usados para controle do Range.
+# Por enquanto são usadas as saídas 1 e 2.
+
+# NPCT DB9 Pin 6
+record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RangeCalc1"){
+#  field(ASG, "Reserved")
+  field(DESC, "Selected range digital out 1")
+  field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel.VAL")
+  field(CALC, "(A=0||A=2)?0:1")
+  field(OUT, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigState1-Sel.VAL")
+  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RangeCalc2")
+}
+
+# NPCT DB9 Pin 7
+record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RangeCalc2"){
+#  field(ASG, "Reserved")
+  field(DESC, "Selected range digital out 2")
+  field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel.VAL")
+  field(CALC, "A<=1?0:1")
+  field(OUT, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigState2-Sel.VAL")
+}
+
+# Needed a scheme for reading the digital output pins states !
+# and converting this information into the Range-Sts !
+# selected option !
+# The dig. out states can be read periodically !
+record(mbbi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sts"){
+  field(DESC, "DCCT full-scale range Sts")
+  field(ZRST, "20mA")
+  field(ONST, "200mA")
+  field(TWST, "2A")
+  field(THST, "20A")
+}
+
+# Ao invés de realizar a conversão de unidade de medida
+# no IOC, pode ser mais interessante realizar a conversão
+# no próprio multímetro.
+# Isso pode evitar problemas, como o IOC atribuir um valor
+# de range novo a uma medida antiga, o que resultaria em medidas erradas.
+# Realizar a conversão direto no multímetro relaciona cada medida
+# ao range utilizado naquele instante, o que é melhor.
+record(calc, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CurrCalc"){
+#  field(ASG, "Reserved")
+  field(DESC, "Average current calc")
+  field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FetchBuff1-Mon.VAL")
+  field(INPB, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sts.VAL")
+  field(CALC, "B=0?(A*0.002):(B=1?(A*0.02):(B=2?(A*0.2):(A*2)))")
+  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Curr-Mon")
+}
+
+record(ai, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Curr-Mon"){
+#  field(ASG, "Reserved")
+  field(DESC, "Average current measurement")
+  field(INP, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CurrCalc.VAL")
+}
+
+
+########################################################################
+# Calibration
+# Desc: DCCT calibration PVs.
+
+########################################################################
+# Module Support
+# Desc: Upload, download, autosave and network status.
