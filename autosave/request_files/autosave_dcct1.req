@@ -1,0 +1,19 @@
+# Measurement Trigger source
+$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrg-Sel.VAL
+# Timer configuration
+$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TrgDelay-SP.VAL
+# Measurement Settings
+$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasCount-SP.VAL
+$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Imped-Sel.VAL
+$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LineSync-Sel.VAL
+$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):NPLC-SP.VAL
+$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RelEnbl-Sel.VAL
+$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RelLvl-SP.VAL
+# Current Measurement Range
+$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel.VAL
+# DCCT Test Input Setting
+$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Test-Sel.VAL
+# Current Threshold Detection
+$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimEnbl-Sel.VAL
+$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-SP.VAL
+$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):HFReject-Sel.VAL
