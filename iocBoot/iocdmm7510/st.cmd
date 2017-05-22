@@ -51,7 +51,7 @@ ${DMM1_line}dbLoadRecords("${TOP}/db/dmm7510.db", "Sec=${DMSEC}, Sub=${DMSUB}, D
 ${DCCT1_line}dbLoadRecords("${TOP}/db/dcct.db", "Sec=${DCSEC}, Sub=${DCSUB}, Dis=${DCDIS}, Dev=${DCDEV}, Idx=1, Instrument=${DMSEC}-${DMSUB}:${DMDIS}-${DMDEV}1")
 
 # Specify save file path
-set_savefile_path("$(TOP)", "autosave/save_files")
+set_savefile_path("$(TOP)", "autosave")
 
 # Specify request files directories
 set_requestfile_path("$(TOP)", "autosave/request_files")
