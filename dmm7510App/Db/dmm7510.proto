@@ -74,6 +74,17 @@ exout_stim_get{
 ###########################################################################
 # Digital I/O
 
+digio_writeall_set{
+	# set
+	out "digio.writeport(%i)";
+}
+
+digio_readall_get{
+	# read
+	out "print(digio.readport())";
+	in "%i";
+}
+
 digio_mode_set{
 	# set
 	out "digio.line[\$1].mode = digio.%{MODE_DIGITAL_IN|MODE_DIGITAL_OUT|MODE_DIGITAL_OPEN_DRAIN|MODE_TRIGGER_IN|MODE_TRIGGER_OUT|MODE_TRIGGER_OPEN_DRAIN|MODE_SYNCHRONOUS_MASTER|MODE_SYNCHRONOUS_ACCEPTOR}";
@@ -955,6 +966,12 @@ trace_read_get{
 	}
 }
 
+trace_fetch_get{
+	# read
+	out "printbuffer(defbuffer\$1.endindex, defbuffer\$1.endindex, defbuffer\$1.readings)";
+	in "%f";
+}
+
 trace_fill_set{
 	# set
 	out "defbuffer\$1.fillmode = %b";
@@ -1032,12 +1049,14 @@ trace_stdd_get{
 
 trace_meas_set{
 	# cmd
-	out "print(dmm.measure.read(defbuffer\$1))";
+	out "print(dmm.measure.read(defbuffer\$6))";
+	in "%(\$1-\$2:\$3-\$4\$5:FetchBuff\$6-Mon)f";
 }
 
 trace_digtz_set{
 	# cmd
-	out "print(dmm.digitize.read(defbuffer\$1))";
+	out "print(dmm.digitize.read(defbuffer\$6))";
+	in "%(\$1-\$2:\$3-\$4\$5:FetchBuff\$6-Mon)f";
 }
 
 ###########################################################################

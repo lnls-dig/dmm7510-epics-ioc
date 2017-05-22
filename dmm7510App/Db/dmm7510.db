@@ -157,6 +157,21 @@ record(stringin, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ExOutStim-Sts"){
 # Digital I/O
 # Desc: Digital I/O configuration. Simple output signals, and triggers.
 
+# All lines must be configured as digital output
+record(longout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigWrite-SP"){
+  field(DESC, "Set all digital lines state as an int")
+  field(DRVH, "63")
+  field(DRVL, "0")
+  field(DTYP, "stream")
+  field(OUT, "@dmm7510.proto digio_writeall_set $(PORT)")
+}
+
+record(longin, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigRead-Mon"){
+  field(DESC, "Read all digital lines state as an int")
+  field(DTYP, "stream")
+  field(INP, "@dmm7510.proto digio_readall_get $(PORT)")
+}
+
 #################################################################
 # DIG1
 
@@ -2118,16 +2133,16 @@ record(longin, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterWind-RB"){
 #	Only some measurement functions allow the use of autozero.
 
 # The protocol enables/disables autozero for the SELECTED MEASUREMENT
-record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):AZero-Sel"){
+record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):AutoZero-Sel"){
   field(DESC, "Enable/disalbe Autozero")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
   field(DTYP, "stream")
   field(OUT, "@dmm7510.proto azero_en_set $(PORT)")
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):AZero-Sts")
+  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):AutoZero-Sts")
 }
 
-record(bi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):AZero-Sts"){
+record(bi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):AutoZero-Sts"){
   field(ASG, "Reserved")
   field(DESC, "Enable/disalbe Autozero Sts")
   field(ZNAM, "OFF")
@@ -3287,6 +3302,13 @@ record(waveform, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ReadBuff1-Mon"){
   field(INP, "@dmm7510.proto trace_read_get($(Sec),$(Sub),$(Dis),$(Dev),$(Idx),1) $(PORT)")
 }
 
+record(ai, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FetchBuff1-Mon"){
+  field(DESC, "Last defbuffer1 reading")
+  field(PREC, "16")
+  field(DTYP, "stream")
+  field(INP, "@dmm7510.proto trace_fetch_get(1) $(PORT)")
+}
+
 record(longin, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):StartBuff2-Mon"){
   field(DESC, "Defbuffer2 start index")
   field(DTYP, "stream")
@@ -3332,6 +3354,13 @@ record(waveform, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ReadBuff2-Mon"){
   field(NELM, "1000")
   field(DTYP, "stream")
   field(INP, "@dmm7510.proto trace_read_get($(Sec),$(Sub),$(Dis),$(Dev),$(Idx),2) $(PORT)")
+}
+
+record(ai, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FetchBuff2-Mon"){
+  field(DESC, "Last defbuffer2 reading")
+  field(PREC, "16")
+  field(DTYP, "stream")
+  field(INP, "@dmm7510.proto trace_fetch_get(2) $(PORT)")
 }
 
 record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FillModeBuff1-Sel"){
@@ -3512,7 +3541,7 @@ record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasBuff1Calc"){
   field(CALC, "A")
   field(OOPT, "When Non-zero")
   field(DTYP, "stream")
-  field(OUT, "@dmm7510.proto trace_meas_set(1) $(PORT)")
+  field(OUT, "@dmm7510.proto trace_meas_set($(Sec),$(Sub),$(Dis),$(Dev),$(Idx),1) $(PORT)")
 }
 
 # A measurement function must be selected before sending this command
@@ -3531,7 +3560,7 @@ record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasBuff2Calc"){
   field(CALC, "A")
   field(OOPT, "When Non-zero")
   field(DTYP, "stream")
-  field(OUT, "@dmm7510.proto trace_meas_set(2) $(PORT)")
+  field(OUT, "@dmm7510.proto trace_meas_set($(Sec),$(Sub),$(Dis),$(Dev),$(Idx),2) $(PORT)")
 }
 
 # A digitize function must be selected before sending this command
@@ -3550,7 +3579,7 @@ record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzBuff1Calc"){
   field(CALC, "A")
   field(OOPT, "When Non-zero")
   field(DTYP, "stream")
-  field(OUT, "@dmm7510.proto trace_digtz_set(1) $(PORT)")
+  field(OUT, "@dmm7510.proto trace_digtz_set($(Sec),$(Sub),$(Dis),$(Dev),$(Idx),1) $(PORT)")
 }
 
 # A digitize function must be selected before sending this command
@@ -3569,7 +3598,7 @@ record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzBuff2Calc"){
   field(CALC, "A")
   field(OOPT, "When Non-zero")
   field(DTYP, "stream")
-  field(OUT, "@dmm7510.proto trace_digtz_set(2) $(PORT)")
+  field(OUT, "@dmm7510.proto trace_digtz_set($(Sec),$(Sub),$(Dis),$(Dev),$(Idx),2) $(PORT)")
 }
 
 ########################################################################
@@ -6068,7 +6097,7 @@ record(fanout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):UploadFnc2"){
   field(SELM, "Mask")
   field(LNK1, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MAutoRange-Sts")
   field(LNK2, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MRange-RB")
-  field(LNK3, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):AZero-Sts")
+  field(LNK3, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):AutoZero-Sts")
   field(LNK4, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasLineSync-Sts")
   field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):UploadFnc3")
 }
