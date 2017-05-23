@@ -5,9 +5,10 @@
 # Measurement trigger source
 record(mbbo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrg-Sel"){
   field(DESC, "Measurement trigger source")
-  field(ZRST, "External")
-  field(ONST, "InLevel")
-  field(TWST, "Software")
+  field(ZRST, "None")
+  field(ONST, "External")
+  field(TWST, "InLevel")
+  field(THST, "Software")
 }
 
 # Trigger source selection branch index calc
@@ -28,9 +29,10 @@ record(fanout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgFout"){
   field(DESC, "Meas. trigger source config selection")
   field(SELM, "Specified")
   field(SELL, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgCalc.OVAL")
-  field(LNK1, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigEx")
-  field(LNK2, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigLvl")
-  field(LNK3, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigSoft")
+  field(LNK1, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigNone")
+  field(LNK2, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigEx")
+  field(LNK3, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigLvl")
+  field(LNK4, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigSoft")
 }
 
 # Settings for measurement external triggering
@@ -97,6 +99,23 @@ record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SoftMeas"){
   field(OUT, "$(Instrument):MeasBuff1-Cmd PP")
 }
 
+# Settings for disabling measurement trigger
+record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigNone"){
+  field(ASG, "Reserved")
+  field(DESC, "Settings for NO measurement trigger")
+  field(SELM, "All")
+  field(STR1, "Passive")
+  field(STR2, "NONE")
+  field(STR3, "Passive")
+  field(STR4, "ON")
+  field(STR5, "OFF")
+  field(LNK1, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SoftMeas.SCAN")	# Disable meas. software triggering
+  field(LNK2, "$(Instrument):MeasStim-Sel PP")				# Meas. trigger = NONE 
+  field(LNK3, "$(Instrument):CntBuff1-Mon.SCAN")			# Disable buffer count scan and periodic reading fetching
+  field(LNK4, "$(Instrument):ClrBuff1-Cmd PP")				# Clear buffer
+  field(LNK5, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimEnbl-Sel PP")	# Disable low voltage level detection
+}
+
 # Check measurement trigger configuration and update Sts
 record(scalcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck1"){
   field(ASG, "Reserved")
@@ -161,7 +180,19 @@ record(scalcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck6"){
   field(ASG, "Reserved")
   field(DESC, "Check calc 6 for meas. trigger config")
   field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck5.VAL")
-  field(CALC, "A=1?'External':(A=2?'InLevel':(A=3?'Software':'Unknown'))")
+  field(INBB, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SoftMeas.SCAN")
+  field(INCC, "$(Instrument):MeasStim-Sts")
+  field(INDD, "$(Instrument):CntBuff1-Mon.SCAN")
+  field(INEE, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimEnbl-Sts")
+  field(CALC, "(A=0&&BB=='Passive'&&CC=='NONE'&&DD=='Passive'&&EE=='OFF')?4:A")
+  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck7")
+}
+
+record(scalcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck7"){
+  field(ASG, "Reserved")
+  field(DESC, "Check calc 7 for meas. trigger config")
+  field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck6.VAL")
+  field(CALC, "A=1?'External':(A=2?'InLevel':(A=3?'Software':(A=4?'None':'Unknown')))")
   field(OUT, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrg-Sts PP")
 }
 
@@ -173,6 +204,7 @@ record(mbbi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrg-Sts"){
   field(ONST, "External")
   field(TWST, "InLevel")
   field(THST, "Software")
+  field(FRST, "None")
 }
 
 ########################################################################
