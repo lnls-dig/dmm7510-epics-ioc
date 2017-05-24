@@ -11,13 +11,24 @@ record(mbbo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrg-Sel"){
   field(THST, "Software")
 }
 
+# Config reset for download
+record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgRst"){
+  field(ASG, "Reserved")
+  field(DESC, "Meas. trigger reset for download")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(HIGH, "5")
+  field(VAL, "0")
+}
+
 # Trigger source selection branch index calc
 record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgCalc"){
   field(ASG, "Reserved")
   field(DESC, "Meas. trigger branch index calc")
   field(SCAN, "5 second")
   field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrg-Sel.VAL")
-  field(CALC, "A+1")
+  field(INPB, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgRst.VAL")
+  field(CALC, "B=0?(A+1):0")
   field(OOPT, "On Change")
   field(VAL, "7")							# Initialize in a nonexistent state
   field(OUT, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgFout.PROC")
@@ -757,5 +768,6 @@ record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq5"){
   field(DO1, "1")
   field(DO2, "1")
   field(LNK1, "$(Instrument):DigRead-Mon.PROC")					# DigIOs states read (range RB)
+  field(LNK2, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgRst.VAL PP")		# Reset MeasTrgCalc so that next time it will process
 }
 
