@@ -361,6 +361,72 @@ record(ai, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):NPLC-RB"){
   field(INP, "$(Instrument):MeasNPLC-RB CPP")
 }
 
+# Filter counter (high level)
+record(longout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterCnt-SP"){
+  field(DESC, "Filter counter high level PV")
+  field(DRVH, "100")
+  field(DRVL, "1")
+  field(OUT, "$(Instrument):FilterCount-SP PP")
+}
+
+# Filter counter RB (high level)
+record(longin, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterCnt-RB"){
+  field(ASG, "Reserved")
+  field(DESC, "Filter counter RB high level PV")
+  field(INP, "$(Instrument):FilterCount-RB CPP")
+}
+
+# Filter enable (high level)
+record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterEnbl-Sel"){
+  field(DESC, "Filter enable high level PV")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(OUT, "$(Instrument):FilterEnbl-Sel PP")
+}
+
+# Filter enable Sts (high level)
+record(bi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterEnbl-Sts"){
+  field(ASG, "Reserved")
+  field(DESC, "Filter enable Sts high level PV")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(INP, "$(Instrument):FilterEnbl-Sts CPP")
+}
+
+# Filter type (high level)
+record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterTyp-Sel"){
+  field(DESC, "Filter type high level PV")
+  field(ZNAM, "Repeat")
+  field(ONAM, "Moving")
+  field(OUT, "$(Instrument):FilterTyp-Sel PP")
+}
+
+# Filter type Sts (high level)
+record(bi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterTyp-Sts"){
+  field(ASG, "Reserved")
+  field(DESC, "Filter type Sts high level PV")
+  field(ZNAM, "Repeat")
+  field(ONAM, "Moving")
+  field(INP, "$(Instrument):FilterTyp-Sts CPP")
+}
+
+# Filter window (high level)
+record(longout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterWind-SP"){
+  field(DESC, "Filter window high level PV")
+  field(DRVH, "10")
+  field(DRVL, "0")
+  field(EGU, "%")
+  field(OUT, "$(Instrument):FilterWind-SP PP")
+}
+
+# Filter window RB (high level)
+record(longin, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterWind-RB"){
+  field(ASG, "Reserved")
+  field(DESC, "Filter window RB high level PV")
+  field(EGU, "%")
+  field(INP, "$(Instrument):FilterWind-RB CPP")
+}
+
 # Relative offset enable (high level)
 record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RelEnbl-Sel"){
   field(DESC, "Rel. offset enable high level PV")

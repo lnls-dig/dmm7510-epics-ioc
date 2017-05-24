@@ -2110,7 +2110,7 @@ record(bi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterTyp-Sts"){
 
 # The protocol sets the filter window for the SELECTED MEASUREMENT
 record(longout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterWind-SP"){
-  field(DESC, "Measurement filter average window")
+  field(DESC, "Measurement filter window")
   field(DRVH, "10")
   field(DRVL, "0")
   field(EGU, "%")
@@ -2121,8 +2121,8 @@ record(longout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterWind-SP"){
 
 record(longin, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterWind-RB"){
   field(ASG, "Reserved")
+  field(DESC, "Measurement filter window RB")
   field(EGU, "%")
-  field(DESC, "Measurement filter average window RB")
   field(DTYP, "stream")
   field(INP, "@dmm7510.proto filter_wind_get $(PORT)")
 }
