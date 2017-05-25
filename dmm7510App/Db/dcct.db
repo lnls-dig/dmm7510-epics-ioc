@@ -249,6 +249,7 @@ record(ai, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TrgDelay-RB"){
 record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):BuffCntCalc"){
   field(ASG, "Reserved")
   field(DESC, "Buffer counter monitor calc")
+  field(PRIO, "HIGH")
   field(INPA, "$(Instrument):CntBuff1-Mon CPP")
   field(CALC, "A>0")
   field(OOPT, "When Non-zero")
@@ -260,6 +261,7 @@ record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):BuffCntCalc"){
 record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):BuffClear"){
   field(ASG, "Reserved")
   field(DESC, "Clear buffer calc")
+  field(PRIO, "HIGH")
   field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):BuffCntCalc.VAL")
   field(CALC, "A")
   field(OOPT, "When Non-zero")
@@ -832,8 +834,14 @@ record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq5"){
   field(DESC, "Download sequence 5")
   field(SELM, "All")
   field(DO1, "1")
-  field(DO2, "1")
+  field(STR2, "HIGH")
+  field(STR3, "HIGH")
+  field(STR4, "HIGH")
+  field(DO5, "1")
   field(LNK1, "$(Instrument):DigRead-Mon.PROC")					# DigIOs states read (range RB)
-  field(LNK2, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgRst.VAL PP")		# Reset MeasTrgCalc so that next time it will process
+  field(LNK2, "$(Instrument):CntBuff1-Mon.PRIO")				# Buffer monitor priority = HIGH
+  field(LNK3, "$(Instrument):FetchBuff1-Mon.PRIO")				# Fetch buffer priority = HIGH
+  field(LNK4, "$(Instrument):ClrBuff1-Cmd.PRIO")				# Clear buffer cmd priority = HIGH
+  field(LNK5, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgRst.VAL PP")		# Reset MeasTrgCalc so that next time it will process
 }
 
