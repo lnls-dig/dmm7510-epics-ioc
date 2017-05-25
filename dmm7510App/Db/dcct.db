@@ -636,6 +636,7 @@ record(ao, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-SP"){
   field(DESC, "Threshold level")
   field(DRVH, "2000")
   field(DRVL, "0")
+  field(PREC, "6")
   field(EGU, "mA")
   field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ThreshCalc")
 }
@@ -671,6 +672,7 @@ record(ai, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-RB"){
   field(ASG, "Reserved")
   field(DESC, "Threshold level RB")
   field(EGU, "mA")
+  field(PREC, "6")
 }
 
 # High frequency rejection (high level)
@@ -724,7 +726,7 @@ record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Download-Cmd"){
   field(DESC, "Download IOC parameters cmd")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
-  field(HIGH, "0.5")
+  field(HIGH, "10")
   field(VAL, "1")
   field(PINI, "YES")
   field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadCalc")
