@@ -272,7 +272,7 @@ record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):BuffClear"){
 record(ai, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):AvgCurr-Mon"){
   field(ASG, "Reserved")
   field(DESC, "Average Beam Current")
-  field(PREC, "16")
+  field(PREC, "6")
   field(EGU, "mA")
   field(INP, "$(Instrument):FetchBuff1-Mon CPP")
   field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CurrHstr-Mon")

@@ -218,7 +218,7 @@ record(acalcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ReadingsCalc"){
 record(ai, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Charge-Mon"){
   field(ASG, "Reserved")
   field(DESC, "Beam Charge")
-  field(PREC, "16")
+  field(PREC, "6")
   field(EGU, "nC")
   field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ChargeHstr-Mon")
 }
