@@ -3270,11 +3270,13 @@ record(longin, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):EndBuff1-Mon"){
 record(longout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):StartRead1-SP"){
   field(DESC, "Defbuffer1 reading request start index")
   field(DRVL, "1")
+  field(VAL, "1")
 }
 
 record(longout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):EndRead1-SP"){
   field(DESC, "Defbuffer1 reading request end index")
   field(DRVL, "1")
+  field(VAL, "1")
 }
 
 record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ReadBuff1-Cmd"){

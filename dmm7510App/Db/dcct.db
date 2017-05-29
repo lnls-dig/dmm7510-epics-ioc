@@ -39,7 +39,7 @@ record(fanout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgFout"){
   field(ASG, "Reserved")
   field(DESC, "Meas. trigger source config selection")
   field(SELM, "Specified")
-  field(SELL, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgCalc.OVAL")
+  field(SELL, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgCalc.VAL")
   field(LNK1, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigNone")
   field(LNK2, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigEx")
   field(LNK3, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigLvl")
@@ -631,7 +631,7 @@ record(bi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimEnbl-Sts"){
   field(ONAM, "ON")
 }
 
-# Minimum value of current
+# Analog trigger threshold
 record(ao, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-SP"){
   field(DESC, "Threshold level")
   field(DRVH, "2000")
@@ -667,7 +667,7 @@ record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ThreshMonCalc"){
   field(OUT, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-RB PP")
 }
 
-# Calculation for setting analog trigger level
+# Analog trigger threshold RB
 record(ai, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-RB"){
   field(ASG, "Reserved")
   field(DESC, "Threshold level RB")
