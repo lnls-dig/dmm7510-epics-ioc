@@ -652,6 +652,7 @@ record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq2"){
   field(LNK8, "$(Instrument):DMathOp-Sel PP")                                   # Math format = y=mx+b                  
   field(LNK9, "$(Instrument):DMathBFactor-SP PP")                               # Math B factor = 0
   field(LNKA, "$(Instrument):DMathEnbl-Sel PP")                                 # Math enable = ON
+  field(DLY8, "2")								# Wait 2 seconds for Range-Sts to be set
   field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq3")
 }
 
@@ -688,7 +689,6 @@ record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq4"){
   field(DO2, "1")
   field(LNK1, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalCharge-Sel.PROC")		# ICT calibration charge proc
   field(LNK2, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalEnbl-Sel.PROC")		# ICT calibration enable proc
-  field(DLY1, "5")								# Wait the range setting process to finish
-  field(DLY2, "5")								# Wait the cal. charge setting process to finish
+  field(DLY2, "2")								# Wait the cal. charge setting process to finish
 }
 

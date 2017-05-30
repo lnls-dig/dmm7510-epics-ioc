@@ -770,12 +770,20 @@ record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq2"){
   field(DO4, "1")
   field(DO5, "1")
   field(DO6, "1")
+  field(DO7, "1")
+  field(DO8, "1")
+  field(DO9, "1")
+  field(DOA, "1")
   field(LNK1, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasCount-SP.PROC")		# Meas. count high level proc
   field(LNK2, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Imped-Sel.PROC")		# Meas. input impedance proc
   field(LNK3, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LineSync-Sel.PROC")		# Meas. line sync proc 
   field(LNK4, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):NPLC-SP.PROC")			# Meas. NPLC proc
   field(LNK5, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RelEnbl-Sel.PROC")		# Meas. relative offset enable proc
   field(LNK6, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RelLvl-SP.PROC")		# Meas. relative offset level proc
+  field(LNK7, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterTyp-Sel.PROC")		# Filter type proc
+  field(LNK8, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterCnt-SP.PROC")		# Filter count proc
+  field(LNK9, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterWind-SP.PROC")		# Filter window proc
+  field(LNKA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterEnbl-Sel.PROC")		# Filter enable proc
   field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq3")
 }
 
@@ -828,6 +836,7 @@ record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq4"){
   field(LNK8, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):HFReject-Sel.PROC")		# High Freq rejection proc (Analog Trg HR reject)
   field(LNK9, "$(Instrument):ExOutPol-Sel PP")					# External Output polarity = Positive
   field(LNKA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimEnbl-Sel.PROC")		# Low limit enable proc (Analog Trg Slope and Stim)
+  field(DLY3, "2")								# Wait 2 seconds for Range-Sts to be set
   field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq5")
 }
 
