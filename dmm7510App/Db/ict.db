@@ -326,6 +326,17 @@ record(longin, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SampleRate-RB"){
 # Charge Digitize Range
 # Desc: Digitize range selection.
 
+# Beam Charge Monitor output full-scale range
+record(ao, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):BCMRange-SP"){
+  field(DESC, "Set this equal to BCM max output volt")
+  field(DRVH, "10")
+  field(DRVL, "1")
+  field(PREC, "6")
+  field(EGU, "V")
+  field(VAL, "8")
+  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel")
+}
+
 # PV for range selection
 record(mbbo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel"){
   field(DESC, "ICT range")
@@ -344,7 +355,8 @@ record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConvCalc"){
 #  field(ASG, "Reserved")
   field(DESC, "Reading conversion factor")
   field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel.VAL")
-  field(CALC, "A=6?0.1:(A<3?(5/(2**A)):(1/(2**(A-3))))")
+  field(INPB, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):BCMRange-SP.VAL")
+  field(CALC, "A=6?(0.8/B):(A<3?(40.0/((2**A)*B)):(8.0/((2**(A-3)*B))))")
   field(OUT, "$(Instrument):DMathMFactor-SP PP")
   field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RangeCalc")
 }
@@ -371,7 +383,8 @@ record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ThreshUpdate"){
   field(DESC, "Threshold update")
   field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-RB")
   field(INPB, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel")
-  field(CALC, "B=6?(10*A):(B<3?(((2**B)/5)*A):((2**(B-3))*A))")
+  field(INPC, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):BCMRange-SP.VAL")
+  field(CALC, "B=6?((C/0.8)*A):(B<3?((((2**B)*C)/40.0)*A):((((2**(B-3))*C)/8.0)*A))")
   field(OUT, "$(Instrument):DATrEdgeLvl-SP PP")
   field(FLNK, "$(Instrument):DigRead-Mon.PROC")
 }
@@ -508,8 +521,9 @@ record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ThreshCalc"){
   field(DESC, "Threshold unit conversion calc")
   field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-SP")
   field(INPB, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sts")
+  field(INPC, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):BCMRange-SP.VAL")
   field(CALC, "B=0?0:1")
-  field(OCAL, "C:=B-1;C=6?(10*A):(C<3?(((2**C)/5)*A):((2**(C-3))*A))")
+  field(OCAL, "D:=B-1;D=6?((C/0.8)*A):(D<3?((((2**D)*C)/40.0)*A):((((2**(D-3))*C)/8.0)*A))")
   field(DOPT, "Use OCAL")
   field(OOPT, "When Non-zero")
   field(OUT, "$(Instrument):DATrEdgeLvl-SP PP")
@@ -521,8 +535,9 @@ record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ThreshMonCalc"){
   field(DESC, "Threshold level read calc")
   field(INPA, "$(Instrument):DATrEdgeLvl-RB CPP")
   field(INPB, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sts")
+  field(INPC, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):BCMRange-SP.VAL")
   field(CALC, "B=0?0:1")
-  field(OCAL, "C:=B-1;C=6?(A/10):(C<3?(A*(5/(2**C))):(A/(2**(C-3))))")
+  field(OCAL, "D:=B-1;D=6?(A*(0.8/C)):(D<3?(A*(40.0/((2**D)*C))):(A*(8.0/((2**(D-3))*C))))")
   field(DOPT, "Use OCAL")
   field(OOPT, "When Non-zero")
   field(OUT, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-RB PP")

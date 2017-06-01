@@ -9,6 +9,7 @@ $(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Aperture-SP.VAL
 $(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SampleRate-SP.VAL
 # Charge Digitize Range
 $(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel.VAL
+$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):BCMRange-SP.VAL
 # BCM Calibration Settings
 $(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalEnbl-Sel.VAL
 $(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalCharge-Sel.VAL
