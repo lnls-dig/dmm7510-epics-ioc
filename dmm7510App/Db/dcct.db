@@ -11,10 +11,10 @@ record(mbbo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrg-Sel"){
   field(THST, "Software")
 }
 
-# Config reset for download
+# Configuration reset used by download
 record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgRst"){
   field(ASG, "Reserved")
-  field(DESC, "Meas. trigger reset for download")
+  field(DESC, "Meas. trigger reset used by download")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
   field(HIGH, "5")
@@ -220,11 +220,11 @@ record(mbbi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrg-Sts"){
 
 ########################################################################
 # Timer configuration
-# Desc: Timer used when meas is triggered by level.
+# Desc: Timer used when measurement is triggered by level.
 
 # Timer delay (high level)
 record(ao, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TrgDelay-SP"){
-  field(DESC, "Level trigger delay")
+  field(DESC, "Trigger delay")
   field(DRVH, "100000")
   field(DRVL, "0.000008")
   field(PREC, "6")
@@ -235,7 +235,7 @@ record(ao, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TrgDelay-SP"){
 # Timer delay RB (high level)
 record(ai, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TrgDelay-RB"){
   field(ASG, "Reserved")
-  field(DESC, "Level trigger delay RB")
+  field(DESC, "Trigger delay RB")
   field(PREC, "6")
   field(EGU, "seconds")
   field(INP, "$(Instrument):Timer1Dly-RB CPP")
@@ -463,21 +463,11 @@ record(ai, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RelLvl-RB"){
   field(INP, "$(Instrument):MRelOff-RB CPP")
 }
 
-#-------------------------
-# Relative offset acquire ??
-# Como será usado?
-#-------------------------
-
-#-------------------------
-# Autozero Once ??
-# Será usado?
-#-------------------------
-
 ########################################################################
 # Current Measurement Range
 # Desc: Measurement range selection.
 
-# PV for range selection
+# DCCT Range selection
 record(mbbo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel"){
   field(DESC, "DCCT range")
   field(ZRST, "20 A")
@@ -544,40 +534,40 @@ record(mbbi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sts"){
 }
 
 ########################################################################
-# DCCT Test Input Setting
-# Desc: DCCT test input settings.
+# DCCT Calibration Setting
+# Desc: DCCT calibration signal enable.
 
-# Enable/disable DCCT test input
+# Enable/disable DCCT calibration signal
 record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Test-Sel"){
-  field(DESC, "DCCT test enable/disable")
+  field(DESC, "DCCT calibration signal enable")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
   field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TestCalc")
 }
 
-# Enable DCCT test calc
+# Enable DCCT calibration signal calc
 record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TestCalc"){
   field(ASG, "Reserved")
-  field(DESC, "DCCT test enable calc")
+  field(DESC, "DCCT calibration signal enable calc")
   field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Test-Sel.VAL")
   field(CALC, "!A")
   field(OUT, "$(Instrument):Dig3State-Sel PP")
   field(FLNK, "$(Instrument):Dig3State-Mon")
 }
 
-# Enable DCCT test input status calc
+# DCCT calibration signal enable status calc
 record(calc, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TestMonCalc"){
   field(ASG, "Reserved")
-  field(DESC, "DCCT range enable monitor calc")
+  field(DESC, "DCCT cal. signal enable monitor calc")
   field(INPA, "$(Instrument):Dig3State-Mon CPP")
   field(CALC, "!A")
   field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Test-Sts")
 }
 
-# Enable DCCT test input status
+# DCCT calibration signal enable status
 record(bi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Test-Sts"){
   field(ASG, "Reserved")
-  field(DESC, "DCCT range enable Sts")
+  field(DESC, "DCCT calibration signal enable Sts")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
   field(INP, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TestMonCalc.VAL")
@@ -585,7 +575,7 @@ record(bi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Test-Sts"){
 
 ########################################################################
 # Current Threshold Detection
-# Desc: Current loss detection related parameters.
+# Desc: Current loss detection parameters.
 
 # Enable/disable low current detection
 record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimEnbl-Sel"){
@@ -704,6 +694,7 @@ record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Save-Cmd"){
   field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SaveTrg")
 }
 
+# This PV is monitored by autosave
 record(calc, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SaveTrg"){
   field(ASG, "Reserved")
   field(DESC, "Save PVs values trigger")
@@ -721,7 +712,7 @@ record(calc, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SaveTrg"){
 # Desc: Defines the processing order during download.
 # ----------------------------------------------------------
 
-# Initialization order (fanout records)
+# Download command
 record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Download-Cmd"){
   field(DESC, "Download IOC parameters cmd")
   field(ZNAM, "OFF")
@@ -826,8 +817,8 @@ record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq4"){
   field(DO8, "1")
   field(STR9, "Positive")
   field(DOA, "1")
-  field(LNK1, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel.PROC")		# Range
-  field(LNK2, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Test-Sel.PROC")		# DCCT test input enable proc
+  field(LNK1, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel.PROC")		# Range proc
+  field(LNK2, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Test-Sel.PROC")		# DCCT calibration signal enable proc
   field(LNK3, "$(Instrument):MMathOp-Sel PP")					# Math format = y=mx+b			
   field(LNK4, "$(Instrument):MMathBFactor-SP PP")				# Math B factor = 0
   field(LNK5, "$(Instrument):MMathEnbl-Sel PP")					# Math enable = ON
@@ -850,7 +841,7 @@ record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq5"){
   field(STR4, "HIGH")
   field(DO5, "1")
   field(LNK1, "$(Instrument):DigRead-Mon.PROC")					# DigIOs states read (range RB)
-  field(LNK2, "$(Instrument):CntBuff1-Mon.PRIO")				# Buffer monitor priority = HIGH
+  field(LNK2, "$(Instrument):CntBuff1-Mon.PRIO")				# Buffer count monitor priority = HIGH
   field(LNK3, "$(Instrument):FetchBuff1-Mon.PRIO")				# Fetch buffer priority = HIGH
   field(LNK4, "$(Instrument):ClrBuff1-Cmd.PRIO")				# Clear buffer cmd priority = HIGH
   field(LNK5, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgRst.VAL PP")		# Reset MeasTrgCalc so that next time it will process
