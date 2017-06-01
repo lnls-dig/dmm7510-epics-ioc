@@ -10,10 +10,10 @@ record(mbbo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeTrg-Sel"){
   field(TWST, "InLevel")
 }
 
-# Config reset for download
+# Configuration reset used by download
 record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeTrgRst"){
   field(ASG, "Reserved")
-  field(DESC, "Digtze trg reset for download")
+  field(DESC, "Digtze trg reset used in download")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
   field(HIGH, "5")
@@ -165,12 +165,12 @@ record(ai, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):2ndReadDly-RB"){
 
 ########################################################################
 # Charge Measurement
-# Desc: Charge measurement parameters.
+# Desc: Charge measurement reading procedure.
 
 # Check if buffer count is greater than digitize count x 2
 # to account for the subtraction portion of measurements
 record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):BuffCntCalc"){
-#  field(ASG, "Reserved")
+  field(ASG, "Reserved")
   field(DESC, "Buffer counter monitor calc")
   field(PRIO, "HIGH")
   field(INPA, "$(Instrument):CntBuff1-Mon CPP")
@@ -204,7 +204,7 @@ record(waveform, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RawReadings-Mon"){
   field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ReadingsCalc")
 }
 
-# Process readings, average and noise subtraction
+# Process readings: average and noise subtraction
 record(acalcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ReadingsCalc"){
   field(ASG, "Reserved")
   field(DESC, "Readings filter calc")
@@ -247,7 +247,7 @@ record(longout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeCount-SP"){
   field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeCntCalc")
 }
 
-# Set the last last reading buffer index to twice the count value,
+# Set the last index of buffer to read to twice the count value,
 # since 2 x 'Count' samples are taken during digitizing
 record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeCntCalc"){
   field(ASG, "Reserved")
@@ -300,7 +300,7 @@ record(ai, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Aperture-RB"){
   field(INP, "$(Instrument):DigtzeApert-RB CPP")
 }
 
-# Digitize  sample rate (high level)
+# Digitize sample rate (high level)
 record(longout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SampleRate-SP"){
   field(DESC, "Digitize sampling rate")
   field(DRVH, "1000000")
@@ -316,11 +316,6 @@ record(longin, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SampleRate-RB"){
   field(EGU, "rdgs per sec")
   field(INP, "$(Instrument):DigtzeSR-RB CPP")
 }
-
-#-------------------------
-# Autozero Once ??
-# Será usado?
-#-------------------------
 
 ########################################################################
 # Charge Digitize Range
@@ -352,7 +347,7 @@ record(mbbo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel"){
 
 # Calculation for setting conversion multiplier
 record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConvCalc"){
-#  field(ASG, "Reserved")
+  field(ASG, "Reserved")
   field(DESC, "Reading conversion factor")
   field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel.VAL")
   field(INPB, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):BCMRange-SP.VAL")
@@ -368,7 +363,7 @@ record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConvCalc"){
 # BCM 'Pin 0' = DMM 'DigIO 0'
 #
 record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RangeCalc"){
-#  field(ASG, "Reserved")
+  field(ASG, "Reserved")
   field(DESC, "ICT range calc")
   field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel")
   field(INPB, "$(Instrument):DigRead-Mon")
@@ -379,7 +374,7 @@ record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RangeCalc"){
 
 # Level threshold update
 record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ThreshUpdate"){
-#  field(ASG, "Reserved")
+  field(ASG, "Reserved")
   field(DESC, "Threshold update")
   field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-RB")
   field(INPB, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel")
@@ -391,7 +386,7 @@ record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ThreshUpdate"){
 
 # Range status calculation
 record(scalcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RangeMonCalc"){
-#  field(ASG, "Reserved")
+  field(ASG, "Reserved")
   field(DESC, "Calc of range from DigIO status")
   field(INPA, "$(Instrument):DigRead-Mon CPP")
   field(CALC, "B:=A&7;B=7?1:(B=6?2:(B=5?3:((B=3||B=4)?4:(B=2?5:(B=1?6:(B=0?7:0))))))")
@@ -400,7 +395,7 @@ record(scalcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RangeMonCalc"){
 
 # Range status
 record(mbbi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sts"){
-#  field(ASG, "Reserved")
+  field(ASG, "Reserved")
   field(DESC, "ICT range Sts")
   field(ZRST, "UNKNOWN")
   field(ONST, "40 nC")
@@ -418,7 +413,7 @@ record(mbbi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sts"){
 
 # Calibration enable/disable
 record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalEnbl-Sel"){
-  field(DESC, "BCM enable/disable calibration")
+  field(DESC, "Enable BCM calibration signal")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
   field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalEnblCalc")
@@ -426,8 +421,8 @@ record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalEnbl-Sel"){
 
 # Set digital line 6 and OR it with other digital states
 record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalEnblCalc"){
-#  field(ASG, "Reserved")
-  field(DESC, "BCM calibration enable calc")
+  field(ASG, "Reserved")
+  field(DESC, "Enable BCM calibration calc")
   field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalEnbl-Sel")
   field(INPB, "$(Instrument):DigRead-Mon")
   field(CALC, "(A<<5)|(B&31)")
@@ -437,7 +432,7 @@ record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalEnblCalc"){
 
 # Calibration enable monitor calc
 record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalEnblMonCalc"){
-#  field(ASG, "Reserved")
+  field(ASG, "Reserved")
   field(DESC, "BCM calibration monitor calc")
   field(INPA, "$(Instrument):DigRead-Mon CPP")
   field(CALC, "(A&32)=0?0:1")
@@ -445,7 +440,7 @@ record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalEnblMonCalc"){
 }
 
 record(bi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalEnbl-Sts"){
-#  field(ASG, "Reserved")
+  field(ASG, "Reserved")
   field(DESC, "BCM calibration enable Sts")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
@@ -464,7 +459,7 @@ record(mbbo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalCharge-Sel"){
 
 # Calibration charge selection calc
 record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalChargeCalc"){
-#  field(ASG, "Reserved")
+  field(ASG, "Reserved")
   field(DESC, "Calibration charge calc")
   field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalCharge-Sel")
   field(INPB, "$(Instrument):DigRead-Mon")
@@ -475,37 +470,28 @@ record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalChargeCalc"){
 
 # Calibration charge selection monitor calc
 record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalChargeMonCalc"){
-#  field(ASG, "Reserved")
+  field(ASG, "Reserved")
   field(DESC, "Calibration charge monitor calc")
   field(INPA, "$(Instrument):DigRead-Mon CPP")
   field(CALC, "3-((A>>3)&3)")
   field(OUT, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalCharge-Sts PP")
 }
 
-# Calibration charge selection RB
+# Calibration charge selection Sts
 record(mbbi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalCharge-Sts"){
-#  field(ASG, "Reserved")
-  field(DESC, "Calibration charge RB")
+  field(ASG, "Reserved")
+  field(DESC, "Calibration charge Sts")
   field(ZRST, "1 nC")
   field(ONST, "100 pC")
   field(TWST, "10 pC")
   field(THST, "1 pC")
 }
 
-# --------------------------------------------------
-
-# BCM TEM MAIS ENTRADAS DIGITAIS CONFIGURAVEIS DO QUE
-# SAIDAS NO MULTIMETRO
-
-# ESCOLHER QUAIS PARAMETROS SERÃO DEIXADOS DE FORA!!!!!!
-
-# --------------------------------------------------
-
 ########################################################################
 # Level Threshold
 # Desc: Level threshold used by analog trigger.
 
-# Level triggering threshold
+# Level trigger threshold
 record(ao, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-SP"){
   field(DESC, "Threshold level")
   field(DRVH, "40")
@@ -580,6 +566,7 @@ record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Save-Cmd"){
   field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SaveTrg")
 }
 
+# This PV is monitored by autosave
 record(calc, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SaveTrg"){
   field(ASG, "Reserved")
   field(DESC, "Save PVs values trigger")
@@ -590,14 +577,14 @@ record(calc, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SaveTrg"){
 
 ########################################################################
 # Multimeter Setup
-# Desc: General instrument initialization.
+# Desc: Instrument initialization.
 
 # ----------------------------------------------------------
 # Parameter Download Sequence
 # Desc: Defines the processing order during download.
 # ----------------------------------------------------------
 
-# Initialization order (fanout records)
+# Download command
 record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Download-Cmd"){
   field(DESC, "Download IOC parameters cmd")
   field(ZNAM, "OFF")
