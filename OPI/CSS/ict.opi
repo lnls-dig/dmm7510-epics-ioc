@@ -734,19 +734,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <scripts />
     <show_scrollbar>true</show_scrollbar>
-    <tooltip>DC_VOLTAGE
-AC_VOLTAGE
-DC_CURRENT
-AC_CURRENT
-RESISTANCE
-4W_RESISTANCE
-DIODE
-CAPACITANCE
-TEMPERATURE
-CONTINUITY
-ACV_FREQUENCY
-ACV_PERIOD
-DCV_RATIO</tooltip>
+    <tooltip></tooltip>
     <transparent>true</transparent>
     <visible>true</visible>
     <widget_type>Grouping Container</widget_type>
@@ -1231,19 +1219,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <scripts />
     <show_scrollbar>true</show_scrollbar>
-    <tooltip>DC_VOLTAGE
-AC_VOLTAGE
-DC_CURRENT
-AC_CURRENT
-RESISTANCE
-4W_RESISTANCE
-DIODE
-CAPACITANCE
-TEMPERATURE
-CONTINUITY
-ACV_FREQUENCY
-ACV_PERIOD
-DCV_RATIO</tooltip>
+    <tooltip></tooltip>
     <transparent>true</transparent>
     <visible>true</visible>
     <widget_type>Grouping Container</widget_type>
@@ -2630,7 +2606,7 @@ $(pv_value)</tooltip>
       <color red="192" green="192" blue="192" />
     </foreground_color>
     <height>103</height>
-    <lock_children>false</lock_children>
+    <lock_children>true</lock_children>
     <macros>
       <include_parent_macros>true</include_parent_macros>
     </macros>
@@ -2643,19 +2619,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <scripts />
     <show_scrollbar>true</show_scrollbar>
-    <tooltip>DC_VOLTAGE
-AC_VOLTAGE
-DC_CURRENT
-AC_CURRENT
-RESISTANCE
-4W_RESISTANCE
-DIODE
-CAPACITANCE
-TEMPERATURE
-CONTINUITY
-ACV_FREQUENCY
-ACV_PERIOD
-DCV_RATIO</tooltip>
+    <tooltip></tooltip>
     <transparent>true</transparent>
     <visible>true</visible>
     <widget_type>Grouping Container</widget_type>
@@ -2993,19 +2957,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <scripts />
     <show_scrollbar>true</show_scrollbar>
-    <tooltip>DC_VOLTAGE
-AC_VOLTAGE
-DC_CURRENT
-AC_CURRENT
-RESISTANCE
-4W_RESISTANCE
-DIODE
-CAPACITANCE
-TEMPERATURE
-CONTINUITY
-ACV_FREQUENCY
-ACV_PERIOD
-DCV_RATIO</tooltip>
+    <tooltip></tooltip>
     <transparent>true</transparent>
     <visible>true</visible>
     <widget_type>Grouping Container</widget_type>
@@ -3253,19 +3205,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <scripts />
     <show_scrollbar>true</show_scrollbar>
-    <tooltip>DC_VOLTAGE
-AC_VOLTAGE
-DC_CURRENT
-AC_CURRENT
-RESISTANCE
-4W_RESISTANCE
-DIODE
-CAPACITANCE
-TEMPERATURE
-CONTINUITY
-ACV_FREQUENCY
-ACV_PERIOD
-DCV_RATIO</tooltip>
+    <tooltip></tooltip>
     <transparent>true</transparent>
     <visible>true</visible>
     <widget_type>Grouping Container</widget_type>
@@ -3513,19 +3453,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <scripts />
     <show_scrollbar>true</show_scrollbar>
-    <tooltip>DC_VOLTAGE
-AC_VOLTAGE
-DC_CURRENT
-AC_CURRENT
-RESISTANCE
-4W_RESISTANCE
-DIODE
-CAPACITANCE
-TEMPERATURE
-CONTINUITY
-ACV_FREQUENCY
-ACV_PERIOD
-DCV_RATIO</tooltip>
+    <tooltip></tooltip>
     <transparent>true</transparent>
     <visible>true</visible>
     <widget_type>Grouping Container</widget_type>
