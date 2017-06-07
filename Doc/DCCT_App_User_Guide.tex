@@ -74,7 +74,7 @@
 %--- About this manual ---
 \paragraph{}{\Large\bfseries About this manual}
 
-\paragraph{} This manual provides an overview of the DCCT application and associated EPICS Process Variables. It is assumed that the reader is familiar with the basics of EPICS applications.
+\paragraph{} This manual provides an overview of the DCCT EPICS application. It is assumed that the reader is familiar with the basics of EPICS applications.
 
 %--- Table of contents ---
 \tableofcontents
@@ -260,6 +260,16 @@
 			\item \emph{Test-Sts} indicates the DCCT calibration current enable status.
 			\end{enumerate}
 
+%--- Section: Reading Measurements from PVs ---
+\section{Reading Measurements from PVs}
+
+	\paragraph{} The DCCT measurement data is available in the following EPICS PVs.
+
+		\begin{enumerate}
+		\item \emph{AvgCurr-Mon} stores the latest current measurement.
+		\item \emph{CurrHstr-Mon} is a circular buffer storing the last 1000 measurements.
+		\end{enumerate}
+
 \section{Process Variables Description}\label{sec:process-variables}
 
 	% Process Variables description table
@@ -269,6 +279,14 @@
 		\caption{Application Process Variables} \\ \hline
 		\bfseries Name & \bfseries Data Type & \bfseries Description \endhead \hline
 		% --- row ---
+		AvgCurr-Mon & FLOAT: 32-bit & \begin{tabular}{@{}m{6cm}@{}}
+	    					Latest current measurement. This PV holds the latest measurement fetched from the multimeter.
+						\end{tabular} \\ \hline
+		% --- row ---
+		CurrHstr-Mon & FLOAT[1000] & \begin{tabular}{@{}m{6cm}@{}}
+	    					Last 1000 current measurements. This PV is a circular buffer holding the last 1000 current measurements.
+						\end{tabular} \\ \hline
+		% --- row ---
 		MeasTrg-Sel & ENUM: None, External, InLevel, Software & \begin{tabular}{@{}m{6cm}@{}}
 				      	  Measurement trigger source. When set to \emph{External}, the multimeter measurements are triggered by an external trigger. When set to \emph{InLevel}, measurements are triggered when the measured input voltage exceeds the specified threshold (rising edge transition). For both \emph{External} and \emph{InLevel} triggering, the software fetchs priodically the latest reading stored in the multimeter's buffer. When set to \emph{Software}, measurements are requested periodically by software.
 					  \end{tabular} \\ \hline
@@ -277,11 +295,11 @@
 	    					Trigger source selection status.
 						\end{tabular} \\ \hline
 		% --- row ---
-		TrgDelay-SP & FLOAT: Min=\SI{8}{\micro\second}, Max=\SI{100000}{\second} & \begin{tabular}{@{}m{6cm}@{}}
-	    					Trigger delay. The trigger delay specifies the delay between the external or level based trigger and the measurement start.
+		TrgDelay-SP & FLOAT: Min=0.000008, Max=100000 & \begin{tabular}{@{}m{6cm}@{}}
+	    					Trigger delay. The trigger delay specifies, in seconds, the delay between the external or level based trigger and the measurement start.
 						\end{tabular} \\ \hline
 		% --- row ---
-		TrgDelay-RB & FLOAT: Min=\SI{8}{\micro\second}, Max=\SI{100000}{\second} & \begin{tabular}{@{}m{6cm}@{}}
+		TrgDelay-RB & FLOAT: Min=0.000008, Max=100000 & \begin{tabular}{@{}m{6cm}@{}}
 	    					Trigger delay readback value.
 						\end{tabular} \\ \hline
 		% --- row ---
@@ -301,11 +319,11 @@
 	    					Low beam current detection enable status.
 						\end{tabular} \\ \hline
 		% --- row ---
-		Threshold-SP & FLOAT: Min=\SI{0}{\milli\ampere}, Max=\SI{2000}{\milli\ampere} & \begin{tabular}{@{}m{6cm}@{}}
-	    					Current threshold. The current threshold value used by low current detection or level based triggering.
+		Threshold-SP & FLOAT: Min=0, Max=2000 & \begin{tabular}{@{}m{6cm}@{}}
+	    					Current threshold. The current threshold value, specified in \SI{}{\milli\ampere}, used by low current detection or level based triggering.
 						\end{tabular} \\ \hline
 		% --- row ---
-		Threshold-RB & FLOAT: Min=\SI{0}{\milli\ampere}, Max=\SI{2000}{\milli\ampere} & \begin{tabular}{@{}m{6cm}@{}}
+		Threshold-RB & FLOAT: Min=0, Max=2000 & \begin{tabular}{@{}m{6cm}@{}}
 	    					Current threshold readback value.
 						\end{tabular} \\ \hline
 		% --- row ---
