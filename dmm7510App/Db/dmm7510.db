@@ -3,18 +3,18 @@
 # Desc: External trigger input and output.
 
 # Input
-record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):clearExInEv-Cmd"){
+record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ClearExInEv-Cmd"){
   field(DESC, "Clear External Input trigger event")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
   field(HIGH, "0.5")
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):clearExInEvCalc")
+  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ClearExInEvCalc")
 }
 
-record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):clearExInEvCalc"){
+record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ClearExInEvCalc"){
   field(ASG, "Reserved")
   field(DESC, "Clear External Input trigger event calc")
-  field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):clearExInEv-Cmd.VAL")
+  field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ClearExInEv-Cmd.VAL")
   field(CALC, "A")
   field(OOPT, "When Non-zero")
   field(DTYP, "stream")

@@ -390,7 +390,7 @@ $(pv_value)</tooltip>
       <show_scrollbar>true</show_scrollbar>
       <tooltip></tooltip>
       <transparent>true</transparent>
-      <visible>true</visible>
+      <visible>false</visible>
       <widget_type>Grouping Container</widget_type>
       <width>725</width>
       <wuid>6ffc2fbb:15b5e7181fb:-7ffa</wuid>
@@ -16680,7 +16680,7 @@ $(pv_value)</tooltip>
       <show_scrollbar>true</show_scrollbar>
       <tooltip></tooltip>
       <transparent>true</transparent>
-      <visible>false</visible>
+      <visible>true</visible>
       <widget_type>Grouping Container</widget_type>
       <width>725</width>
       <wuid>6ffc2fbb:15b5e7181fb:-7ff9</wuid>
@@ -16879,7 +16879,7 @@ $(pv_value)</tooltip>
         <on_label>ON</on_label>
         <password></password>
         <push_action_index>0</push_action_index>
-        <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):clearExInEv-Cmd</pv_name>
+        <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ClearExInEv-Cmd</pv_name>
         <pv_value />
         <released_action_index>0</released_action_index>
         <rules />
