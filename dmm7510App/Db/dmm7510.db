@@ -5703,7 +5703,7 @@ record(waveform, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):EvLogNext-Mon"){
   field(INP, "@dmm7510.proto sys_nextlog_get $(PORT)")
 }
 
-record(longin, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LineFR-Mon"){
+record(longin, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LineFreq-Mon"){
   field(DESC, "Power line frequency read-only")
   field(EGU, "Hz")
   field(DTYP, "stream")
