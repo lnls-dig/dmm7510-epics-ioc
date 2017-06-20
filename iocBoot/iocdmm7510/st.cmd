@@ -42,7 +42,7 @@ dmm7510_registerRecordDeviceDriver pdbbase
 
 asSetFilename("$(TOP)/accessSecurityFile.acf")
 
-${DMM1_line}drvAsynIPPortConfigure ("DMM1", "10.0.18.71:5025 TCP",0,0,0)
+${DMM1_line}drvAsynIPPortConfigure("DMM1", "10.0.18.71:5025 TCP",0,0,0)
 
 ## Load record instances
 

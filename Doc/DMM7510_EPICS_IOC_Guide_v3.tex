@@ -24,6 +24,9 @@
     linkcolor=blue,
 }
 
+\renewcommand{\arraystretch}{2} % increase height of table rows
+\newcolumntype{N}{p{14cm}} % new column type
+
 \newcolumntype{C}{>{\centering\arraybackslash}X} % new column type for tabularx
 						 % centered (\centering), adjust width in order to fill table width (X type)
 
@@ -86,11 +89,39 @@
 
 	\paragraph{} This document lists the IOC PVs along with their data type, limits, units, description, and related TSP command. In most cases, a PV is a direct mapping of a multimeter parameter, and its description is the same provided for the parameter in the \emph{Model DMM7510 Reference Manual}. The multimeter reference manual provides all the information about the multimeter features and options. After a multimeter function or parameter is well understood, it should be easy to locate the associated PVs in this document.
 
+%--- Section: IOC Configuration Steps ---
+\section{IOC Configuration Steps}
+
+	% Dependencies
+	\paragraph{} This IOC requires \emph{EPICS base 3.14.12.5} and \emph{synApps 5.8}.
+
+	% Edit Release File
+	\paragraph{} When setting up the IOC, it is necessary to edit the \emph{RELEASE} file in the \emph{configure} directory, to provide the right path to support modules.
+
+	% Edit st.cmd file
+	\paragraph{} Edit the \emph{st.cmd} file to set the DMM7510 network address using the \emph{drvAsynIPPortConfigure} command. Load the \emph{dmm7510.db} with the \emph{dbLoadRecords} command and set the desired prefix for the records names. The records' names prefixes have two parts: \emph{P} and \emph{R}.
+
+%--- Section: PVs Suffixes ---
+\section{PVs Suffixes}
+
+	\paragraph{} The records in this IOC fall into different categories depending on their input data types. The categories are indicated by the following set of suffixes.
+
+	\begin{table}[!h]
+		\center
+		\caption{PVs Suffixes}
+		\begin{tabular}{m{3cm} m{3cm} m{7cm}}
+			\hline
+			\bfseries Mnemonic & \bfseries Name & \bfseries Description \\ \hline
+			-SP & Set Point & A non-enumerated value (real number or string). It sets a system parameter. \\ \hline
+			-RB & Read Back & A non-enumerated value (real number or string). Read-only. It displays the read back value of a parameter, providing confirmation to changes. \\ \hline
+			-Sel & Selection & Enumerated value. Sets a system parameter. \\ \hline
+			-Sts & Status & Enumerated value. Read-only. It displays the read back value of an enumerated parameter, providing confirmation to changes. \\ \hline
+			-Cmd & Command & Binary command. It causes a given action to be executed. \\ \hline
+		\end{tabular}
+	\end{table}
+
 %--- Section: PV List ---
 \section{PV List}
-
-	\renewcommand{\arraystretch}{2}
-	\newcolumntype{N}{p{14cm}} % new column type
 
 	% TABLE: Measure/Digitize Function
 	\subsection{Measure/Digitize Function}\label{pvgroup:function}
