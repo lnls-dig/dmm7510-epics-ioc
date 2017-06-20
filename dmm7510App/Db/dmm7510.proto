@@ -958,10 +958,10 @@ trace_end_get{
 trace_read_get{
 	separator=",";
 	# read
-	out "printbuffer(%(\$1-\$2:\$3-\$4\$5:StartRead\$6-SP)i, %(\$1-\$2:\$3-\$4\$5:EndRead\$6-SP)i, defbuffer\$6.readings)";
+	out "printbuffer(%(\$1StartRead\$2-SP)i, %(\$1EndRead\$2-SP)i, defbuffer\$2.readings)";
 	in "%f";
 	@mismatch{
-		out "printbuffer(%(\$1-\$2:\$3-\$4\$5:StartRead\$6-SP)i, %(\$1-\$2:\$3-\$4\$5:EndRead\$6-SP)i, defbuffer\$6.readings)";
+		out "printbuffer(%(\$1StartRead\$2-SP)i, %(\$1EndRead\$2-SP)i, defbuffer\$2.readings)";
 		in "%f";
 	}
 }
@@ -1049,14 +1049,14 @@ trace_stdd_get{
 
 trace_meas_set{
 	# cmd
-	out "print(dmm.measure.read(defbuffer\$6))";
-	in "%(\$1-\$2:\$3-\$4\$5:FetchBuff\$6-Mon)f";
+	out "print(dmm.measure.read(defbuffer\$2))";
+	in "%(\$1FetchBuff\$2-Mon)f";
 }
 
 trace_digtz_set{
 	# cmd
-	out "print(dmm.digitize.read(defbuffer\$6))";
-	in "%(\$1-\$2:\$3-\$4\$5:FetchBuff\$6-Mon)f";
+	out "print(dmm.digitize.read(defbuffer\$2))";
+	in "%(\$1FetchBuff\$2-Mon)f";
 }
 
 ###########################################################################
@@ -1115,37 +1115,37 @@ acal_start_set{
 # Set hour with complete schedule
 acal_sch_set1{
 	# set
-	out "acal.schedule(acal.ACTION_%(\$1-\$2:\$3-\$4\$5:ACalSchAct-Sts){NONE|RUN|NOTIFY}, acal.INTERVAL_%(\$1-\$2:\$3-\$4\$5:ACalSchInt-Sts){8HR|16HR|1DAY|7DAY|14DAY|30DAY|90DAY}, %(\$1-\$2:\$3-\$4\$5:ACalSchHr-SP)i)";
+	out "acal.schedule(acal.ACTION_%(\$1ACalSchAct-Sts){NONE|RUN|NOTIFY}, acal.INTERVAL_%(\$1ACalSchInt-Sts){8HR|16HR|1DAY|7DAY|14DAY|30DAY|90DAY}, %(\$1ACalSchHr-SP)i)";
 }
 
 # Set interval with complete schedule
 acal_sch_set2{
 	# set
-	out "acal.schedule(acal.ACTION_%(\$1-\$2:\$3-\$4\$5:ACalSchAct-Sts){NONE|RUN|NOTIFY}, acal.INTERVAL_%(\$1-\$2:\$3-\$4\$5:ACalSchInt-Sel){8HR|16HR|1DAY|7DAY|14DAY|30DAY|90DAY}, %(\$1-\$2:\$3-\$4\$5:ACalSchHr-RB)i)";
+	out "acal.schedule(acal.ACTION_%(\$1ACalSchAct-Sts){NONE|RUN|NOTIFY}, acal.INTERVAL_%(\$1ACalSchInt-Sel){8HR|16HR|1DAY|7DAY|14DAY|30DAY|90DAY}, %(\$1ACalSchHr-RB)i)";
 }
 
 # Set action with complete schedule
 acal_sch_set3{
 	# set
-	out "acal.schedule(acal.ACTION_%(\$1-\$2:\$3-\$4\$5:ACalSchAct-Sel){NONE|RUN|NOTIFY}, acal.INTERVAL_%(\$1-\$2:\$3-\$4\$5:ACalSchInt-Sts){8HR|16HR|1DAY|7DAY|14DAY|30DAY|90DAY}, %(\$1-\$2:\$3-\$4\$5:ACalSchHr-RB)i)";
+	out "acal.schedule(acal.ACTION_%(\$1ACalSchAct-Sel){NONE|RUN|NOTIFY}, acal.INTERVAL_%(\$1ACalSchInt-Sts){8HR|16HR|1DAY|7DAY|14DAY|30DAY|90DAY}, %(\$1ACalSchHr-RB)i)";
 }
 
 # Set interval for interval smaller than 1 day
 acal_sch_set4{
 	# set
-	out "acal.schedule(acal.ACTION_%(\$1-\$2:\$3-\$4\$5:ACalSchAct-Sts){NONE|RUN|NOTIFY}, acal.INTERVAL_%(\$1-\$2:\$3-\$4\$5:ACalSchInt-Sel){8HR|16HR|1DAY|7DAY|14DAY|30DAY|90DAY})";
+	out "acal.schedule(acal.ACTION_%(\$1ACalSchAct-Sts){NONE|RUN|NOTIFY}, acal.INTERVAL_%(\$1ACalSchInt-Sel){8HR|16HR|1DAY|7DAY|14DAY|30DAY|90DAY})";
 }
 
 # Set action for interval smaller than 1 day
 acal_sch_set5{
 	# set
-	out "acal.schedule(acal.ACTION_%(\$1-\$2:\$3-\$4\$5:ACalSchAct-Sel){NONE|RUN|NOTIFY}, acal.INTERVAL_%(\$1-\$2:\$3-\$4\$5:ACalSchInt-Sts){8HR|16HR|1DAY|7DAY|14DAY|30DAY|90DAY})";
+	out "acal.schedule(acal.ACTION_%(\$1ACalSchAct-Sel){NONE|RUN|NOTIFY}, acal.INTERVAL_%(\$1ACalSchInt-Sts){8HR|16HR|1DAY|7DAY|14DAY|30DAY|90DAY})";
 }
 
 acal_sch_get{
 	# read
 	out "print(acal.schedule())";
-	in "acal.ACTION_%(\$1-\$2:\$3-\$4\$5:ACalSchAct-Sts){NONE|RUN|NOTIFY}\tacal.INTERVAL_%(\$1-\$2:\$3-\$4\$5:ACalSchInt-Sts){8HR|16HR|1DAY|7DAY|14DAY|30DAY|90DAY}\t%(\$1-\$2:\$3-\$4\$5:ACalSchHr-RB)i";
+	in "acal.ACTION_%(\$1ACalSchAct-Sts){NONE|RUN|NOTIFY}\tacal.INTERVAL_%(\$1ACalSchInt-Sts){8HR|16HR|1DAY|7DAY|14DAY|30DAY|90DAY}\t%(\$1ACalSchHr-RB)i";
 }
 
 ###########################################################################

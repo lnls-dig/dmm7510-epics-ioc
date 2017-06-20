@@ -18,11 +18,8 @@
   <height>800</height>
   <macros>
     <include_parent_macros>true</include_parent_macros>
-    <Sec>AS</Sec>
-    <Sub>Inj</Sub>
-    <Dis>TI</Dis>
-    <Dev>DMM</Dev>
-    <Idx>1</Idx>
+    <P>AS-Inj:</P>
+    <R>TI-DMM1:</R>
   </macros>
   <name></name>
   <rules />
@@ -647,7 +644,7 @@ $(pv_value)</tooltip>
           <show_scrollbar>true</show_scrollbar>
           <tooltip></tooltip>
           <transparent>true</transparent>
-          <visible>true</visible>
+          <visible>false</visible>
           <widget_type>Grouping Container</widget_type>
           <width>665</width>
           <wuid>29dbf79c:15b6217ca6c:-784f</wuid>
@@ -834,7 +831,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasApert-SP</pv_name>
+              <pv_name>$(P)$(R)MeasApert-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -886,7 +883,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasApert-RB</pv_name>
+              <pv_name>$(P)$(R)MeasApert-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -1171,7 +1168,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasNPLC-SP</pv_name>
+              <pv_name>$(P)$(R)MeasNPLC-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -1223,7 +1220,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasNPLC-RB</pv_name>
+              <pv_name>$(P)$(R)MeasNPLC-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -1422,7 +1419,7 @@ $(pv_value)</tooltip>
               <height>29</height>
               <items_from_pv>true</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasAutoDly-Sel</pv_name>
+              <pv_name>$(P)$(R)MeasAutoDly-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -1468,7 +1465,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasAutoDly-Sts</pv_name>
+              <pv_name>$(P)$(R)MeasAutoDly-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -1661,7 +1658,7 @@ $(pv_value)</tooltip>
               <height>29</height>
               <items_from_pv>true</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasLineSync-Sel</pv_name>
+              <pv_name>$(P)$(R)MeasLineSync-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -1707,7 +1704,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasLineSync-Sts</pv_name>
+              <pv_name>$(P)$(R)MeasLineSync-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -1915,7 +1912,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasCount-SP</pv_name>
+              <pv_name>$(P)$(R)MeasCount-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -1967,7 +1964,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasCount-RB</pv_name>
+              <pv_name>$(P)$(R)MeasCount-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -2204,7 +2201,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasStim-Sel</pv_name>
+              <pv_name>$(P)$(R)MeasStim-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -2250,7 +2247,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasStim-Sts</pv_name>
+              <pv_name>$(P)$(R)MeasStim-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -2437,7 +2434,7 @@ $(pv_value)</tooltip>
               <height>29</height>
               <items_from_pv>true</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasImpedance-Sel</pv_name>
+              <pv_name>$(P)$(R)MeasImpedance-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -2483,7 +2480,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasImpedance-Sts</pv_name>
+              <pv_name>$(P)$(R)MeasImpedance-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -2691,7 +2688,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterCount-SP</pv_name>
+              <pv_name>$(P)$(R)FilterCount-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -2743,7 +2740,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterCount-RB</pv_name>
+              <pv_name>$(P)$(R)FilterCount-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -2942,7 +2939,7 @@ $(pv_value)</tooltip>
               <height>29</height>
               <items_from_pv>true</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterEnbl-Sel</pv_name>
+              <pv_name>$(P)$(R)FilterEnbl-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -2988,7 +2985,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterEnbl-Sts</pv_name>
+              <pv_name>$(P)$(R)FilterEnbl-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -3187,7 +3184,7 @@ $(pv_value)</tooltip>
               <height>29</height>
               <items_from_pv>true</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterTyp-Sel</pv_name>
+              <pv_name>$(P)$(R)FilterTyp-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -3233,7 +3230,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterTyp-Sts</pv_name>
+              <pv_name>$(P)$(R)FilterTyp-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -3441,7 +3438,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterWind-SP</pv_name>
+              <pv_name>$(P)$(R)FilterWind-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -3493,7 +3490,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterWind-RB</pv_name>
+              <pv_name>$(P)$(R)FilterWind-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -3688,7 +3685,7 @@ $(pv_value)</tooltip>
               <height>29</height>
               <items_from_pv>true</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):AutoZero-Sel</pv_name>
+              <pv_name>$(P)$(R)AutoZero-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -3734,7 +3731,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):AutoZero-Sts</pv_name>
+              <pv_name>$(P)$(R)AutoZero-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -3942,7 +3939,7 @@ $(pv_value)</tooltip>
               <on_label>ON</on_label>
               <password></password>
               <push_action_index>0</push_action_index>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):AZeroOnce-Cmd</pv_name>
+              <pv_name>$(P)$(R)AZeroOnce-Cmd</pv_name>
               <pv_value />
               <released_action_index>0</released_action_index>
               <rules />
@@ -4295,7 +4292,7 @@ $(pv_value)</tooltip>
                 <name>Text Input</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrEdgeLvl-SP</pv_name>
+                <pv_name>$(P)$(R)MATrEdgeLvl-SP</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -4347,7 +4344,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrEdgeLvl-RB</pv_name>
+                <pv_name>$(P)$(R)MATrEdgeLvl-RB</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -4575,7 +4572,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrEdgeSlp-Sel</pv_name>
+                <pv_name>$(P)$(R)MATrEdgeSlp-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -4621,7 +4618,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrEdgeSlp-Sts</pv_name>
+                <pv_name>$(P)$(R)MATrEdgeSlp-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -4809,7 +4806,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrHFR-Sel</pv_name>
+                <pv_name>$(P)$(R)MATrHFR-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -4855,7 +4852,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrHFR-Sts</pv_name>
+                <pv_name>$(P)$(R)MATrHFR-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -5043,7 +5040,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrMode-Sel</pv_name>
+                <pv_name>$(P)$(R)MATrMode-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -5089,7 +5086,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrMode-Sts</pv_name>
+                <pv_name>$(P)$(R)MATrMode-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -5277,7 +5274,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrPulCond-Sel</pv_name>
+                <pv_name>$(P)$(R)MATrPulCond-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -5323,7 +5320,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrPulCond-Sts</pv_name>
+                <pv_name>$(P)$(R)MATrPulCond-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -5480,7 +5477,7 @@ $(pv_value)</tooltip>
                 <name>Text Input</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrPulLvl-SP</pv_name>
+                <pv_name>$(P)$(R)MATrPulLvl-SP</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -5532,7 +5529,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrPulLvl-RB</pv_name>
+                <pv_name>$(P)$(R)MATrPulLvl-RB</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -5760,7 +5757,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrPulPol-Sel</pv_name>
+                <pv_name>$(P)$(R)MATrPulPol-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -5806,7 +5803,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrPulPol-Sts</pv_name>
+                <pv_name>$(P)$(R)MATrPulPol-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -5963,7 +5960,7 @@ $(pv_value)</tooltip>
                 <name>Text Input</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrPulWidth-SP</pv_name>
+                <pv_name>$(P)$(R)MATrPulWidth-SP</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -6015,7 +6012,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrPulWidth-RB</pv_name>
+                <pv_name>$(P)$(R)MATrPulWidth-RB</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -6243,7 +6240,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrWindDir-Sel</pv_name>
+                <pv_name>$(P)$(R)MATrWindDir-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -6289,7 +6286,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrWindDir-Sts</pv_name>
+                <pv_name>$(P)$(R)MATrWindDir-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -6446,7 +6443,7 @@ $(pv_value)</tooltip>
                 <name>Text Input</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrWindHigh-SP</pv_name>
+                <pv_name>$(P)$(R)MATrWindHigh-SP</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -6498,7 +6495,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrWindHigh-RB</pv_name>
+                <pv_name>$(P)$(R)MATrWindHigh-RB</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -6695,7 +6692,7 @@ $(pv_value)</tooltip>
                 <name>Text Input</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrWindLow-SP</pv_name>
+                <pv_name>$(P)$(R)MATrWindLow-SP</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -6747,7 +6744,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MATrWindLow-RB</pv_name>
+                <pv_name>$(P)$(R)MATrWindLow-RB</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -6982,7 +6979,7 @@ $(pv_value)</tooltip>
               <height>29</height>
               <items_from_pv>true</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MAutoRange-Sel</pv_name>
+              <pv_name>$(P)$(R)MAutoRange-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -7028,7 +7025,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MAutoRange-Sts</pv_name>
+              <pv_name>$(P)$(R)MAutoRange-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -7231,7 +7228,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MRange-SP</pv_name>
+              <pv_name>$(P)$(R)MRange-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -7283,7 +7280,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MRange-RB</pv_name>
+              <pv_name>$(P)$(R)MRange-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -7491,7 +7488,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MRelOff-SP</pv_name>
+              <pv_name>$(P)$(R)MRelOff-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -7543,7 +7540,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MRelOff-RB</pv_name>
+              <pv_name>$(P)$(R)MRelOff-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -7755,7 +7752,7 @@ $(pv_value)</tooltip>
               <on_label>ON</on_label>
               <password></password>
               <push_action_index>0</push_action_index>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MRelOffAcq-Cmd</pv_name>
+              <pv_name>$(P)$(R)MRelOffAcq-Cmd</pv_name>
               <pv_value />
               <released_action_index>0</released_action_index>
               <rules />
@@ -7954,7 +7951,7 @@ $(pv_value)</tooltip>
               <height>29</height>
               <items_from_pv>true</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MRelOffEnbl-Sel</pv_name>
+              <pv_name>$(P)$(R)MRelOffEnbl-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -8000,7 +7997,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MRelOffEnbl-Sts</pv_name>
+              <pv_name>$(P)$(R)MRelOffEnbl-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -8199,7 +8196,7 @@ $(pv_value)</tooltip>
               <height>29</height>
               <items_from_pv>true</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MMathOp-Sel</pv_name>
+              <pv_name>$(P)$(R)MMathOp-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -8245,7 +8242,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MMathOp-Sts</pv_name>
+              <pv_name>$(P)$(R)MMathOp-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -8453,7 +8450,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MMathBFactor-SP</pv_name>
+              <pv_name>$(P)$(R)MMathBFactor-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -8505,7 +8502,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MMathBFactor-RB</pv_name>
+              <pv_name>$(P)$(R)MMathBFactor-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -8713,7 +8710,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MMathMFactor-SP</pv_name>
+              <pv_name>$(P)$(R)MMathMFactor-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -8765,7 +8762,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MMathMFactor-RB</pv_name>
+              <pv_name>$(P)$(R)MMathMFactor-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -8973,7 +8970,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MMathPercRef-SP</pv_name>
+              <pv_name>$(P)$(R)MMathPercRef-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -9025,7 +9022,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MMathPercRef-RB</pv_name>
+              <pv_name>$(P)$(R)MMathPercRef-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -9224,7 +9221,7 @@ $(pv_value)</tooltip>
               <height>29</height>
               <items_from_pv>true</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MMathEnbl-Sel</pv_name>
+              <pv_name>$(P)$(R)MMathEnbl-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -9270,7 +9267,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MMathEnbl-Sts</pv_name>
+              <pv_name>$(P)$(R)MMathEnbl-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -9330,7 +9327,7 @@ $(pv_value)</tooltip>
           <show_scrollbar>true</show_scrollbar>
           <tooltip></tooltip>
           <transparent>true</transparent>
-          <visible>false</visible>
+          <visible>true</visible>
           <widget_type>Grouping Container</widget_type>
           <width>665</width>
           <wuid>29dbf79c:15b6217ca6c:-784e</wuid>
@@ -9498,7 +9495,7 @@ $(pv_value)</tooltip>
               <height>29</height>
               <items_from_pv>true</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeImpedance-Sel</pv_name>
+              <pv_name>$(P)$(R)DigtzeImpedance-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -9544,7 +9541,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeImpedance-Sts</pv_name>
+              <pv_name>$(P)$(R)DigtzeImpedance-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -9826,7 +9823,7 @@ $(pv_value)</tooltip>
               <on_label>ON</on_label>
               <password></password>
               <push_action_index>0</push_action_index>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeApertAuto-Cmd</pv_name>
+              <pv_name>$(P)$(R)DigtzeApertAuto-Cmd</pv_name>
               <pv_value />
               <released_action_index>0</released_action_index>
               <rules />
@@ -10023,7 +10020,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeApert-SP</pv_name>
+              <pv_name>$(P)$(R)DigtzeApert-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -10075,7 +10072,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeApert-RB</pv_name>
+              <pv_name>$(P)$(R)DigtzeApert-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -10262,7 +10259,7 @@ $(pv_value)</tooltip>
               <height>29</height>
               <items_from_pv>true</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeCoup-Sel</pv_name>
+              <pv_name>$(P)$(R)DigtzeCoup-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -10308,7 +10305,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeCoup-Sts</pv_name>
+              <pv_name>$(P)$(R)DigtzeCoup-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -10505,7 +10502,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeSR-SP</pv_name>
+              <pv_name>$(P)$(R)DigtzeSR-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -10557,7 +10554,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeSR-RB</pv_name>
+              <pv_name>$(P)$(R)DigtzeSR-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -10754,7 +10751,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeCount-SP</pv_name>
+              <pv_name>$(P)$(R)DigtzeCount-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -10806,7 +10803,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeCount-RB</pv_name>
+              <pv_name>$(P)$(R)DigtzeCount-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -11032,7 +11029,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeStim-Sel</pv_name>
+              <pv_name>$(P)$(R)DigtzeStim-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -11078,7 +11075,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeStim-Sts</pv_name>
+              <pv_name>$(P)$(R)DigtzeStim-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -11122,7 +11119,7 @@ $(pv_value)</tooltip>
               <color red="192" green="192" blue="192" />
             </foreground_color>
             <height>349</height>
-            <lock_children>false</lock_children>
+            <lock_children>true</lock_children>
             <macros>
               <include_parent_macros>true</include_parent_macros>
             </macros>
@@ -11431,7 +11428,7 @@ $(pv_value)</tooltip>
                 <name>Text Input</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrEdgeLvl-SP</pv_name>
+                <pv_name>$(P)$(R)DATrEdgeLvl-SP</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -11483,7 +11480,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrEdgeLvl-RB</pv_name>
+                <pv_name>$(P)$(R)DATrEdgeLvl-RB</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -11711,7 +11708,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrEdgeSlp-Sel</pv_name>
+                <pv_name>$(P)$(R)DATrEdgeSlp-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -11757,7 +11754,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrEdgeSlp-Sts</pv_name>
+                <pv_name>$(P)$(R)DATrEdgeSlp-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -11945,7 +11942,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrHFR-Sel</pv_name>
+                <pv_name>$(P)$(R)DATrHFR-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -11991,7 +11988,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrHFR-Sts</pv_name>
+                <pv_name>$(P)$(R)DATrHFR-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -12179,7 +12176,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrMode-Sel</pv_name>
+                <pv_name>$(P)$(R)DATrMode-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -12225,7 +12222,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrMode-Sts</pv_name>
+                <pv_name>$(P)$(R)DATrMode-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -12413,7 +12410,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrPulCond-Sel</pv_name>
+                <pv_name>$(P)$(R)DATrPulCond-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -12459,7 +12456,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrPulCond-Sts</pv_name>
+                <pv_name>$(P)$(R)DATrPulCond-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -12616,7 +12613,7 @@ $(pv_value)</tooltip>
                 <name>Text Input</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrPulLvl-SP</pv_name>
+                <pv_name>$(P)$(R)DATrPulLvl-SP</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -12668,7 +12665,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrPulLvl-RB</pv_name>
+                <pv_name>$(P)$(R)DATrPulLvl-RB</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -12896,7 +12893,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrPulPol-Sel</pv_name>
+                <pv_name>$(P)$(R)DATrPulPol-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -12942,7 +12939,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrPulPol-Sts</pv_name>
+                <pv_name>$(P)$(R)DATrPulPol-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -13099,7 +13096,7 @@ $(pv_value)</tooltip>
                 <name>Text Input</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrPulWidth-SP</pv_name>
+                <pv_name>$(P)$(R)DATrPulWidth-SP</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -13151,7 +13148,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrPulWidth-RB</pv_name>
+                <pv_name>$(P)$(R)DATrPulWidth-RB</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -13379,7 +13376,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrWindDir-Sel</pv_name>
+                <pv_name>$(P)$(R)DATrWindDir-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -13425,7 +13422,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrWindDir-Sts</pv_name>
+                <pv_name>$(P)$(R)DATrWindDir-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -13582,7 +13579,7 @@ $(pv_value)</tooltip>
                 <name>Text Input</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrWindHigh-SP</pv_name>
+                <pv_name>$(P)$(R)DATrWindHigh-SP</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -13634,7 +13631,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrWindHigh-RB</pv_name>
+                <pv_name>$(P)$(R)DATrWindHigh-RB</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -13831,7 +13828,7 @@ $(pv_value)</tooltip>
                 <name>Text Input</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrWindLow-SP</pv_name>
+                <pv_name>$(P)$(R)DATrWindLow-SP</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -13883,7 +13880,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DATrWindLow-RB</pv_name>
+                <pv_name>$(P)$(R)DATrWindLow-RB</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -14121,7 +14118,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DRange-SP</pv_name>
+              <pv_name>$(P)$(R)DRange-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -14173,7 +14170,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DRange-RB</pv_name>
+              <pv_name>$(P)$(R)DRange-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -14374,7 +14371,7 @@ $(pv_value)</tooltip>
               <on_label>ON</on_label>
               <password></password>
               <push_action_index>0</push_action_index>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DRelOffAcq-Cmd</pv_name>
+              <pv_name>$(P)$(R)DRelOffAcq-Cmd</pv_name>
               <pv_value />
               <released_action_index>0</released_action_index>
               <rules />
@@ -14562,7 +14559,7 @@ $(pv_value)</tooltip>
               <height>29</height>
               <items_from_pv>true</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DRelOffEnbl-Sel</pv_name>
+              <pv_name>$(P)$(R)DRelOffEnbl-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -14608,7 +14605,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DRelOffEnbl-Sts</pv_name>
+              <pv_name>$(P)$(R)DRelOffEnbl-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -14805,7 +14802,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DRelOff-SP</pv_name>
+              <pv_name>$(P)$(R)DRelOff-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -14857,7 +14854,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DRelOff-RB</pv_name>
+              <pv_name>$(P)$(R)DRelOff-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -15045,7 +15042,7 @@ $(pv_value)</tooltip>
               <height>29</height>
               <items_from_pv>true</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DMathOp-Sel</pv_name>
+              <pv_name>$(P)$(R)DMathOp-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -15091,7 +15088,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DMathOp-Sts</pv_name>
+              <pv_name>$(P)$(R)DMathOp-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -15288,7 +15285,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DMathBFactor-SP</pv_name>
+              <pv_name>$(P)$(R)DMathBFactor-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -15340,7 +15337,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DMathBFactor-RB</pv_name>
+              <pv_name>$(P)$(R)DMathBFactor-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -15537,7 +15534,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DMathMFactor-SP</pv_name>
+              <pv_name>$(P)$(R)DMathMFactor-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -15589,7 +15586,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DMathMFactor-RB</pv_name>
+              <pv_name>$(P)$(R)DMathMFactor-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -15786,7 +15783,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DMathPercRef-SP</pv_name>
+              <pv_name>$(P)$(R)DMathPercRef-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -15838,7 +15835,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DMathPercRef-RB</pv_name>
+              <pv_name>$(P)$(R)DMathPercRef-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -16026,7 +16023,7 @@ $(pv_value)</tooltip>
               <height>29</height>
               <items_from_pv>true</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DMathEnbl-Sel</pv_name>
+              <pv_name>$(P)$(R)DMathEnbl-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -16072,7 +16069,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DMathEnbl-Sts</pv_name>
+              <pv_name>$(P)$(R)DMathEnbl-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -16261,7 +16258,7 @@ $(pv_value)</tooltip>
           <height>29</height>
           <items_from_pv>true</items_from_pv>
           <name>Combo</name>
-          <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasFnc-Sel</pv_name>
+          <pv_name>$(P)$(R)MeasFnc-Sel</pv_name>
           <pv_value />
           <rules />
           <scale_options>
@@ -16307,7 +16304,7 @@ $(pv_value)</tooltip>
           <name>Text Update</name>
           <precision>0</precision>
           <precision_from_pv>true</precision_from_pv>
-          <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasFnc-Sts</pv_name>
+          <pv_name>$(P)$(R)MeasFnc-Sts</pv_name>
           <pv_value />
           <rotation_angle>0.0</rotation_angle>
           <rules />
@@ -16574,7 +16571,7 @@ $(pv_value)</tooltip>
           <height>29</height>
           <items_from_pv>true</items_from_pv>
           <name>Combo</name>
-          <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeFnc-Sel</pv_name>
+          <pv_name>$(P)$(R)DigtzeFnc-Sel</pv_name>
           <pv_value />
           <rules />
           <scale_options>
@@ -16620,7 +16617,7 @@ $(pv_value)</tooltip>
           <name>Text Update</name>
           <precision>0</precision>
           <precision_from_pv>true</precision_from_pv>
-          <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeFnc-Sts</pv_name>
+          <pv_name>$(P)$(R)DigtzeFnc-Sts</pv_name>
           <pv_value />
           <rotation_angle>0.0</rotation_angle>
           <rules />
@@ -16680,7 +16677,7 @@ $(pv_value)</tooltip>
       <show_scrollbar>true</show_scrollbar>
       <tooltip></tooltip>
       <transparent>true</transparent>
-      <visible>true</visible>
+      <visible>false</visible>
       <widget_type>Grouping Container</widget_type>
       <width>725</width>
       <wuid>6ffc2fbb:15b5e7181fb:-7ff9</wuid>
@@ -16879,7 +16876,7 @@ $(pv_value)</tooltip>
         <on_label>ON</on_label>
         <password></password>
         <push_action_index>0</push_action_index>
-        <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ClearExInEv-Cmd</pv_name>
+        <pv_name>$(P)$(R)ClearExInEv-Cmd</pv_name>
         <pv_value />
         <released_action_index>0</released_action_index>
         <rules />
@@ -17210,7 +17207,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ExInOver-Mon</pv_name>
+              <pv_name>$(P)$(R)ExInOver-Mon</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -17306,7 +17303,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ExInOver-Mon.SCAN</pv_name>
+              <pv_name>$(P)$(R)ExInOver-Mon.SCAN</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -17487,7 +17484,7 @@ $(pv_value)</tooltip>
               <height>29</height>
               <items_from_pv>true</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ExInEdge-Sel</pv_name>
+              <pv_name>$(P)$(R)ExInEdge-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -17533,7 +17530,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ExInEdge-Sts</pv_name>
+              <pv_name>$(P)$(R)ExInEdge-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -17761,7 +17758,7 @@ $(pv_value)</tooltip>
               <height>29</height>
               <items_from_pv>true</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ExOutPol-Sel</pv_name>
+              <pv_name>$(P)$(R)ExOutPol-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -17807,7 +17804,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ExOutPol-Sts</pv_name>
+              <pv_name>$(P)$(R)ExOutPol-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -18032,7 +18029,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ExOutStim-Sel</pv_name>
+              <pv_name>$(P)$(R)ExOutStim-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -18078,7 +18075,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ExOutStim-Sts</pv_name>
+              <pv_name>$(P)$(R)ExOutStim-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -18763,7 +18760,7 @@ $(pv_value)</tooltip>
             <height>29</height>
             <items_from_pv>true</items_from_pv>
             <name>Combo</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig1State-Sel</pv_name>
+            <pv_name>$(P)$(R)Dig1State-Sel</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -18943,7 +18940,7 @@ $(pv_value)</tooltip>
             <height>29</height>
             <items_from_pv>true</items_from_pv>
             <name>Combo_1</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig2State-Sel</pv_name>
+            <pv_name>$(P)$(R)Dig2State-Sel</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -19083,7 +19080,7 @@ $(pv_value)</tooltip>
             <height>29</height>
             <items_from_pv>true</items_from_pv>
             <name>Combo_2</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig3State-Sel</pv_name>
+            <pv_name>$(P)$(R)Dig3State-Sel</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -19223,7 +19220,7 @@ $(pv_value)</tooltip>
             <height>29</height>
             <items_from_pv>true</items_from_pv>
             <name>Combo_3</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig4State-Sel</pv_name>
+            <pv_name>$(P)$(R)Dig4State-Sel</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -19363,7 +19360,7 @@ $(pv_value)</tooltip>
             <height>29</height>
             <items_from_pv>true</items_from_pv>
             <name>Combo_4</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig5State-Sel</pv_name>
+            <pv_name>$(P)$(R)Dig5State-Sel</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -19503,7 +19500,7 @@ $(pv_value)</tooltip>
             <height>29</height>
             <items_from_pv>true</items_from_pv>
             <name>Combo_5</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig6State-Sel</pv_name>
+            <pv_name>$(P)$(R)Dig6State-Sel</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -19687,7 +19684,7 @@ $(pv_value)</tooltip>
             <name>Text Update</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig1State-Mon</pv_name>
+            <pv_name>$(P)$(R)Dig1State-Mon</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -20229,7 +20226,7 @@ $(pv_value)</tooltip>
             <name>Text Update_1</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig2State-Mon</pv_name>
+            <pv_name>$(P)$(R)Dig2State-Mon</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -20281,7 +20278,7 @@ $(pv_value)</tooltip>
             <name>Text Update_2</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig3State-Mon</pv_name>
+            <pv_name>$(P)$(R)Dig3State-Mon</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -20333,7 +20330,7 @@ $(pv_value)</tooltip>
             <name>Text Update_3</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig4State-Mon</pv_name>
+            <pv_name>$(P)$(R)Dig4State-Mon</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -20385,7 +20382,7 @@ $(pv_value)</tooltip>
             <name>Text Update_4</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig5State-Mon</pv_name>
+            <pv_name>$(P)$(R)Dig5State-Mon</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -20437,7 +20434,7 @@ $(pv_value)</tooltip>
             <name>Text Update_5</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig6State-Mon</pv_name>
+            <pv_name>$(P)$(R)Dig6State-Mon</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -20493,7 +20490,7 @@ $(pv_value)</tooltip>
             </items>
             <items_from_pv>false</items_from_pv>
             <name>Combo_6</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig1State-Mon.SCAN</pv_name>
+            <pv_name>$(P)$(R)Dig1State-Mon.SCAN</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -20543,7 +20540,7 @@ $(pv_value)</tooltip>
             </items>
             <items_from_pv>false</items_from_pv>
             <name>Combo_7</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig2State-Mon.SCAN</pv_name>
+            <pv_name>$(P)$(R)Dig2State-Mon.SCAN</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -20593,7 +20590,7 @@ $(pv_value)</tooltip>
             </items>
             <items_from_pv>false</items_from_pv>
             <name>Combo_8</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig3State-Mon.SCAN</pv_name>
+            <pv_name>$(P)$(R)Dig3State-Mon.SCAN</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -20643,7 +20640,7 @@ $(pv_value)</tooltip>
             </items>
             <items_from_pv>false</items_from_pv>
             <name>Combo_9</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig4State-Mon.SCAN</pv_name>
+            <pv_name>$(P)$(R)Dig4State-Mon.SCAN</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -20693,7 +20690,7 @@ $(pv_value)</tooltip>
             </items>
             <items_from_pv>false</items_from_pv>
             <name>Combo_10</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig5State-Mon.SCAN</pv_name>
+            <pv_name>$(P)$(R)Dig5State-Mon.SCAN</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -20743,7 +20740,7 @@ $(pv_value)</tooltip>
             </items>
             <items_from_pv>false</items_from_pv>
             <name>Combo_11</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig6State-Mon.SCAN</pv_name>
+            <pv_name>$(P)$(R)Dig6State-Mon.SCAN</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -20937,7 +20934,7 @@ $(pv_value)</tooltip>
               <show_scrollbar>true</show_scrollbar>
               <tooltip></tooltip>
               <transparent>true</transparent>
-              <visible>true</visible>
+              <visible>false</visible>
               <widget_type>Grouping Container</widget_type>
               <width>671</width>
               <wuid>1992a7cf:15b8c1435cb:-693f</wuid>
@@ -21189,7 +21186,7 @@ $(pv_value)</tooltip>
                 <name>Text Update</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig1Over-Mon</pv_name>
+                <pv_name>$(P)$(R)Dig1Over-Mon</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -21237,7 +21234,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig1Edge-Sel</pv_name>
+                <pv_name>$(P)$(R)Dig1Edge-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -21332,7 +21329,7 @@ $(pv_value)</tooltip>
                 <on_label>ON</on_label>
                 <password></password>
                 <push_action_index>0</push_action_index>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig1ClrEv-Cmd</pv_name>
+                <pv_name>$(P)$(R)Dig1ClrEv-Cmd</pv_name>
                 <pv_value />
                 <released_action_index>0</released_action_index>
                 <rules />
@@ -21384,7 +21381,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_1</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig1Edge-Sts</pv_name>
+                <pv_name>$(P)$(R)Dig1Edge-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -21494,7 +21491,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_2</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig2Over-Mon</pv_name>
+                <pv_name>$(P)$(R)Dig2Over-Mon</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -21542,7 +21539,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo_1</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig2Edge-Sel</pv_name>
+                <pv_name>$(P)$(R)Dig2Edge-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -21637,7 +21634,7 @@ $(pv_value)</tooltip>
                 <on_label>ON</on_label>
                 <password></password>
                 <push_action_index>0</push_action_index>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig2ClrEv-Cmd</pv_name>
+                <pv_name>$(P)$(R)Dig2ClrEv-Cmd</pv_name>
                 <pv_value />
                 <released_action_index>0</released_action_index>
                 <rules />
@@ -21689,7 +21686,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_3</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig2Edge-Sts</pv_name>
+                <pv_name>$(P)$(R)Dig2Edge-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -21799,7 +21796,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_4</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig3Over-Mon</pv_name>
+                <pv_name>$(P)$(R)Dig3Over-Mon</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -21847,7 +21844,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo_2</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig3Edge-Sel</pv_name>
+                <pv_name>$(P)$(R)Dig3Edge-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -21942,7 +21939,7 @@ $(pv_value)</tooltip>
                 <on_label>ON</on_label>
                 <password></password>
                 <push_action_index>0</push_action_index>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig3ClrEv-Cmd</pv_name>
+                <pv_name>$(P)$(R)Dig3ClrEv-Cmd</pv_name>
                 <pv_value />
                 <released_action_index>0</released_action_index>
                 <rules />
@@ -21994,7 +21991,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_5</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig3Edge-Sts</pv_name>
+                <pv_name>$(P)$(R)Dig3Edge-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -22104,7 +22101,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_6</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig4Over-Mon</pv_name>
+                <pv_name>$(P)$(R)Dig4Over-Mon</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -22152,7 +22149,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo_3</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig4Edge-Sel</pv_name>
+                <pv_name>$(P)$(R)Dig4Edge-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -22247,7 +22244,7 @@ $(pv_value)</tooltip>
                 <on_label>ON</on_label>
                 <password></password>
                 <push_action_index>0</push_action_index>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig4ClrEv-Cmd</pv_name>
+                <pv_name>$(P)$(R)Dig4ClrEv-Cmd</pv_name>
                 <pv_value />
                 <released_action_index>0</released_action_index>
                 <rules />
@@ -22299,7 +22296,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_7</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig4Edge-Sts</pv_name>
+                <pv_name>$(P)$(R)Dig4Edge-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -22409,7 +22406,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_8</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig5Over-Mon</pv_name>
+                <pv_name>$(P)$(R)Dig5Over-Mon</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -22457,7 +22454,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo_4</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig5Edge-Sel</pv_name>
+                <pv_name>$(P)$(R)Dig5Edge-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -22552,7 +22549,7 @@ $(pv_value)</tooltip>
                 <on_label>ON</on_label>
                 <password></password>
                 <push_action_index>0</push_action_index>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig5ClrEv-Cmd</pv_name>
+                <pv_name>$(P)$(R)Dig5ClrEv-Cmd</pv_name>
                 <pv_value />
                 <released_action_index>0</released_action_index>
                 <rules />
@@ -22604,7 +22601,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_9</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig5Edge-Sts</pv_name>
+                <pv_name>$(P)$(R)Dig5Edge-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -22714,7 +22711,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_10</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig6Over-Mon</pv_name>
+                <pv_name>$(P)$(R)Dig6Over-Mon</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -22762,7 +22759,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo_5</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig6Edge-Sel</pv_name>
+                <pv_name>$(P)$(R)Dig6Edge-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -22857,7 +22854,7 @@ $(pv_value)</tooltip>
                 <on_label>ON</on_label>
                 <password></password>
                 <push_action_index>0</push_action_index>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig6ClrEv-Cmd</pv_name>
+                <pv_name>$(P)$(R)Dig6ClrEv-Cmd</pv_name>
                 <pv_value />
                 <released_action_index>0</released_action_index>
                 <rules />
@@ -22909,7 +22906,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_11</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig6Edge-Sts</pv_name>
+                <pv_name>$(P)$(R)Dig6Edge-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -22965,7 +22962,7 @@ $(pv_value)</tooltip>
                 </items>
                 <items_from_pv>false</items_from_pv>
                 <name>Combo_6</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig1Over-Mon.SCAN</pv_name>
+                <pv_name>$(P)$(R)Dig1Over-Mon.SCAN</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -23055,7 +23052,7 @@ $(pv_value)</tooltip>
                 </items>
                 <items_from_pv>false</items_from_pv>
                 <name>Combo_7</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig2Over-Mon.SCAN</pv_name>
+                <pv_name>$(P)$(R)Dig2Over-Mon.SCAN</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -23105,7 +23102,7 @@ $(pv_value)</tooltip>
                 </items>
                 <items_from_pv>false</items_from_pv>
                 <name>Combo_8</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig3Over-Mon.SCAN</pv_name>
+                <pv_name>$(P)$(R)Dig3Over-Mon.SCAN</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -23155,7 +23152,7 @@ $(pv_value)</tooltip>
                 </items>
                 <items_from_pv>false</items_from_pv>
                 <name>Combo_9</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig4Over-Mon.SCAN</pv_name>
+                <pv_name>$(P)$(R)Dig4Over-Mon.SCAN</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -23205,7 +23202,7 @@ $(pv_value)</tooltip>
                 </items>
                 <items_from_pv>false</items_from_pv>
                 <name>Combo_10</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig5Over-Mon.SCAN</pv_name>
+                <pv_name>$(P)$(R)Dig5Over-Mon.SCAN</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -23255,7 +23252,7 @@ $(pv_value)</tooltip>
                 </items>
                 <items_from_pv>false</items_from_pv>
                 <name>Combo_11</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig6Over-Mon.SCAN</pv_name>
+                <pv_name>$(P)$(R)Dig6Over-Mon.SCAN</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -23308,7 +23305,7 @@ $(pv_value)</tooltip>
               <show_scrollbar>true</show_scrollbar>
               <tooltip></tooltip>
               <transparent>true</transparent>
-              <visible>false</visible>
+              <visible>true</visible>
               <widget_type>Grouping Container</widget_type>
               <width>671</width>
               <wuid>1992a7cf:15b8c1435cb:-6910</wuid>
@@ -23476,7 +23473,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig1Pol-Sel</pv_name>
+                <pv_name>$(P)$(R)Dig1Pol-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -23562,7 +23559,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_1</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig1Pol-Sts</pv_name>
+                <pv_name>$(P)$(R)Dig1Pol-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -23668,7 +23665,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo_1</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig2Pol-Sel</pv_name>
+                <pv_name>$(P)$(R)Dig2Pol-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -23754,7 +23751,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_3</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig2Pol-Sts</pv_name>
+                <pv_name>$(P)$(R)Dig2Pol-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -23860,7 +23857,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo_2</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig3Pol-Sel</pv_name>
+                <pv_name>$(P)$(R)Dig3Pol-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -23946,7 +23943,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_5</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig3Pol-Sts</pv_name>
+                <pv_name>$(P)$(R)Dig3Pol-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -24052,7 +24049,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo_3</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig4Pol-Sel</pv_name>
+                <pv_name>$(P)$(R)Dig4Pol-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -24138,7 +24135,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_7</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig4Pol-Sts</pv_name>
+                <pv_name>$(P)$(R)Dig4Pol-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -24244,7 +24241,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo_4</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig5Pol-Sel</pv_name>
+                <pv_name>$(P)$(R)Dig5Pol-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -24330,7 +24327,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_9</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig5Pol-Sts</pv_name>
+                <pv_name>$(P)$(R)Dig5Pol-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -24436,7 +24433,7 @@ $(pv_value)</tooltip>
                 <height>29</height>
                 <items_from_pv>true</items_from_pv>
                 <name>Combo_5</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig6Pol-Sel</pv_name>
+                <pv_name>$(P)$(R)Dig6Pol-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -24522,7 +24519,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_11</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig6Pol-Sts</pv_name>
+                <pv_name>$(P)$(R)Dig6Pol-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -24579,7 +24576,7 @@ $(pv_value)</tooltip>
                 <name>Text Input</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig1Width-SP</pv_name>
+                <pv_name>$(P)$(R)Dig1Width-SP</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -24676,7 +24673,7 @@ $(pv_value)</tooltip>
                 <name>Text Input_1</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig2Width-SP</pv_name>
+                <pv_name>$(P)$(R)Dig2Width-SP</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -24733,7 +24730,7 @@ $(pv_value)</tooltip>
                 <name>Text Input_2</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig3Width-SP</pv_name>
+                <pv_name>$(P)$(R)Dig3Width-SP</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -24790,7 +24787,7 @@ $(pv_value)</tooltip>
                 <name>Text Input_3</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig4Width-SP</pv_name>
+                <pv_name>$(P)$(R)Dig4Width-SP</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -24847,7 +24844,7 @@ $(pv_value)</tooltip>
                 <name>Text Input_4</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig5Width-SP</pv_name>
+                <pv_name>$(P)$(R)Dig5Width-SP</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -24904,7 +24901,7 @@ $(pv_value)</tooltip>
                 <name>Text Input_5</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig6Width-SP</pv_name>
+                <pv_name>$(P)$(R)Dig6Width-SP</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -24956,7 +24953,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_12</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig1Width-RB</pv_name>
+                <pv_name>$(P)$(R)Dig1Width-RB</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -25008,7 +25005,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_13</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig2Width-RB</pv_name>
+                <pv_name>$(P)$(R)Dig2Width-RB</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -25060,7 +25057,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_14</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig3Width-RB</pv_name>
+                <pv_name>$(P)$(R)Dig3Width-RB</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -25112,7 +25109,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_15</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig4Width-RB</pv_name>
+                <pv_name>$(P)$(R)Dig4Width-RB</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -25164,7 +25161,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_16</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig5Width-RB</pv_name>
+                <pv_name>$(P)$(R)Dig5Width-RB</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -25216,7 +25213,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_17</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig6Width-RB</pv_name>
+                <pv_name>$(P)$(R)Dig6Width-RB</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -25342,7 +25339,7 @@ $(pv_value)</tooltip>
                 </items>
                 <items_from_pv>false</items_from_pv>
                 <name>Combo</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig1Stim-Sel</pv_name>
+                <pv_name>$(P)$(R)Dig1Stim-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -25388,7 +25385,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_1</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig1Stim-Sts</pv_name>
+                <pv_name>$(P)$(R)Dig1Stim-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -25474,7 +25471,7 @@ $(pv_value)</tooltip>
                 </items>
                 <items_from_pv>false</items_from_pv>
                 <name>Combo_7</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig2Stim-Sel</pv_name>
+                <pv_name>$(P)$(R)Dig2Stim-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -25554,7 +25551,7 @@ $(pv_value)</tooltip>
                 </items>
                 <items_from_pv>false</items_from_pv>
                 <name>Combo_8</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig3Stim-Sel</pv_name>
+                <pv_name>$(P)$(R)Dig3Stim-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -25634,7 +25631,7 @@ $(pv_value)</tooltip>
                 </items>
                 <items_from_pv>false</items_from_pv>
                 <name>Combo_9</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig4Stim-Sel</pv_name>
+                <pv_name>$(P)$(R)Dig4Stim-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -25714,7 +25711,7 @@ $(pv_value)</tooltip>
                 </items>
                 <items_from_pv>false</items_from_pv>
                 <name>Combo_10</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig5Stim-Sel</pv_name>
+                <pv_name>$(P)$(R)Dig5Stim-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -25794,7 +25791,7 @@ $(pv_value)</tooltip>
                 </items>
                 <items_from_pv>false</items_from_pv>
                 <name>Combo_11</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig6Stim-Sel</pv_name>
+                <pv_name>$(P)$(R)Dig6Stim-Sel</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -25840,7 +25837,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_19</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig2Stim-Sts</pv_name>
+                <pv_name>$(P)$(R)Dig2Stim-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -25892,7 +25889,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_20</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig3Stim-Sts</pv_name>
+                <pv_name>$(P)$(R)Dig3Stim-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -25944,7 +25941,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_21</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig4Stim-Sts</pv_name>
+                <pv_name>$(P)$(R)Dig4Stim-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -25996,7 +25993,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_22</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig5Stim-Sts</pv_name>
+                <pv_name>$(P)$(R)Dig5Stim-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -26048,7 +26045,7 @@ $(pv_value)</tooltip>
                 <name>Text Update_23</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig6Stim-Sts</pv_name>
+                <pv_name>$(P)$(R)Dig6Stim-Sts</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -26189,7 +26186,7 @@ $(pv_value)</tooltip>
                 <on_label>ON</on_label>
                 <password></password>
                 <push_action_index>0</push_action_index>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig1Assert-Cmd</pv_name>
+                <pv_name>$(P)$(R)Dig1Assert-Cmd</pv_name>
                 <pv_value />
                 <released_action_index>0</released_action_index>
                 <rules />
@@ -26290,7 +26287,7 @@ $(pv_value)</tooltip>
                 <on_label>ON</on_label>
                 <password></password>
                 <push_action_index>0</push_action_index>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig2Assert-Cmd</pv_name>
+                <pv_name>$(P)$(R)Dig2Assert-Cmd</pv_name>
                 <pv_value />
                 <released_action_index>0</released_action_index>
                 <rules />
@@ -26351,7 +26348,7 @@ $(pv_value)</tooltip>
                 <on_label>ON</on_label>
                 <password></password>
                 <push_action_index>0</push_action_index>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig3Assert-Cmd</pv_name>
+                <pv_name>$(P)$(R)Dig3Assert-Cmd</pv_name>
                 <pv_value />
                 <released_action_index>0</released_action_index>
                 <rules />
@@ -26412,7 +26409,7 @@ $(pv_value)</tooltip>
                 <on_label>ON</on_label>
                 <password></password>
                 <push_action_index>0</push_action_index>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig4Assert-Cmd</pv_name>
+                <pv_name>$(P)$(R)Dig4Assert-Cmd</pv_name>
                 <pv_value />
                 <released_action_index>0</released_action_index>
                 <rules />
@@ -26473,7 +26470,7 @@ $(pv_value)</tooltip>
                 <on_label>ON</on_label>
                 <password></password>
                 <push_action_index>0</push_action_index>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig5Assert-Cmd</pv_name>
+                <pv_name>$(P)$(R)Dig5Assert-Cmd</pv_name>
                 <pv_value />
                 <released_action_index>0</released_action_index>
                 <rules />
@@ -26534,7 +26531,7 @@ $(pv_value)</tooltip>
                 <on_label>ON</on_label>
                 <password></password>
                 <push_action_index>0</push_action_index>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig6Assert-Cmd</pv_name>
+                <pv_name>$(P)$(R)Dig6Assert-Cmd</pv_name>
                 <pv_value />
                 <released_action_index>0</released_action_index>
                 <rules />
@@ -26595,7 +26592,7 @@ $(pv_value)</tooltip>
                 <on_label>ON</on_label>
                 <password></password>
                 <push_action_index>0</push_action_index>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig1Release-Cmd</pv_name>
+                <pv_name>$(P)$(R)Dig1Release-Cmd</pv_name>
                 <pv_value />
                 <released_action_index>0</released_action_index>
                 <rules />
@@ -26656,7 +26653,7 @@ $(pv_value)</tooltip>
                 <on_label>ON</on_label>
                 <password></password>
                 <push_action_index>0</push_action_index>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig2Release-Cmd</pv_name>
+                <pv_name>$(P)$(R)Dig2Release-Cmd</pv_name>
                 <pv_value />
                 <released_action_index>0</released_action_index>
                 <rules />
@@ -26757,7 +26754,7 @@ $(pv_value)</tooltip>
                 <on_label>ON</on_label>
                 <password></password>
                 <push_action_index>0</push_action_index>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig3Release-Cmd</pv_name>
+                <pv_name>$(P)$(R)Dig3Release-Cmd</pv_name>
                 <pv_value />
                 <released_action_index>0</released_action_index>
                 <rules />
@@ -26818,7 +26815,7 @@ $(pv_value)</tooltip>
                 <on_label>ON</on_label>
                 <password></password>
                 <push_action_index>0</push_action_index>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig4Release-Cmd</pv_name>
+                <pv_name>$(P)$(R)Dig4Release-Cmd</pv_name>
                 <pv_value />
                 <released_action_index>0</released_action_index>
                 <rules />
@@ -26879,7 +26876,7 @@ $(pv_value)</tooltip>
                 <on_label>ON</on_label>
                 <password></password>
                 <push_action_index>0</push_action_index>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig5Release-Cmd</pv_name>
+                <pv_name>$(P)$(R)Dig5Release-Cmd</pv_name>
                 <pv_value />
                 <released_action_index>0</released_action_index>
                 <rules />
@@ -26940,7 +26937,7 @@ $(pv_value)</tooltip>
                 <on_label>ON</on_label>
                 <password></password>
                 <push_action_index>0</push_action_index>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig6Release-Cmd</pv_name>
+                <pv_name>$(P)$(R)Dig6Release-Cmd</pv_name>
                 <pv_value />
                 <released_action_index>0</released_action_index>
                 <rules />
@@ -27246,7 +27243,7 @@ $(pv_value)</tooltip>
         <height>29</height>
         <items_from_pv>true</items_from_pv>
         <name>Combo</name>
-        <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig1Mod-Sel</pv_name>
+        <pv_name>$(P)$(R)Dig1Mod-Sel</pv_name>
         <pv_value />
         <rules />
         <scale_options>
@@ -27292,7 +27289,7 @@ $(pv_value)</tooltip>
         <name>Text Update</name>
         <precision>0</precision>
         <precision_from_pv>true</precision_from_pv>
-        <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig1Mod-Sts</pv_name>
+        <pv_name>$(P)$(R)Dig1Mod-Sts</pv_name>
         <pv_value />
         <rotation_angle>0.0</rotation_angle>
         <rules />
@@ -27478,7 +27475,7 @@ $(pv_value)</tooltip>
         <height>29</height>
         <items_from_pv>true</items_from_pv>
         <name>Combo_1</name>
-        <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig2Mod-Sel</pv_name>
+        <pv_name>$(P)$(R)Dig2Mod-Sel</pv_name>
         <pv_value />
         <rules />
         <scale_options>
@@ -27524,7 +27521,7 @@ $(pv_value)</tooltip>
         <name>Text Update_1</name>
         <precision>0</precision>
         <precision_from_pv>true</precision_from_pv>
-        <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig2Mod-Sts</pv_name>
+        <pv_name>$(P)$(R)Dig2Mod-Sts</pv_name>
         <pv_value />
         <rotation_angle>0.0</rotation_angle>
         <rules />
@@ -27670,7 +27667,7 @@ $(pv_value)</tooltip>
         <height>29</height>
         <items_from_pv>true</items_from_pv>
         <name>Combo_2</name>
-        <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig3Mod-Sel</pv_name>
+        <pv_name>$(P)$(R)Dig3Mod-Sel</pv_name>
         <pv_value />
         <rules />
         <scale_options>
@@ -27716,7 +27713,7 @@ $(pv_value)</tooltip>
         <name>Text Update_2</name>
         <precision>0</precision>
         <precision_from_pv>true</precision_from_pv>
-        <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig3Mod-Sts</pv_name>
+        <pv_name>$(P)$(R)Dig3Mod-Sts</pv_name>
         <pv_value />
         <rotation_angle>0.0</rotation_angle>
         <rules />
@@ -27862,7 +27859,7 @@ $(pv_value)</tooltip>
         <height>29</height>
         <items_from_pv>true</items_from_pv>
         <name>Combo_3</name>
-        <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig5Mod-Sel</pv_name>
+        <pv_name>$(P)$(R)Dig5Mod-Sel</pv_name>
         <pv_value />
         <rules />
         <scale_options>
@@ -27908,7 +27905,7 @@ $(pv_value)</tooltip>
         <name>Text Update_3</name>
         <precision>0</precision>
         <precision_from_pv>true</precision_from_pv>
-        <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig5Mod-Sts</pv_name>
+        <pv_name>$(P)$(R)Dig5Mod-Sts</pv_name>
         <pv_value />
         <rotation_angle>0.0</rotation_angle>
         <rules />
@@ -28054,7 +28051,7 @@ $(pv_value)</tooltip>
         <height>29</height>
         <items_from_pv>true</items_from_pv>
         <name>Combo_4</name>
-        <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig6Mod-Sel</pv_name>
+        <pv_name>$(P)$(R)Dig6Mod-Sel</pv_name>
         <pv_value />
         <rules />
         <scale_options>
@@ -28100,7 +28097,7 @@ $(pv_value)</tooltip>
         <name>Text Update_4</name>
         <precision>0</precision>
         <precision_from_pv>true</precision_from_pv>
-        <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig6Mod-Sts</pv_name>
+        <pv_name>$(P)$(R)Dig6Mod-Sts</pv_name>
         <pv_value />
         <rotation_angle>0.0</rotation_angle>
         <rules />
@@ -28286,7 +28283,7 @@ $(pv_value)</tooltip>
         <height>29</height>
         <items_from_pv>true</items_from_pv>
         <name>Combo</name>
-        <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig4Mod-Sel</pv_name>
+        <pv_name>$(P)$(R)Dig4Mod-Sel</pv_name>
         <pv_value />
         <rules />
         <scale_options>
@@ -28332,7 +28329,7 @@ $(pv_value)</tooltip>
         <name>Text Update</name>
         <precision>0</precision>
         <precision_from_pv>true</precision_from_pv>
-        <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Dig4Mod-Sts</pv_name>
+        <pv_name>$(P)$(R)Dig4Mod-Sts</pv_name>
         <pv_value />
         <rotation_angle>0.0</rotation_angle>
         <rules />
@@ -28572,7 +28569,7 @@ $(pv_value)</tooltip>
           <show_scrollbar>true</show_scrollbar>
           <tooltip></tooltip>
           <transparent>true</transparent>
-          <visible>true</visible>
+          <visible>false</visible>
           <widget_type>Grouping Container</widget_type>
           <width>659</width>
           <wuid>10ea4f19:15bab943e72:-5210</wuid>
@@ -28744,7 +28741,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CntBuff1-Mon</pv_name>
+              <pv_name>$(P)$(R)CntBuff1-Mon</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -28800,7 +28797,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CntBuff1-Mon.SCAN</pv_name>
+              <pv_name>$(P)$(R)CntBuff1-Mon.SCAN</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -29034,7 +29031,7 @@ $(pv_value)</tooltip>
               <on_label>ON</on_label>
               <password></password>
               <push_action_index>0</push_action_index>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ClrBuff1-Cmd</pv_name>
+              <pv_name>$(P)$(R)ClrBuff1-Cmd</pv_name>
               <pv_value />
               <released_action_index>0</released_action_index>
               <rules />
@@ -29225,7 +29222,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):StartBuff1-Mon</pv_name>
+              <pv_name>$(P)$(R)StartBuff1-Mon</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -29281,7 +29278,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):StartBuff1-Mon.SCAN</pv_name>
+              <pv_name>$(P)$(R)StartBuff1-Mon.SCAN</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -29506,7 +29503,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):EndBuff1-Mon</pv_name>
+              <pv_name>$(P)$(R)EndBuff1-Mon</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -29562,7 +29559,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):EndBuff1-Mon.SCAN</pv_name>
+              <pv_name>$(P)$(R)EndBuff1-Mon.SCAN</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -29783,7 +29780,7 @@ $(pv_value)</tooltip>
               <height>29</height>
               <items_from_pv>true</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FillModeBuff1-Sel</pv_name>
+              <pv_name>$(P)$(R)FillModeBuff1-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -29829,7 +29826,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FillModeBuff1-Sts</pv_name>
+              <pv_name>$(P)$(R)FillModeBuff1-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -30025,7 +30022,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SizeBuff1-SP</pv_name>
+              <pv_name>$(P)$(R)SizeBuff1-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -30077,7 +30074,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SizeBuff1-RB</pv_name>
+              <pv_name>$(P)$(R)SizeBuff1-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -30237,7 +30234,7 @@ $(pv_value)</tooltip>
               <on_label>ON</on_label>
               <password></password>
               <push_action_index>0</push_action_index>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasBuff1-Cmd</pv_name>
+              <pv_name>$(P)$(R)MeasBuff1-Cmd</pv_name>
               <pv_value />
               <released_action_index>0</released_action_index>
               <rules />
@@ -30338,7 +30335,7 @@ $(pv_value)</tooltip>
               <on_label>ON</on_label>
               <password></password>
               <push_action_index>0</push_action_index>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzBuff1-Cmd</pv_name>
+              <pv_name>$(P)$(R)DigtzBuff1-Cmd</pv_name>
               <pv_value />
               <released_action_index>0</released_action_index>
               <rules />
@@ -30574,7 +30571,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):StartRead1-SP</pv_name>
+              <pv_name>$(P)$(R)StartRead1-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -30671,7 +30668,7 @@ $(pv_value)</tooltip>
               <name>Text Input_1</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):EndRead1-SP</pv_name>
+              <pv_name>$(P)$(R)EndRead1-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -30732,7 +30729,7 @@ $(pv_value)</tooltip>
               <on_label>ON</on_label>
               <password></password>
               <push_action_index>0</push_action_index>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ReadBuff1-Cmd</pv_name>
+              <pv_name>$(P)$(R)ReadBuff1-Cmd</pv_name>
               <pv_value />
               <released_action_index>0</released_action_index>
               <rules />
@@ -30823,7 +30820,7 @@ $(pv_value)</tooltip>
                 <include_parent_macros>true</include_parent_macros>
               </macros>
               <name>Array</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ReadBuff1-Mon</pv_name>
+              <pv_name>$(P)$(R)ReadBuff1-Mon</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -31153,7 +31150,7 @@ $(pv_value)</tooltip>
               <on_label>ON</on_label>
               <password></password>
               <push_action_index>0</push_action_index>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ClrStatBuff1-Cmd</pv_name>
+              <pv_name>$(P)$(R)ClrStatBuff1-Cmd</pv_name>
               <pv_value />
               <released_action_index>0</released_action_index>
               <rules />
@@ -31285,7 +31282,7 @@ $(pv_value)</tooltip>
               <name>Text Update_1</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MaxBuff1-Mon</pv_name>
+              <pv_name>$(P)$(R)MaxBuff1-Mon</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -31337,7 +31334,7 @@ $(pv_value)</tooltip>
               <name>Text Update_2</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MinBuff1-Mon</pv_name>
+              <pv_name>$(P)$(R)MinBuff1-Mon</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -31389,7 +31386,7 @@ $(pv_value)</tooltip>
               <name>Text Update_3</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):StdDBuff1-Mon</pv_name>
+              <pv_name>$(P)$(R)StdDBuff1-Mon</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -31521,7 +31518,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):AvgBuff1-Mon</pv_name>
+              <pv_name>$(P)$(R)AvgBuff1-Mon</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -31577,7 +31574,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):AvgBuff1-Mon.SCAN</pv_name>
+              <pv_name>$(P)$(R)AvgBuff1-Mon.SCAN</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -31627,7 +31624,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo_1</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MaxBuff1-Mon.SCAN</pv_name>
+              <pv_name>$(P)$(R)MaxBuff1-Mon.SCAN</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -31677,7 +31674,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo_2</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MinBuff1-Mon.SCAN</pv_name>
+              <pv_name>$(P)$(R)MinBuff1-Mon.SCAN</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -31727,7 +31724,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo_3</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):StdDBuff1-Mon.SCAN</pv_name>
+              <pv_name>$(P)$(R)StdDBuff1-Mon.SCAN</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -31952,7 +31949,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FetchBuff1-Mon</pv_name>
+              <pv_name>$(P)$(R)FetchBuff1-Mon</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -32008,7 +32005,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FetchBuff1-Mon.SCAN</pv_name>
+              <pv_name>$(P)$(R)FetchBuff1-Mon.SCAN</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -32102,7 +32099,7 @@ $(pv_value)</tooltip>
           <show_scrollbar>true</show_scrollbar>
           <tooltip></tooltip>
           <transparent>true</transparent>
-          <visible>false</visible>
+          <visible>true</visible>
           <widget_type>Grouping Container</widget_type>
           <width>659</width>
           <wuid>10ea4f19:15bab943e72:-51f1</wuid>
@@ -32274,7 +32271,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CntBuff2-Mon</pv_name>
+              <pv_name>$(P)$(R)CntBuff2-Mon</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -32330,7 +32327,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CntBuff2-Mon.SCAN</pv_name>
+              <pv_name>$(P)$(R)CntBuff2-Mon.SCAN</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -32564,7 +32561,7 @@ $(pv_value)</tooltip>
               <on_label>ON</on_label>
               <password></password>
               <push_action_index>0</push_action_index>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ClrBuff2-Cmd</pv_name>
+              <pv_name>$(P)$(R)ClrBuff2-Cmd</pv_name>
               <pv_value />
               <released_action_index>0</released_action_index>
               <rules />
@@ -32755,7 +32752,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):StartBuff2-Mon</pv_name>
+              <pv_name>$(P)$(R)StartBuff2-Mon</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -32811,7 +32808,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):StartBuff2-Mon.SCAN</pv_name>
+              <pv_name>$(P)$(R)StartBuff2-Mon.SCAN</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -33036,7 +33033,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):EndBuff2-Mon</pv_name>
+              <pv_name>$(P)$(R)EndBuff2-Mon</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -33092,7 +33089,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo_1</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):EndBuff2-Mon.SCAN</pv_name>
+              <pv_name>$(P)$(R)EndBuff2-Mon.SCAN</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -33313,7 +33310,7 @@ $(pv_value)</tooltip>
               <height>29</height>
               <items_from_pv>true</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FillModeBuff2-Sel</pv_name>
+              <pv_name>$(P)$(R)FillModeBuff2-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -33359,7 +33356,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FillModeBuff2-Sts</pv_name>
+              <pv_name>$(P)$(R)FillModeBuff2-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -33555,7 +33552,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SizeBuff2-SP</pv_name>
+              <pv_name>$(P)$(R)SizeBuff2-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -33607,7 +33604,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SizeBuff2-RB</pv_name>
+              <pv_name>$(P)$(R)SizeBuff2-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -33767,7 +33764,7 @@ $(pv_value)</tooltip>
               <on_label>ON</on_label>
               <password></password>
               <push_action_index>0</push_action_index>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasBuff2-Cmd</pv_name>
+              <pv_name>$(P)$(R)MeasBuff2-Cmd</pv_name>
               <pv_value />
               <released_action_index>0</released_action_index>
               <rules />
@@ -33868,7 +33865,7 @@ $(pv_value)</tooltip>
               <on_label>ON</on_label>
               <password></password>
               <push_action_index>0</push_action_index>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzBuff2-Cmd</pv_name>
+              <pv_name>$(P)$(R)DigtzBuff2-Cmd</pv_name>
               <pv_value />
               <released_action_index>0</released_action_index>
               <rules />
@@ -34144,7 +34141,7 @@ $(pv_value)</tooltip>
                 <name>Text Input</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):StartRead2-SP</pv_name>
+                <pv_name>$(P)$(R)StartRead2-SP</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -34241,7 +34238,7 @@ $(pv_value)</tooltip>
                 <name>Text Input_1</name>
                 <precision>0</precision>
                 <precision_from_pv>true</precision_from_pv>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):EndRead2-SP</pv_name>
+                <pv_name>$(P)$(R)EndRead2-SP</pv_name>
                 <pv_value />
                 <rotation_angle>0.0</rotation_angle>
                 <rules />
@@ -34302,7 +34299,7 @@ $(pv_value)</tooltip>
                 <on_label>ON</on_label>
                 <password></password>
                 <push_action_index>0</push_action_index>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ReadBuff2-Cmd</pv_name>
+                <pv_name>$(P)$(R)ReadBuff2-Cmd</pv_name>
                 <pv_value />
                 <released_action_index>0</released_action_index>
                 <rules />
@@ -34393,7 +34390,7 @@ $(pv_value)</tooltip>
                   <include_parent_macros>true</include_parent_macros>
                 </macros>
                 <name>Array</name>
-                <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ReadBuff2-Mon</pv_name>
+                <pv_name>$(P)$(R)ReadBuff2-Mon</pv_name>
                 <pv_value />
                 <rules />
                 <scale_options>
@@ -34724,7 +34721,7 @@ $(pv_value)</tooltip>
               <on_label>ON</on_label>
               <password></password>
               <push_action_index>0</push_action_index>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ClrStatBuff2-Cmd</pv_name>
+              <pv_name>$(P)$(R)ClrStatBuff2-Cmd</pv_name>
               <pv_value />
               <released_action_index>0</released_action_index>
               <rules />
@@ -34856,7 +34853,7 @@ $(pv_value)</tooltip>
               <name>Text Update_1</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MaxBuff2-Mon</pv_name>
+              <pv_name>$(P)$(R)MaxBuff2-Mon</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -34908,7 +34905,7 @@ $(pv_value)</tooltip>
               <name>Text Update_2</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MinBuff2-Mon</pv_name>
+              <pv_name>$(P)$(R)MinBuff2-Mon</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -34960,7 +34957,7 @@ $(pv_value)</tooltip>
               <name>Text Update_3</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):StdDBuff2-Mon</pv_name>
+              <pv_name>$(P)$(R)StdDBuff2-Mon</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -35092,7 +35089,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):AvgBuff2-Mon</pv_name>
+              <pv_name>$(P)$(R)AvgBuff2-Mon</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -35148,7 +35145,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):AvgBuff2-Mon.SCAN</pv_name>
+              <pv_name>$(P)$(R)AvgBuff2-Mon.SCAN</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -35198,7 +35195,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo_1</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MaxBuff2-Mon.SCAN</pv_name>
+              <pv_name>$(P)$(R)MaxBuff2-Mon.SCAN</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -35248,7 +35245,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo_2</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MinBuff2-Mon.SCAN</pv_name>
+              <pv_name>$(P)$(R)MinBuff2-Mon.SCAN</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -35298,7 +35295,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo_3</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):StdDBuff2-Mon.SCAN</pv_name>
+              <pv_name>$(P)$(R)StdDBuff2-Mon.SCAN</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -35523,7 +35520,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FetchBuff2-Mon</pv_name>
+              <pv_name>$(P)$(R)FetchBuff2-Mon</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -35579,7 +35576,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FetchBuff2-Mon.SCAN</pv_name>
+              <pv_name>$(P)$(R)FetchBuff2-Mon.SCAN</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -36053,7 +36050,7 @@ $(pv_value)</tooltip>
               <color red="255" green="0" blue="0" />
             </on_color>
             <on_label>ON</on_label>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ACalWarn-Mon</pv_name>
+            <pv_name>$(P)$(R)ACalWarn-Mon</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -36249,7 +36246,7 @@ $(pv_value)</tooltip>
             <on_label>ON</on_label>
             <password></password>
             <push_action_index>0</push_action_index>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ACalRst-Cmd</pv_name>
+            <pv_name>$(P)$(R)ACalRst-Cmd</pv_name>
             <pv_value />
             <released_action_index>0</released_action_index>
             <rules />
@@ -36445,7 +36442,7 @@ $(pv_value)</tooltip>
             <name>Text Input</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ACalLim-SP</pv_name>
+            <pv_name>$(P)$(R)ACalLim-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -36490,7 +36487,7 @@ $(pv_value)</tooltip>
           <color red="192" green="192" blue="192" />
         </foreground_color>
         <height>139</height>
-        <lock_children>false</lock_children>
+        <lock_children>true</lock_children>
         <macros>
           <include_parent_macros>true</include_parent_macros>
         </macros>
@@ -36842,7 +36839,7 @@ $(pv_value)</tooltip>
             <on_label>ON</on_label>
             <password></password>
             <push_action_index>0</push_action_index>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ACalStart-Cmd</pv_name>
+            <pv_name>$(P)$(R)ACalStart-Cmd</pv_name>
             <pv_value />
             <released_action_index>0</released_action_index>
             <rules />
@@ -37042,7 +37039,7 @@ $(pv_value)</tooltip>
             <on_label>ON</on_label>
             <password></password>
             <push_action_index>0</push_action_index>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ACalRev-Cmd</pv_name>
+            <pv_name>$(P)$(R)ACalRev-Cmd</pv_name>
             <pv_value />
             <released_action_index>0</released_action_index>
             <rules />
@@ -37233,7 +37230,7 @@ $(pv_value)</tooltip>
             <name>Text Update</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ACalCount-Mon</pv_name>
+            <pv_name>$(P)$(R)ACalCount-Mon</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -37289,7 +37286,7 @@ $(pv_value)</tooltip>
             </items>
             <items_from_pv>false</items_from_pv>
             <name>Combo</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ACalCount-Mon.SCAN</pv_name>
+            <pv_name>$(P)$(R)ACalCount-Mon.SCAN</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -37514,7 +37511,7 @@ $(pv_value)</tooltip>
             <name>Text Update</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ACalDiff-Mon</pv_name>
+            <pv_name>$(P)$(R)ACalDiff-Mon</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -37570,7 +37567,7 @@ $(pv_value)</tooltip>
             </items>
             <items_from_pv>false</items_from_pv>
             <name>Combo</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ACalDiff-Mon.SCAN</pv_name>
+            <pv_name>$(P)$(R)ACalDiff-Mon.SCAN</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -37795,7 +37792,7 @@ $(pv_value)</tooltip>
             <name>Text Update</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ACalLast-Mon</pv_name>
+            <pv_name>$(P)$(R)ACalLast-Mon</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -37851,7 +37848,7 @@ $(pv_value)</tooltip>
             </items>
             <items_from_pv>false</items_from_pv>
             <name>Combo</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ACalLast-Mon.SCAN</pv_name>
+            <pv_name>$(P)$(R)ACalLast-Mon.SCAN</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -37930,7 +37927,7 @@ $(pv_value)</tooltip>
           <color red="192" green="192" blue="192" />
         </foreground_color>
         <height>139</height>
-        <lock_children>false</lock_children>
+        <lock_children>true</lock_children>
         <macros>
           <include_parent_macros>true</include_parent_macros>
         </macros>
@@ -38269,7 +38266,7 @@ $(pv_value)</tooltip>
             <height>29</height>
             <items_from_pv>true</items_from_pv>
             <name>Combo</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ACalSchAct-Sel</pv_name>
+            <pv_name>$(P)$(R)ACalSchAct-Sel</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -38315,7 +38312,7 @@ $(pv_value)</tooltip>
             <name>Text Update</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ACalSchAct-Sts</pv_name>
+            <pv_name>$(P)$(R)ACalSchAct-Sts</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -38502,7 +38499,7 @@ $(pv_value)</tooltip>
             <height>29</height>
             <items_from_pv>true</items_from_pv>
             <name>Combo</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ACalSchInt-Sel</pv_name>
+            <pv_name>$(P)$(R)ACalSchInt-Sel</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -38548,7 +38545,7 @@ $(pv_value)</tooltip>
             <name>Text Update</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ACalSchInt-Sts</pv_name>
+            <pv_name>$(P)$(R)ACalSchInt-Sts</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -38744,7 +38741,7 @@ $(pv_value)</tooltip>
             <name>Text Input</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ACalSchHr-SP</pv_name>
+            <pv_name>$(P)$(R)ACalSchHr-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -38796,7 +38793,7 @@ $(pv_value)</tooltip>
             <name>Text Update</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ACalSchHr-RB</pv_name>
+            <pv_name>$(P)$(R)ACalSchHr-RB</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -38987,7 +38984,7 @@ $(pv_value)</tooltip>
             <name>Text Update</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ACalNext-Mon</pv_name>
+            <pv_name>$(P)$(R)ACalNext-Mon</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -39043,7 +39040,7 @@ $(pv_value)</tooltip>
             </items>
             <items_from_pv>false</items_from_pv>
             <name>Combo</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ACalNext-Mon.SCAN</pv_name>
+            <pv_name>$(P)$(R)ACalNext-Mon.SCAN</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -39239,7 +39236,7 @@ $(pv_value)</tooltip>
           <show_scrollbar>true</show_scrollbar>
           <tooltip></tooltip>
           <transparent>true</transparent>
-          <visible>true</visible>
+          <visible>false</visible>
           <widget_type>Grouping Container</widget_type>
           <width>617</width>
           <wuid>10ea4f19:15bab943e72:-2263</wuid>
@@ -39420,7 +39417,7 @@ $(pv_value)</tooltip>
               <on_label>ON</on_label>
               <password></password>
               <push_action_index>0</push_action_index>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend1Clr-Cmd</pv_name>
+              <pv_name>$(P)$(R)Blend1Clr-Cmd</pv_name>
               <pv_value />
               <released_action_index>0</released_action_index>
               <rules />
@@ -39607,7 +39604,7 @@ $(pv_value)</tooltip>
               <height>29</height>
               <items_from_pv>true</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend1Op-Sel</pv_name>
+              <pv_name>$(P)$(R)Blend1Op-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -39653,7 +39650,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend1Op-Sts</pv_name>
+              <pv_name>$(P)$(R)Blend1Op-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -39844,7 +39841,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend1Over-Mon</pv_name>
+              <pv_name>$(P)$(R)Blend1Over-Mon</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -39900,7 +39897,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend1Over-Mon.SCAN</pv_name>
+              <pv_name>$(P)$(R)Blend1Over-Mon.SCAN</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -40159,7 +40156,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend1Stim1-Sel</pv_name>
+              <pv_name>$(P)$(R)Blend1Stim1-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -40205,7 +40202,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend1Stim1-Sts</pv_name>
+              <pv_name>$(P)$(R)Blend1Stim1-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -40430,7 +40427,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend1Stim2-Sel</pv_name>
+              <pv_name>$(P)$(R)Blend1Stim2-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -40476,7 +40473,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend1Stim2-Sts</pv_name>
+              <pv_name>$(P)$(R)Blend1Stim2-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -40701,7 +40698,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend1Stim3-Sel</pv_name>
+              <pv_name>$(P)$(R)Blend1Stim3-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -40747,7 +40744,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend1Stim3-Sts</pv_name>
+              <pv_name>$(P)$(R)Blend1Stim3-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -40972,7 +40969,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend1Stim4-Sel</pv_name>
+              <pv_name>$(P)$(R)Blend1Stim4-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -41018,7 +41015,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend1Stim4-Sts</pv_name>
+              <pv_name>$(P)$(R)Blend1Stim4-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -41078,7 +41075,7 @@ $(pv_value)</tooltip>
           <show_scrollbar>true</show_scrollbar>
           <tooltip></tooltip>
           <transparent>true</transparent>
-          <visible>false</visible>
+          <visible>true</visible>
           <widget_type>Grouping Container</widget_type>
           <width>617</width>
           <wuid>10ea4f19:15bab943e72:-2256</wuid>
@@ -41259,7 +41256,7 @@ $(pv_value)</tooltip>
               <on_label>ON</on_label>
               <password></password>
               <push_action_index>0</push_action_index>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend2Clr-Cmd</pv_name>
+              <pv_name>$(P)$(R)Blend2Clr-Cmd</pv_name>
               <pv_value />
               <released_action_index>0</released_action_index>
               <rules />
@@ -41446,7 +41443,7 @@ $(pv_value)</tooltip>
               <height>29</height>
               <items_from_pv>true</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend2Op-Sel</pv_name>
+              <pv_name>$(P)$(R)Blend2Op-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -41492,7 +41489,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend2Op-Sts</pv_name>
+              <pv_name>$(P)$(R)Blend2Op-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -41683,7 +41680,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend2Over-Mon</pv_name>
+              <pv_name>$(P)$(R)Blend2Over-Mon</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -41739,7 +41736,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend2Over-Mon.SCAN</pv_name>
+              <pv_name>$(P)$(R)Blend2Over-Mon.SCAN</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -41998,7 +41995,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend2Stim1-Sel</pv_name>
+              <pv_name>$(P)$(R)Blend2Stim1-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -42044,7 +42041,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend2Stim1-Sts</pv_name>
+              <pv_name>$(P)$(R)Blend2Stim1-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -42269,7 +42266,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend2Stim2-Sel</pv_name>
+              <pv_name>$(P)$(R)Blend2Stim2-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -42315,7 +42312,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend2Stim2-Sts</pv_name>
+              <pv_name>$(P)$(R)Blend2Stim2-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -42540,7 +42537,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend2Stim3-Sel</pv_name>
+              <pv_name>$(P)$(R)Blend2Stim3-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -42586,7 +42583,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend2Stim3-Sts</pv_name>
+              <pv_name>$(P)$(R)Blend2Stim3-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -42811,7 +42808,7 @@ $(pv_value)</tooltip>
               </items>
               <items_from_pv>false</items_from_pv>
               <name>Combo</name>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend2Stim4-Sel</pv_name>
+              <pv_name>$(P)$(R)Blend2Stim4-Sel</pv_name>
               <pv_value />
               <rules />
               <scale_options>
@@ -42857,7 +42854,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Blend2Stim4-Sts</pv_name>
+              <pv_name>$(P)$(R)Blend2Stim4-Sts</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -43491,7 +43488,7 @@ $(pv_value)</tooltip>
             <name>Text Update_1</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer1Count-RB</pv_name>
+            <pv_name>$(P)$(R)Timer1Count-RB</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -43548,7 +43545,7 @@ $(pv_value)</tooltip>
             <name>Text Input</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer1Count-SP</pv_name>
+            <pv_name>$(P)$(R)Timer1Count-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -43596,7 +43593,7 @@ $(pv_value)</tooltip>
             <height>29</height>
             <items_from_pv>true</items_from_pv>
             <name>Combo_1</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer1Gen-Sel</pv_name>
+            <pv_name>$(P)$(R)Timer1Gen-Sel</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -43642,7 +43639,7 @@ $(pv_value)</tooltip>
             <name>Text Update_13</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer1Over-Mon</pv_name>
+            <pv_name>$(P)$(R)Timer1Over-Mon</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -43703,7 +43700,7 @@ $(pv_value)</tooltip>
             <on_label>ON</on_label>
             <password></password>
             <push_action_index>0</push_action_index>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer1Clr-Cmd</pv_name>
+            <pv_name>$(P)$(R)Timer1Clr-Cmd</pv_name>
             <pv_value />
             <released_action_index>0</released_action_index>
             <rules />
@@ -43760,7 +43757,7 @@ $(pv_value)</tooltip>
             <name>Text Input_1</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer1Dly-SP</pv_name>
+            <pv_name>$(P)$(R)Timer1Dly-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -43812,7 +43809,7 @@ $(pv_value)</tooltip>
             <name>Text Update_14</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer1Dly-RB</pv_name>
+            <pv_name>$(P)$(R)Timer1Dly-RB</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -43869,7 +43866,7 @@ $(pv_value)</tooltip>
             <name>Text Input_2</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer1Frac-SP</pv_name>
+            <pv_name>$(P)$(R)Timer1Frac-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -43921,7 +43918,7 @@ $(pv_value)</tooltip>
             <name>Text Update_15</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer1Frac-RB</pv_name>
+            <pv_name>$(P)$(R)Timer1Frac-RB</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -43973,7 +43970,7 @@ $(pv_value)</tooltip>
             <name>Text Update_16</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer1Gen-Sts</pv_name>
+            <pv_name>$(P)$(R)Timer1Gen-Sts</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -44030,7 +44027,7 @@ $(pv_value)</tooltip>
             <name>Text Input_3</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer1Sec-SP</pv_name>
+            <pv_name>$(P)$(R)Timer1Sec-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -44082,7 +44079,7 @@ $(pv_value)</tooltip>
             <name>Text Update_17</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer1Sec-RB</pv_name>
+            <pv_name>$(P)$(R)Timer1Sec-RB</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -44143,7 +44140,7 @@ $(pv_value)</tooltip>
             <on_label>ON</on_label>
             <password></password>
             <push_action_index>0</push_action_index>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer1Enbl-Sel</pv_name>
+            <pv_name>$(P)$(R)Timer1Enbl-Sel</pv_name>
             <pv_value />
             <released_action_index>0</released_action_index>
             <rules />
@@ -44205,7 +44202,7 @@ $(pv_value)</tooltip>
               <color red="0" green="255" blue="0" />
             </on_color>
             <on_label>ON</on_label>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer1Enbl-Sts</pv_name>
+            <pv_name>$(P)$(R)Timer1Enbl-Sts</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -44287,7 +44284,7 @@ $(pv_value)</tooltip>
             </items>
             <items_from_pv>false</items_from_pv>
             <name>Combo_1</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer1Stim-Sel</pv_name>
+            <pv_name>$(P)$(R)Timer1Stim-Sel</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -44333,7 +44330,7 @@ $(pv_value)</tooltip>
             <name>Text Update_18</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer1Stim-Sts</pv_name>
+            <pv_name>$(P)$(R)Timer1Stim-Sts</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -44389,7 +44386,7 @@ $(pv_value)</tooltip>
             </items>
             <items_from_pv>false</items_from_pv>
             <name>Combo</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer1Over-Mon.SCAN</pv_name>
+            <pv_name>$(P)$(R)Timer1Over-Mon.SCAN</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -44614,7 +44611,7 @@ $(pv_value)</tooltip>
             <name>Text Update_1</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer2Count-RB</pv_name>
+            <pv_name>$(P)$(R)Timer2Count-RB</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -44671,7 +44668,7 @@ $(pv_value)</tooltip>
             <name>Text Input</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer2Count-SP</pv_name>
+            <pv_name>$(P)$(R)Timer2Count-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -44719,7 +44716,7 @@ $(pv_value)</tooltip>
             <height>29</height>
             <items_from_pv>true</items_from_pv>
             <name>Combo_1</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer2Gen-Sel</pv_name>
+            <pv_name>$(P)$(R)Timer2Gen-Sel</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -44765,7 +44762,7 @@ $(pv_value)</tooltip>
             <name>Text Update_13</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer2Over-Mon</pv_name>
+            <pv_name>$(P)$(R)Timer2Over-Mon</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -44826,7 +44823,7 @@ $(pv_value)</tooltip>
             <on_label>ON</on_label>
             <password></password>
             <push_action_index>0</push_action_index>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer2Clr-Cmd</pv_name>
+            <pv_name>$(P)$(R)Timer2Clr-Cmd</pv_name>
             <pv_value />
             <released_action_index>0</released_action_index>
             <rules />
@@ -44883,7 +44880,7 @@ $(pv_value)</tooltip>
             <name>Text Input_1</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer2Dly-SP</pv_name>
+            <pv_name>$(P)$(R)Timer2Dly-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -44935,7 +44932,7 @@ $(pv_value)</tooltip>
             <name>Text Update_14</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer2Dly-RB</pv_name>
+            <pv_name>$(P)$(R)Timer2Dly-RB</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -44992,7 +44989,7 @@ $(pv_value)</tooltip>
             <name>Text Input_2</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer2Frac-SP</pv_name>
+            <pv_name>$(P)$(R)Timer2Frac-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -45044,7 +45041,7 @@ $(pv_value)</tooltip>
             <name>Text Update_15</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer2Frac-RB</pv_name>
+            <pv_name>$(P)$(R)Timer2Frac-RB</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -45096,7 +45093,7 @@ $(pv_value)</tooltip>
             <name>Text Update_16</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer2Gen-Sts</pv_name>
+            <pv_name>$(P)$(R)Timer2Gen-Sts</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -45153,7 +45150,7 @@ $(pv_value)</tooltip>
             <name>Text Input_3</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer2Sec-SP</pv_name>
+            <pv_name>$(P)$(R)Timer2Sec-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -45205,7 +45202,7 @@ $(pv_value)</tooltip>
             <name>Text Update_17</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer2Sec-RB</pv_name>
+            <pv_name>$(P)$(R)Timer2Sec-RB</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -45266,7 +45263,7 @@ $(pv_value)</tooltip>
             <on_label>ON</on_label>
             <password></password>
             <push_action_index>0</push_action_index>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer2Enbl-Sel</pv_name>
+            <pv_name>$(P)$(R)Timer2Enbl-Sel</pv_name>
             <pv_value />
             <released_action_index>0</released_action_index>
             <rules />
@@ -45328,7 +45325,7 @@ $(pv_value)</tooltip>
               <color red="0" green="255" blue="0" />
             </on_color>
             <on_label>ON</on_label>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer2Enbl-Sts</pv_name>
+            <pv_name>$(P)$(R)Timer2Enbl-Sts</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -45410,7 +45407,7 @@ $(pv_value)</tooltip>
             </items>
             <items_from_pv>false</items_from_pv>
             <name>Combo_1</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer2Stim-Sel</pv_name>
+            <pv_name>$(P)$(R)Timer2Stim-Sel</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -45456,7 +45453,7 @@ $(pv_value)</tooltip>
             <name>Text Update_18</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer2Stim-Sts</pv_name>
+            <pv_name>$(P)$(R)Timer2Stim-Sts</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -45512,7 +45509,7 @@ $(pv_value)</tooltip>
             </items>
             <items_from_pv>false</items_from_pv>
             <name>Combo</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer2Over-Mon.SCAN</pv_name>
+            <pv_name>$(P)$(R)Timer2Over-Mon.SCAN</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -45737,7 +45734,7 @@ $(pv_value)</tooltip>
             <name>Text Update_1</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer3Count-RB</pv_name>
+            <pv_name>$(P)$(R)Timer3Count-RB</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -45794,7 +45791,7 @@ $(pv_value)</tooltip>
             <name>Text Input</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer3Count-SP</pv_name>
+            <pv_name>$(P)$(R)Timer3Count-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -45842,7 +45839,7 @@ $(pv_value)</tooltip>
             <height>29</height>
             <items_from_pv>true</items_from_pv>
             <name>Combo_1</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer3Gen-Sel</pv_name>
+            <pv_name>$(P)$(R)Timer3Gen-Sel</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -45888,7 +45885,7 @@ $(pv_value)</tooltip>
             <name>Text Update_13</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer3Over-Mon</pv_name>
+            <pv_name>$(P)$(R)Timer3Over-Mon</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -45949,7 +45946,7 @@ $(pv_value)</tooltip>
             <on_label>ON</on_label>
             <password></password>
             <push_action_index>0</push_action_index>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer3Clr-Cmd</pv_name>
+            <pv_name>$(P)$(R)Timer3Clr-Cmd</pv_name>
             <pv_value />
             <released_action_index>0</released_action_index>
             <rules />
@@ -46006,7 +46003,7 @@ $(pv_value)</tooltip>
             <name>Text Input_1</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer3Dly-SP</pv_name>
+            <pv_name>$(P)$(R)Timer3Dly-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -46058,7 +46055,7 @@ $(pv_value)</tooltip>
             <name>Text Update_14</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer3Dly-RB</pv_name>
+            <pv_name>$(P)$(R)Timer3Dly-RB</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -46115,7 +46112,7 @@ $(pv_value)</tooltip>
             <name>Text Input_2</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer3Frac-SP</pv_name>
+            <pv_name>$(P)$(R)Timer3Frac-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -46167,7 +46164,7 @@ $(pv_value)</tooltip>
             <name>Text Update_15</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer3Frac-RB</pv_name>
+            <pv_name>$(P)$(R)Timer3Frac-RB</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -46219,7 +46216,7 @@ $(pv_value)</tooltip>
             <name>Text Update_16</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer3Gen-Sts</pv_name>
+            <pv_name>$(P)$(R)Timer3Gen-Sts</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -46276,7 +46273,7 @@ $(pv_value)</tooltip>
             <name>Text Input_3</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer3Sec-SP</pv_name>
+            <pv_name>$(P)$(R)Timer3Sec-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -46328,7 +46325,7 @@ $(pv_value)</tooltip>
             <name>Text Update_17</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer3Sec-RB</pv_name>
+            <pv_name>$(P)$(R)Timer3Sec-RB</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -46389,7 +46386,7 @@ $(pv_value)</tooltip>
             <on_label>ON</on_label>
             <password></password>
             <push_action_index>0</push_action_index>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer3Enbl-Sel</pv_name>
+            <pv_name>$(P)$(R)Timer3Enbl-Sel</pv_name>
             <pv_value />
             <released_action_index>0</released_action_index>
             <rules />
@@ -46451,7 +46448,7 @@ $(pv_value)</tooltip>
               <color red="0" green="255" blue="0" />
             </on_color>
             <on_label>ON</on_label>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer3Enbl-Sts</pv_name>
+            <pv_name>$(P)$(R)Timer3Enbl-Sts</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -46533,7 +46530,7 @@ $(pv_value)</tooltip>
             </items>
             <items_from_pv>false</items_from_pv>
             <name>Combo_1</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer3Stim-Sel</pv_name>
+            <pv_name>$(P)$(R)Timer3Stim-Sel</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -46579,7 +46576,7 @@ $(pv_value)</tooltip>
             <name>Text Update_18</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer3Stim-Sts</pv_name>
+            <pv_name>$(P)$(R)Timer3Stim-Sts</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -46635,7 +46632,7 @@ $(pv_value)</tooltip>
             </items>
             <items_from_pv>false</items_from_pv>
             <name>Combo</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer3Over-Mon.SCAN</pv_name>
+            <pv_name>$(P)$(R)Timer3Over-Mon.SCAN</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -46860,7 +46857,7 @@ $(pv_value)</tooltip>
             <name>Text Update_1</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer4Count-RB</pv_name>
+            <pv_name>$(P)$(R)Timer4Count-RB</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -46917,7 +46914,7 @@ $(pv_value)</tooltip>
             <name>Text Input</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer4Count-SP</pv_name>
+            <pv_name>$(P)$(R)Timer4Count-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -46965,7 +46962,7 @@ $(pv_value)</tooltip>
             <height>29</height>
             <items_from_pv>true</items_from_pv>
             <name>Combo_1</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer4Gen-Sel</pv_name>
+            <pv_name>$(P)$(R)Timer4Gen-Sel</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -47011,7 +47008,7 @@ $(pv_value)</tooltip>
             <name>Text Update_13</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer4Over-Mon</pv_name>
+            <pv_name>$(P)$(R)Timer4Over-Mon</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -47072,7 +47069,7 @@ $(pv_value)</tooltip>
             <on_label>ON</on_label>
             <password></password>
             <push_action_index>0</push_action_index>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer4Clr-Cmd</pv_name>
+            <pv_name>$(P)$(R)Timer4Clr-Cmd</pv_name>
             <pv_value />
             <released_action_index>0</released_action_index>
             <rules />
@@ -47129,7 +47126,7 @@ $(pv_value)</tooltip>
             <name>Text Input_1</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer4Dly-SP</pv_name>
+            <pv_name>$(P)$(R)Timer4Dly-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -47181,7 +47178,7 @@ $(pv_value)</tooltip>
             <name>Text Update_14</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer4Dly-RB</pv_name>
+            <pv_name>$(P)$(R)Timer4Dly-RB</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -47238,7 +47235,7 @@ $(pv_value)</tooltip>
             <name>Text Input_2</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer4Frac-SP</pv_name>
+            <pv_name>$(P)$(R)Timer4Frac-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -47290,7 +47287,7 @@ $(pv_value)</tooltip>
             <name>Text Update_15</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer4Frac-RB</pv_name>
+            <pv_name>$(P)$(R)Timer4Frac-RB</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -47342,7 +47339,7 @@ $(pv_value)</tooltip>
             <name>Text Update_16</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer4Gen-Sts</pv_name>
+            <pv_name>$(P)$(R)Timer4Gen-Sts</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -47399,7 +47396,7 @@ $(pv_value)</tooltip>
             <name>Text Input_3</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer4Sec-SP</pv_name>
+            <pv_name>$(P)$(R)Timer4Sec-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -47451,7 +47448,7 @@ $(pv_value)</tooltip>
             <name>Text Update_17</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer4Sec-RB</pv_name>
+            <pv_name>$(P)$(R)Timer4Sec-RB</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -47512,7 +47509,7 @@ $(pv_value)</tooltip>
             <on_label>ON</on_label>
             <password></password>
             <push_action_index>0</push_action_index>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer4Enbl-Sel</pv_name>
+            <pv_name>$(P)$(R)Timer4Enbl-Sel</pv_name>
             <pv_value />
             <released_action_index>0</released_action_index>
             <rules />
@@ -47574,7 +47571,7 @@ $(pv_value)</tooltip>
               <color red="0" green="255" blue="0" />
             </on_color>
             <on_label>ON</on_label>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer4Enbl-Sts</pv_name>
+            <pv_name>$(P)$(R)Timer4Enbl-Sts</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -47656,7 +47653,7 @@ $(pv_value)</tooltip>
             </items>
             <items_from_pv>false</items_from_pv>
             <name>Combo_1</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer4Stim-Sel</pv_name>
+            <pv_name>$(P)$(R)Timer4Stim-Sel</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -47702,7 +47699,7 @@ $(pv_value)</tooltip>
             <name>Text Update_18</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer4Stim-Sts</pv_name>
+            <pv_name>$(P)$(R)Timer4Stim-Sts</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -47758,7 +47755,7 @@ $(pv_value)</tooltip>
             </items>
             <items_from_pv>false</items_from_pv>
             <name>Combo</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Timer4Over-Mon.SCAN</pv_name>
+            <pv_name>$(P)$(R)Timer4Over-Mon.SCAN</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -47878,7 +47875,7 @@ $(pv_value)</tooltip>
           <color red="192" green="192" blue="192" />
         </foreground_color>
         <height>139</height>
-        <lock_children>false</lock_children>
+        <lock_children>true</lock_children>
         <macros>
           <include_parent_macros>true</include_parent_macros>
         </macros>
@@ -48230,7 +48227,7 @@ $(pv_value)</tooltip>
             <on_label>ON</on_label>
             <password></password>
             <push_action_index>0</push_action_index>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TMStart-Cmd</pv_name>
+            <pv_name>$(P)$(R)TMStart-Cmd</pv_name>
             <pv_value />
             <released_action_index>0</released_action_index>
             <rules />
@@ -48430,7 +48427,7 @@ $(pv_value)</tooltip>
             <on_label>ON</on_label>
             <password></password>
             <push_action_index>0</push_action_index>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TMAbort-Cmd</pv_name>
+            <pv_name>$(P)$(R)TMAbort-Cmd</pv_name>
             <pv_value />
             <released_action_index>0</released_action_index>
             <rules />
@@ -48621,7 +48618,7 @@ $(pv_value)</tooltip>
             <name>Text Update</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TM-Mon</pv_name>
+            <pv_name>$(P)$(R)TM-Mon</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -48677,7 +48674,7 @@ $(pv_value)</tooltip>
             </items>
             <items_from_pv>false</items_from_pv>
             <name>Combo</name>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TM-Mon.SCAN</pv_name>
+            <pv_name>$(P)$(R)TM-Mon.SCAN</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -48756,7 +48753,7 @@ $(pv_value)</tooltip>
           <color red="192" green="192" blue="192" />
         </foreground_color>
         <height>265</height>
-        <lock_children>false</lock_children>
+        <lock_children>true</lock_children>
         <macros>
           <include_parent_macros>true</include_parent_macros>
         </macros>
@@ -49010,7 +49007,7 @@ $(pv_value)</tooltip>
             <on_label>ON</on_label>
             <password></password>
             <push_action_index>0</push_action_index>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TMBlockList-Mon.PROC</pv_name>
+            <pv_name>$(P)$(R)TMBlockList-Mon.PROC</pv_name>
             <pv_value />
             <released_action_index>0</released_action_index>
             <rules />
@@ -49299,7 +49296,7 @@ $(pv_value)</tooltip>
             <name>Text Update</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TMBlockList-Mon</pv_name>
+            <pv_name>$(P)$(R)TMBlockList-Mon</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -49499,7 +49496,7 @@ $(pv_value)</tooltip>
             <on_label>ON</on_label>
             <password></password>
             <push_action_index>0</push_action_index>
-            <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TMClear-Cmd</pv_name>
+            <pv_name>$(P)$(R)TMClear-Cmd</pv_name>
             <pv_value />
             <released_action_index>0</released_action_index>
             <rules />
@@ -49560,7 +49557,7 @@ $(pv_value)</tooltip>
       <show_scrollbar>true</show_scrollbar>
       <tooltip></tooltip>
       <transparent>true</transparent>
-      <visible>false</visible>
+      <visible>true</visible>
       <widget_type>Grouping Container</widget_type>
       <width>725</width>
       <wuid>6ffc2fbb:15b5e7181fb:-7ff2</wuid>
@@ -49755,7 +49752,7 @@ $(pv_value)</tooltip>
         <name>Text Input</name>
         <precision>0</precision>
         <precision_from_pv>true</precision_from_pv>
-        <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Login-SP</pv_name>
+        <pv_name>$(P)$(R)Login-SP</pv_name>
         <pv_value />
         <rotation_angle>0.0</rotation_angle>
         <rules />
@@ -49856,7 +49853,7 @@ $(pv_value)</tooltip>
         <on_label>ON</on_label>
         <password></password>
         <push_action_index>0</push_action_index>
-        <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Logout-Cmd</pv_name>
+        <pv_name>$(P)$(R)Logout-Cmd</pv_name>
         <pv_value />
         <released_action_index>0</released_action_index>
         <rules />
@@ -50251,7 +50248,7 @@ $(pv_value)</tooltip>
           <on_label>ON</on_label>
           <password></password>
           <push_action_index>0</push_action_index>
-          <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ClearEvLog-Cmd</pv_name>
+          <pv_name>$(P)$(R)ClearEvLog-Cmd</pv_name>
           <pv_value />
           <released_action_index>0</released_action_index>
           <rules />
@@ -50442,7 +50439,7 @@ $(pv_value)</tooltip>
           <name>Text Update</name>
           <precision>0</precision>
           <precision_from_pv>true</precision_from_pv>
-          <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):EvLogCount-Mon</pv_name>
+          <pv_name>$(P)$(R)EvLogCount-Mon</pv_name>
           <pv_value />
           <rotation_angle>0.0</rotation_angle>
           <rules />
@@ -50498,7 +50495,7 @@ $(pv_value)</tooltip>
           </items>
           <items_from_pv>false</items_from_pv>
           <name>Combo</name>
-          <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):EvLogCount-Mon.SCAN</pv_name>
+          <pv_name>$(P)$(R)EvLogCount-Mon.SCAN</pv_name>
           <pv_value />
           <rules />
           <scale_options>
@@ -50594,7 +50591,7 @@ $(pv_value)</tooltip>
         <on_label>ON</on_label>
         <password></password>
         <push_action_index>0</push_action_index>
-        <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):EvLogNext-Mon.PROC</pv_name>
+        <pv_name>$(P)$(R)EvLogNext-Mon.PROC</pv_name>
         <pv_value />
         <released_action_index>0</released_action_index>
         <rules />
@@ -50686,7 +50683,7 @@ $(pv_value)</tooltip>
         <name>Text Update</name>
         <precision>0</precision>
         <precision_from_pv>true</precision_from_pv>
-        <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):EvLogNext-Mon</pv_name>
+        <pv_name>$(P)$(R)EvLogNext-Mon</pv_name>
         <pv_value />
         <rotation_angle>0.0</rotation_angle>
         <rules />
@@ -51037,7 +51034,7 @@ $(pv_value)</tooltip>
           <name>Text Input</name>
           <precision>0</precision>
           <precision_from_pv>true</precision_from_pv>
-          <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):PassNew-SP</pv_name>
+          <pv_name>$(P)$(R)PassNew-SP</pv_name>
           <pv_value />
           <rotation_angle>0.0</rotation_angle>
           <rules />
@@ -51237,7 +51234,7 @@ $(pv_value)</tooltip>
           <color red="192" green="192" blue="192" />
         </foreground_color>
         <height>103</height>
-        <lock_children>false</lock_children>
+        <lock_children>true</lock_children>
         <macros>
           <include_parent_macros>true</include_parent_macros>
         </macros>
@@ -51384,7 +51381,7 @@ $(pv_value)</tooltip>
           <name>Text Update</name>
           <precision>0</precision>
           <precision_from_pv>true</precision_from_pv>
-          <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LineFR-Mon</pv_name>
+          <pv_name>$(P)$(R)LineFreq-Mon</pv_name>
           <pv_value />
           <rotation_angle>0.0</rotation_angle>
           <rules />
@@ -51480,7 +51477,7 @@ $(pv_value)</tooltip>
           </items>
           <items_from_pv>false</items_from_pv>
           <name>Combo</name>
-          <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LineFR-Mon.SCAN</pv_name>
+          <pv_name>$(P)$(R)LineFreq-Mon.SCAN</pv_name>
           <pv_value />
           <rules />
           <scale_options>
@@ -51665,7 +51662,7 @@ $(pv_value)</tooltip>
           <name>Text Update</name>
           <precision>0</precision>
           <precision_from_pv>true</precision_from_pv>
-          <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Temp-Mon</pv_name>
+          <pv_name>$(P)$(R)Temp-Mon</pv_name>
           <pv_value />
           <rotation_angle>0.0</rotation_angle>
           <rules />
@@ -51761,7 +51758,7 @@ $(pv_value)</tooltip>
           </items>
           <items_from_pv>false</items_from_pv>
           <name>Combo</name>
-          <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Temp-Mon.SCAN</pv_name>
+          <pv_name>$(P)$(R)Temp-Mon.SCAN</pv_name>
           <pv_value />
           <rules />
           <scale_options>
@@ -51942,7 +51939,7 @@ $(pv_value)</tooltip>
           <height>29</height>
           <items_from_pv>true</items_from_pv>
           <name>Combo</name>
-          <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Access-Sel</pv_name>
+          <pv_name>$(P)$(R)Access-Sel</pv_name>
           <pv_value />
           <rules />
           <scale_options>
@@ -51988,7 +51985,7 @@ $(pv_value)</tooltip>
           <name>Text Update</name>
           <precision>0</precision>
           <precision_from_pv>true</precision_from_pv>
-          <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Access-Sts</pv_name>
+          <pv_name>$(P)$(R)Access-Sts</pv_name>
           <pv_value />
           <rotation_angle>0.0</rotation_angle>
           <rules />
@@ -52184,7 +52181,7 @@ $(pv_value)</tooltip>
           <name>Text Input</name>
           <precision>0</precision>
           <precision_from_pv>true</precision_from_pv>
-          <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Time-SP</pv_name>
+          <pv_name>$(P)$(R)Time-SP</pv_name>
           <pv_value />
           <rotation_angle>0.0</rotation_angle>
           <rules />
@@ -52375,7 +52372,7 @@ $(pv_value)</tooltip>
           <name>Text Update_1</name>
           <precision>0</precision>
           <precision_from_pv>true</precision_from_pv>
-          <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Time-Mon</pv_name>
+          <pv_name>$(P)$(R)Time-Mon</pv_name>
           <pv_value />
           <rotation_angle>0.0</rotation_angle>
           <rules />
@@ -52471,7 +52468,7 @@ $(pv_value)</tooltip>
           </items>
           <items_from_pv>false</items_from_pv>
           <name>Combo</name>
-          <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Time-Mon.SCAN</pv_name>
+          <pv_name>$(P)$(R)Time-Mon.SCAN</pv_name>
           <pv_value />
           <rules />
           <scale_options>
@@ -52610,7 +52607,7 @@ $(pv_value)</tooltip>
     <on_label>ON</on_label>
     <password></password>
     <push_action_index>0</push_action_index>
-    <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Reset-Cmd</pv_name>
+    <pv_name>$(P)$(R)Reset-Cmd</pv_name>
     <pv_value />
     <released_action_index>0</released_action_index>
     <rules />
@@ -52711,7 +52708,7 @@ $(pv_value)</tooltip>
     <on_label>ON</on_label>
     <password></password>
     <push_action_index>0</push_action_index>
-    <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Upload-Cmd</pv_name>
+    <pv_name>$(P)$(R)Upload-Cmd</pv_name>
     <pv_value />
     <released_action_index>0</released_action_index>
     <rules />
@@ -52813,7 +52810,7 @@ $(pv_value)</tooltip>
       <color red="0" green="255" blue="0" />
     </on_color>
     <on_label>ON</on_label>
-    <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Network-Mon</pv_name>
+    <pv_name>$(P)$(R)Network-Mon</pv_name>
     <pv_value />
     <rules />
     <scale_options>
@@ -52981,7 +52978,7 @@ $(pv_value)</tooltip>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
     <scripts />
-    <text>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx)</text>
+    <text>$(P)$(R)</text>
     <tooltip></tooltip>
     <transparent>true</transparent>
     <vertical_alignment>1</vertical_alignment>

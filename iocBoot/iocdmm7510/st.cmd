@@ -47,7 +47,7 @@ ${DMM1_line}drvAsynIPPortConfigure("DMM1", "10.0.18.71:5025 TCP",0,0,0)
 ## Load record instances
 
 # DMM
-${DMM1_line}dbLoadRecords("${TOP}/db/dmm7510.db", "Sec=${DMSEC}, Sub=${DMSUB}, Dis=${DMDIS}, Dev=${DMDEV}, Idx=1, PORT=DMM1")
+${DMM1_line}dbLoadRecords("${TOP}/db/dmm7510.db", "P=${DMSEC}-${DMSUB}:, R=${DMDIS}-${DMDEV}1:, PORT=DMM1")
 ${DCCT1_line}dbLoadRecords("${TOP}/db/dcct.db", "Sec=${DCSEC}, Sub=${DCSUB}, Dis=${DCDIS}, Dev=${DCDEV}, Idx=1, Instrument=${DMSEC}-${DMSUB}:${DMDIS}-${DMDEV}1")
 ${ICT1_line}dbLoadRecords("${TOP}/db/ict.db", "Sec=${ICSEC}, Sub=${ICSUB}, Dis=${ICDIS}, Dev=${ICDEV}, Idx=1, Instrument=${DMSEC}-${DMSUB}:${DMDIS}-${DMDEV}1")
 
