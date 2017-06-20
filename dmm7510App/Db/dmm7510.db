@@ -5694,6 +5694,25 @@ record(longin, "$(P)$(R)EvLogCount-Mon"){
   field(INP, "@dmm7510.proto sys_cntlog_get $(PORT)")
 }
 
+# Cause EvLogNext-Mon to process and get an event
+record(bo, "$(P)$(R)EvLogGetNext-Cmd"){
+  field(DESC, "Cmd to process the event log monitor")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(HIGH, "0.5")
+  field(FLNK, "$(P)$(R)EvLogNextCalc")
+}
+
+# Calc to prevent event fetching when command is set ot zero
+record(calcout, "$(P)$(R)EvLogNextCalc"){
+  field(ASG, "Reserved")
+  field(DESC, "Event log monitor processing calc")
+  field(INPA, "$(P)$(R)EvLogGetNext-Cmd.VAL")
+  field(CALC, "A")
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(P)$(R)EvLogNext-Mon.PROC")
+}
+
 # Return oldest unread message from the event log
 record(waveform, "$(P)$(R)EvLogNext-Mon"){
   field(DESC, "Acquire oldest unread msg from event log")
@@ -5859,9 +5878,12 @@ record(bi, "$(P)$(R)Network-Mon"){
 #=============== [All RB/Sts records related to Function-Sts]
 #  UpFncCalc1
 #  UpFncCalc2
+#  UpFncCalc3
 #  UploadFnc1
 # (fanout flnks)
 #  UploadFnc2
+# (fanout flnks)
+#  UploadFnc3
 # (fanout flnks)
 
 record(fanout, "$(P)$(R)UploadAll1"){

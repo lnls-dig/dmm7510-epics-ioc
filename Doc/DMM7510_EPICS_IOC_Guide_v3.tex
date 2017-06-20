@@ -3092,6 +3092,19 @@ count is not changed. \\
 
 		\begin{tabular}{N}
 			\hline
+			\bfseries EvLogGetNext-Cmd\label{pv:evloggetnext-mon} \\ \hline
+			\emph{Event Log Get Next Event Message Command} \\
+			bool\{\begin{itemize}[noitemsep]
+				\small
+				\item[] OFF
+				\item[] ON
+			\end{itemize}\} \\
+			Description: When set to 1 or \emph{ON}, this PV process \emph{EvLogNext-Mon}, causing it to read the oldest message in the event log. This PV is useful in user interfaces. \\
+			TSP command: No command
+		\end{tabular}
+
+		\begin{tabular}{N}
+			\hline
 			\bfseries EvLogNext-Mon\label{pv:evlognext-mon} \\ \hline
 			\emph{Event Log Next Event Message Monitor} \\
 			char[250] \\

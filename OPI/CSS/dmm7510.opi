@@ -644,7 +644,7 @@ $(pv_value)</tooltip>
           <show_scrollbar>true</show_scrollbar>
           <tooltip></tooltip>
           <transparent>true</transparent>
-          <visible>false</visible>
+          <visible>true</visible>
           <widget_type>Grouping Container</widget_type>
           <width>665</width>
           <wuid>29dbf79c:15b6217ca6c:-784f</wuid>
@@ -9327,7 +9327,7 @@ $(pv_value)</tooltip>
           <show_scrollbar>true</show_scrollbar>
           <tooltip></tooltip>
           <transparent>true</transparent>
-          <visible>true</visible>
+          <visible>false</visible>
           <widget_type>Grouping Container</widget_type>
           <width>665</width>
           <wuid>29dbf79c:15b6217ca6c:-784e</wuid>
@@ -20934,7 +20934,7 @@ $(pv_value)</tooltip>
               <show_scrollbar>true</show_scrollbar>
               <tooltip></tooltip>
               <transparent>true</transparent>
-              <visible>false</visible>
+              <visible>true</visible>
               <widget_type>Grouping Container</widget_type>
               <width>671</width>
               <wuid>1992a7cf:15b8c1435cb:-693f</wuid>
@@ -23305,7 +23305,7 @@ $(pv_value)</tooltip>
               <show_scrollbar>true</show_scrollbar>
               <tooltip></tooltip>
               <transparent>true</transparent>
-              <visible>true</visible>
+              <visible>false</visible>
               <widget_type>Grouping Container</widget_type>
               <width>671</width>
               <wuid>1992a7cf:15b8c1435cb:-6910</wuid>
@@ -28569,7 +28569,7 @@ $(pv_value)</tooltip>
           <show_scrollbar>true</show_scrollbar>
           <tooltip></tooltip>
           <transparent>true</transparent>
-          <visible>false</visible>
+          <visible>true</visible>
           <widget_type>Grouping Container</widget_type>
           <width>659</width>
           <wuid>10ea4f19:15bab943e72:-5210</wuid>
@@ -32099,7 +32099,7 @@ $(pv_value)</tooltip>
           <show_scrollbar>true</show_scrollbar>
           <tooltip></tooltip>
           <transparent>true</transparent>
-          <visible>true</visible>
+          <visible>false</visible>
           <widget_type>Grouping Container</widget_type>
           <width>659</width>
           <wuid>10ea4f19:15bab943e72:-51f1</wuid>
@@ -39236,7 +39236,7 @@ $(pv_value)</tooltip>
           <show_scrollbar>true</show_scrollbar>
           <tooltip></tooltip>
           <transparent>true</transparent>
-          <visible>false</visible>
+          <visible>true</visible>
           <widget_type>Grouping Container</widget_type>
           <width>617</width>
           <wuid>10ea4f19:15bab943e72:-2263</wuid>
@@ -41075,7 +41075,7 @@ $(pv_value)</tooltip>
           <show_scrollbar>true</show_scrollbar>
           <tooltip></tooltip>
           <transparent>true</transparent>
-          <visible>true</visible>
+          <visible>false</visible>
           <widget_type>Grouping Container</widget_type>
           <width>617</width>
           <wuid>10ea4f19:15bab943e72:-2256</wuid>
@@ -50591,7 +50591,7 @@ $(pv_value)</tooltip>
         <on_label>ON</on_label>
         <password></password>
         <push_action_index>0</push_action_index>
-        <pv_name>$(P)$(R)EvLogNext-Mon.PROC</pv_name>
+        <pv_name>$(P)$(R)EvLogGetNext-Cmd</pv_name>
         <pv_value />
         <released_action_index>0</released_action_index>
         <rules />
@@ -50605,7 +50605,7 @@ $(pv_value)</tooltip>
         <show_confirm_dialog>0</show_confirm_dialog>
         <show_led>true</show_led>
         <square_button>false</square_button>
-        <toggle_button>false</toggle_button>
+        <toggle_button>true</toggle_button>
         <tooltip>$(pv_name)
 $(pv_value)</tooltip>
         <visible>true</visible>
