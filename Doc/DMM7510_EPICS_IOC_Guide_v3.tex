@@ -14,6 +14,7 @@
 \usepackage{placeins}
 \usepackage{siunitx} % SI units package
 \usepackage{enumitem} % allows removing space between list items
+\usepackage{xcolor,colortbl} % makes it possible to change table lines color
 
 % Define graphics path
 \graphicspath{{figs/}}
@@ -122,6 +123,30 @@
 
 %--- Section: PV List ---
 \section{PV List}
+
+		\paragraph{} Each PV information block starts with the PV Channel Access name in bold text, followed by a longer, more descriptive name. The PV input data type comes next, followed by the limits or options, when relevant. A description of the PV function is then provided. When available, the associated multimeter command (TSP command) is listed. For PVs that only work when certain measure functions are selected, a table indicates the set of allowed functions at the end of the block.
+
+		\newcommand{\FuncTableBorderColor}{gray!40} % define function table border color
+		\newcommand{\nofunc}{\cellcolor{gray!20}\color{gray}} % define function table "not allowed function" cell color
+		\newcommand{\yesfunc}{\cellcolor{white}\color{black}} % define function table "allowed function" cell color
+
+		\bigskip
+		\begin{tabular}{N}
+			\hline
+			\bfseries PVExample \\ \hline
+			\emph{PV Name Example} \\
+			Data type: The PV data type \\
+			Description: Description of the PV function. \\
+			TSP command: Shows the related multimeter command when available. \\
+			Functions: (In this example, the PV affects only the digitize current function.) \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
+		\end{tabular}
 
 	% TABLE: Measure/Digitize Function
 	\subsection{Measure/Digitize Function}\label{pvgroup:function}
@@ -240,7 +265,15 @@
 			Data type: float \\
 			unit: seconds \\
 			Description: This PV determines the aperture setting for the selected measurement function. The aperture sets the amount of time the ADC takes when making a measurement, which is the integration period for the selected measurement function. \\
-			TSP command: dmm.measure.aperture
+			TSP command: dmm.measure.aperture \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \nofunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \nofunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -250,7 +283,15 @@
 			Data type: float \\
 			unit: second \\
 			Description: This PV shows the aperture setting for the selected measurement function. \\
-			TSP command: dmm.measure.aperture
+			TSP command: dmm.measure.aperture \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \nofunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \nofunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -259,7 +300,15 @@
 			\emph{Measure Number of Power Line Cycles Set Point} \\
 			Data type: float \\
 			Description: This PV sets the time that the input signal is measured for the selected function. The amount of time is specified as the number of power line cycles (NPLCs). Each PLC for \SI{60}{\hertz} is \SI{16.67}{\milli\second} (1/60) and each PLC for \SI{50}{\hertz} is \SI{20}{\milli\second} (1/50). \\
-			TSP command: dmm.measure.nplc
+			TSP command: dmm.measure.nplc \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}		
@@ -268,7 +317,15 @@
 			\emph{Measure Number of Power Line Cycles Read Back} \\
 			Data type: float \\
 			Description: This PV shows the time that the input signal is measured for the selected function, as the number of power line cycles. \\
-			TSP command: dmm.measure.nplc
+			TSP command: dmm.measure.nplc \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -279,7 +336,15 @@
 			Min=1 \\
 			Max=1000000 \\
 			Description: This PV sets the number of measurements to make when a measurement is requested. This PV sets the count for all measure functions. \\
-			TSP command: dmm.measure.count
+			TSP command: dmm.measure.count \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -288,7 +353,15 @@
 			\emph{Measure Count Read Back} \\
 			Data type: long \\
 			Description: This PV shows the number of measurements to make when a measurement is requested. \\
-			TSP command: dmm.measure.count
+			TSP command: dmm.measure.count \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -297,7 +370,15 @@
 			\emph{Measure Range Set Point} \\
 			Data type: float \\
 			Description: This PV determines the positive full-scale measure range. The instrument selects the closest fixed range that is large enough to measure the entered number.\\
-			TSP command: dmm.measure.range
+			TSP command: dmm.measure.range \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \nofunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -306,7 +387,15 @@
 			\emph{Measure Range Read Back} \\
 			Data type: float \\
 			Description: This PV shows the selected positive full-scale measure range. \\
-			TSP command: dmm.measure.range
+			TSP command: dmm.measure.range \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \nofunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -319,7 +408,15 @@
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV determines if the measurement range is set manually or automatically for the selected function. When auto range is enabled, the range increases at 120 percent of range and decreases occurs when the reading is \textless 10 percent of nominal range. \\
-			TSP command: dmm.measure.autorange
+			TSP command: dmm.measure.autorange \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \nofunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -332,7 +429,15 @@
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV shows if the measurement range is set manually or automatically for the selected function.\\
-			TSP command: dmm.measure.autorange
+			TSP command: dmm.measure.autorange \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \nofunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -345,7 +450,15 @@
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables automatic updates to the internal reference measurements (autozero) of the instrument. To ensure the accuracy of readings, the instrument must periodically get new measurements of its internal ground and voltage reference. The time interval between updates to these reference measurements is determined by the integration aperture that is being used for measurements. The time to make the reference measurements is in addition to the normal measurement time. If timing is critical, you can disable autozero to avoid this time penalty. When autozero is set to off, the instrument may gradually drift out of specification. For AC voltage and AC current measurements where the detector bandwidth is set to 3 Hz or 30 Hz, autozero is set on and cannot be changed. \\
-			TSP command: dmm.measure.autozero.enable
+			TSP command: dmm.measure.autozero.enable \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \nofunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -358,7 +471,15 @@
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV shows if automatic updates to the internal reference measurements (autozero) of the instrument are enabled. \\
-			TSP command: dmm.measure.autozero.enable
+			TSP command: dmm.measure.autozero.enable \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \nofunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -371,7 +492,15 @@
 				\item[] ON
 			\end{itemize}\} \\
 			Description: Sending 1 or \emph{ON} causes the instrument to refresh the reference and zero measurements once. If the NPLC setting is less than 0.2 PLC, sending autozero once can result in delay of more than a second. \\
-			TSP command: dmm.measure.autozero.once()
+			TSP command: dmm.measure.autozero.once() \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \nofunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -384,7 +513,15 @@
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables the automatic delay that occurs before each measurement. \\
-			TSP command: dmm.measure.autodelay
+			TSP command: dmm.measure.autodelay \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -397,7 +534,15 @@
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV shows if the automatic delay that occurs before each measurement is enabled. \\
-			TSP command: dmm.measure.autodelay
+			TSP command: dmm.measure.autodelay \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -410,7 +555,15 @@
 				\item[] 10MOhm
 			\end{itemize}\} \\
 			Description: This PV determines when the \SI{10}{\mega\ohm} input divider is enabled for the seslected measure function. Choosing automatic input impedance is a balance between achieving low DC voltage noise on the \SI{100}{\milli\volt} and \SI{1}{\volt} ranges and optimizing measurement noise due to charge injection. The Model DMM7510 is optimized for low noise and charge injection when the DUT has less than \SI{100}{\kilo\ohm} input resistance. When the DUT input impedance is more than \SI{100}{\kilo\ohm}, selecting an input impedance of \SI{10}{\mega\ohm} optimizes the measurement for lowest noise on the \SI{100}{\milli\volt} and \SI{1}{\volt} ranges. For the \SI{10}{\volt} to \SI{1000}{\volt} ranges, both input impedance settings achieve low charge injection. \\
-			TSP command: dmm.measure.inputimpedance
+			TSP command: dmm.measure.inputimpedance \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -423,7 +576,15 @@
 				\item[] 10MOhm
 			\end{itemize}\} \\
 			Description: This PV shows when the \SI{10}{\mega\ohm} input divider is enabled for the selected measure function. \\
-			TSP command: dmm.measure.inputimpedance
+			TSP command: dmm.measure.inputimpedance \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -436,7 +597,15 @@
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV determines if line synchronization is used during the measurement. When line synchronization is enabled, measurements are initiated at the first positive-going zero crossing of the power line cycle after the trigger. \\
-			TSP command: dmm.measure.linesync
+			TSP command: dmm.measure.linesync \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -449,7 +618,15 @@
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV shows if line synchronization is used during the measurement. \\
-			TSP command: dmm.measure.linesync
+			TSP command: dmm.measure.linesync \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -477,7 +654,15 @@
 				\item[] EVENT\_EXTERNAL
 			\end{itemize}\} \\
 			Description: This PV sets the instrument to make a measurement when it detects the specified trigger event. A measure function must be active before setting this PV. The measurement is made for the active measure function. If a digitize function is active, an error is generated. If the count is set to more than 1, the first reading is initialized by this trigger. Subsequent readings occur as rapidly as the instrument can make them. If a trigger occurs during the group measurement, the trigger is latched and another group of measurements with the same count will be triggered after the current group completes. \\
-			TSP command: dmm.trigger.measure.stimulus
+			TSP command: dmm.trigger.measure.stimulus \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -505,7 +690,15 @@
 				\item[] EVENT\_EXTERNAL
 			\end{itemize}\} \\
 			Description: This PV shows the instrument configured measurement trigger event for the selected measure function. \\
-			TSP command: dmm.trigger.measure.stimulus
+			TSP command: dmm.trigger.measure.stimulus \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -520,7 +713,15 @@
 				\item[] Window
 			\end{itemize}\} \\
 			Description: This PV configures the type of signal behavior that can generate an analog trigger event. When edge is selected, the analog trigger occurs when the signal crosses a certain level. You also specify if the analog trigger occurs on the rising or falling edge of the signal. When pulse is selected, the analog trigger occurs when a pulse passes through the specified level and meets the constraint that you set on its width. You also specify the polarity of the signal (above or below the trigger level). When window is selected, the analog trigger occurs when the signal enters or exits the window defined by the low and high signal levels. \\
-			TSP command: dmm.digitize.analogtrigger.mode
+			TSP command: dmm.digitize.analogtrigger.mode \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -535,7 +736,15 @@
 				\item[] Window
 			\end{itemize}\} \\
 			Description: This PV shows the configured type of signal behavior that can generate an analog trigger event. \\
-			TSP command: dmm.digitize.analogtrigger.mode
+			TSP command: dmm.digitize.analogtrigger.mode \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -549,7 +758,15 @@
 			\end{itemize}\} \\
 			Description: This PV defines the slope of the analog trigger edge. This is only available when the analog trigger mode is set to edge. Rising causes an analog trigger event when the analog signal trends from below the analog signal
 level to above the level. Falling causes an analog trigger event when the signal trends from above to below the level. \\
-			TSP command: dmm.digitize.analogtrigger.edge.slope
+			TSP command: dmm.digitize.analogtrigger.edge.slope \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -562,7 +779,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Falling
 			\end{itemize}\} \\
 			Description: This PV shows the slope of the analog trigger edge. \\
-			TSP command: dmm.digitize.analogtrigger.edge.slope
+			TSP command: dmm.digitize.analogtrigger.edge.slope \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -571,7 +796,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Analog Trigger Edge Level Set Point} \\
 			Data type: float \\
 			Description: This PV defines the signal level that generates the analog trigger event for the edge trigger mode. This attribute is only available when the analog trigger mode is set to edge. The edge level can be set to any value in the active measurement range. See the Model DMM7510 specifications for more information on the resolution and accuracy of the analog trigger. To use the analog trigger with the measure functions, a range must be set (you cannot use autorange) and autozero must be disabled. \\
-			TSP command: dmm.digitize.analogtrigger.edge.level
+			TSP command: dmm.digitize.analogtrigger.edge.level \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -580,7 +813,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Analog Trigger Edge Level Read Back} \\
 			Data type: float \\
 			Description: This PV shows the signal level that generates the analog trigger event for the edge trigger mode. \\
-			TSP command: dmm.digitize.analogtrigger.edge.level
+			TSP command: dmm.digitize.analogtrigger.edge.level \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -593,7 +834,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables high frequency rejection on analog trigger events. High frequency rejection avoids the false triggers by the requiring the trigger event to be sustained for at least \SI{64}{\micro\second}. This behavior is similar to a low pass filter effect with a \SI{4}{\kilo\hertz} \SI{3}{\decibel} bandwidth. \\
-			TSP command: dmm.measure.analogtrigger.highfreqreject
+			TSP command: dmm.measure.analogtrigger.highfreqreject \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -606,7 +855,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV shows if high frequency rejection on analog trigger events is enabled. \\
-			TSP command: dmm.measure.analogtrigger.highfreqreject
+			TSP command: dmm.measure.analogtrigger.highfreqreject \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -619,7 +876,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Less
 			\end{itemize}\} \\
 			Description: This PV defines if the pulse must be greater than or less than the pulse width before an analog trigger is generated. Only available when the analog trigger mode is set to pulse. \\
-			TSP command: dmm.measure.analogtrigger.pulse.condition
+			TSP command: dmm.measure.analogtrigger.pulse.condition \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -632,7 +897,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Less
 			\end{itemize}\} \\
 			Description: This PV shows if the pulse must be greater than or less than the pulse width before an analog trigger is generated. \\
-			TSP command: dmm.measure.analogtrigger.pulse.condition
+			TSP command: dmm.measure.analogtrigger.pulse.condition \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -645,7 +918,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Below
 			\end{itemize}\} \\
 			Description: This PV defines the polarity of the pulse that generates an analog trigger event. Only used when analog trigger mode is pulse. Determines if the analog trigger occurs when the pulse is above the defined signal level or below the defined signal level. \\
-			TSP command: dmm.measure.analogtrigger.pulse.polarity
+			TSP command: dmm.measure.analogtrigger.pulse.polarity \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -658,7 +939,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Below
 			\end{itemize}\} \\
 			Description: This PV shows the polarity of the pulse that generates an analog trigger event. \\
-			TSP command: dmm.measure.analogtrigger.pulse.polarity
+			TSP command: dmm.measure.analogtrigger.pulse.polarity \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -667,7 +956,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Analog Trigger Pulse Level Set Point} \\
 			Data type: float \\
 			Description: This PV defines the pulse level that generates an analog trigger event. Only available when the analog trigger mode is set to pulse. \\
-			TSP command: dmm.measure.analogtrigger.pulse.level
+			TSP command: dmm.measure.analogtrigger.pulse.level \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -676,7 +973,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Analog Trigger Pulse Level Read Back} \\
 			Data type: float \\
 			Description: This PV shows the pulse level that generates an analog trigger event. \\
-			TSP command: dmm.measure.analogtrigger.pulse.level
+			TSP command: dmm.measure.analogtrigger.pulse.level \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -688,7 +993,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Max=0.04 \\
 			unit: second \\
 			Description: This PV defines the threshold value for the pulse width. This option is only available when the analog trigger mode is set to pulse. This option sets either the minimum or maximum pulse width that generates an analog trigger event. The value of pulse condition determines whether this value is interpreted as the minimum or maximum pulse width. \\
-			TSP command: dmm.measure.analogtrigger.pulse.width
+			TSP command: dmm.measure.analogtrigger.pulse.width \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -698,7 +1011,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: float \\
 			unit: second \\
 			Description: This PV defines the threshold value for the pulse width. \\
-			TSP command: dmm.measure.analogtrigger.pulse.width
+			TSP command: dmm.measure.analogtrigger.pulse.width \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -707,7 +1028,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Analog Trigger Window High Level Set Point} \\
 			Data type: float \\
 			Description: This PV defines the upper boundary of the analog trigger window. Only available when the analog trigger mode is set to window. The high level must be greater than the low level. \\
-			TSP command: dmm.measure.analogtrigger.window.levelhigh
+			TSP command: dmm.measure.analogtrigger.window.levelhigh \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -716,7 +1045,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Analog Trigger Window High Level Read Back} \\
 			Data type: float \\
 			Description: This PV shows the upper boundary of the analog trigger window. \\
-			TSP command: dmm.measure.analogtrigger.window.levelhigh
+			TSP command: dmm.measure.analogtrigger.window.levelhigh \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -725,7 +1062,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Analog Trigger Window Low Level Set Point} \\
 			Data type: float \\
 			Description: This PV defines the lower boundary of the analog trigger window. Only available when the analog trigger mode is set to window. The low level must be less than the high level. \\
-			TSP command: dmm.measure.analogtrigger.window.levellow
+			TSP command: dmm.measure.analogtrigger.window.levellow \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -734,7 +1079,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Analog Trigger Window Low Level Read Back} \\
 			Data type: float \\
 			Description: This PV shows the lower boundary of the analog trigger window. \\
-			TSP command: dmm.measure.analogtrigger.window.levellow
+			TSP command: dmm.measure.analogtrigger.window.levellow \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -747,7 +1100,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Leave
 			\end{itemize}\} \\
 			Description: This PV defines if the analog trigger occurs when the signal enters or leaves the defined upper and lower analog signal level boundaries. This is only available when the analog trigger mode is set to window. \\
-			TSP command: dmm.measure.analogtrigger.window.direction
+			TSP command: dmm.measure.analogtrigger.window.direction \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -760,7 +1121,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Leave
 			\end{itemize}\} \\
 			Description: This PV shows if the analog trigger occurs when the signal enters or leaves the defined upper and lower analog signal level boundaries. \\
-			TSP command: dmm.measure.analogtrigger.window.direction
+			TSP command: dmm.measure.analogtrigger.window.direction \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -773,7 +1142,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables the application of a relative offset value to the measurement for the selected measure function. \\
-			TSP command: dmm.measure.rel.enable
+			TSP command: dmm.measure.rel.enable \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -786,7 +1163,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables the application of a relative offset value to the measurement for the selected measure function. When relative measurements are enabled, all subsequent measured readings are offset by the relative offset value. You can enter a relative offset value or have the instrument acquire a relative offset value. Each returned measured relative reading is the result of the following calculation: $$\text{Displayed reading} = \emph{Actual measured reading} - \emph{Relative offset value}$$ \\
-			TSP command: dmm.measure.rel.enable
+			TSP command: dmm.measure.rel.enable \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -799,7 +1184,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: When set to 1 or \emph{ON}, this function acquires a measurement and stores it as the relative offset value. When the relative offset is acquired, the instrument does not apply any math, limit test, or filter settings to the measurement, even if they are set. You must change to the function for which you want to acquire a value before sending the command. The instrument must have relative offset enabled to use the acquired relative offset value. \\
-			TSP command: dmm.measure.rel.acquire()
+			TSP command: dmm.measure.rel.acquire() \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -808,7 +1201,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Relative Offset Level Set Point} \\
 			Data type: float \\
 			Description: This PV sets the relative offset value for the selected measure function. When relative offset is enabled, all subsequent measured readings are offset by the value that is set for this PV. You can set this value, or have the instrument acquire a value. \\
-			TSP command: dmm.measure.rel.level
+			TSP command: dmm.measure.rel.level \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \nofunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -817,7 +1218,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Relative Offset Level Read Back} \\
 			Data type: float \\
 			Description: This PV shows the relative offset value for the selected measure function. \\
-			TSP command: dmm.measure.rel.level
+			TSP command: dmm.measure.rel.level \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \nofunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -830,7 +1239,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables math operations on measurements for the selected measurement function. When this PV is set to \emph{ON}, the math operation specified is performed before completing a measurement. \\
-			TSP command: dmm.measure.math.enable
+			TSP command: dmm.measure.math.enable \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -843,7 +1260,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV shows if math operations on measurements for the selected measurement function are enabled. \\
-			TSP command: dmm.measure.math.enable
+			TSP command: dmm.measure.math.enable \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -857,7 +1282,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Reciprocal
 			\end{itemize}\} \\
 			Description: This PV specifies which math operation is performed on measurements when math operations are enabled. You can choose one of the following math operations: \begin{itemize} \item y = mx+b: Manipulate normal display readings by adjusting the m and b factors. \item Percent: Displays measurements as the percentage of deviation from a specified reference constant. \item Reciprocal: The reciprocal math operation displays measurement values as reciprocals. The displayed value is 1/X, where X is the measurement value (if relative offset is being used, this is the measured value with relative offset applied). \end{itemize} Math calculations are applied to the input signal after relative offset.\\
-			TSP command: dmm.measure.math.format
+			TSP command: dmm.measure.math.format \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -871,7 +1304,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Reciprocal
 			\end{itemize}\} \\
 			Description: This PV shows which math operation is performed on measurements when math operations are enabled. \\
-			TSP command: dmm.measure.math.format
+			TSP command: dmm.measure.math.format \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -882,7 +1323,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Min=-1000000000000 \\
 			Max=1000000000000 \\
 			Description: This PV specifies the offset, b, for the y = mx + b operation. The mx + b math operation lets you manipulate normal display readings (x) mathematically according to the following calculation: $$y = mx + b$$ Where: \begin{itemize} \item y is the displayed result \item[] m is a user-defined constant for the scale factor \item x is the measurement reading (if you are using a relative offset, this is the measurement with relative offset applied) \item b is the user-defined constant the offset for factor. \end{itemize} \\
-			TSP command: dmm.measure.math.mxb.bfactor
+			TSP command: dmm.measure.math.mxb.bfactor \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -891,7 +1340,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Math B Factor Read Back} \\
 			Data type: float \\
 			Description: This PV shows the offset, b, for the y = mx + b operation. \\
-			TSP command: dmm.measure.math.mxb.bfactor
+			TSP command: dmm.measure.math.mxb.bfactor \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -902,7 +1359,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Min=-1000000000000 \\
 			Max=1000000000000 \\
 			Description: This PV specifies the scale factor, m, for the y = mx + b math operation. The mx + b math operation lets you manipulate normal display readings (x) mathematically according to the following calculation: $$y = mx + b$$ Where: \begin{itemize} \item y is the displayed result  m is a user-defined constant for the scale factor \item x is the measurement reading (if you are using a relative offset, this is the measurement with relative offset applied) \item b is the user-defined constant for the offset factor \end{itemize} \\
-			TSP command: dmm.measure.math.mxb.mfactor
+			TSP command: dmm.measure.math.mxb.mfactor \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -911,7 +1376,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Math M Factor Read Back} \\
 			Data type: float \\
 			Description: This PV shows the scale factor, m, for the y = mx + b math operation. \\
-			TSP command: dmm.measure.math.mxb.mfactor
+			TSP command: dmm.measure.math.mxb.mfactor \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -923,7 +1396,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Max=1000000000000 \\
 			Description: This PV specifies the reference constant that is used when math operations are set to percent. The percent math function displays measurements as percent deviation from a specified reference constant. The percent calculation is: $$ \text{Percent} = \bigg(\frac{\text{input} - \text{reference}}{\text{reference}}\bigg)\times 100\% $$ Where: \begin{itemize} \item Percent is the result
 \item Input is the measurement (if relative offset is being used, this is the relative offset value) \item Reference is the user-specified constant \end{itemize} \\
-			TSP command: dmm.measure.math.percent
+			TSP command: dmm.measure.math.percent \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -932,7 +1413,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Math Percent Reference Read Back} \\
 			Data type: float \\
 			Description: This PV shows the reference constant that is used when math operations are set to percent. \\
-			TSP command: dmm.measure.math.percent
+			TSP command: dmm.measure.math.percent \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -944,7 +1433,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables the averaging filter for measurements of the selected function. When this is enabled, the reading returned by the instrument is an averaged value, taken from multiple measurements. The settings of the filter count and filter type for the selected measure function determines how the reading is averaged. \\
-			TSP command: dmm.measure.filter.enable
+			TSP command: dmm.measure.filter.enable \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -956,7 +1453,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV shows if the averaging filter for measurements of the selected function is enabled. \\
-			TSP command: dmm.measure.filter.enable
+			TSP command: dmm.measure.filter.enable \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -967,7 +1472,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Min=1 \\
 			Max=100 \\
 			Description: This PV sets the number of measurements that are averaged when filtering is enabled. The filter count is the number of readings that are acquired and stored in the filter stack for the averaging calculation. When the filter count is larger, more filtering is done and the data is less noisy. \\
-			TSP command: dmm.measure.filter.count
+			TSP command: dmm.measure.filter.count \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -976,7 +1489,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Filter Count Read Back} \\
 			Data type: long \\
 			Description: This PV shows the number of measurements that are averaged when filtering is enabled. \\
-			TSP command: dmm.measure.filter.count
+			TSP command: dmm.measure.filter.count \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -988,7 +1509,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Moving
 			\end{itemize}\} \\
 			Description: This PV defines the type of averaging filter that is used for the selected function when the filter is enabled. When the repeating average filter is selected, a set of measurements are made. These measurements are stored in a measurement stack and averaged together to produce the averaged sample. Once the averaged sample is produced, the stack is flushed and the next set of data is used to produce the next averaged sample. When the moving average filter is selected, the measurements are added to the stack continuously on a first-in, first-out basis. As each measurement is made, the oldest measurement is removed from the stack. A new averaged sample is produced using the new measurement and the data that is now in the stack. \\
-			TSP command: dmm.measure.filter.type
+			TSP command: dmm.measure.filter.type \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1000,8 +1529,16 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Moving
 			\end{itemize}\} \\
 			Description: This PV shows the type of averaging filter that is used for the selected function when the filter is enabled. \\
-			TSP command: dmm.measure.filter.type
-			\end{tabular}
+			TSP command: dmm.measure.filter.type \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
+		\end{tabular}
 
 		\begin{tabular}{N}
 			\hline
@@ -1011,7 +1548,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Min=0 \\
 			Max=10 \\
 			Description: This PV sets the window for the averaging filter that is used for measurements for the selected function. The noise window allows a faster response time to large signal step changes. A reading that falls outside the plus or minus noise window fills the filter stack immediately. If the noise does not exceed the selected percentage of range, the reading is based on an average of reading conversions — the normal averaging filter. If the noise does exceed the selected percentage, the reading is a single reading conversion, and new averaging starts from this point. \\
-			TSP command: dmm.measure.filter.window
+			TSP command: dmm.measure.filter.window \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1020,7 +1565,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Filter Window Read Back} \\
 			Data type: long \\
 			Description: This PV shows the window for the averaging filter that is used for measurements for the selected function. \\
-			TSP command: dmm.measure.filter.window
+			TSP command: dmm.measure.filter.window \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\yesfunc DC\_VOLTAGE & \yesfunc AC\_CURRENT & \yesfunc 4W\_RESISTANCE & \yesfunc CONTINUITY & \yesfunc DCV\_RATIO \\ \hline
+			\yesfunc AC\_VOLTAGE & \yesfunc TEMPERATURE & \yesfunc DIODE & \yesfunc ACV\_FREQUENCY & \nofunc DIGITIZE\_VOLTAGE \\ \hline
+			\yesfunc DC\_CURRENT & \yesfunc RESISTANCE & \yesfunc CAPACITANCE & \yesfunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 	
 	% TABLE: Digitize  Settings
@@ -1037,7 +1590,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Max=1000 \\
 			unit: \SI{}{\micro\second} \\
 			Description: This PV determines the aperture setting for the selected function. The aperture is the actual acquisition time of the instrument on the signal. It must be less than the set sample rate. The minimum aperture is 1 μs when the maximum sampling rate is 1,000,000 samples per second. If you set a value that is longer than the sample rate interval, the instrument generates an error event. Set the sample rate before changing the aperture. \\
-			TSP command: dmm.digitize.aperture
+			TSP command: dmm.digitize.aperture \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1047,7 +1608,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: long \\
 			unit: \SI{}{\micro\second} \\
 			Description: This PV shows the aperture setting for the selected function. \\
-			TSP command: dmm.digitize.aperture
+			TSP command: dmm.digitize.aperture \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1060,7 +1629,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: When set to 1 or \emph{ON}, this PV sets the aperture setting to \emph{AUTO} for the selected function. When the aperture is set to automatic, the aperture is equivalent to the sample rate interval, which is the maximum value possible for the selected sample rate. \\
-			TSP command: dmm.digitize.aperture
+			TSP command: dmm.digitize.aperture \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1071,7 +1648,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Min=1 \\
 			Max=55000000 \\
 			Description: This PV sets the number of measurements to digitize when a measurement is requested. \\
-			TSP command: dmm.digitize.count
+			TSP command: dmm.digitize.count \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1080,7 +1665,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Count Read Back} \\
 			Data type: long \\
 			Description: This PV shows the number of measurements to digitize when a measurement is requested. \\
-			TSP command: dmm.digitize.count
+			TSP command: dmm.digitize.count \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1091,7 +1684,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Min=1000 \\
 			Max=1000000 \\
 			Description: This PV defines the precise acquisition rate at which the digitizing measurements are made. Set the sample rate before setting the aperture. If the aperture setting is too high for the selected sample rate, it is automatically adjusted to the highest aperture that can be used with the sample rate. \\
-			TSP command: dmm.digitize.samplerate
+			TSP command: dmm.digitize.samplerate \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1100,7 +1701,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Sample Rate Read Back} \\
 			Data type: long \\
 			Description: This PV shows the precise acquisition rate at which the digitizing measurements are made. \\
-			TSP command: dmm.digitize.samplerate
+			TSP command: dmm.digitize.samplerate \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1110,7 +1719,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: long \\
 			Min=0 \\
 			Description: This PV determines the positive full-scale measure range for digitizer. \\
-			TSP command: dmm.digitize.range
+			TSP command: dmm.digitize.range \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1119,7 +1736,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Range Read Back} \\
 			Data type: long \\
 			Description: This PV shows the positive full-scale measure range for digitizer. \\
-			TSP command: dmm.digitize.range
+			TSP command: dmm.digitize.range \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1132,7 +1757,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] DC
 			\end{itemize}\} \\
 			Description: This PV determines if AC or DC signal coupling is used. When DC is selected, the instrument measures AC and DC components of the signal. When AC is selected, the instrument only measures the AC components of the signal. \\
-			TSP command: dmm.digitize.coupling.type
+			TSP command: dmm.digitize.coupling.type \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1145,7 +1778,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] DC
 			\end{itemize}\} \\
 			Description: This PV shows if AC or DC signal coupling is used. \\
-			TSP command: dmm.digitize.coupling.type
+			TSP command: dmm.digitize.coupling.type \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1158,7 +1799,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Fast
 			\end{itemize}\} \\
 			Description: This PV selects the instrument settling time when coupling is set to AC. This option is only used when digitize signal coupling is set to AC. When the signal coupling is set to AC, there may still be some DC signal content that comes in with the AC signal. To allow this signal to settle out, you can set AC coupling filter to slow. When the filter is set to slow, the instrument adds an 800 ms delay before making measurements. When the AC coupling filter is set to fast, the instrument adds an 80 ms delay before making measurements. \\
-			TSP command: dmm.digitize.coupling.acfilter
+			TSP command: dmm.digitize.coupling.acfilter \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1171,7 +1820,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Fast
 			\end{itemize}\} \\
 			Description: This PV shows the instrument settling time when coupling is set to AC. \\
-			TSP command: dmm.digitize.coupling.acfilter
+			TSP command: dmm.digitize.coupling.acfilter \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1183,7 +1840,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Max=1000000 \\
 			unit: \SI{}{\hertz} \\
 			Description: This PV allows you to optimize the amplitude to compensate for signal loss across the coupling capacitor when AC coupling is selected. This attribute is only used when the digitize coupling type is set to AC. For example, if you are measuring a 50 Hz signal, you could set this to 50 Hz to compensate for voltage drop across the coupling capacitor. \\
-			TSP command: dmm.digitize.coupling.acfrequency
+			TSP command: dmm.digitize.coupling.acfrequency \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1193,7 +1858,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: float \\
 			unit: \SI{}{\hertz} \\
 			Description: This PV shows the AC frequency setting used to optimize the amplitude to compensate for signal loss across the coupling capacitor when AC coupling is selected. \\
-			TSP command: dmm.digitize.coupling.acfrequency
+			TSP command: dmm.digitize.coupling.acfrequency \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1207,7 +1880,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 
 			Description: This PV determines when the \SI{10}{\mega\ohm} input divider is enabled. Choosing automatic input impedance is a balance between achieving low DC voltage noise on the \SI{100}{\milli\volt} and \SI{1}{\volt} ranges and optimizing measurement noise due to charge injection. The Model DMM7510 is optimized for low noise and charge injection when the DUT has less than \SI{100}{\kilo\ohm} input resistance. When the DUT input impedance is more than \SI{100}{\kilo\ohm}, selecting an input impedance of \SI{10}{\mega\ohm} optimizes the measurement for lowest noise on the \SI{100}{\milli\volt} and \SI{1}{\volt} ranges. For the \SI{10}{\volt} to \SI{1000}{\volt} ranges, both input impedance settings achieve low charge injection. The input impedance setting is only available when coupling is set to DC. \\
-			TSP command: dmm.digitize.inputimpedance
+			TSP command: dmm.digitize.inputimpedance \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1220,7 +1901,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] 10MOhm
 			\end{itemize}\} \\
 			Description: This PV shows when the \SI{10}{\mega\ohm} input divider is enabled. \\
-			TSP command: dmm.digitize.inputimpedance
+			TSP command: dmm.digitize.inputimpedance \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \nofunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1248,7 +1937,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] EVENT\_EXTERNAL
 			\end{itemize}\} \\
 			Description: This PV sets the instrument to digitize a measurement when it detects the specified trigger event. A digitize function must be active before setting this PV. If a measure function is active, an error is generated. If the count is set to more than 1, the first reading is initialized by this trigger. Subsequent readings occur as rapidly as the instrument can make them. If a trigger occurs during the group measurement, the trigger is latched and another group of measurements with the same count will be triggered after the current group completes. \\
-			TSP command: dmm.trigger.digitize.stimulus
+			TSP command: dmm.trigger.digitize.stimulus \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1276,7 +1973,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] EVENT\_EXTERNAL
 			\end{itemize}\} \\
 			Description: This PV shows the specified trigger event that causes a measurement digitize. \\
-			TSP command: dmm.trigger.digitize.stimulus
+			TSP command: dmm.trigger.digitize.stimulus \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1291,7 +1996,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Window
 			\end{itemize}\} \\
 			Description: This PV configures the type of signal behavior that can generate an analog trigger event. When edge is selected, the analog trigger occurs when the signal crosses a certain level. You also specify if the analog trigger occurs on the rising or falling edge of the signal. When pulse is selected, the analog trigger occurs when a pulse passes through the specified level and meets the constraint that you set on its width. You also specify the polarity of the signal (above or below the trigger level). When window is selected, the analog trigger occurs when the signal enters or exits the window defined by the low and high signal levels.\\
-			TSP command: dmm.digitize.analogtrigger.mode
+			TSP command: dmm.digitize.analogtrigger.mode \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1306,7 +2019,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Window
 			\end{itemize}\} \\
 			Description: This PV shows the type of signal behavior that can generate an analog trigger event. \\
-			TSP command: dmm.digitize.analogtrigger.mode
+			TSP command: dmm.digitize.analogtrigger.mode \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1319,7 +2040,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Falling
 			\end{itemize}\} \\
 			Description: This PV defines the slope of the analog trigger edge. This is only available when the analog trigger mode is set to edge. Rising causes an analog trigger event when the analog signal trends from below the analog signal level to above the level. Falling causes an analog trigger event when the signal trends from above to below the level. \\
-			TSP command: dmm.digitize.analogtrigger.edge.slope
+			TSP command: dmm.digitize.analogtrigger.edge.slope \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1332,7 +2061,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Falling
 			\end{itemize}\} \\
 			Description: This PV shows the slope of the analog trigger edge. \\
-			TSP command: dmm.digitize.analogtrigger.edge.slope
+			TSP command: dmm.digitize.analogtrigger.edge.slope \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1341,7 +2078,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Analog Trigger Edge Level Set Point} \\
 			Data type: float \\
 			Description: This PV defines the signal level that generates the analog trigger event for the edge trigger mode. This attribute is only available when the analog trigger mode is set to edge. The edge level can be set to any value in the active measurement range. See the Model DMM7510 specifications for more information on the resolution and accuracy of the analog trigger. \\
-			TSP command: dmm.digitize.analogtrigger.edge.level
+			TSP command: dmm.digitize.analogtrigger.edge.level \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1350,7 +2095,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Analog Trigger Edge Level Read Back} \\
 			Data type: float \\
 			Description: This PV shows the signal level that generates the analog trigger event for the edge trigger mode. \\
-			TSP command: dmm.digitize.analogtrigger.edge.level
+			TSP command: dmm.digitize.analogtrigger.edge.level \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1363,7 +2116,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables high frequency rejection on analog trigger events. High frequency rejection avoids the false triggers by the requiring the trigger event to be sustained for at least \SI{64}{\micro\second}. This behavior is similar to a low pass filter effect with a \SI{4}{\kilo\hertz} \SI{3}{\decibel} bandwidth. \\
-			TSP command: dmm.digitize.analogtrigger.highfreqreject
+			TSP command: dmm.digitize.analogtrigger.highfreqreject \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1376,7 +2137,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV shows if high frequency rejection on analog trigger events is enabled. \\
-			TSP command: dmm.digitize.analogtrigger.highfreqreject
+			TSP command: dmm.digitize.analogtrigger.highfreqreject \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1389,7 +2158,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Less
 			\end{itemize}\} \\
 			Description: This PV defines if the pulse must be greater than or less than the pulse width before an analog trigger is generated. Only available when the analog trigger mode is set to pulse. \\
-			TSP command: dmm.digitize.analogtrigger.pulse.condition
+			TSP command: dmm.digitize.analogtrigger.pulse.condition \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1402,7 +2179,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Less
 			\end{itemize}\} \\
 			Description: This PV shows if the pulse must be greater than or less than the pulse width before an analog trigger is generated. \\
-			TSP command: dmm.digitize.analogtrigger.pulse.condition
+			TSP command: dmm.digitize.analogtrigger.pulse.condition \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1415,7 +2200,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Below
 			\end{itemize}\} \\
 			Description: This PV defines the polarity of the pulse that generates an analog trigger event. Only used when analog trigger mode is pulse. Determines if the analog trigger occurs when the pulse is above the defined signal level or below the defined signal level. \\
-			TSP command: dmm.digitize.analogtrigger.pulse.polarity
+			TSP command: dmm.digitize.analogtrigger.pulse.polarity \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1428,7 +2221,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Below
 			\end{itemize}\} \\
 			Description: This PV shows the polarity of the pulse that generates an analog trigger event. \\
-			TSP command: dmm.digitize.analogtrigger.pulse.polarity
+			TSP command: dmm.digitize.analogtrigger.pulse.polarity \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1438,6 +2239,14 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: float \\
 			Description: This PV defines the pulse level that generates an analog trigger event. Only available when the analog trigger mode is set to pulse. \\
 			TSP command: dmm.digitize.analogtrigger.pulse.level \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1446,7 +2255,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Analog Trigger Pulse Level Read Back} \\
 			Data type: float \\
 			Description: This PV shows the pulse level that generates an analog trigger event. \\
-			TSP command: dmm.digitize.analogtrigger.pulse.level
+			TSP command: dmm.digitize.analogtrigger.pulse.level \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1458,7 +2275,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Max=0.04 \\
 			unit: second \\
 			Description: This PV defines the threshold value for the pulse width. This option is only available when the analog trigger mode is set to pulse. This option sets either the minimum or maximum pulse width that generates an analog trigger event. The value of pulse condition determines whether this value is interpreted as the minimum or maximum pulse width. \\
-			TSP command: dmm.digitize.analogtrigger.pulse.width
+			TSP command: dmm.digitize.analogtrigger.pulse.width \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1468,7 +2293,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: float \\
 			unit: second \\
 			Description: This PV shows the threshold value for the pulse width. \\
-			TSP command: dmm.digitize.analogtrigger.pulse.width
+			TSP command: dmm.digitize.analogtrigger.pulse.width \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1477,7 +2310,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Analog Trigger Window High Level Set Point} \\
 			Data type: float \\
 			Description: This PV defines the upper boundary of the analog trigger window. Only available when the analog trigger mode is set to window. The high level must be greater than the low level. \\
-			TSP command: dmm.digitize.analogtrigger.window.levelhigh
+			TSP command: dmm.digitize.analogtrigger.window.levelhigh \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1486,7 +2327,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Analog Trigger Window High Level Read Back} \\
 			Data type: float \\
 			Description: This PV shows the upper boundary of the analog trigger window. \\
-			TSP command: dmm.digitize.analogtrigger.window.levelhigh
+			TSP command: dmm.digitize.analogtrigger.window.levelhigh \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1495,7 +2344,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Analog Trigger Window Low Level Set Point} \\
 			Data type: float \\
 			Description: This PV defines the lower boundary of the analog trigger window. Only available when the analog trigger mode is set to window. The low level must be less than the high level. \\
-			TSP command: dmm.digitize.analogtrigger.window.levellow
+			TSP command: dmm.digitize.analogtrigger.window.levellow \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1504,7 +2361,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Analog Trigger Window Low Level Read Back} \\
 			Data type: float \\
 			Description: This PV shows the lower boundary of the analog trigger window. \\
-			TSP command: dmm.digitize.analogtrigger.window.levellow
+			TSP command: dmm.digitize.analogtrigger.window.levellow \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1517,7 +2382,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Leave
 			\end{itemize}\} \\
 			Description: This PV defines if the analog trigger occurs when the signal enters or leaves the defined upper and lower analog signal level boundaries. This is only available when the analog trigger mode is set to window. \\
-			TSP command: dmm.digitize.analogtrigger.window.direction
+			TSP command: dmm.digitize.analogtrigger.window.direction \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1530,7 +2403,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Leave
 			\end{itemize}\} \\
 			Description: This PV shows if the analog trigger occurs when the signal enters or leaves the defined upper and lower analog signal level boundaries. \\
-			TSP command: dmm.digitize.analogtrigger.window.direction
+			TSP command: dmm.digitize.analogtrigger.window.direction \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1543,7 +2424,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables the application of a relative offset value to the measurement. When relative measurements are enabled, all subsequent measured readings are offset by the relative offset value that was calculated when you acquired the relative offset value. Each returned measured relative reading is the result of the following calculation: $$\text{Displayed reading} = \text{Actual measured reading} - \text{Relative offset value}$$ \\
-			TSP command: dmm.digitize.rel.enable
+			TSP command: dmm.digitize.rel.enable \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1556,7 +2445,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV shows if the application of a relative offset value to the measurement is enabled. \\
-			TSP command: dmm.digitize.rel.enable
+			TSP command: dmm.digitize.rel.enable \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1569,7 +2466,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: When set to 1 or \emph{ON}, this function acquires a measurement and stores it as the relative offset value. When the relative offset is acquired, the instrument does not apply any math, limit test, or filter settings to the measurement, even if they are set. You must change to the function for which you want to acquire a value before sending this command. The instrument must have relative offset enabled to use the acquired relative offset value. \\
-			TSP command: dmm.digitize.rel.acquire()
+			TSP command: dmm.digitize.rel.acquire() \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1578,7 +2483,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Relative Offset Level Set Point} \\
 			Data type: float \\
 			Description: This PV sets the relative offset value. When relative offset is enabled, all subsequent measured readings are offset by the value that is set for this PV. You can set this value, or have the instrument acquire a value. \\
-			TSP command: dmm.digitize.rel.level
+			TSP command: dmm.digitize.rel.level \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1587,7 +2500,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Relative Offset Level Read Back} \\
 			Data type: float \\
 			Description: This PV shows the relative offset value. \\
-			TSP command: dmm.digitize.rel.level
+			TSP command: dmm.digitize.rel.level \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1600,7 +2521,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables math operations on measurements for the selected digitize function. When this PV is set to \emph{ON}, the math operation specified is performed before completing a measurement. \\
-			TSP command: dmm.digitize.math.enable
+			TSP command: dmm.digitize.math.enable \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1613,7 +2542,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables math operations on measurements for the selected digitize function. \\
-			TSP command: dmm.digitize.math.enable
+			TSP command: dmm.digitize.math.enable \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1627,7 +2564,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Reciprocal
 			\end{itemize}\} \\
 			Description: This PV specifies which math operation is performed for the selected measurement function when math operations are enabled. You can choose one of the following math operations: \begin{itemize} \item y = mx+b: Manipulate normal display readings by adjusting the m and b factors. \item Percent: Displays measurements as the percentage of deviation from a specified reference constant. \item Reciprocal: The reciprocal math operation displays measurement values as reciprocals. The displayed value is 1/X, where X is the measurement value (if relative offset is being used, this is the measured value with relative offset applied). \end{itemize} Math calculations are applied to the input signal after relative offset. \\
-			TSP command: dmm.digitize.math.format
+			TSP command: dmm.digitize.math.format \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1641,7 +2586,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Reciprocal
 			\end{itemize}\} \\
 			Description: This PV shows which math operation is performed for the selected measurement function when math operations are enabled. \\
-			TSP command: dmm.digitize.math.format
+			TSP command: dmm.digitize.math.format \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1652,7 +2605,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Min=-1000000000000 \\
 			Max=1000000000000 \\
 			Description: This PV specifies the offset, b, for the y = mx + b operation. The mx + b math operation lets you manipulate normal display readings (x) mathematically according to the following calculation: $$ y = mx + b $$ Where: \begin{itemize} \item y is the displayed result \item m is a user-defined constant for the scale factor \item x is the measurement reading (if you are using a relative offset, this is the measurement with relative offset applied) \item b is the user-defined constant for the offset factor \end{itemize} \\
-			TSP command: dmm.digitize.math.mxb.bfactor
+			TSP command: dmm.digitize.math.mxb.bfactor \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1661,7 +2622,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Math B Factor Read Back} \\
 			Data type: float \\
 			Description: This PV shows the offset, b, for the y = mx + b operation. \\
-			TSP command: dmm.digitize.math.mxb.bfactor
+			TSP command: dmm.digitize.math.mxb.bfactor \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1672,7 +2641,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Min=-1000000000000 \\
 			Max=1000000000000 \\
 			Description: This PV specifies the scale factor, m, for the y = mx + b math operation. The mx + b math operation lets you manipulate normal display readings (x) mathematically according to the following calculation: $$ y = mx + b $$ Where: \begin{itemize} \item y is the displayed result \item m is a user-defined constant for the scale factor \item x is the measurement reading (if you are using a relative offset, this is the measurement with relative offset applied) \item b is the user-defined constant for the offset factor \end{itemize} \\
-			TSP command: dmm.digitize.math.mxb.mfactor
+			TSP command: dmm.digitize.math.mxb.mfactor \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1681,7 +2658,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Math M Factor Read Back} \\
 			Data type: float \\
 			Description: This PV shows the scale factor, m, for the y = mx + b math operation. \\
-			TSP command: dmm.digitize.math.mxb.mfactor
+			TSP command: dmm.digitize.math.mxb.mfactor \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1692,7 +2677,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Min=-1000000000000 \\
 			Max=1000000000000 \\
 			Description: This PV specifies the reference constant that is used when math operations are set to percent. The percent math function displays measurements as percent deviation from a specified reference constant. The percent calculation is: $$ \text{Percent} = \bigg(\frac{\text{input} - \text{reference}}{\text{reference}}\bigg)\times 100\% $$ Where: \begin{itemize} \item Percent is the result \item Input is the measurement (if relative offset is being used, this is the relative offset value) \item Reference is the user-specified constant \end{itemize} \\
-			TSP command: dmm.digitize.math.percent
+			TSP command: dmm.digitize.math.percent \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -1701,7 +2694,15 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Math Percent Reference Read Back} \\
 			Data type: float \\
 			Description: This PV shows the reference constant that is used when math operations are set to percent. \\
-			TSP command: dmm.digitize.math.percent
+			TSP command: dmm.digitize.math.percent \\
+			Functions: \\
+			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\nofunc DC\_VOLTAGE & \nofunc AC\_CURRENT & \nofunc 4W\_RESISTANCE & \nofunc CONTINUITY & \nofunc DCV\_RATIO \\ \hline
+			\nofunc AC\_VOLTAGE & \nofunc TEMPERATURE & \nofunc DIODE & \nofunc ACV\_FREQUENCY & \yesfunc DIGITIZE\_VOLTAGE \\ \hline
+			\nofunc DC\_CURRENT & \nofunc RESISTANCE & \nofunc CAPACITANCE & \nofunc ACV\_PERIOD & \yesfunc DIGITIZE\_CURRENT \\ \hline
+			\end{tabular}}
+
 		\end{tabular}
 
 	% TABLE: Buffer operations
