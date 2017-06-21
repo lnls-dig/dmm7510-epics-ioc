@@ -2893,8 +2893,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: float \\
 			n: number of default buffer (1 or 2) \\
 			Description: This record gets the average of the corresponding buffer readings when processed. Set \emph{AvgBuff\textless n\textgreater-Mon.PROC} to any value in order to read the buffer average value once. Set \emph{AvgBuff\textless n\textgreater-Mon.SCAN} to a valide EPICS SCAN value in order to monitor the buffer average periodically. \\
-			TSP command: statsVar = buffer.getstats(defbuffer\textless n\textgreater-Mon) \\
-			print(statsVar.mean)
+			TSP command: \begin{itemize} \item[] statsVar = buffer.getstats(defbuffer\textless n\textgreater) \item[] print(statsVar.mean) \end{itemize}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -2904,8 +2903,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: float \\
 			n: number of default buffer (1 or 2) \\
 			Description: This record gets the maximum value reading from the corresponding buffer when processed. Set \emph{MaxBuff\textless n\textgreater-Mon.PROC} to any value in order to read the buffer maximum value once. Set \emph{MaxBuff\textless n\textgreater-Mon.SCAN} to a valide EPICS SCAN value in order to monitor the buffer maximum value periodically. \\
-			TSP command: statsVar = buffer.getstats(defbuffer\textless n\textgreater) \\
-			print(statsVar.max.reading)
+			TSP command: \begin{itemize} \item[] statsVar = buffer.getstats(defbuffer\textless n\textgreater) \item[] print(statsVar.max.reading) \end{itemize}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -2915,8 +2913,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: float \\
 			n: number of default buffer (1 or 2) \\
 			Description: This record gets the minimum value reading from the corresponding buffer when processed. Set \emph{MinBuff\textless n\textgreater-Mon.PROC} to any value in order to read the buffer maximum value once. Set \emph{MinBuff\textless n\textgreater-Mon.SCAN} to a valide EPICS SCAN value in order to monitor the buffer minimum value periodically. \\
-			TSP command: statsVar = buffer.getstats(defbuffer\textless n\textgreater) \\
-			print(statsVar.min.reading)
+			TSP command: \begin{itemize} \item[] statsVar = buffer.getstats(defbuffer\textless n\textgreater) \item[] print(statsVar.min.reading) \end{itemize}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -2926,8 +2923,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: float \\
 			n: number of default buffer (1 or 2) \\
 			Description: This record gets the standard deviation of readings for the corresponding buffer when processed. Set \emph{StdDBuff\textless n\textgreater-Mon.PROC} to any value in order to read the buffer standard devitation once. Set \emph{StdDBuff\textless n\textgreater-Mon.SCAN} to a valide EPICS SCAN value in order to monitor the buffer standard deviation periodically. \\
-			TSP command: statsVar = buffer.getstats(defbuffer\textless n\textgreater) \\
-			print(statsVar.stddev)
+			TSP command: \begin{itemize} \item[] statsVar = buffer.getstats(defbuffer\textless n\textgreater) \item[] print(statsVar.stddev) \end{itemize}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3804,8 +3800,7 @@ count is not changed. \\
 				\item[] Notify
 			\end{itemize}\} \\
 			This PV shows the autocalibration action configured to be executed at the scheduled time. \\
-			TSP command: action, interval, hour = acal.schedule() \\
-			print(action)
+			TSP command: \begin{itemize} \item[] action, interval, hour = acal.schedule() \item[] print(action) \end{itemize}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3823,7 +3818,7 @@ count is not changed. \\
 				\item[] 90 days
 			\end{itemize}\} \\
 			This PV determines how often the auto calibration action should be executed. \\
-			TSP command: acal.schedule(ACalSchAct-Sts, \emph{value}, \emph{ACalSchHr-RB})
+			TSP command: acal.schedule(\emph{ACalSchAct-Sts}, \emph{value}, \emph{ACalSchHr-RB})
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3841,8 +3836,7 @@ count is not changed. \\
 				\item[] 90 days
 			\end{itemize}\} \\
 			This PV shows how often the auto calibration action is configured to be executed. \\
-			TSP command: action, interval, hour = acal.schedule() \\
-			print(interval)
+			TSP command: \begin{itemize} \item[] action, interval, hour = acal.schedule() \item[] print(interval) \end{itemize}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3853,7 +3847,7 @@ count is not changed. \\
 			Min=0 \\
 			Max=23 \\
 			Specify, in 24-hour time format, when the auto calibration action should occur. \\
-			TSP command: acal.schedule(ACalSchAct-Sts, ACalSchInt-Sts, \emph{value})
+			TSP command: acal.schedule(\emph{ACalSchAct-Sts}, \emph{ACalSchInt-Sts}, \emph{value})
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3862,8 +3856,7 @@ count is not changed. \\
 			\emph{Autocalibration Schedule Hour Read Back} \\
 			Data type: long \\
 			Shows, in 24-hour format, the configured time for the auto calibration action. \\
-			TSP command: action, interval, hour = acal.schedule() \\
-			print(hour)
+			TSP command: \begin{itemize} \item[] action, interval, hour = acal.schedule() \item[] print(hour) \end{itemize}
 		\end{tabular}
 
 		\begin{tabular}{N}
