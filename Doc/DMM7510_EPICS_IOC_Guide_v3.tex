@@ -126,7 +126,7 @@
 
 		\paragraph{} Each PV information block starts with the PV Channel Access name in bold text, followed by a longer, more descriptive name. The PV input data type comes next, followed by the limits or options, when relevant. A description of the PV function is then provided. When available, the associated multimeter command (TSP command) is listed. For PVs that only work when certain measure functions are selected, a table indicates the set of allowed functions at the end of the block.
 
-		\newcommand{\FuncTableBorderColor}{gray!40} % define function table border color
+		\newcommand{\FuncTableBorderColor}{gray!50} % define function table border color
 		\newcommand{\nofunc}{\cellcolor{gray!20}\color{gray}} % define function table "not allowed function" cell color
 		\newcommand{\yesfunc}{\cellcolor{white}\color{black}} % define function table "allowed function" cell color
 
@@ -174,7 +174,7 @@
 				\item[] DCV\_RATIO
 			\end{itemize}\} \\
 			Description: This PV selects the active measure function. When you select a function, settings for other commands that are related to the function become active. \\
-			TSP command: dmm.measure.func
+			TSP command: dmm.measure.func = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -199,7 +199,7 @@
 				\item[] DCV\_RATIO
 			\end{itemize}\} \\
 			Description: This PV shows the active measure function. If a digitize measurement function is active, this PV indicates \emph{NONE}. \\
-			TSP command: dmm.measure.func
+			TSP command: print(dmm.measure.func)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -212,7 +212,7 @@
 				\item[] DIGITIZE\_CURRENT
 			\end{itemize}\} \\
 			Description: This PV determines which digitize function is active. \\
-			TSP command: dmm.digitize.func
+			TSP command: dmm.digitize.func = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -226,7 +226,7 @@
 				\item[] DIGITIZE\_CURRENT
 			\end{itemize}\} \\
 			Description: This PV shows which digitize function is active. If a basic (non-digitize) measurement function is selected, this PV indicates \emph{NONE}. \\
-			TSP command: dmm.digitize.func
+			TSP command: print(dmm.digitize.func)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -265,7 +265,7 @@
 			Data type: float \\
 			unit: seconds \\
 			Description: This PV determines the aperture setting for the selected measurement function. The aperture sets the amount of time the ADC takes when making a measurement, which is the integration period for the selected measurement function. \\
-			TSP command: dmm.measure.aperture \\
+			TSP command: dmm.measure.aperture = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -283,7 +283,7 @@
 			Data type: float \\
 			unit: second \\
 			Description: This PV shows the aperture setting for the selected measurement function. \\
-			TSP command: dmm.measure.aperture \\
+			TSP command: print(dmm.measure.aperture) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -300,7 +300,7 @@
 			\emph{Measure Number of Power Line Cycles Set Point} \\
 			Data type: float \\
 			Description: This PV sets the time that the input signal is measured for the selected function. The amount of time is specified as the number of power line cycles (NPLCs). Each PLC for \SI{60}{\hertz} is \SI{16.67}{\milli\second} (1/60) and each PLC for \SI{50}{\hertz} is \SI{20}{\milli\second} (1/50). \\
-			TSP command: dmm.measure.nplc \\
+			TSP command: dmm.measure.nplc = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -317,7 +317,7 @@
 			\emph{Measure Number of Power Line Cycles Read Back} \\
 			Data type: float \\
 			Description: This PV shows the time that the input signal is measured for the selected function, as the number of power line cycles. \\
-			TSP command: dmm.measure.nplc \\
+			TSP command: print(dmm.measure.nplc) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -336,7 +336,7 @@
 			Min=1 \\
 			Max=1000000 \\
 			Description: This PV sets the number of measurements to make when a measurement is requested. This PV sets the count for all measure functions. \\
-			TSP command: dmm.measure.count \\
+			TSP command: dmm.measure.count = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -353,7 +353,7 @@
 			\emph{Measure Count Read Back} \\
 			Data type: long \\
 			Description: This PV shows the number of measurements to make when a measurement is requested. \\
-			TSP command: dmm.measure.count \\
+			TSP command: print(dmm.measure.count) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -370,7 +370,7 @@
 			\emph{Measure Range Set Point} \\
 			Data type: float \\
 			Description: This PV determines the positive full-scale measure range. The instrument selects the closest fixed range that is large enough to measure the entered number.\\
-			TSP command: dmm.measure.range \\
+			TSP command: dmm.measure.range = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -387,7 +387,7 @@
 			\emph{Measure Range Read Back} \\
 			Data type: float \\
 			Description: This PV shows the selected positive full-scale measure range. \\
-			TSP command: dmm.measure.range \\
+			TSP command: print(dmm.measure.range) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -408,7 +408,7 @@
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV determines if the measurement range is set manually or automatically for the selected function. When auto range is enabled, the range increases at 120 percent of range and decreases occurs when the reading is \textless 10 percent of nominal range. \\
-			TSP command: dmm.measure.autorange \\
+			TSP command: dmm.measure.autorange = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -429,7 +429,7 @@
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV shows if the measurement range is set manually or automatically for the selected function.\\
-			TSP command: dmm.measure.autorange \\
+			TSP command: print(dmm.measure.autorange) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -450,7 +450,7 @@
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables automatic updates to the internal reference measurements (autozero) of the instrument. To ensure the accuracy of readings, the instrument must periodically get new measurements of its internal ground and voltage reference. The time interval between updates to these reference measurements is determined by the integration aperture that is being used for measurements. The time to make the reference measurements is in addition to the normal measurement time. If timing is critical, you can disable autozero to avoid this time penalty. When autozero is set to off, the instrument may gradually drift out of specification. For AC voltage and AC current measurements where the detector bandwidth is set to 3 Hz or 30 Hz, autozero is set on and cannot be changed. \\
-			TSP command: dmm.measure.autozero.enable \\
+			TSP command: dmm.measure.autozero.enable = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -471,7 +471,7 @@
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV shows if automatic updates to the internal reference measurements (autozero) of the instrument are enabled. \\
-			TSP command: dmm.measure.autozero.enable \\
+			TSP command: print(dmm.measure.autozero.enable) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -513,7 +513,7 @@
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables the automatic delay that occurs before each measurement. \\
-			TSP command: dmm.measure.autodelay \\
+			TSP command: dmm.measure.autodelay = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -534,7 +534,7 @@
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV shows if the automatic delay that occurs before each measurement is enabled. \\
-			TSP command: dmm.measure.autodelay \\
+			TSP command: print(dmm.measure.autodelay) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -555,7 +555,7 @@
 				\item[] 10MOhm
 			\end{itemize}\} \\
 			Description: This PV determines when the \SI{10}{\mega\ohm} input divider is enabled for the seslected measure function. Choosing automatic input impedance is a balance between achieving low DC voltage noise on the \SI{100}{\milli\volt} and \SI{1}{\volt} ranges and optimizing measurement noise due to charge injection. The Model DMM7510 is optimized for low noise and charge injection when the DUT has less than \SI{100}{\kilo\ohm} input resistance. When the DUT input impedance is more than \SI{100}{\kilo\ohm}, selecting an input impedance of \SI{10}{\mega\ohm} optimizes the measurement for lowest noise on the \SI{100}{\milli\volt} and \SI{1}{\volt} ranges. For the \SI{10}{\volt} to \SI{1000}{\volt} ranges, both input impedance settings achieve low charge injection. \\
-			TSP command: dmm.measure.inputimpedance \\
+			TSP command: dmm.measure.inputimpedance = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -576,7 +576,7 @@
 				\item[] 10MOhm
 			\end{itemize}\} \\
 			Description: This PV shows when the \SI{10}{\mega\ohm} input divider is enabled for the selected measure function. \\
-			TSP command: dmm.measure.inputimpedance \\
+			TSP command: print(dmm.measure.inputimpedance) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -597,7 +597,7 @@
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV determines if line synchronization is used during the measurement. When line synchronization is enabled, measurements are initiated at the first positive-going zero crossing of the power line cycle after the trigger. \\
-			TSP command: dmm.measure.linesync \\
+			TSP command: dmm.measure.linesync = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -618,7 +618,7 @@
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV shows if line synchronization is used during the measurement. \\
-			TSP command: dmm.measure.linesync \\
+			TSP command: print(dmm.measure.linesync) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -654,7 +654,7 @@
 				\item[] EVENT\_EXTERNAL
 			\end{itemize}\} \\
 			Description: This PV sets the instrument to make a measurement when it detects the specified trigger event. A measure function must be active before setting this PV. The measurement is made for the active measure function. If a digitize function is active, an error is generated. If the count is set to more than 1, the first reading is initialized by this trigger. Subsequent readings occur as rapidly as the instrument can make them. If a trigger occurs during the group measurement, the trigger is latched and another group of measurements with the same count will be triggered after the current group completes. \\
-			TSP command: dmm.trigger.measure.stimulus \\
+			TSP command: dmm.trigger.measure.stimulus = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -690,7 +690,7 @@
 				\item[] EVENT\_EXTERNAL
 			\end{itemize}\} \\
 			Description: This PV shows the instrument configured measurement trigger event for the selected measure function. \\
-			TSP command: dmm.trigger.measure.stimulus \\
+			TSP command: print(dmm.trigger.measure.stimulus) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -713,7 +713,7 @@
 				\item[] Window
 			\end{itemize}\} \\
 			Description: This PV configures the type of signal behavior that can generate an analog trigger event. When edge is selected, the analog trigger occurs when the signal crosses a certain level. You also specify if the analog trigger occurs on the rising or falling edge of the signal. When pulse is selected, the analog trigger occurs when a pulse passes through the specified level and meets the constraint that you set on its width. You also specify the polarity of the signal (above or below the trigger level). When window is selected, the analog trigger occurs when the signal enters or exits the window defined by the low and high signal levels. \\
-			TSP command: dmm.digitize.analogtrigger.mode \\
+			TSP command: dmm.digitize.analogtrigger.mode = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -736,7 +736,7 @@
 				\item[] Window
 			\end{itemize}\} \\
 			Description: This PV shows the configured type of signal behavior that can generate an analog trigger event. \\
-			TSP command: dmm.digitize.analogtrigger.mode \\
+			TSP command: print(dmm.digitize.analogtrigger.mode) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -758,7 +758,7 @@
 			\end{itemize}\} \\
 			Description: This PV defines the slope of the analog trigger edge. This is only available when the analog trigger mode is set to edge. Rising causes an analog trigger event when the analog signal trends from below the analog signal
 level to above the level. Falling causes an analog trigger event when the signal trends from above to below the level. \\
-			TSP command: dmm.digitize.analogtrigger.edge.slope \\
+			TSP command: dmm.digitize.analogtrigger.edge.slope = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -779,7 +779,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Falling
 			\end{itemize}\} \\
 			Description: This PV shows the slope of the analog trigger edge. \\
-			TSP command: dmm.digitize.analogtrigger.edge.slope \\
+			TSP command: print(dmm.digitize.analogtrigger.edge.slope) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -796,7 +796,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Analog Trigger Edge Level Set Point} \\
 			Data type: float \\
 			Description: This PV defines the signal level that generates the analog trigger event for the edge trigger mode. This attribute is only available when the analog trigger mode is set to edge. The edge level can be set to any value in the active measurement range. See the Model DMM7510 specifications for more information on the resolution and accuracy of the analog trigger. To use the analog trigger with the measure functions, a range must be set (you cannot use autorange) and autozero must be disabled. \\
-			TSP command: dmm.digitize.analogtrigger.edge.level \\
+			TSP command: dmm.digitize.analogtrigger.edge.level = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -813,7 +813,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Analog Trigger Edge Level Read Back} \\
 			Data type: float \\
 			Description: This PV shows the signal level that generates the analog trigger event for the edge trigger mode. \\
-			TSP command: dmm.digitize.analogtrigger.edge.level \\
+			TSP command: print(dmm.digitize.analogtrigger.edge.level) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -834,7 +834,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables high frequency rejection on analog trigger events. High frequency rejection avoids the false triggers by the requiring the trigger event to be sustained for at least \SI{64}{\micro\second}. This behavior is similar to a low pass filter effect with a \SI{4}{\kilo\hertz} \SI{3}{\decibel} bandwidth. \\
-			TSP command: dmm.measure.analogtrigger.highfreqreject \\
+			TSP command: dmm.measure.analogtrigger.highfreqreject = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -855,7 +855,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV shows if high frequency rejection on analog trigger events is enabled. \\
-			TSP command: dmm.measure.analogtrigger.highfreqreject \\
+			TSP command: print(dmm.measure.analogtrigger.highfreqreject) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -876,7 +876,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Less
 			\end{itemize}\} \\
 			Description: This PV defines if the pulse must be greater than or less than the pulse width before an analog trigger is generated. Only available when the analog trigger mode is set to pulse. \\
-			TSP command: dmm.measure.analogtrigger.pulse.condition \\
+			TSP command: dmm.measure.analogtrigger.pulse.condition = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -897,7 +897,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Less
 			\end{itemize}\} \\
 			Description: This PV shows if the pulse must be greater than or less than the pulse width before an analog trigger is generated. \\
-			TSP command: dmm.measure.analogtrigger.pulse.condition \\
+			TSP command: print(dmm.measure.analogtrigger.pulse.condition) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -918,7 +918,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Below
 			\end{itemize}\} \\
 			Description: This PV defines the polarity of the pulse that generates an analog trigger event. Only used when analog trigger mode is pulse. Determines if the analog trigger occurs when the pulse is above the defined signal level or below the defined signal level. \\
-			TSP command: dmm.measure.analogtrigger.pulse.polarity \\
+			TSP command: dmm.measure.analogtrigger.pulse.polarity = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -939,7 +939,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Below
 			\end{itemize}\} \\
 			Description: This PV shows the polarity of the pulse that generates an analog trigger event. \\
-			TSP command: dmm.measure.analogtrigger.pulse.polarity \\
+			TSP command: print(dmm.measure.analogtrigger.pulse.polarity) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -956,7 +956,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Analog Trigger Pulse Level Set Point} \\
 			Data type: float \\
 			Description: This PV defines the pulse level that generates an analog trigger event. Only available when the analog trigger mode is set to pulse. \\
-			TSP command: dmm.measure.analogtrigger.pulse.level \\
+			TSP command: dmm.measure.analogtrigger.pulse.level = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -973,7 +973,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Analog Trigger Pulse Level Read Back} \\
 			Data type: float \\
 			Description: This PV shows the pulse level that generates an analog trigger event. \\
-			TSP command: dmm.measure.analogtrigger.pulse.level \\
+			TSP command: print(dmm.measure.analogtrigger.pulse.level) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -993,7 +993,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Max=0.04 \\
 			unit: second \\
 			Description: This PV defines the threshold value for the pulse width. This option is only available when the analog trigger mode is set to pulse. This option sets either the minimum or maximum pulse width that generates an analog trigger event. The value of pulse condition determines whether this value is interpreted as the minimum or maximum pulse width. \\
-			TSP command: dmm.measure.analogtrigger.pulse.width \\
+			TSP command: dmm.measure.analogtrigger.pulse.width = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1011,7 +1011,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: float \\
 			unit: second \\
 			Description: This PV defines the threshold value for the pulse width. \\
-			TSP command: dmm.measure.analogtrigger.pulse.width \\
+			TSP command: print(dmm.measure.analogtrigger.pulse.width) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1028,7 +1028,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Analog Trigger Window High Level Set Point} \\
 			Data type: float \\
 			Description: This PV defines the upper boundary of the analog trigger window. Only available when the analog trigger mode is set to window. The high level must be greater than the low level. \\
-			TSP command: dmm.measure.analogtrigger.window.levelhigh \\
+			TSP command: dmm.measure.analogtrigger.window.levelhigh = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1045,7 +1045,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Analog Trigger Window High Level Read Back} \\
 			Data type: float \\
 			Description: This PV shows the upper boundary of the analog trigger window. \\
-			TSP command: dmm.measure.analogtrigger.window.levelhigh \\
+			TSP command: print(dmm.measure.analogtrigger.window.levelhigh) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1062,7 +1062,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Analog Trigger Window Low Level Set Point} \\
 			Data type: float \\
 			Description: This PV defines the lower boundary of the analog trigger window. Only available when the analog trigger mode is set to window. The low level must be less than the high level. \\
-			TSP command: dmm.measure.analogtrigger.window.levellow \\
+			TSP command: dmm.measure.analogtrigger.window.levellow = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1079,7 +1079,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Analog Trigger Window Low Level Read Back} \\
 			Data type: float \\
 			Description: This PV shows the lower boundary of the analog trigger window. \\
-			TSP command: dmm.measure.analogtrigger.window.levellow \\
+			TSP command: print(dmm.measure.analogtrigger.window.levellow) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1100,7 +1100,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Leave
 			\end{itemize}\} \\
 			Description: This PV defines if the analog trigger occurs when the signal enters or leaves the defined upper and lower analog signal level boundaries. This is only available when the analog trigger mode is set to window. \\
-			TSP command: dmm.measure.analogtrigger.window.direction \\
+			TSP command: dmm.measure.analogtrigger.window.direction = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1121,7 +1121,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Leave
 			\end{itemize}\} \\
 			Description: This PV shows if the analog trigger occurs when the signal enters or leaves the defined upper and lower analog signal level boundaries. \\
-			TSP command: dmm.measure.analogtrigger.window.direction \\
+			TSP command: print(dmm.measure.analogtrigger.window.direction) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1142,7 +1142,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables the application of a relative offset value to the measurement for the selected measure function. \\
-			TSP command: dmm.measure.rel.enable \\
+			TSP command: dmm.measure.rel.enable = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1163,7 +1163,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables the application of a relative offset value to the measurement for the selected measure function. When relative measurements are enabled, all subsequent measured readings are offset by the relative offset value. You can enter a relative offset value or have the instrument acquire a relative offset value. Each returned measured relative reading is the result of the following calculation: $$\text{Displayed reading} = \emph{Actual measured reading} - \emph{Relative offset value}$$ \\
-			TSP command: dmm.measure.rel.enable \\
+			TSP command: print(dmm.measure.rel.enable) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1201,7 +1201,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Relative Offset Level Set Point} \\
 			Data type: float \\
 			Description: This PV sets the relative offset value for the selected measure function. When relative offset is enabled, all subsequent measured readings are offset by the value that is set for this PV. You can set this value, or have the instrument acquire a value. \\
-			TSP command: dmm.measure.rel.level \\
+			TSP command: dmm.measure.rel.level = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1218,7 +1218,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Relative Offset Level Read Back} \\
 			Data type: float \\
 			Description: This PV shows the relative offset value for the selected measure function. \\
-			TSP command: dmm.measure.rel.level \\
+			TSP command: print(dmm.measure.rel.level) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1239,7 +1239,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables math operations on measurements for the selected measurement function. When this PV is set to \emph{ON}, the math operation specified is performed before completing a measurement. \\
-			TSP command: dmm.measure.math.enable \\
+			TSP command: dmm.measure.math.enable = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1260,7 +1260,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV shows if math operations on measurements for the selected measurement function are enabled. \\
-			TSP command: dmm.measure.math.enable \\
+			TSP command: print(dmm.measure.math.enable) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1282,7 +1282,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Reciprocal
 			\end{itemize}\} \\
 			Description: This PV specifies which math operation is performed on measurements when math operations are enabled. You can choose one of the following math operations: \begin{itemize} \item y = mx+b: Manipulate normal display readings by adjusting the m and b factors. \item Percent: Displays measurements as the percentage of deviation from a specified reference constant. \item Reciprocal: The reciprocal math operation displays measurement values as reciprocals. The displayed value is 1/X, where X is the measurement value (if relative offset is being used, this is the measured value with relative offset applied). \end{itemize} Math calculations are applied to the input signal after relative offset.\\
-			TSP command: dmm.measure.math.format \\
+			TSP command: dmm.measure.math.format = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1304,7 +1304,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Reciprocal
 			\end{itemize}\} \\
 			Description: This PV shows which math operation is performed on measurements when math operations are enabled. \\
-			TSP command: dmm.measure.math.format \\
+			TSP command: print(dmm.measure.math.format) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1323,7 +1323,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Min=-1000000000000 \\
 			Max=1000000000000 \\
 			Description: This PV specifies the offset, b, for the y = mx + b operation. The mx + b math operation lets you manipulate normal display readings (x) mathematically according to the following calculation: $$y = mx + b$$ Where: \begin{itemize} \item y is the displayed result \item[] m is a user-defined constant for the scale factor \item x is the measurement reading (if you are using a relative offset, this is the measurement with relative offset applied) \item b is the user-defined constant the offset for factor. \end{itemize} \\
-			TSP command: dmm.measure.math.mxb.bfactor \\
+			TSP command: dmm.measure.math.mxb.bfactor = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1340,7 +1340,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Math B Factor Read Back} \\
 			Data type: float \\
 			Description: This PV shows the offset, b, for the y = mx + b operation. \\
-			TSP command: dmm.measure.math.mxb.bfactor \\
+			TSP command: print(dmm.measure.math.mxb.bfactor) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1359,7 +1359,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Min=-1000000000000 \\
 			Max=1000000000000 \\
 			Description: This PV specifies the scale factor, m, for the y = mx + b math operation. The mx + b math operation lets you manipulate normal display readings (x) mathematically according to the following calculation: $$y = mx + b$$ Where: \begin{itemize} \item y is the displayed result  m is a user-defined constant for the scale factor \item x is the measurement reading (if you are using a relative offset, this is the measurement with relative offset applied) \item b is the user-defined constant for the offset factor \end{itemize} \\
-			TSP command: dmm.measure.math.mxb.mfactor \\
+			TSP command: dmm.measure.math.mxb.mfactor = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1376,7 +1376,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Math M Factor Read Back} \\
 			Data type: float \\
 			Description: This PV shows the scale factor, m, for the y = mx + b math operation. \\
-			TSP command: dmm.measure.math.mxb.mfactor \\
+			TSP command: print(dmm.measure.math.mxb.mfactor) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1396,7 +1396,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Max=1000000000000 \\
 			Description: This PV specifies the reference constant that is used when math operations are set to percent. The percent math function displays measurements as percent deviation from a specified reference constant. The percent calculation is: $$ \text{Percent} = \bigg(\frac{\text{input} - \text{reference}}{\text{reference}}\bigg)\times 100\% $$ Where: \begin{itemize} \item Percent is the result
 \item Input is the measurement (if relative offset is being used, this is the relative offset value) \item Reference is the user-specified constant \end{itemize} \\
-			TSP command: dmm.measure.math.percent \\
+			TSP command: dmm.measure.math.percent = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1413,7 +1413,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Measure Math Percent Reference Read Back} \\
 			Data type: float \\
 			Description: This PV shows the reference constant that is used when math operations are set to percent. \\
-			TSP command: dmm.measure.math.percent \\
+			TSP command: print(dmm.measure.math.percent) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1433,7 +1433,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables the averaging filter for measurements of the selected function. When this is enabled, the reading returned by the instrument is an averaged value, taken from multiple measurements. The settings of the filter count and filter type for the selected measure function determines how the reading is averaged. \\
-			TSP command: dmm.measure.filter.enable \\
+			TSP command: dmm.measure.filter.enable = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1453,7 +1453,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV shows if the averaging filter for measurements of the selected function is enabled. \\
-			TSP command: dmm.measure.filter.enable \\
+			TSP command: print(dmm.measure.filter.enable) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1472,7 +1472,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Min=1 \\
 			Max=100 \\
 			Description: This PV sets the number of measurements that are averaged when filtering is enabled. The filter count is the number of readings that are acquired and stored in the filter stack for the averaging calculation. When the filter count is larger, more filtering is done and the data is less noisy. \\
-			TSP command: dmm.measure.filter.count \\
+			TSP command: dmm.measure.filter.count = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1489,7 +1489,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Filter Count Read Back} \\
 			Data type: long \\
 			Description: This PV shows the number of measurements that are averaged when filtering is enabled. \\
-			TSP command: dmm.measure.filter.count \\
+			TSP command: print(dmm.measure.filter.count) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1509,7 +1509,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Moving
 			\end{itemize}\} \\
 			Description: This PV defines the type of averaging filter that is used for the selected function when the filter is enabled. When the repeating average filter is selected, a set of measurements are made. These measurements are stored in a measurement stack and averaged together to produce the averaged sample. Once the averaged sample is produced, the stack is flushed and the next set of data is used to produce the next averaged sample. When the moving average filter is selected, the measurements are added to the stack continuously on a first-in, first-out basis. As each measurement is made, the oldest measurement is removed from the stack. A new averaged sample is produced using the new measurement and the data that is now in the stack. \\
-			TSP command: dmm.measure.filter.type \\
+			TSP command: dmm.measure.filter.type = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1529,7 +1529,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Moving
 			\end{itemize}\} \\
 			Description: This PV shows the type of averaging filter that is used for the selected function when the filter is enabled. \\
-			TSP command: dmm.measure.filter.type \\
+			TSP command: print(dmm.measure.filter.type) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1548,7 +1548,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Min=0 \\
 			Max=10 \\
 			Description: This PV sets the window for the averaging filter that is used for measurements for the selected function. The noise window allows a faster response time to large signal step changes. A reading that falls outside the plus or minus noise window fills the filter stack immediately. If the noise does not exceed the selected percentage of range, the reading is based on an average of reading conversions — the normal averaging filter. If the noise does exceed the selected percentage, the reading is a single reading conversion, and new averaging starts from this point. \\
-			TSP command: dmm.measure.filter.window \\
+			TSP command: dmm.measure.filter.window = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1565,7 +1565,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Filter Window Read Back} \\
 			Data type: long \\
 			Description: This PV shows the window for the averaging filter that is used for measurements for the selected function. \\
-			TSP command: dmm.measure.filter.window \\
+			TSP command: print(dmm.measure.filter.window) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1590,7 +1590,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Max=1000 \\
 			unit: \SI{}{\micro\second} \\
 			Description: This PV determines the aperture setting for the selected function. The aperture is the actual acquisition time of the instrument on the signal. It must be less than the set sample rate. The minimum aperture is 1 μs when the maximum sampling rate is 1,000,000 samples per second. If you set a value that is longer than the sample rate interval, the instrument generates an error event. Set the sample rate before changing the aperture. \\
-			TSP command: dmm.digitize.aperture \\
+			TSP command: dmm.digitize.aperture = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1608,7 +1608,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: long \\
 			unit: \SI{}{\micro\second} \\
 			Description: This PV shows the aperture setting for the selected function. \\
-			TSP command: dmm.digitize.aperture \\
+			TSP command: print(dmm.digitize.aperture) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1629,7 +1629,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: When set to 1 or \emph{ON}, this PV sets the aperture setting to \emph{AUTO} for the selected function. When the aperture is set to automatic, the aperture is equivalent to the sample rate interval, which is the maximum value possible for the selected sample rate. \\
-			TSP command: dmm.digitize.aperture \\
+			TSP command: dmm.digitize.aperture = \emph{AUTO} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1648,7 +1648,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Min=1 \\
 			Max=55000000 \\
 			Description: This PV sets the number of measurements to digitize when a measurement is requested. \\
-			TSP command: dmm.digitize.count \\
+			TSP command: dmm.digitize.count = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1665,7 +1665,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Count Read Back} \\
 			Data type: long \\
 			Description: This PV shows the number of measurements to digitize when a measurement is requested. \\
-			TSP command: dmm.digitize.count \\
+			TSP command: print(dmm.digitize.count) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1684,7 +1684,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Min=1000 \\
 			Max=1000000 \\
 			Description: This PV defines the precise acquisition rate at which the digitizing measurements are made. Set the sample rate before setting the aperture. If the aperture setting is too high for the selected sample rate, it is automatically adjusted to the highest aperture that can be used with the sample rate. \\
-			TSP command: dmm.digitize.samplerate \\
+			TSP command: dmm.digitize.samplerate = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1701,7 +1701,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Sample Rate Read Back} \\
 			Data type: long \\
 			Description: This PV shows the precise acquisition rate at which the digitizing measurements are made. \\
-			TSP command: dmm.digitize.samplerate \\
+			TSP command: print(dmm.digitize.samplerate) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1719,7 +1719,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: long \\
 			Min=0 \\
 			Description: This PV determines the positive full-scale measure range for digitizer. \\
-			TSP command: dmm.digitize.range \\
+			TSP command: dmm.digitize.range = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1736,7 +1736,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Range Read Back} \\
 			Data type: long \\
 			Description: This PV shows the positive full-scale measure range for digitizer. \\
-			TSP command: dmm.digitize.range \\
+			TSP command: print(dmm.digitize.range) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1757,7 +1757,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] DC
 			\end{itemize}\} \\
 			Description: This PV determines if AC or DC signal coupling is used. When DC is selected, the instrument measures AC and DC components of the signal. When AC is selected, the instrument only measures the AC components of the signal. \\
-			TSP command: dmm.digitize.coupling.type \\
+			TSP command: dmm.digitize.coupling.type = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1778,7 +1778,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] DC
 			\end{itemize}\} \\
 			Description: This PV shows if AC or DC signal coupling is used. \\
-			TSP command: dmm.digitize.coupling.type \\
+			TSP command: print(dmm.digitize.coupling.type) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1799,7 +1799,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Fast
 			\end{itemize}\} \\
 			Description: This PV selects the instrument settling time when coupling is set to AC. This option is only used when digitize signal coupling is set to AC. When the signal coupling is set to AC, there may still be some DC signal content that comes in with the AC signal. To allow this signal to settle out, you can set AC coupling filter to slow. When the filter is set to slow, the instrument adds an 800 ms delay before making measurements. When the AC coupling filter is set to fast, the instrument adds an 80 ms delay before making measurements. \\
-			TSP command: dmm.digitize.coupling.acfilter \\
+			TSP command: dmm.digitize.coupling.acfilter = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1820,7 +1820,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Fast
 			\end{itemize}\} \\
 			Description: This PV shows the instrument settling time when coupling is set to AC. \\
-			TSP command: dmm.digitize.coupling.acfilter \\
+			TSP command: print(dmm.digitize.coupling.acfilter) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1840,7 +1840,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Max=1000000 \\
 			unit: \SI{}{\hertz} \\
 			Description: This PV allows you to optimize the amplitude to compensate for signal loss across the coupling capacitor when AC coupling is selected. This attribute is only used when the digitize coupling type is set to AC. For example, if you are measuring a 50 Hz signal, you could set this to 50 Hz to compensate for voltage drop across the coupling capacitor. \\
-			TSP command: dmm.digitize.coupling.acfrequency \\
+			TSP command: dmm.digitize.coupling.acfrequency = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1858,7 +1858,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: float \\
 			unit: \SI{}{\hertz} \\
 			Description: This PV shows the AC frequency setting used to optimize the amplitude to compensate for signal loss across the coupling capacitor when AC coupling is selected. \\
-			TSP command: dmm.digitize.coupling.acfrequency \\
+			TSP command: print(dmm.digitize.coupling.acfrequency) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1878,9 +1878,8 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] AUTO
 				\item[] 10MOhm
 			\end{itemize}\} \\
-
 			Description: This PV determines when the \SI{10}{\mega\ohm} input divider is enabled. Choosing automatic input impedance is a balance between achieving low DC voltage noise on the \SI{100}{\milli\volt} and \SI{1}{\volt} ranges and optimizing measurement noise due to charge injection. The Model DMM7510 is optimized for low noise and charge injection when the DUT has less than \SI{100}{\kilo\ohm} input resistance. When the DUT input impedance is more than \SI{100}{\kilo\ohm}, selecting an input impedance of \SI{10}{\mega\ohm} optimizes the measurement for lowest noise on the \SI{100}{\milli\volt} and \SI{1}{\volt} ranges. For the \SI{10}{\volt} to \SI{1000}{\volt} ranges, both input impedance settings achieve low charge injection. The input impedance setting is only available when coupling is set to DC. \\
-			TSP command: dmm.digitize.inputimpedance \\
+			TSP command: dmm.digitize.inputimpedance = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1901,7 +1900,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] 10MOhm
 			\end{itemize}\} \\
 			Description: This PV shows when the \SI{10}{\mega\ohm} input divider is enabled. \\
-			TSP command: dmm.digitize.inputimpedance \\
+			TSP command: print(dmm.digitize.inputimpedance) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1937,7 +1936,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] EVENT\_EXTERNAL
 			\end{itemize}\} \\
 			Description: This PV sets the instrument to digitize a measurement when it detects the specified trigger event. A digitize function must be active before setting this PV. If a measure function is active, an error is generated. If the count is set to more than 1, the first reading is initialized by this trigger. Subsequent readings occur as rapidly as the instrument can make them. If a trigger occurs during the group measurement, the trigger is latched and another group of measurements with the same count will be triggered after the current group completes. \\
-			TSP command: dmm.trigger.digitize.stimulus \\
+			TSP command: dmm.trigger.digitize.stimulus = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1973,7 +1972,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] EVENT\_EXTERNAL
 			\end{itemize}\} \\
 			Description: This PV shows the specified trigger event that causes a measurement digitize. \\
-			TSP command: dmm.trigger.digitize.stimulus \\
+			TSP command: print(dmm.trigger.digitize.stimulus) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -1996,7 +1995,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Window
 			\end{itemize}\} \\
 			Description: This PV configures the type of signal behavior that can generate an analog trigger event. When edge is selected, the analog trigger occurs when the signal crosses a certain level. You also specify if the analog trigger occurs on the rising or falling edge of the signal. When pulse is selected, the analog trigger occurs when a pulse passes through the specified level and meets the constraint that you set on its width. You also specify the polarity of the signal (above or below the trigger level). When window is selected, the analog trigger occurs when the signal enters or exits the window defined by the low and high signal levels.\\
-			TSP command: dmm.digitize.analogtrigger.mode \\
+			TSP command: dmm.digitize.analogtrigger.mode = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2019,7 +2018,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Window
 			\end{itemize}\} \\
 			Description: This PV shows the type of signal behavior that can generate an analog trigger event. \\
-			TSP command: dmm.digitize.analogtrigger.mode \\
+			TSP command: print(dmm.digitize.analogtrigger.mode) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2040,7 +2039,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Falling
 			\end{itemize}\} \\
 			Description: This PV defines the slope of the analog trigger edge. This is only available when the analog trigger mode is set to edge. Rising causes an analog trigger event when the analog signal trends from below the analog signal level to above the level. Falling causes an analog trigger event when the signal trends from above to below the level. \\
-			TSP command: dmm.digitize.analogtrigger.edge.slope \\
+			TSP command: dmm.digitize.analogtrigger.edge.slope = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2061,7 +2060,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Falling
 			\end{itemize}\} \\
 			Description: This PV shows the slope of the analog trigger edge. \\
-			TSP command: dmm.digitize.analogtrigger.edge.slope \\
+			TSP command: print(dmm.digitize.analogtrigger.edge.slope) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2078,7 +2077,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Analog Trigger Edge Level Set Point} \\
 			Data type: float \\
 			Description: This PV defines the signal level that generates the analog trigger event for the edge trigger mode. This attribute is only available when the analog trigger mode is set to edge. The edge level can be set to any value in the active measurement range. See the Model DMM7510 specifications for more information on the resolution and accuracy of the analog trigger. \\
-			TSP command: dmm.digitize.analogtrigger.edge.level \\
+			TSP command: dmm.digitize.analogtrigger.edge.level = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2095,7 +2094,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Analog Trigger Edge Level Read Back} \\
 			Data type: float \\
 			Description: This PV shows the signal level that generates the analog trigger event for the edge trigger mode. \\
-			TSP command: dmm.digitize.analogtrigger.edge.level \\
+			TSP command: print(dmm.digitize.analogtrigger.edge.level) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2116,7 +2115,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables high frequency rejection on analog trigger events. High frequency rejection avoids the false triggers by the requiring the trigger event to be sustained for at least \SI{64}{\micro\second}. This behavior is similar to a low pass filter effect with a \SI{4}{\kilo\hertz} \SI{3}{\decibel} bandwidth. \\
-			TSP command: dmm.digitize.analogtrigger.highfreqreject \\
+			TSP command: dmm.digitize.analogtrigger.highfreqreject = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2137,7 +2136,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV shows if high frequency rejection on analog trigger events is enabled. \\
-			TSP command: dmm.digitize.analogtrigger.highfreqreject \\
+			TSP command: print(dmm.digitize.analogtrigger.highfreqreject) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2158,7 +2157,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Less
 			\end{itemize}\} \\
 			Description: This PV defines if the pulse must be greater than or less than the pulse width before an analog trigger is generated. Only available when the analog trigger mode is set to pulse. \\
-			TSP command: dmm.digitize.analogtrigger.pulse.condition \\
+			TSP command: dmm.digitize.analogtrigger.pulse.condition = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2179,7 +2178,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Less
 			\end{itemize}\} \\
 			Description: This PV shows if the pulse must be greater than or less than the pulse width before an analog trigger is generated. \\
-			TSP command: dmm.digitize.analogtrigger.pulse.condition \\
+			TSP command: print(dmm.digitize.analogtrigger.pulse.condition) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2200,7 +2199,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Below
 			\end{itemize}\} \\
 			Description: This PV defines the polarity of the pulse that generates an analog trigger event. Only used when analog trigger mode is pulse. Determines if the analog trigger occurs when the pulse is above the defined signal level or below the defined signal level. \\
-			TSP command: dmm.digitize.analogtrigger.pulse.polarity \\
+			TSP command: dmm.digitize.analogtrigger.pulse.polarity = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2221,7 +2220,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Below
 			\end{itemize}\} \\
 			Description: This PV shows the polarity of the pulse that generates an analog trigger event. \\
-			TSP command: dmm.digitize.analogtrigger.pulse.polarity \\
+			TSP command: print(dmm.digitize.analogtrigger.pulse.polarity) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2238,7 +2237,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Analog Trigger Pulse Level Set Point} \\
 			Data type: float \\
 			Description: This PV defines the pulse level that generates an analog trigger event. Only available when the analog trigger mode is set to pulse. \\
-			TSP command: dmm.digitize.analogtrigger.pulse.level \\
+			TSP command: dmm.digitize.analogtrigger.pulse.level = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2255,7 +2254,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Analog Trigger Pulse Level Read Back} \\
 			Data type: float \\
 			Description: This PV shows the pulse level that generates an analog trigger event. \\
-			TSP command: dmm.digitize.analogtrigger.pulse.level \\
+			TSP command: print(dmm.digitize.analogtrigger.pulse.level) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2275,7 +2274,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Max=0.04 \\
 			unit: second \\
 			Description: This PV defines the threshold value for the pulse width. This option is only available when the analog trigger mode is set to pulse. This option sets either the minimum or maximum pulse width that generates an analog trigger event. The value of pulse condition determines whether this value is interpreted as the minimum or maximum pulse width. \\
-			TSP command: dmm.digitize.analogtrigger.pulse.width \\
+			TSP command: dmm.digitize.analogtrigger.pulse.width = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2293,7 +2292,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: float \\
 			unit: second \\
 			Description: This PV shows the threshold value for the pulse width. \\
-			TSP command: dmm.digitize.analogtrigger.pulse.width \\
+			TSP command: print(dmm.digitize.analogtrigger.pulse.width) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2310,7 +2309,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Analog Trigger Window High Level Set Point} \\
 			Data type: float \\
 			Description: This PV defines the upper boundary of the analog trigger window. Only available when the analog trigger mode is set to window. The high level must be greater than the low level. \\
-			TSP command: dmm.digitize.analogtrigger.window.levelhigh \\
+			TSP command: dmm.digitize.analogtrigger.window.levelhigh = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2327,7 +2326,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Analog Trigger Window High Level Read Back} \\
 			Data type: float \\
 			Description: This PV shows the upper boundary of the analog trigger window. \\
-			TSP command: dmm.digitize.analogtrigger.window.levelhigh \\
+			TSP command: print(dmm.digitize.analogtrigger.window.levelhigh) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2344,7 +2343,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Analog Trigger Window Low Level Set Point} \\
 			Data type: float \\
 			Description: This PV defines the lower boundary of the analog trigger window. Only available when the analog trigger mode is set to window. The low level must be less than the high level. \\
-			TSP command: dmm.digitize.analogtrigger.window.levellow \\
+			TSP command: dmm.digitize.analogtrigger.window.levellow = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2361,7 +2360,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Analog Trigger Window Low Level Read Back} \\
 			Data type: float \\
 			Description: This PV shows the lower boundary of the analog trigger window. \\
-			TSP command: dmm.digitize.analogtrigger.window.levellow \\
+			TSP command: print(dmm.digitize.analogtrigger.window.levellow) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2382,7 +2381,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Leave
 			\end{itemize}\} \\
 			Description: This PV defines if the analog trigger occurs when the signal enters or leaves the defined upper and lower analog signal level boundaries. This is only available when the analog trigger mode is set to window. \\
-			TSP command: dmm.digitize.analogtrigger.window.direction \\
+			TSP command: dmm.digitize.analogtrigger.window.direction = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2403,7 +2402,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Leave
 			\end{itemize}\} \\
 			Description: This PV shows if the analog trigger occurs when the signal enters or leaves the defined upper and lower analog signal level boundaries. \\
-			TSP command: dmm.digitize.analogtrigger.window.direction \\
+			TSP command: print(dmm.digitize.analogtrigger.window.direction) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2424,7 +2423,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables the application of a relative offset value to the measurement. When relative measurements are enabled, all subsequent measured readings are offset by the relative offset value that was calculated when you acquired the relative offset value. Each returned measured relative reading is the result of the following calculation: $$\text{Displayed reading} = \text{Actual measured reading} - \text{Relative offset value}$$ \\
-			TSP command: dmm.digitize.rel.enable \\
+			TSP command: dmm.digitize.rel.enable = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2445,7 +2444,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV shows if the application of a relative offset value to the measurement is enabled. \\
-			TSP command: dmm.digitize.rel.enable \\
+			TSP command: print(dmm.digitize.rel.enable) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2483,7 +2482,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Relative Offset Level Set Point} \\
 			Data type: float \\
 			Description: This PV sets the relative offset value. When relative offset is enabled, all subsequent measured readings are offset by the value that is set for this PV. You can set this value, or have the instrument acquire a value. \\
-			TSP command: dmm.digitize.rel.level \\
+			TSP command: dmm.digitize.rel.level = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2500,7 +2499,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Relative Offset Level Read Back} \\
 			Data type: float \\
 			Description: This PV shows the relative offset value. \\
-			TSP command: dmm.digitize.rel.level \\
+			TSP command: print(dmm.digitize.rel.level) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2521,7 +2520,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables math operations on measurements for the selected digitize function. When this PV is set to \emph{ON}, the math operation specified is performed before completing a measurement. \\
-			TSP command: dmm.digitize.math.enable \\
+			TSP command: dmm.digitize.math.enable = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2542,7 +2541,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] ON
 			\end{itemize}\} \\
 			Description: This PV enables or disables math operations on measurements for the selected digitize function. \\
-			TSP command: dmm.digitize.math.enable \\
+			TSP command: print(dmm.digitize.math.enable) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2564,7 +2563,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Reciprocal
 			\end{itemize}\} \\
 			Description: This PV specifies which math operation is performed for the selected measurement function when math operations are enabled. You can choose one of the following math operations: \begin{itemize} \item y = mx+b: Manipulate normal display readings by adjusting the m and b factors. \item Percent: Displays measurements as the percentage of deviation from a specified reference constant. \item Reciprocal: The reciprocal math operation displays measurement values as reciprocals. The displayed value is 1/X, where X is the measurement value (if relative offset is being used, this is the measured value with relative offset applied). \end{itemize} Math calculations are applied to the input signal after relative offset. \\
-			TSP command: dmm.digitize.math.format \\
+			TSP command: dmm.digitize.math.format = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2586,7 +2585,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Reciprocal
 			\end{itemize}\} \\
 			Description: This PV shows which math operation is performed for the selected measurement function when math operations are enabled. \\
-			TSP command: dmm.digitize.math.format \\
+			TSP command: print(dmm.digitize.math.format) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2605,7 +2604,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Min=-1000000000000 \\
 			Max=1000000000000 \\
 			Description: This PV specifies the offset, b, for the y = mx + b operation. The mx + b math operation lets you manipulate normal display readings (x) mathematically according to the following calculation: $$ y = mx + b $$ Where: \begin{itemize} \item y is the displayed result \item m is a user-defined constant for the scale factor \item x is the measurement reading (if you are using a relative offset, this is the measurement with relative offset applied) \item b is the user-defined constant for the offset factor \end{itemize} \\
-			TSP command: dmm.digitize.math.mxb.bfactor \\
+			TSP command: dmm.digitize.math.mxb.bfactor = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2622,7 +2621,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Math B Factor Read Back} \\
 			Data type: float \\
 			Description: This PV shows the offset, b, for the y = mx + b operation. \\
-			TSP command: dmm.digitize.math.mxb.bfactor \\
+			TSP command: print(dmm.digitize.math.mxb.bfactor) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2641,7 +2640,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Min=-1000000000000 \\
 			Max=1000000000000 \\
 			Description: This PV specifies the scale factor, m, for the y = mx + b math operation. The mx + b math operation lets you manipulate normal display readings (x) mathematically according to the following calculation: $$ y = mx + b $$ Where: \begin{itemize} \item y is the displayed result \item m is a user-defined constant for the scale factor \item x is the measurement reading (if you are using a relative offset, this is the measurement with relative offset applied) \item b is the user-defined constant for the offset factor \end{itemize} \\
-			TSP command: dmm.digitize.math.mxb.mfactor \\
+			TSP command: dmm.digitize.math.mxb.mfactor = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2658,7 +2657,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Math M Factor Read Back} \\
 			Data type: float \\
 			Description: This PV shows the scale factor, m, for the y = mx + b math operation. \\
-			TSP command: dmm.digitize.math.mxb.mfactor \\
+			TSP command: print(dmm.digitize.math.mxb.mfactor) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2677,7 +2676,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Min=-1000000000000 \\
 			Max=1000000000000 \\
 			Description: This PV specifies the reference constant that is used when math operations are set to percent. The percent math function displays measurements as percent deviation from a specified reference constant. The percent calculation is: $$ \text{Percent} = \bigg(\frac{\text{input} - \text{reference}}{\text{reference}}\bigg)\times 100\% $$ Where: \begin{itemize} \item Percent is the result \item Input is the measurement (if relative offset is being used, this is the relative offset value) \item Reference is the user-specified constant \end{itemize} \\
-			TSP command: dmm.digitize.math.percent \\
+			TSP command: dmm.digitize.math.percent = \emph{value} \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2694,7 +2693,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digitize Math Percent Reference Read Back} \\
 			Data type: float \\
 			Description: This PV shows the reference constant that is used when math operations are set to percent. \\
-			TSP command: dmm.digitize.math.percent \\
+			TSP command: print(dmm.digitize.math.percent) \\
 			Functions: \\
 			\arrayrulecolor{\FuncTableBorderColor}\resizebox{0.85\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -2822,7 +2821,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Min=0 \\
 			n: number of default buffer (1 or 2) \\
 			Description: This PV specifies the number of readings the buffer can store. \\
-			TSP command: defbuffer\textless n\textgreater.capacity
+			TSP command: defbuffer\textless n\textgreater.capacity = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -2832,7 +2831,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: long \\
 			n: number of default buffer (1 or 2) \\
 			Description: This PV shows the number of readings the buffer can store. \\
-			TSP command: defbuffer\textless n\textgreater.capacity
+			TSP command: print(defbuffer\textless n\textgreater.capacity)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -2846,7 +2845,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: number of default buffer (1 or 2) \\
 			Description: This PV determines if a reading buffer is filled continuously or is filled once and stops. \\
-			TSP command: defbuffer\textless n\textgreater.fillmode
+			TSP command: defbuffer\textless n\textgreater.fillmode = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -2860,7 +2859,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: number of default buffer (1 or 2) \\
 			Description: This PV shows if a reading buffer is filled continuously or is filled once and stops. \\
-			TSP command: defbuffer\textless n\textgreater.fillmode
+			TSP command: print(defbuffer\textless n\textgreater.fillmode)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -2870,7 +2869,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: long \\
 			n: number of default buffer (1 or 2) \\
 			Description: This record gets the number of readings in the specified reading buffer when processed. Set \emph{CntBuff\textless n\textgreater-Mon.PROC} to any value in order to read the buffer count once. Set \emph{CntBuff\textless n\textgreater-Mon.SCAN} to a valide EPICS SCAN value in order to periodically monitor the buffer count. \\
-			TSP command: defbuffer\textless n\textgreater.n
+			TSP command: print(defbuffer\textless n\textgreater.n)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -2894,7 +2893,8 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: float \\
 			n: number of default buffer (1 or 2) \\
 			Description: This record gets the average of the corresponding buffer readings when processed. Set \emph{AvgBuff\textless n\textgreater-Mon.PROC} to any value in order to read the buffer average value once. Set \emph{AvgBuff\textless n\textgreater-Mon.SCAN} to a valide EPICS SCAN value in order to monitor the buffer average periodically. \\
-			TSP command: statsVar = buffer.getstats(defbuffer\textless n\textgreater-Mon); print(statsVar.mean);
+			TSP command: statsVar = buffer.getstats(defbuffer\textless n\textgreater-Mon) \\
+			print(statsVar.mean)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -2904,7 +2904,8 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: float \\
 			n: number of default buffer (1 or 2) \\
 			Description: This record gets the maximum value reading from the corresponding buffer when processed. Set \emph{MaxBuff\textless n\textgreater-Mon.PROC} to any value in order to read the buffer maximum value once. Set \emph{MaxBuff\textless n\textgreater-Mon.SCAN} to a valide EPICS SCAN value in order to monitor the buffer maximum value periodically. \\
-			TSP command: statsVar = buffer.getstats(defbuffer\textless n\textgreater); print(statsVar.max.reading;
+			TSP command: statsVar = buffer.getstats(defbuffer\textless n\textgreater) \\
+			print(statsVar.max.reading)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -2914,7 +2915,8 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: float \\
 			n: number of default buffer (1 or 2) \\
 			Description: This record gets the minimum value reading from the corresponding buffer when processed. Set \emph{MinBuff\textless n\textgreater-Mon.PROC} to any value in order to read the buffer maximum value once. Set \emph{MinBuff\textless n\textgreater-Mon.SCAN} to a valide EPICS SCAN value in order to monitor the buffer minimum value periodically. \\
-			TSP command: statsVar = buffer.getstats(defbuffer\textless n\textgreater); print(statsVar.min.reading);
+			TSP command: statsVar = buffer.getstats(defbuffer\textless n\textgreater) \\
+			print(statsVar.min.reading)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -2924,7 +2926,8 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: float \\
 			n: number of default buffer (1 or 2) \\
 			Description: This record gets the standard deviation of readings for the corresponding buffer when processed. Set \emph{StdDBuff\textless n\textgreater-Mon.PROC} to any value in order to read the buffer standard devitation once. Set \emph{StdDBuff\textless n\textgreater-Mon.SCAN} to a valide EPICS SCAN value in order to monitor the buffer standard deviation periodically. \\
-			TSP command: statsVar = buffer.getstats(defbuffer\textless n\textgreater); print(statsVar.stddev);
+			TSP command: statsVar = buffer.getstats(defbuffer\textless n\textgreater) \\
+			print(statsVar.stddev)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -2957,7 +2960,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] EITHER
 			\end{itemize}\} \\
 			Description: This PV sets the type of edge that is detected as an input on the external in line. \\
-			TSP command: trigger.extin.edge
+			TSP command: trigger.extin.edge = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -2971,7 +2974,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] EITHER
 			\end{itemize}\} \\
 			Description: This PV shows the type of edge that is detected as an input on the external in line. \\
-			TSP command: trigger.extin.edge
+			TSP command: print(trigger.extin.edge)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -2984,7 +2987,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Overrun
 			\end{itemize}\} \\
 			Description: This PV shows the event detector overrun status. \\
-			TSP command: trigger.extin.overrun
+			TSP command: print(trigger.extin.overrun)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3010,7 +3013,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Negative
 			\end{itemize}\} \\
 			Description: This PV sets the output logic of the trigger event generator to positive or negative for the external out line. \\
-			TSP command: trigger.extout.logic
+			TSP command: trigger.extout.logic = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3023,7 +3026,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] Negative
 			\end{itemize}\} \\
 			Description: This PV shows the output logic of the trigger event generator to positive or negative for the external out line. \\
-			TSP command: trigger.extout.logic
+			TSP command: print(trigger.extout.logic)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3051,7 +3054,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] EVENT\_EXTERNAL
 			\end{itemize}\} \\
 			Description: This PV selects the event that causes a trigger to be asserted on the external output line. \\
-			TSP command: trigger.extout.stimulus
+			TSP command: trigger.extout.stimulus = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3079,7 +3082,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 				\item[] EVENT\_EXTERNAL
 			\end{itemize}\} \\
 			Description: This PV shows the event that causes a trigger to be asserted on the external output line. \\
-			TSP command: trigger.extout.stimulus
+			TSP command: print(trigger.extout.stimulus)
 		\end{tabular}
 
 	% TABLE: Digital I/O
@@ -3095,7 +3098,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Min=0 \\ 
 			Max=63 \\
 			Description: This PV writes to all digital I/O lines. The binary representation of the value indicates the output pattern to be written to the I/O port. For example, a value of 63 has a binary equivalent of 111111 (all lines are set high), and a data value of 42 has a binary equivalent of 101010 (lines 2, 4, and 6 are set high, and the other 3 lines are set low). An instrument reset does not affect the present states of the digital I/O lines. All six lines must be configured as digital control lines. If not, this command generates an error. \\
-			TSP command: digio.writeport()
+			TSP command: digio.writeport(\emph{value})
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3104,7 +3107,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\emph{Digital Port Read Monitor} \\
 			Data type: long \\
 			Description: This record reads the digital I/O port (all lines) state when processed. The least significant bit (bit B1) of the binary number corresponds to digital I/O line 1; bit B6 corresponds to digital I/O line 6. For example, a returned value of 42 has a binary equivalent of 101010, which indicates that lines 2, 4, 6 are high (1), and the other lines are low (0). Set \emph{DigRead-Mon.PROC} to any value in order to read the I/O port state once. Set \emph{DigRead-Mon.SCAN} to a valide EPICS SCAN value in order to monitor the port value periodically. \\
-			TSP command: digio.readport()
+			TSP command: print(digio.readport())
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3124,7 +3127,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: digital line number (1 to 6) \\
 			Description: This PV sets the mode of the digital I/O line to be a digital line, trigger line, or synchronous line and sets the line to be input, output, or open-drain. The following settings of line mode set the line for direct control as a digital line: \begin{itemize} \item DIGIN (Digital Input): The instrument automatically detects externally generated logic levels. You can read an input line, but you cannot write to it. \item DIGOUT (Digital Output): You can set the line as logic high (+5 V) or as logic low (0 V). The default level is logic low (0 V). When the instrument is in output mode, the line is actively driven high or low. \item DIGOPEN (Digital Open Drain): Configures the line to be an open-drain signal. The line can serve as an input, an output or both. When a digital I/O line is used as an input in open-drain mode, you must write a 1 to it. \end{itemize} The following settings of line mode set the line as a trigger line: \begin{itemize} \item TRIGIN(Trigger Input): The line automatically responds to and detects externally generated triggers. It detects falling-edge, rising-edge, or either-edge triggers as input depending on the configuration of the \emph{Dig{\textless n\textgreater}Edge-Sel} PV. \item TRIGOUT (Trigger Output): The line is automatically set high or low depending on the output logic setting. Use the negative logic setting when you want to generate a falling edge trigger and use the positive logic setting when you want to generate a rising edge trigger. \item TRIGOPEN (Trigger Open Drain): Configures the line to be an open-drain signal. You can use the line to detect input triggers or generate output triggers. This line state uses the edge setting specified by the \emph{Dig{\textless n\textgreater}Edge-Sel} PV. \end{itemize} When the line is set as a synchronous acceptor (SYNCACC), the line detects the falling-edge input triggers and automatically latches and drives the trigger line low. Asserting an output trigger releases the latched line. When the line is set as a synchronous master (SYNCMASTER), the line detects rising-edge triggers as input. For output, the line asserts a TTL-low pulse. \\
-			TSP command: digio.line[n].mode
+			TSP command: digio.line[n].mode = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3144,7 +3147,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: digital line number (1 to 6) \\
 			Description: This PV shows the mode of the digital I/O line: digital line, trigger line, or synchronous line; and I/O configuration: input, output, or open-drain. \\
-			TSP command: digio.line[n].mode
+			TSP command: print(digio.line[n].mode)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3158,7 +3161,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: digital line number (1 to 6) \\
 			Description: This PV sets the corresponding digital I/O line high or low when the line is set for digital control. \\
-			TSP command: digio.line[n].state
+			TSP command: digio.line[n].state = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3172,7 +3175,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: digital line number (1 to 6) \\
 			Description: When processed, this record reads the state of the corresponding digital I/O line. Set \emph{Dig{\textless n\textgreater}State-Mon.PROC} to any value in order to read the I/O line state once. Set \emph{Dig{\textless n\textgreater}State-Mon.SCAN} to some valide EPICS SCAN value in order to monitor the I/O line state periodically. When a reset occurs, the digital line state can be read as high because the digital line is reset to a digital input. A digital input floats high if nothing is connected to the digital line. \\
-			TSP command: digio.line[n].state
+			TSP command: print(digio.line[n].state)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3201,7 +3204,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: digital line number (1 to 6) \\
 			Description: This PV sets the edge used by the trigger event detector on the given trigger line. \\
-			TSP command: trigger.digin[n].edge
+			TSP command: trigger.digin[n].edge = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3216,7 +3219,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: digital line number (1 to 6) \\
 			Description: This PV shows the edge used by the trigger event detector on the given trigger line. \\
-			TSP command: trigger.digin[n].edge
+			TSP command: print(trigger.digin[n].edge)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3230,7 +3233,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: digital line number (1 to 6) \\
 			Description: This PV shows the event detector overrun status. \\
-			TSP command: trigger.digin[n].overrun
+			TSP command: print(trigger.digin[n].overrun)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3244,7 +3247,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: digital line number (1 to 6) \\
 			Description: This PV sets the output logic of the trigger event generator to positive or negative for the corresponding line. \\
-			TSP command: trigger.digout[n].logic
+			TSP command: trigger.digout[n].logic = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3258,7 +3261,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: digital line number (1 to 6) \\
 			Description: This PV shows the output logic of the trigger event generator for the corresponding line. \\
-			TSP command: trigger.digout[n].logic
+			TSP command: print(trigger.digout[n].logic)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3270,7 +3273,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Max=100000 \\
 			n: digital line number (1 to 6) \\
 			Description: This PV sets the length of time that the trigger line is asserted for output triggers. Setting the pulse width to zero (0) seconds asserts the trigger indefinitely. To release the trigger line, use \emph{Dig{\textless n\textgreater}Release-Cmd}. \\
-			TSP command: trigger.digout[n].pulsewidth
+			TSP command: trigger.digout[n].pulsewidth = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3280,7 +3283,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: float \\
 			n: digital line number (1 to 6) \\
 			Description: This PV shows the length of time that the trigger line is asserted for output triggers. \\
-			TSP command: trigger.digout[n].pulsewidth
+			TSP command: print(trigger.digout[n].pulsewidth)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3309,7 +3312,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: digital line number (1 to 6) \\
 			Description: This PV selects the event that causes a trigger to be asserted on the corresponding digital output line. \\
-			TSP command: trigger.digout[n].stimulus
+			TSP command: trigger.digout[n].stimulus = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3338,7 +3341,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: digital line number (1 to 6) \\
 			Description: This PV shows the event that causes a trigger to be asserted on the corresponding digital output line. \\
-			TSP command: trigger.digout[n].stimulus
+			TSP command: print(trigger.digout[n].stimulus)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3385,7 +3388,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: timer number (1 to 4) \\
 			Description: This PV enables the trigger timer. You must enable a timer before it can use the delay settings or the alarm configuration. For expected results from the timer, it is best to disable the timer before changing a timer setting, such as delay or start seconds. To use the timer as a simple delay or pulse generator, make sure the timer start time in seconds and fractional seconds is configured for a time in the past. To use the timer as an alarm, configure the timer start time in seconds and fractional seconds for the desired alarm time.\\
-			TSP command: trigger.timer[n].enable
+			TSP command: trigger.timer[n].enable = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3399,7 +3402,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: timer number (1 to 4) \\
 			Description: This PV shows if the trigger timer is enabled. \\
-			TSP command: trigger.timer[n].enable
+			TSP command: print(trigger.timer[n].enable)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3411,7 +3414,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Max=100000 \\
 			n: timer number (1 to 4) \\
 			Description: This PV sets the timer delay. Once the timer is enabled, each time the timer is triggered, it uses this delay period. \\
-			TSP command: trigger.timer[n].delay
+			TSP command: trigger.timer[n].delay = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3421,7 +3424,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: float \\
 			n: timer number (1 to 4) \\
 			Description: This PV shows the timer delay. \\
-			TSP command: trigger.timer[n].delay
+			TSP command: print(trigger.timer[n].delay)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3433,7 +3436,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Max=1048575
 			n: timer number (1 to 4) \\
 			Description: This PV sets the number of events to generate each time the timer generates a trigger event or is enabled as a timer or alarm. If count is set to a number greater than 1, the timer automatically starts the next trigger timer delay at the expiration of the previous delay. Set count to zero (0) to cause the timer to generate trigger events indefinitely. \\
-			TSP command: trigger.timer[n].count
+			TSP command: trigger.timer[n].count = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3443,7 +3446,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: float \\
 			n: timer number (1 to 4) \\
 			Description: This PV shows the number of events that are generated each time the timer triggers an event or is enabled as a timer or alarm. \\
-			TSP command: trigger.timer[n].count
+			TSP command: print(trigger.timer[n].count)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3457,7 +3460,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: timer number (1 to 4) \\
 			Description: This PV specifies when timer events are generated. When this PV is set to \emph{Start and elapse}, a trigger event is generated immediately when the timer is triggered and when it elapses. When it is set to \emph{Elapse}, a trigger event is generated only when the timer elapses. \\
-			TSP command: trigger.timer[n].start.generate
+			TSP command: trigger.timer[n].start.generate = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3471,7 +3474,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: timer number (1 to 4) \\
 			Description: This PV shows when timer events are generated. \\
-			TSP command: trigger.timer[n].start.generate
+			TSP command: print(trigger.timer[n].start.generate)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3483,7 +3486,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Max=2147483647 \\
 			n: timer number (1 to 4) \\
 			Description: This PV configures the seconds of an alarm or a time in the future when the timer will start. When the timer is enabled, the timer starts immediately if the timer is configured for a start time that has passed. \\
-			TSP command: trigger.timer[n].start.seconds
+			TSP command: trigger.timer[n].start.seconds = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3493,7 +3496,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: long \\
 			n: timer number (1 to 4) \\
 			Description: This PV shows, in seconds, the time of an alarm or a time in the future when the timer will start. \\
-			TSP command: trigger.timer[n].start.seconds
+			TSP command: print(trigger.timer[n].start.seconds)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3505,7 +3508,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Max=1 \\
 			n: timer number (1 to 4) \\
 			Description: This PV configures the fractional seconds of an alarm or a time in the future when the timer will start. \\
-			TSP command: trigger.timer[n].start.fractionalseconds
+			TSP command: trigger.timer[n].start.fractionalseconds = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3515,7 +3518,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			Data type: float \\
 			n: timer number (1 to 4) \\
 			Description: This PV shows the fractional seconds of an alarm or a time in the future when the timer will start. \\
-			TSP command: trigger.timer[n].start.fractionalseconds
+			TSP command: print(trigger.timer[n].start.fractionalseconds)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3544,7 +3547,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: timer number (1 to 4) \\
 			Description: This PV sets the event that starts the trigger timer. Set this attribute to zero (0) to disable event processing and use the timer as a timer or alarm based on the start time. \\
-			TSP command: trigger.timer[n].start.stimulus
+			TSP command: trigger.timer[n].start.stimulus = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3573,7 +3576,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: timer number (1 to 4) \\
 			Description: This PV shows the event that starts the trigger timer. \\
-			TSP command: trigger.timer[n].start.stimulus
+			TSP command: print(trigger.timer[n].start.stimulus)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3587,7 +3590,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: timer number (1 to 4) \\
 			Description: This PV indicates if an event was ignored because of the event detector state. \\
-			TSP command: trigger.timer[n].start.overrun
+			TSP command: print(trigger.timer[n].start.overrun)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3620,7 +3623,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: blender number (1 or 2) \\
 			Description: This PV selects whether the blender performs OR operations or AND operations. \\
-			TSP command: trigger.blender[n].orenable
+			TSP command: trigger.blender[n].orenable = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3634,7 +3637,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: blender number (1 or 2) \\
 			Description: This PV shows the blender operation type. \\
-			TSP command: trigger.blender[n].orenable
+			TSP command: print(trigger.blender[n].orenable)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3664,7 +3667,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			n: blender number (1 or 2) \\
 			m: stimulus number (1 to 4) \\
 			Description: This PV specifies the events that trigger the blender. There are four stimulus inputs that can each select a different event. Use zero to disable the blender input. \\
-			TSP command: trigger.blender[n].stimulus[m]
+			TSP command: trigger.blender[n].stimulus[m] = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3694,7 +3697,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			n: blender number (1 or 2) \\
 			m: stimulus number (1 to 4) \\
 			Description: This PV shows the events that trigger the blender. \\
-			TSP command: trigger.blender[n].stimulus[m]
+			TSP command: print(trigger.blender[n].stimulus[m])
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3708,7 +3711,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 			\end{itemize}\} \\
 			n: blender number (1 or 2) \\
 			Description: This PV indicates whether or not an event was ignored because of the event detector state. \\
-			TSP command: trigger.blender[n].overrun
+			TSP command: print(trigger.blender[n].overrun)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3764,7 +3767,7 @@ count is not changed. \\
 			\emph{Last Autocalibration Monitor} \\
 			Data type: string \\
 			This record returns, when processed, the date and time when auto calibration was last run. Set \emph{ACalLast-Mon.PROC} to any value in order to get the last calibration time once. Set \emph{ACalLast-Mon.SCAN} to a valide EPICS SCAN value in order to monitor the last calibration time periodically. The date and time is returned in the format: $$ \text{MM/DD/YYYY HH:MM:SS.NNNNNNNNN} $$ Where: \begin{itemize} \item MM/DD/YYYY is the month, date, and year \item HH:MM:SS.NNNNNNNNN is the hour, minute, second, and fractional second \end{itemize} \\
-			TSP command: acal.lastrun.time
+			TSP command: print(acal.lastrun.time)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3773,7 +3776,7 @@ count is not changed. \\
 			\emph{Autocalibration Count Monitor} \\
 			Data type: long \\
 			This PV returns, when processed, the number of times automatic calibration has been run since the last factory calibration. Set \emph{ACalCount-Mon.PROC} to any value in order to get the automatic calibration count once. Set \emph{ACalCount-Mon.SCAN} to a valide EPICS SCAN value in order to monitor the automatic calibration count periodically. \\
-			TSP command: acal.count
+			TSP command: print(acal.count)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3787,7 +3790,7 @@ count is not changed. \\
 				\item[] Notify
 			\end{itemize}\} \\
 			This PV sets the autocalibration action to be executed at the scheduled time. \\
-			TSP command: acal.schedule()
+			TSP command: acal.schedule(\emph{value}, \emph{ACalSchInt-Sts}, \emph{ACalSchHr-RB})
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3801,7 +3804,8 @@ count is not changed. \\
 				\item[] Notify
 			\end{itemize}\} \\
 			This PV shows the autocalibration action configured to be executed at the scheduled time. \\
-			TSP command: acal.schedule()
+			TSP command: action, interval, hour = acal.schedule() \\
+			print(action)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3819,7 +3823,7 @@ count is not changed. \\
 				\item[] 90 days
 			\end{itemize}\} \\
 			This PV determines how often the auto calibration action should be executed. \\
-			TSP command: acal.schedule()
+			TSP command: acal.schedule(ACalSchAct-Sts, \emph{value}, \emph{ACalSchHr-RB})
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3837,7 +3841,8 @@ count is not changed. \\
 				\item[] 90 days
 			\end{itemize}\} \\
 			This PV shows how often the auto calibration action is configured to be executed. \\
-			TSP command: acal.schedule()
+			TSP command: action, interval, hour = acal.schedule() \\
+			print(interval)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3848,7 +3853,7 @@ count is not changed. \\
 			Min=0 \\
 			Max=23 \\
 			Specify, in 24-hour time format, when the auto calibration action should occur. \\
-			TSP command: acal.schedule()
+			TSP command: acal.schedule(ACalSchAct-Sts, ACalSchInt-Sts, \emph{value})
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3857,7 +3862,8 @@ count is not changed. \\
 			\emph{Autocalibration Schedule Hour Read Back} \\
 			Data type: long \\
 			Shows, in 24-hour format, the configured time for the auto calibration action. \\
-			TSP command: acal.schedule()
+			TSP command: action, interval, hour = acal.schedule() \\
+			print(hour)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3866,7 +3872,7 @@ count is not changed. \\
 			\emph{Next Autocalibration Monitor} \\
 			Data type: string \\
 			This PV returns, when processed, the date and time when the next auto calibration is scheduled to be run. Set \emph{ACalNext-Mon.PROC} to any value in order to get the next auto calibration date and time once. Set \emph{ACalNext-Mon.SCAN} to a valide EPICS SCAN value in order to monitor the next auto calibration date and time periodically. \\
-			TSP command: acal.nextrun.time
+			TSP command: print(acal.nextrun.time)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3876,7 +3882,7 @@ count is not changed. \\
 			Data type: float \\
 			unit: \SI{}{\degreeCelsius} \\
 			When processed, this PV returns the difference between the internal temperature and the temperature when auto calibration was last run. Set \emph{ACalDiff-Mon.PROC} to any value in order to read the temperature difference once. Set \emph{ACalDiff-Mon.SCAN} to a valide EPICS SCAN value in order to monitor the difference between the current internal temperature and the temperature when auto calibration was last run, periodically. \\
-			TSP command: acal.lastrun.tempdiff
+			TSP command: print(acal.lastrun.tempdiff)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3971,7 +3977,7 @@ count is not changed. \\
 				\item[] Aborted
 			\end{itemize}\} \\
 			Description: When processed, this record reads the present state of the trigger model. The trigger model states are: \begin{itemize} \item Idle: The trigger model is stopped. \item Running: The trigger model is running. \item Waiting: The trigger model has been in the same wait block for more than 100 ms. \item Empty: The trigger model is selected, but no blocks are defined. \item Building: Blocks have been added. \item Failed: The trigger model is stopped because of an error. \item Aborting: The trigger model is stopping because of a user request. \item Aborted: The trigger model is stopped because of a user request. \end{itemize} Set \emph{TM-Mon.PROC} to any value in order to read the trigger model state once. Set \emph{TM-Mon.SCAN} to a valide EPICS SCAN value in order to monitor the trigger model state periodically. \\
-			TSP command: trigger.model.state()
+			TSP command: print(trigger.model.state())
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -3980,7 +3986,7 @@ count is not changed. \\
 			\emph{Trigger Model Block List Monitor} \\
 			Data type: char[2500] \\
 			Description: When processed, this record reads the settings for all trigger model blocks. Set \emph{TMBlockList-Mon.PROC} to any value in order to read the trigger model settings once. Set \emph{TMBlockList-Mon.SCAN} to a valide EPICS SCAN value in order to monitor the trigger model settings periodically. \\
-			TSP command: trigger.model.getblocklist()
+			TSP command: print(trigger.model.getblocklist())
 		\end{tabular}
 
 	% TABLE: General
@@ -4013,7 +4019,7 @@ count is not changed. \\
 				\item[] LOCKOUT
 			\end{itemize}\} \\
 			Description: This PV defines the type of access users have to the instrument through different interfaces. When access is set to full, the instrument accepts commands from any interface with no login or password. When access is set to exclusive, you must log out of one remote interface and log into another one to change interfaces. You do not need a password with this access. Protected access is similar to exclusive access, except that you must enter a password when logging in. When the access is set to locked out, a password is required to change interfaces, including the front-panel interface. Under any access type, if a script is running on one remote interface when a command comes in from another remote interface, the command is ignored and the message "FAILURE: A script is running, use ABORT to stop it" is generated. \\
-			TSP command: localnode.access
+			TSP command: localnode.access = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -4028,7 +4034,7 @@ count is not changed. \\
 				\item[] LOCKOUT
 			\end{itemize}\} \\
 			Description: This PV shows the type of access users have to the instrument through different interfaces. \\
-			TSP command: localnode.access
+			TSP command: print(localnode.access)
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -4037,7 +4043,7 @@ count is not changed. \\
 			\emph{Login Set Point} \\
 			Data type: string \\
 			Description: This PV sends a login command to the instrument using the password entered. \\
-			TSP command: login
+			TSP command: login \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -4059,7 +4065,7 @@ count is not changed. \\
 			\emph{New Password Set Point} \\
 			Data type: string \\
 			Description: This PV sets the instrument password. When the access to the instrument is set to protected or lockout, this is the password that is used to gain access. If you forget the password, you can reset the password to the default: \begin{enumerate} \item On the front panel, press MENU. \item Under System, select Info/Manage. \item Select Password Reset. \end{enumerate} You can also reset the password and the LAN settings from the rear panel by inserting a straightened paper clip into hole below LAN RESET. \\
-			TSP command: localnode.password
+			TSP command: localnode.password = \emph{value}
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -4069,7 +4075,7 @@ count is not changed. \\
 			Data type: string \\
 			Format: \textless year\textgreater, \textless month\textgreater, \textless day\textgreater, \textless hour\textgreater, \textless minute\textgreater, \textless second\textgreater \\
 			Description: This PV sets the date and time of the instrument. \\
-			TSP command: localnode.settime()
+			TSP command: localnode.settime(\emph{value})
 		\end{tabular}
 
 		\begin{tabular}{N}
@@ -4110,7 +4116,7 @@ count is not changed. \\
 			\emph{Event Log Next Event Message Monitor} \\
 			Data type: char[250] \\
 			Description: When processed, this record reads the oldest unread event message from the event log. Set \emph{EvLogNext-Mon.PROC} to any value in order to read the oldest unread event message once. Set \emph{EvLogNext-Mon.SCAN} to a valide EPICS SCAN value in order to fetch events periodically. \\
-			TSP command: eventlog.next()
+			TSP command: print(eventlog.next())
 		\end{tabular}
 
 		\begin{tabular}{N}
