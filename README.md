@@ -28,7 +28,7 @@ The IOC documentation can be found in *Doc/*. There you can find a manual with t
     - RULES_DIRS
     - RULES.ioc
     - RULES_TOP
-- **dmm7510App** *(Application source)*
+- **dmm7510App** *(Application sources)*
     - **Db** *(The database files can be found here)*
         - dmm7510.db *(DMM7510 multimeter records)*
         - dmm7510.proto *(Protocol file for DMM7510 records used by Stream Device)*
