@@ -28,7 +28,7 @@ The IOC documentation can be found in *Doc/*. There you can find a manual with t
     - RULES_DIRS
     - RULES.ioc
     - RULES_TOP
-- **dmm7510App**
+- **dmm7510App** *(Application source)*
     - **Db** *(The database files can be found here)*
         - dmm7510.db *(DMM7510 multimeter records)*
         - dmm7510.proto *(Protocol file for DMM7510 records used by Stream Device)*
@@ -38,7 +38,7 @@ The IOC documentation can be found in *Doc/*. There you can find a manual with t
         - dmm7510Main.cpp
         - Makefile
     - Makefile
-- **Doc**
+- **Doc** *(Documentation)*
     - DCCT_App_User_Guide.tex *(DCCT application documentation source)*
     - DMM7510_EPICS_IOC_Guide.tex *(DMM7510 IOC documentation source)*
     - ICT_App_User_Guide.tex *(ICT application documentation source)*
@@ -60,7 +60,7 @@ The IOC documentation can be found in *Doc/*. There you can find a manual with t
     - Makefile
 - Makefile *(IOC Makefile)*
 - OPI *(Operator Interfaces)*
-    - **configuration**
+    - **configuration** *(CS-Studio configuration)*
         - **diirt**
             - **datasources**
                 - **ca**
