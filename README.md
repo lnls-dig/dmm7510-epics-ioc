@@ -14,35 +14,35 @@ The IOC documentation can be found in *Doc/*. There you can find a manual with t
 
 ## IOC Structure
 
-- accessSecurityFile.acf *IOC access file*
-- **autosave** *Autosave files*
-    - **request_files** *Autosave request files*
-        - autosave_dcct1.req *Example DCCT 1 autosave request file*
-        - autosave_ict1.req *Example ICT 1 autosave request file*
-- **configure** *IOC configuration files*
+- accessSecurityFile.acf *(IOC access file)*
+- **autosave** *(Autosave files)*
+    - **request_files** *(Autosave request files)*
+        - autosave_dcct1.req *(Example DCCT 1 autosave request file)*
+        - autosave_ict1.req *(Example ICT 1 autosave request file)*
+- **configure** *(IOC configuration files)*
     - CONFIG
     - CONFIG_SITE
     - Makefile
-    - RELEASE *Necessary to edit support modules' paths when first running the IOC*
+    - RELEASE *(Necessary to edit support modules' paths when first running the IOC)*
     - RULES
     - RULES_DIRS
     - RULES.ioc
     - RULES_TOP
 - **dmm7510App**
-    - **Db** *The database files can be found here*
-        - dmm7510.db *DMM7510 multimeter records*
-        - dmm7510.proto *Protocol file for DMM7510 records used by Stream Device*
-        - dcct.db *DCCT application records*
-	- ict.db *ICT application records*
-    - **src** *IOC source files*
+    - **Db** *(The database files can be found here)*
+        - dmm7510.db *(DMM7510 multimeter records)*
+        - dmm7510.proto *(Protocol file for DMM7510 records used by Stream Device)*
+        - dcct.db *(DCCT application records)*
+	- ict.db *(ICT application records)*
+    - **src** *(IOC source files)*
         - dmm7510Main.cpp
         - Makefile
     - Makefile
 - **Doc**
-    - DCCT_App_User_Guide.tex *DCCT application documentation source*
-    - DMM7510_EPICS_IOC_Guide.tex *DMM7510 IOC documentation source*
-    - ICT_App_User_Guide.tex *ICT application documentation source*
-    - **figs** *Documentation resources*
+    - DCCT_App_User_Guide.tex *(DCCT application documentation source)*
+    - DMM7510_EPICS_IOC_Guide.tex *(DMM7510 IOC documentation source)*
+    - ICT_App_User_Guide.tex *(ICT application documentation source)*
+    - **figs** *(Documentation resources)*
         - dcct-meas-param1-image.pdf
         - dcct-meas-param3-image.pdf
         - ict-meas-param-image.pdf
@@ -52,25 +52,25 @@ The IOC documentation can be found in *Doc/*. There you can find a manual with t
         - dcct-setup-image.pdf
         - ict-meas-scheme-image.pdf
         - logo_cnpem.jpg
-- **iocBoot** *Boot*
+- **iocBoot** *(Boot)*
     - **iocdmm7510**
         - Makefile
         - README
-        - st.cmd *Startup script*
+        - st.cmd *(Startup script)*
     - Makefile
-- Makefile *IOC Makefile*
-- OPI *Operator Interfaces*
+- Makefile *(IOC Makefile)*
+- OPI *(Operator Interfaces)*
     - **configuration**
         - **diirt**
             - **datasources**
                 - **ca**
                     - ca.xml
                 - datasources.xml
-    - **CSS** *CS-Studio OPIs*
-        - dcct.opi *DCCT Application OPI*
-        - dmm7510.opi *DMM7510 OPI*
-        - ict.opi *ICT OPI*
-- README.md *This file*
+    - **CSS** *(CS-Studio OPIs)*
+        - dcct.opi *(DCCT Application OPI)*
+        - dmm7510.opi *(DMM7510 OPI)*
+        - ict.opi *(ICT OPI)*
+- README.md *(This file)*
 
 ## Initialization
 
@@ -120,3 +120,7 @@ $(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Prop.FIELD-Suffix
 ```
 
 The prefix macro substitution strings are defined by *Sec*, *Sub*, *Dis*, *Dev*, and *Idx*. When *Idx* is used, a *-* character should be added before the number in order to follow the convention.
+
+## Running the OPIs
+
+The *OPI/CSS* directory provide OPIs for easily controlling the multimeter and applications process variables. In order to run the operator interfaces it is necessary to have Control System Studio installed. It is recommended to run `cs-studio` in the OPI folder, in order to avoid having to reconfigure CS-Studio preferences.
