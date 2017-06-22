@@ -99,7 +99,7 @@ When loading the DCCT application:
 ```
 dbLoadRecords("${TOP}/db/dcct.db", "Sec=<section prefix>, Sub=<subsection prefix>, Dis=<discipline prefix>, Dev=<device prefix>, Idx=<instance index>, Instrument=<DMM7510 instance prefix>")
 ```
-When the ICT application:
+When loading the ICT application:
 
 ```
 dbLoadRecords("${TOP}/db/ict.db", "Sec=<section prefix>, Sub=<subsection prefix>, Dis=<discipline prefix>, Dev=<device prefix>, Idx=<instance index>, Instrument=<DMM7510 instance prefix>")
