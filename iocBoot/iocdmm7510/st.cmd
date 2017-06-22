@@ -1,8 +1,5 @@
 #!../../bin/linux-x86_64/dmm7510
 
-## You may have to change myexample to something else
-## everywhere it appears in this file
-
 < envPaths
 
 cd ${TOP}
