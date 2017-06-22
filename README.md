@@ -14,54 +14,63 @@ The IOC documentation can be found in *Doc/*. There you can find a manual with t
 
 ## IOC Structure
 
-    - accessSecurityFile.acf -IOC access file-
-    - *autosave* -Autosave files-
-        - *request_files* -Autosave request files-
-            - autosave_dcct1.req -Example DCCT 1 autosave request file-
-            - autosave_ict1.req -Example ICT 1 autosave request file-
-    - *configure* -IOC configuration files-
-        - CONFIG
-        - CONFIG_SITE
+- accessSecurityFile.acf *IOC access file*
+- **autosave** *Autosave files*
+    - **request_files** *Autosave request files*
+        - autosave_dcct1.req *Example DCCT 1 autosave request file*
+        - autosave_ict1.req *Example ICT 1 autosave request file*
+- **configure** *IOC configuration files*
+    - CONFIG
+    - CONFIG_SITE
+    - Makefile
+    - RELEASE *Necessary to edit support modules' paths when first running the IOC*
+    - RULES
+    - RULES_DIRS
+    - RULES.ioc
+    - RULES_TOP
+- **dmm7510App**
+    - **Db** *The database files can be found here*
+        - dmm7510.db *DMM7510 multimeter records*
+        - dmm7510.proto *Protocol file for DMM7510 records used by Stream Device*
+        - dcct.db *DCCT application records*
+	- ict.db *ICT application records*
+    - **src** *IOC source files*
+        - dmm7510Main.cpp
         - Makefile
-        - RELEASE -Necessary to edit support modules' paths when first running the IOC-
-        - RULES
-        - RULES_DIRS
-        - RULES.ioc
-        - RULES_TOP
-    - *dmm7510App*
-        - *Db* -The database files can be found here-
-            - dmm7510.db -DMM7510 multimeter records-
-	    - dmm7510.proto -Protocol file for DMM7510 records used by Stream Device-
-	    - dcct.db -DCCT application records-
-	    - ict.db -ICT application records-
-        - *src* -IOC source files-
-            - dmm7510Main.cpp
-            - Makefile
+    - Makefile
+- **Doc**
+    - DCCT_App_User_Guide.tex *DCCT application documentation source*
+    - DMM7510_EPICS_IOC_Guide.tex *DMM7510 IOC documentation source*
+    - ICT_App_User_Guide.tex *ICT application documentation source*
+    - **figs** *Documentation resources*
+        - dcct-meas-param1-image.pdf
+        - dcct-meas-param3-image.pdf
+        - ict-meas-param-image.pdf
+        - ict-setup-image.pdf
+        - logo_lnls.jpg
+        - dcct-meas-param2-image.pdf
+        - dcct-setup-image.pdf
+        - ict-meas-scheme-image.pdf
+        - logo_cnpem.jpg
+- **iocBoot** *Boot*
+    - **iocdmm7510**
         - Makefile
-    - *Doc*
-        - DCCT_App_User_Guide.tex -DCCT application documentation source-
-        - DMM7510_EPICS_IOC_Guide.tex -DMM7510 IOC documentation source-
-        - ICT_App_User_Guide.tex -ICT application documentation source-
-        - *figs* -Documentation resources-
-            - dcct-meas-param1-image.pdf
-            - dcct-meas-param3-image.pdf
-            - ict-meas-param-image.pdf
-            - ict-setup-image.pdf
-            - logo_lnls.jpg
-            - dcct-meas-param2-image.pdf
-            - dcct-setup-image.pdf
-            - ict-meas-scheme-image.pdf
-            - logo_cnpem.jpg
-    - *iocBoot* -Boot-
-        - *iocdmm7510*
-            - Makefile
-            - README
-            - st.cmd -Startup script-
-        - Makefile
-
-    - Makefile -IOC Makefile-
-    - OPI -Operator Interfaces-
-    - README.md -This file-
+        - README
+        - st.cmd *Startup script*
+    - Makefile
+- Makefile *IOC Makefile*
+- OPI *Operator Interfaces*
+    - **configuration**
+        - **diirt**
+            - **datasources**
+                - **ca**
+                    - ca.xml
+                - datasources.xml
+    - **CSS** *CS-Studio OPIs*
+        - dcct.opi *DCCT Application OPI*
+        - dmm7510.opi *DMM7510 OPI*
+        - ict.opi *ICT OPI*
+- README.md *This file*
 
 ## Initialization
 
@@ -96,11 +105,11 @@ The DMM7510 PVs are composed of four parts: The user-defined prefix, the PV prop
 $(P)$(R)Prop.FIELD-Suffix
 ```
 *P* and *R* can be set in the *st.cmd* file, when loading the *.db* file. The PV suffix indicates its input type, as follows:
-* -SP (Set Point): A non-enumerated value (real number or string). It sets a system parameter.
-* -RB (Read Back): A non-enumerated value (real number or string). Read-only. It displays the read back value of a parameter, providing confirmation to changes.
-* -Sel (Selection): Enumerated value. Sets a system parameter.
-* -Sts (Status): Enumerated value. Read-only. It displays the read back value of an enumerated parameter, providing confirmation to changes.
-* -Cmd (Command): Binary command. It causes a given action to be executed.
+* SP (Set Point): A non-enumerated value (real number or string). It sets a system parameter.
+* RB (Read Back): A non-enumerated value (real number or string). Read-only. It displays the read back value of a parameter, providing confirmation to changes.
+* Sel (Selection): Enumerated value. Sets a system parameter.
+* Sts (Status): Enumerated value. Read-only. It displays the read back value of an enumerated parameter, providing confirmation to changes.
+* Cmd (Command): Binary command. It causes a given action to be executed.
 
 ## DCCT and ICT Applications PV Structure
 
