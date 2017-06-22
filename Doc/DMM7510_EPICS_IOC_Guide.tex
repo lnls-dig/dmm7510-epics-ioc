@@ -97,10 +97,24 @@
 	\paragraph{} This IOC requires \emph{EPICS base 3.14.12.5} and \emph{synApps 5.8}.
 
 	% Edit Release File
-	\paragraph{} When setting up the IOC, it is necessary to edit the \emph{RELEASE} file in the \emph{configure} directory to provide the right path to support modules.
+	\paragraph{} When setting up the IOC, it is necessary to edit the \emph{RELEASE} file in the \emph{configure} directory to provide the right path to support modules. Edit the following lines:
+
+	\begin{itemize}
+		\item[] SUPPORT=/\textless path\textgreater/\textless to\textgreater/\textless synApps\textgreater
+		\item[] EPICS\_BASE=/\textless path\textgreater/\textless to\textgreater/\textless epics\textgreater/\textless base\textgreater
+		\item[] ASYN=\$(SUPPORT)/\textless path to asyn\textgreater
+		\item[] STREAM=\$(SUPPORT)/\textless path to stream device\textgreater
+		\item[] CALC=\$(SUPPORT)/\textless path to calc module\textgreater
+		\item[] AUTOSAVE=\$(SUPPORT)/\textless path to autosave\textgreater
+	\end{itemize}
 
 	% Edit st.cmd file
 	\paragraph{} Edit the \emph{st.cmd} file to set the DMM7510 network address using the \emph{drvAsynIPPortConfigure} command. Load the \emph{dmm7510.db} with the \emph{dbLoadRecords} command and set the desired prefix for the records names. The records' names prefixes have two parts: \emph{P} and \emph{R}.
+
+	\begin{itemize}
+		\item[] drvAsynIPPortConfigure("\textless port name\textgreater", "\textless DMM7510 IP{\textgreater} TCP",0,0,0)
+		\item[] dbLoadRecords("\${TOP}/db/dmm7510.db", "P=\textless first prefix part\textgreater, R=\textless second prefix part\textgreater, PORT=\textless port name\textgreater")
+	\end{itemize}
 
 %--- Section: PVs Suffixes ---
 \section{PVs Suffixes}

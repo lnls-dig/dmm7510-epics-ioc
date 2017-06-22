@@ -74,9 +74,36 @@ The IOC documentation can be found in *Doc/*. There you can find a manual with t
 
 ## Initialization
 
-1. The first step when configuring the IOC is making sure that the paths to support modules in the RELEASE file (*configure/RELEASE*) are correct.
+1. In order to run this IOC you need to have **EPICS Base 3.14** and **SynApps 5.8** installed. The first step when configuring the IOC is making sure that the paths to support modules in the RELEASE file (*configure/RELEASE*) are correct. Set the following lines in the file:
+
+```
+SUPPORT=/<path>/<to>/<synApps>
+EPICS_BASE=/<path>/<to>/<epics>/<base>
+...
+ASYN=$(SUPPORT)/<path to asyn>
+STREAM=$(SUPPORT)/<path to stream device>
+CALC=$(SUPPORT)/<path to calc module>
+AUTOSAVE=$(SUPPORT)/<path to autosave>
+```
 
 2. The second step is to edit the IOC startup script (*iocBoot/iocdmm7510/st.cmd*) to provide the multimeter network address to asynDriver and make sure that the multimeter *.db* file is loaded with the right prefixes and communication port.
+
+```
+drvAsynIPPortConfigure("<port name>", "<DMM7510 IP> TCP",0,0,0)
+...
+dbLoadRecords("${TOP}/db/dmm7510.db", "P=<first prefix part>, R=<second prefix part>, PORT=<port name>")
+```
+
+When loading the DCCT application:
+
+```
+dbLoadRecords("${TOP}/db/dcct.db", "Sec=<section prefix>, Sub=<subsection prefix>, Dis=<discipline prefix>, Dev=<device prefix>, Idx=<instance index>, Instrument=<DMM7510 instance prefix>")
+```
+When the ICT application:
+
+```
+dbLoadRecords("${TOP}/db/ict.db", "Sec=<section prefix>, Sub=<subsection prefix>, Dis=<discipline prefix>, Dev=<device prefix>, Idx=<instance index>, Instrument=<DMM7510 instance prefix>")
+```
 
 3. To build the IOC application, in the IOC top level directory, enter the following shell command:
 
