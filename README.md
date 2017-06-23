@@ -74,7 +74,7 @@ The IOC documentation can be found in *Doc/*. There you can find a manual with t
 
 ## Initialization
 
-1. In order to run this IOC you need to have **EPICS Base 3.14** and **SynApps 5.8** installed. The first step when configuring the IOC is making sure that the paths to support modules in the RELEASE file (*configure/RELEASE*) are correct. Set the following lines in the file:
+1. In order to run this IOC you need to have **EPICS Base 3.14**, **SynApps 5.8**, and **StreamDevice 2-7-7** installed. The first step when configuring the IOC is making sure that the paths to support modules in the RELEASE file (*configure/RELEASE*) are correct. Set the following lines in the file:
 
 ```
 SUPPORT=/<path>/<to>/<synApps>
@@ -103,6 +103,18 @@ When loading the ICT application:
 
 ```
 dbLoadRecords("${TOP}/db/ict.db", "Sec=<section prefix>, Sub=<subsection prefix>, Dis=<discipline prefix>, Dev=<device prefix>, Idx=<instance index>, Instrument=<DMM7510 instance prefix>")
+```
+
+In order to use the autosave tool along with the DCCT application:
+
+```
+create\_triggered\_set("autosave_dcct.req", "<DCCT full prefix>:SaveTrg", "Sec=<DCCT section prefix>, Sub=<DCCT subsection prefix>, Dis=<DCCT discipline prefix>, Dev=<DCCT device prefix>, Idx=<DCCT instance index>")
+```
+
+In order to use the autosave tool along with the ICT application:
+
+```
+create\_triggered\_set("autosave_ict.req", "<ICT full prefix>:SaveTrg", "Sec=<ICT section prefix>, Sub=<ICT subsection prefix>, Dis=<ICT discipline prefix>, Dev=<ICT device prefix>, Idx=<ICT instance index>")
 ```
 
 3. To build the IOC application, in the IOC top level directory, enter the following shell command:
