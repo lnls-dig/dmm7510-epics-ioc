@@ -92,10 +92,10 @@
 
 	% Instrument Setup figure
 	\begin{figure}[!h]
-	\caption{Instrument Setup}
-	\label{fig:dcct-setup}
-	\centering
-	\includegraphics[width=1.0\textwidth]{dcct-setup-image}
+		\caption{Instrument Setup}
+		\label{fig:dcct-setup}
+		\centering
+		\includegraphics[width=1.0\textwidth]{dcct-setup-image}
 	\end{figure}
 \FloatBarrier
 
@@ -132,37 +132,37 @@
 		\paragraph{Disable triggering}\label{disable-triggering} It might be useful, in some cases, to disable measurement triggering. In this configuration, all trigger types are disabled.
 
 			\begin{enumerate}
-			\item Set \emph{MeasTrg-Sel} PV to \emph{None}.
-			\item Wait until \emph{MeasTrg-Sts} has changed to \emph{None}.
+				\item Set \emph{MeasTrg-Sel} PV to \emph{None}.
+				\item Wait until \emph{MeasTrg-Sts} has changed to \emph{None}.
 			\end{enumerate}
 
 		\paragraph{Software triggering} In the software triggering mode, the DMM7510 multimeter starts measurements in response to periodic software requests.
 
 			\begin{enumerate}
-			\item Set \emph{MeasTrg-Sel} PV to \emph{Software}.
-			\item Wait until \emph{MeasTrg-Sts} has changed to \emph{Software}.
+				\item Set \emph{MeasTrg-Sel} PV to \emph{Software}.
+				\item Wait until \emph{MeasTrg-Sts} has changed to \emph{Software}.
 			\end{enumerate}
 
 		\paragraph{External triggering} In the external triggering mode, the DMM7510 multimeter starts measurements in response to external trigger reception, while software periodic reads retrieve the newest measurement value available.
 
 			\begin{enumerate}
-			\item Set \emph{TrgDelay-SP} to the desired delay between trigger and measurement start.
-			\item Verify if \emph{TrgDelay-RB} value is correct.
-			\item Set \emph{MeasTrg-Sel} PV to \emph{External}.
-			\item Wait until \emph{MeasTrg-Sts} has changed to \emph{External}.
+				\item Set \emph{TrgDelay-SP} to the desired delay between trigger and measurement start.
+				\item Verify if \emph{TrgDelay-RB} value is correct.
+				\item Set \emph{MeasTrg-Sel} PV to \emph{External}.
+				\item Wait until \emph{MeasTrg-Sts} has changed to \emph{External}.
 			\end{enumerate}
 
 		\paragraph{Current level based triggering} In level based triggering mode, the DMM7510 multimeter starts measurements in response to any beam current rising edge that goes above the specified threshold.
 
 			\begin{enumerate}
-			\item Set \emph{Range-Sel} to the desired DCCT sensor range.
-			\item Verify if \emph{Range-Sts} has changed accordingly.
-			\item Set \emph{Threshold-SP} to the current level threshold intended to trigger measurements.
-			\item Verify if \emph{Threshold-RB} has changed accordingly.
-			\item Set \emph{HFReject-Sel} to indicate if high frequency rejection should be used.
-			\item Verify if \emph{HFReject-Sts} has changed accordingly.
-			\item Set \emph{MeasTrg-Sel} to \emph{InLevel}.
-			\item Wait until \emph{MeasTrg-Sts} has changed to \emph{InLevel}.
+				\item Set \emph{Range-Sel} to the desired DCCT sensor range.
+				\item Verify if \emph{Range-Sts} has changed accordingly.
+				\item Set \emph{Threshold-SP} to the current level threshold intended to trigger measurements.
+				\item Verify if \emph{Threshold-RB} has changed accordingly.
+				\item Set \emph{HFReject-Sel} to indicate if high frequency rejection should be used.
+				\item Verify if \emph{HFReject-Sts} has changed accordingly.
+				\item Set \emph{MeasTrg-Sel} to \emph{InLevel}.
+				\item Wait until \emph{MeasTrg-Sts} has changed to \emph{InLevel}.
 			\end{enumerate}
 
 	\subsection{DCCT Range selection}
@@ -170,8 +170,8 @@
 		\paragraph{} The selected DCCT sensor range should never be smaller than the current passing through the sensor. Currents exceeding the full scale range may saturate the sensor magnetic cores.
 
 			\begin{enumerate}
-			\item Set \emph{Range-Sel} to the desired DCCT sensor range.
-			\item Verify if \emph{Range-Sts} has changed accordingly.
+				\item Set \emph{Range-Sel} to the desired DCCT sensor range.
+				\item Verify if \emph{Range-Sts} has changed accordingly.
 			\end{enumerate}
 
 	\subsection{Low beam current detection}
@@ -179,76 +179,76 @@
 		\paragraph{} Low beam current detection is used for post-mortem signal generation. \emph{This feature cannot be used along with current level based measurement triggering}.
 
 			\begin{enumerate}
-			\item Set \emph{Range-Sel} to the desired DCCT sensor range.
-			\item Verify if \emph{Range-Sts} has changed accordingly.
-			\item Set \emph{Threshold-SP} to the desired current level threshold.
-			\item Verify if \emph{Threshold-RB} has changed accordingly.
-			\item Set \emph{HFReject-Sel} to indicate if high frequency rejection should be used.
-			\item Verify if \emph{HFReject-Sts} has changed accordingly.
-			\item Set \emph{LowLimEnbl-Sel} to \emph{ON}.
-			\item Verify if \emph{LowLimEnbl-Sts} status is \emph{ON}.
+				\item Set \emph{Range-Sel} to the desired DCCT sensor range.
+				\item Verify if \emph{Range-Sts} has changed accordingly.
+				\item Set \emph{Threshold-SP} to the desired current level threshold.
+				\item Verify if \emph{Threshold-RB} has changed accordingly.
+				\item Set \emph{HFReject-Sel} to indicate if high frequency rejection should be used.
+				\item Verify if \emph{HFReject-Sts} has changed accordingly.
+				\item Set \emph{LowLimEnbl-Sel} to \emph{ON}.
+				\item Verify if \emph{LowLimEnbl-Sts} status is \emph{ON}.
 			\end{enumerate}
 
 	\subsection{Measurement settings}
 
 		% Measurement characteristcs figure 1
 		\begin{figure}[!h]
-		\caption{Measurement with Count=1, NPLC=2, LineSync=ON}
-		\label{fig:meas-param1}
-		\centering
-		\includegraphics[width=1.0\textwidth]{dcct-meas-param1-image}
+			\caption{Measurement with Count=1, NPLC=2, LineSync=ON}
+			\label{fig:meas-param1}
+			\centering
+			\includegraphics[width=1.0\textwidth]{dcct-meas-param1-image}
 		\end{figure}
 
 		% Measurement characteristcs figure 2
 		\begin{figure}[!h]
-		\caption{Measurement with Count=2, NPLC=2, LineSync=OFF}
-		\label{fig:meas-param2}
-		\centering
-		\includegraphics[width=1.0\textwidth]{dcct-meas-param2-image}
+			\caption{Measurement with Count=2, NPLC=2, LineSync=OFF}
+			\label{fig:meas-param2}
+			\centering
+			\includegraphics[width=1.0\textwidth]{dcct-meas-param2-image}
 		\end{figure}
 
 		% Measurement characteristcs figure 3
 		\begin{figure}[!h]
-		\caption{Measurement with Count=1, NPLC=2, FilterEnbl=ON, FilterCnt=3}
-		\label{fig:meas-param3}
-		\centering
-		\includegraphics[width=1.0\textwidth]{dcct-meas-param3-image}
+			\caption{Measurement with Count=1, NPLC=2, FilterEnbl=ON, FilterCnt=3}
+			\label{fig:meas-param3}
+			\centering
+			\includegraphics[width=1.0\textwidth]{dcct-meas-param3-image}
 		\end{figure}
 \FloatBarrier
 
 		\paragraph{General} A few parameters are responsible for defining the measurement characteristics.
 
 			\begin{enumerate}
-			\item \emph{MeasCount-SP} sets the number of measurements per trigger. Only the latest measurement is retrieved by the software.
-			\item \emph{MeasCount-RB} indicates the configured number of measurements per trigger.
-			\item \emph{NPLC-SP} sets the measurement integration period in number of power line cycles.
-			\item \emph{NPLC-RB} indicates the configured integration period in number of power line cycles.
-			\item \emph{LineSync-Sel} sets if measurement integration period is synched to power line cycle zero crossing. Line synchronization affects measurement speed.
-			\item \emph{LineSync-Sts} indicates the configured measurement power line synchronization status.
-			\item \emph{Imped-Sel} sets the multimeter's input impedance. Recommended setting is \emph{AUTO}.
-			\item \emph{Imped-Sts} indicates the configured multimeter's input impedance.
+				\item \emph{MeasCount-SP} sets the number of measurements per trigger. Only the latest measurement is retrieved by the software.
+				\item \emph{MeasCount-RB} indicates the configured number of measurements per trigger.
+				\item \emph{NPLC-SP} sets the measurement integration period in number of power line cycles.
+				\item \emph{NPLC-RB} indicates the configured integration period in number of power line cycles.
+				\item \emph{LineSync-Sel} sets if measurement integration period is synched to power line cycle zero crossing. Line synchronization affects measurement speed.
+				\item \emph{LineSync-Sts} indicates the configured measurement power line synchronization status.
+				\item \emph{Imped-Sel} sets the multimeter's input impedance. Recommended setting is \emph{AUTO}.
+				\item \emph{Imped-Sts} indicates the configured multimeter's input impedance.
 			\end{enumerate}
 
 		\paragraph{Filter} It is possible to apply an averaging filter to measurements. If enabled, the specified number of samples are taken and averaged by the specified algorithm.
 
 			\begin{enumerate}
-			\item \emph{FilterCnt-SP} sets the number of measurements that are used to produce a reading.
-			\item \emph{FilterCnt-RB} indicates the configured number of measurements used to produce reading.
-			\item \emph{FilterTyp-Sel} sets the filter algorithm used.
-			\item \emph{FilterTyp-Sts} indicates the configured filter algorithm.
-			\item \emph{FilterWind-SP} sets the filter window. When a filter sample value exceeds the window threshold, the filter stack is filled immediately with that sample value.
-			\item \emph{FilterWind-RB} indicates the filter configured window.
-			\item \emph{FilterEnbl-Sel} enables/disables filtering.
-			\item \emph{FilterEnbl-Sts} indicates the filter enable status.
+				\item \emph{FilterCnt-SP} sets the number of measurements that are used to produce a reading.
+				\item \emph{FilterCnt-RB} indicates the configured number of measurements used to produce reading.
+				\item \emph{FilterTyp-Sel} sets the filter algorithm used.
+				\item \emph{FilterTyp-Sts} indicates the configured filter algorithm.
+				\item \emph{FilterWind-SP} sets the filter window. When a filter sample value exceeds the window threshold, the filter stack is filled immediately with that sample value.
+				\item \emph{FilterWind-RB} indicates the filter configured window.
+				\item \emph{FilterEnbl-Sel} enables/disables filtering.
+				\item \emph{FilterEnbl-Sts} indicates the filter enable status.
 			\end{enumerate}
 
 		\paragraph{Relative offset} The relative offset parameter is used to remove offsets caused by instrument zero drift.
 
 			\begin{enumerate}
-			\item \emph{RelLvl-SP} sets the relative offset voltage level. The offset is subtracted from the measured voltage before any conversion is performed.
-			\item \emph{RelLvl-RB} indicates the configured relative offset voltage level.
-			\item \emph{RelEnbl-Sel} enables/disables the relative offset.
-			\item \emph{RelEnbl-Sts} indicates the relative offset enable status.
+				\item \emph{RelLvl-SP} sets the relative offset voltage level. The offset is subtracted from the measured voltage before any conversion is performed.
+				\item \emph{RelLvl-RB} indicates the configured relative offset voltage level.
+				\item \emph{RelEnbl-Sel} enables/disables the relative offset.
+				\item \emph{RelEnbl-Sts} indicates the relative offset enable status.
 			\end{enumerate}
 
 	\subsection{DCCT calibration}
@@ -256,8 +256,16 @@
 		\paragraph{} The DCCT has a test function which injects a +100mA test signal in the sensor head when enabled.
 
 			\begin{enumerate}
-			\item \emph{Test-Sel} enables/disables the DCCT calibration current.
-			\item \emph{Test-Sts} indicates the DCCT calibration current enable status.
+				\item \emph{Test-Sel} enables/disables the DCCT calibration current.
+				\item \emph{Test-Sts} indicates the DCCT calibration current enable status.
+			\end{enumerate}
+
+	\subsection{Save function}
+
+		\paragraph{} The save function stores the current PV configurations and restore them when the IOC is restarted.
+
+			\begin{enumerate}
+				\item Set \emph{Save-Cmd} to \emph{ON} to cause the \emph{-SP} and \emph{-Sel} PVs' values to be saved. During IOC startup, the saved PV values are restored, recovering the previous configuration.
 			\end{enumerate}
 
 %--- Section: Reading Measurements from PVs ---
@@ -266,8 +274,8 @@
 	\paragraph{} The DCCT measurement data is available in the following EPICS PVs.
 
 		\begin{enumerate}
-		\item \emph{AvgCurr-Mon} stores the latest current measurement.
-		\item \emph{CurrHstr-Mon} is a circular buffer storing the last 1000 measurements.
+			\item \emph{AvgCurr-Mon} stores the latest current measurement.
+			\item \emph{CurrHstr-Mon} is a circular buffer storing the last 1000 measurements.
 		\end{enumerate}
 
 \section{Process Variables Description}\label{sec:process-variables}
@@ -421,6 +429,14 @@
 		% --- row ---
 		Test-Sts & BOOL: OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
  						DCCT test current enable status.
+						\end{tabular} \\ \hline
+		% --- row ---
+		Save-Cmd & BOOL: OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
+ 						Save command. When set to \emph{ON}, this PV causes all \emph{-SP} and \emph{-Sel} PVs values to be saved. During IOC initialization, the saved PV values are restored.
+						\end{tabular} \\ \hline
+		% --- row ---
+		Download-Cmd & BOOL: OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
+ 						Download command. When set to \emph{ON}, this PV causes all \emph{-SP} and \emph{-Sel} PVs' values to be transferred to hardware. This PV is set automatically during IOC initialization and when the IOC recovers from a communication problem with the hardware.
 						\end{tabular} \\ \hline
 	\end{longtable}
 
