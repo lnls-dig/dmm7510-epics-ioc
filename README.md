@@ -143,7 +143,7 @@ The IOC documentation can be found in *Doc/*. There you can find a manual with t
         epicsEnvSet DMM_line "#"
         ```
     
-    7. In order to enable DMM7510 and DCCT PVs, set both *DMM_line* and *DCCT_line* to "", and set *ICT_line* to "#" in order to disable ICT PVs.
+    7. In order to enable DMM7510 and DCCT PVs, set both *DMM_line* and *DCCT_line* to "", and set *ICT_line* to "#" to disable ICT PVs.
 
         ```
         # Enable/disable module lines ----------------
@@ -152,7 +152,7 @@ The IOC documentation can be found in *Doc/*. There you can find a manual with t
         epicsEnvSet ICT_line "#"
         ```
 
-    8. In order to enable DMM7510 and ICT PVs, set both *DMM_line* and *ICT_line* to "", and set *DCCT_line* to "#" in order to disable DCCT PVs.
+    8. In order to enable DMM7510 and ICT PVs, set both *DMM_line* and *ICT_line* to "", and set *DCCT_line* to "#" to disable DCCT PVs.
 
         ```
         # Enable/disable module lines ----------------
