@@ -88,7 +88,7 @@ AUTOSAVE=$(SUPPORT)/<path to autosave>
 
 2. The second step is to edit the IOC startup script (*iocBoot/iocdmm7510/st.cmd*) to provide the multimeter network address to asynDriver and make sure that the multimeter *.db* file is loaded with the right prefixes and communication port. The *IOC Settings* section, in the beggining of the *st.cmd* file, defines the key macro substitution strings for the script.
 
-The DMM7510 network address should be inserted in the following line:
+    1. Insert the DMM7510 network address in the following line:
 
 ```
 # DMM7510 IP address -------------------------
@@ -96,7 +96,7 @@ epicsEnvSet DMMADDR "<DMM7510 IP address goes here>"
 # --------------------------------------------
 ```
 
-In order to define the prefixes for the DMM7510 PVs, the following lines should be edited:
+    2. To define the prefixes for the DMM7510 PVs, edit the following lines:
 
 ```
 ## Naming Convention for DMM7510 -------------
@@ -107,21 +107,7 @@ epicsEnvSet RDMM "<DMM7510 R prefix goes here>"
 # --------------------------------------------
 ```
 
-To enable DMM7510 PVs, the *DMM_line* string should be empty:
-
-```
-# Enable/disable module lines ----------------
-epicsEnvSet DMM_line ""
-```
-
-To disable DMM7510 PVs, the *DMM_line* string should be "#":
-
-```
-# Enable/disable module lines ----------------
-epicsEnvSet DMM_line "#"
-```
-
-In order to define the prefixes for the DCCT application PVs, the following lines should be edited:
+    3. To define the prefixes for the DCCT application PVs, edit the following lines:
 
 ```
 ## Naming Convention for DCCT ----------------
@@ -132,16 +118,7 @@ epicsEnvSet RDCCT "<DCCT R prefix goes here>"
 # --------------------------------------------
 ```
 
-To enable DCCT application PVs, both *DMM_line* and *DCCT_line* strings should be empty (DMM7510 and DDCT PVs enabled). *ICT_line* value should be "#" (ICT PVs disabled).
-
-```
-# Enable/disable module lines ----------------
-epicsEnvSet DMM_line ""
-epicsEnvSet DCCT_line ""
-epicsEnvSet ICT_line "#"
-```
-
-In order to define the prefixes for the ICT application PVs, the following lines should be edited:
+    4. To define the prefixes for the ICT application PVs, edit the following lines:
 
 ```
 ## Naming Convention for ICT ----------------
@@ -152,7 +129,30 @@ epicsEnvSet RICT "<ICT R prefix goes here>"
 # --------------------------------------------
 ```
 
-To enable ICT application PVs, both *DMM_line* and *ICT_line* strings should be empty (DMM7510 and ICT PVs enabled). *DCCT_line* value should be "#" (DCCT PVs disabled).
+    5. To enable DMM7510 PVs, set *DMM_line* to "":
+
+```
+# Enable/disable module lines ----------------
+epicsEnvSet DMM_line ""
+```
+
+    6. To disable DMM7510 PVs, set *DMM_line* to "#":
+
+```
+# Enable/disable module lines ----------------
+epicsEnvSet DMM_line "#"
+```
+
+    7. In order to enable DMM7510 and DCCT PVs, set both *DMM_line* and *DCCT_line* to "", and set *ICT_line* to "#" in order to disable ICT PVs.
+
+```
+# Enable/disable module lines ----------------
+epicsEnvSet DMM_line ""
+epicsEnvSet DCCT_line ""
+epicsEnvSet ICT_line "#"
+```
+
+    8. In order to enable DMM7510 and ICT PVs, set both *DMM_line* and *ICT_line* to "", and set *DCCT_line* to "#" in order to disable DCCT PVs.
 
 ```
 # Enable/disable module lines ----------------
