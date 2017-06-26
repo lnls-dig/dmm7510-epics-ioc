@@ -90,76 +90,76 @@ The IOC documentation can be found in *Doc/*. There you can find a manual with t
 
     1. Insert the DMM7510 network address in the following line:
 
-    ```
-    # DMM7510 IP address -------------------------
-    epicsEnvSet DMMADDR "<DMM7510 IP address goes here>"
-    # --------------------------------------------
-    ```
+        ```
+        # DMM7510 IP address -------------------------
+        epicsEnvSet DMMADDR "<DMM7510 IP address goes here>"
+        # --------------------------------------------
+        ```
 
     2. To define the prefixes for the DMM7510 PVs, edit the following lines:
 
-    ```
-    ## Naming Convention for DMM7510 -------------
-    # P
-    epicsEnvSet PDMM "<DMM7510 P prefix goes here>"
-    # R
-    epicsEnvSet RDMM "<DMM7510 R prefix goes here>"
-    # --------------------------------------------
-    ```
+        ```
+        ## Naming Convention for DMM7510 -------------
+        # P
+        epicsEnvSet PDMM "<DMM7510 P prefix goes here>"
+        # R
+        epicsEnvSet RDMM "<DMM7510 R prefix goes here>"
+        # --------------------------------------------
+        ```
 
     3. To define the prefixes for the DCCT application PVs, edit the following lines:
 
-    ```
-    ## Naming Convention for DCCT ----------------
-    # P
-    epicsEnvSet PDCCT "<DCCT P prefix goes here>"
-    # R
-    epicsEnvSet RDCCT "<DCCT R prefix goes here>"
-    # --------------------------------------------
-    ```
+        ```
+        ## Naming Convention for DCCT ----------------
+        # P
+        epicsEnvSet PDCCT "<DCCT P prefix goes here>"
+        # R
+        epicsEnvSet RDCCT "<DCCT R prefix goes here>"
+        # --------------------------------------------
+        ```
 
     4. To define the prefixes for the ICT application PVs, edit the following lines:
 
-    ```
-    ## Naming Convention for ICT ----------------
-    # P
-    epicsEnvSet PICT "<ICT P prefix goes here>"
-    # R
-    epicsEnvSet RICT "<ICT R prefix goes here>"
-    # --------------------------------------------
-    ```
+        ```
+        ## Naming Convention for ICT ----------------
+        # P
+        epicsEnvSet PICT "<ICT P prefix goes here>"
+        # R
+        epicsEnvSet RICT "<ICT R prefix goes here>"
+        # --------------------------------------------
+        ```
 
     5. To enable DMM7510 PVs, set *DMM_line* to "":
 
-    ```
-    # Enable/disable module lines ----------------
-    epicsEnvSet DMM_line ""
-    ```
+        ```
+        # Enable/disable module lines ----------------
+        epicsEnvSet DMM_line ""
+        ```
     
     6. To disable DMM7510 PVs, set *DMM_line* to "#":
 
-    ```
-    # Enable/disable module lines ----------------
-    epicsEnvSet DMM_line "#"
-    ```
+        ```
+        # Enable/disable module lines ----------------
+        epicsEnvSet DMM_line "#"
+        ```
     
     7. In order to enable DMM7510 and DCCT PVs, set both *DMM_line* and *DCCT_line* to "", and set *ICT_line* to "#" in order to disable ICT PVs.
 
-    ```
-    # Enable/disable module lines ----------------
-    epicsEnvSet DMM_line ""
-    epicsEnvSet DCCT_line ""
-    epicsEnvSet ICT_line "#"
-    ```
+        ```
+        # Enable/disable module lines ----------------
+        epicsEnvSet DMM_line ""
+        epicsEnvSet DCCT_line ""
+        epicsEnvSet ICT_line "#"
+        ```
 
     8. In order to enable DMM7510 and ICT PVs, set both *DMM_line* and *ICT_line* to "", and set *DCCT_line* to "#" in order to disable DCCT PVs.
 
-    ```
-    # Enable/disable module lines ----------------
-    epicsEnvSet DMM_line ""
-    epicsEnvSet DCCT_line "#"
-    epicsEnvSet ICT_line ""
-    ```
+        ```
+        # Enable/disable module lines ----------------
+        epicsEnvSet DMM_line ""
+        epicsEnvSet DCCT_line "#"
+        epicsEnvSet ICT_line ""
+        ```
 
 3. To build the IOC application, in the IOC top level directory, enter the following shell command:
 
