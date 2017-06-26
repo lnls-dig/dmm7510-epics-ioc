@@ -17,8 +17,8 @@ The IOC documentation can be found in *Doc/*. There you can find a manual with t
 - accessSecurityFile.acf *(IOC access file)*
 - **autosave** *(Autosave files)*
     - **request_files** *(Autosave request files)*
-        - autosave_dcct1.req *(Example DCCT 1 autosave request file)*
-        - autosave_ict1.req *(Example ICT 1 autosave request file)*
+        - autosave_dcct.req *(DCCT .db autosave request file)*
+        - autosave_ict.req *(ICT .db autosave request file)*
 - **configure** *(IOC configuration files)*
     - CONFIG
     - CONFIG_SITE
