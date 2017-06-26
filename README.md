@@ -81,7 +81,7 @@ SUPPORT=/<path>/<to>/<synApps>
 EPICS_BASE=/<path>/<to>/<epics>/<base>
 ...
 ASYN=$(SUPPORT)/<path to asyn>
-STREAM=$(SUPPORT)/<path to stream device>
+STREAM=<path to stream device>
 CALC=$(SUPPORT)/<path to calc module>
 AUTOSAVE=$(SUPPORT)/<path to autosave>
 ```
