@@ -86,7 +86,7 @@ CALC=$(SUPPORT)/<path to calc module>
 AUTOSAVE=$(SUPPORT)/<path to autosave>
 ```
 
-2. The second step is to edit the IOC startup script (*iocBoot/iocdmm7510/st.cmd*) to provide the multimeter network address to asynDriver and make sure that the multimeter *.db* file is loaded with the right prefixes and communication port. In the beggining of the *st.cmd* file there is a *IOC Settings* section which define the key macro substitution strings for the script.
+2. The second step is to edit the IOC startup script (*iocBoot/iocdmm7510/st.cmd*) to provide the multimeter network address to asynDriver and make sure that the multimeter *.db* file is loaded with the right prefixes and communication port. The *IOC Settings* section, in the beggining of the *st.cmd* file, defines the key macro substitution strings for the script.
 
 The DMM7510 network address should be inserted in the following line:
 
@@ -96,7 +96,7 @@ epicsEnvSet DMMADDR "<DMM7510 IP address goes here>"
 # --------------------------------------------
 ```
 
-In order to define the prefixes for the DMM7510 PVs:
+In order to define the prefixes for the DMM7510 PVs, the following lines should be edited:
 
 ```
 ## Naming Convention for DMM7510 -------------
@@ -121,7 +121,7 @@ To disable DMM7510 PVs, the *DMM_line* string should be "#":
 epicsEnvSet DMM_line "#"
 ```
 
-In order to define the prefixes for the DCCT application PVs:
+In order to define the prefixes for the DCCT application PVs, the following lines should be edited:
 
 ```
 ## Naming Convention for DCCT ----------------
@@ -141,7 +141,7 @@ epicsEnvSet DCCT_line ""
 epicsEnvSet ICT_line "#"
 ```
 
-In order to define the prefixes for the ICT application PVs:
+In order to define the prefixes for the ICT application PVs, the following lines should be edited:
 
 ```
 ## Naming Convention for ICT ----------------
