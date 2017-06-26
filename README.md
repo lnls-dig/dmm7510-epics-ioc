@@ -86,35 +86,79 @@ CALC=$(SUPPORT)/<path to calc module>
 AUTOSAVE=$(SUPPORT)/<path to autosave>
 ```
 
-2. The second step is to edit the IOC startup script (*iocBoot/iocdmm7510/st.cmd*) to provide the multimeter network address to asynDriver and make sure that the multimeter *.db* file is loaded with the right prefixes and communication port.
+2. The second step is to edit the IOC startup script (*iocBoot/iocdmm7510/st.cmd*) to provide the multimeter network address to asynDriver and make sure that the multimeter *.db* file is loaded with the right prefixes and communication port. In the beggining of the *st.cmd* file there is a *IOC Settings* section which define the key macro substitution strings for the script.
+
+The DMM7510 network address should be inserted in the following line:
 
 ```
-drvAsynIPPortConfigure("<port name>", "<DMM7510 IP> TCP",0,0,0)
-...
-dbLoadRecords("${TOP}/db/dmm7510.db", "P=<first prefix part>, R=<second prefix part>, PORT=<port name>")
+# DMM7510 IP address -------------------------
+epicsEnvSet DMMADDR "<DMM7510 IP address goes here>"
+# --------------------------------------------
 ```
 
-When loading the DCCT application:
+In order to define the prefixes for the DMM7510 PVs:
 
 ```
-dbLoadRecords("${TOP}/db/dcct.db", "Sec=<section prefix>, Sub=<subsection prefix>, Dis=<discipline prefix>, Dev=<device prefix>, Idx=<instance index>, Instrument=<DMM7510 instance prefix>")
-```
-When loading the ICT application:
-
-```
-dbLoadRecords("${TOP}/db/ict.db", "Sec=<section prefix>, Sub=<subsection prefix>, Dis=<discipline prefix>, Dev=<device prefix>, Idx=<instance index>, Instrument=<DMM7510 instance prefix>")
-```
-
-In order to use the autosave tool along with the DCCT application:
-
-```
-create\_triggered\_set("autosave_dcct.req", "<DCCT full prefix>:SaveTrg", "Sec=<DCCT section prefix>, Sub=<DCCT subsection prefix>, Dis=<DCCT discipline prefix>, Dev=<DCCT device prefix>, Idx=<DCCT instance index>")
+## Naming Convention for DMM7510 -------------
+# P
+epicsEnvSet PDMM "<DMM7510 P prefix goes here>"
+# R
+epicsEnvSet RDMM "<DMM7510 R prefix goes here>"
+# --------------------------------------------
 ```
 
-In order to use the autosave tool along with the ICT application:
+To enable DMM7510 PVs, the *DMM_line* string should be empty:
 
 ```
-create\_triggered\_set("autosave_ict.req", "<ICT full prefix>:SaveTrg", "Sec=<ICT section prefix>, Sub=<ICT subsection prefix>, Dis=<ICT discipline prefix>, Dev=<ICT device prefix>, Idx=<ICT instance index>")
+# Enable/disable module lines ----------------
+epicsEnvSet DMM_line ""
+```
+
+To disable DMM7510 PVs, the *DMM_line* string should be "#":
+
+```
+# Enable/disable module lines ----------------
+epicsEnvSet DMM_line "#"
+```
+
+In order to define the prefixes for the DCCT application PVs:
+
+```
+## Naming Convention for DCCT ----------------
+# P
+epicsEnvSet PDCCT "<DCCT P prefix goes here>"
+# R
+epicsEnvSet RDCCT "<DCCT R prefix goes here>"
+# --------------------------------------------
+```
+
+To enable DCCT application PVs, both *DMM_line* and *DCCT_line* strings should be empty (DMM7510 and DDCT PVs enabled). *ICT_line* value should be "#" (ICT PVs disabled).
+
+```
+# Enable/disable module lines ----------------
+epicsEnvSet DMM_line ""
+epicsEnvSet DCCT_line ""
+epicsEnvSet ICT_line "#"
+```
+
+In order to define the prefixes for the ICT application PVs:
+
+```
+## Naming Convention for ICT ----------------
+# P
+epicsEnvSet PICT "<ICT P prefix goes here>"
+# R
+epicsEnvSet RICT "<ICT R prefix goes here>"
+# --------------------------------------------
+```
+
+To enable ICT application PVs, both *DMM_line* and *ICT_line* strings should be empty (DMM7510 and ICT PVs enabled). *DCCT_line* value should be "#" (DCCT PVs disabled).
+
+```
+# Enable/disable module lines ----------------
+epicsEnvSet DMM_line ""
+epicsEnvSet DCCT_line "#"
+epicsEnvSet ICT_line ""
 ```
 
 3. To build the IOC application, in the IOC top level directory, enter the following shell command:
@@ -138,27 +182,19 @@ $ ./st.cmd
 
 ## DMM7510 PV Structure
 
-The DMM7510 PVs are composed of four parts: The user-defined prefix, the PV property name, the property field, and the suffix.
+The PVs' structure in this IOC is composed of four parts: Two user-defined prefixes (*P* and *R*), the PV property name and field, and the suffix.
 
 ```
 $(P)$(R)Prop.FIELD-Suffix
 ```
-*P* and *R* can be set in the *st.cmd* file, when loading the *.db* file. The PV suffix indicates its input type, as follows:
+
+The prefixes are defined in the *st.cmd* startup script, when loading a *.db* file. The suffixes indicate the PV input type, and can be one of the following:
+
 * SP (Set Point): A non-enumerated value (real number or string). It sets a system parameter.
 * RB (Read Back): A non-enumerated value (real number or string). Read-only. It displays the read back value of a parameter, providing confirmation to changes.
 * Sel (Selection): Enumerated value. Sets a system parameter.
 * Sts (Status): Enumerated value. Read-only. It displays the read back value of an enumerated parameter, providing confirmation to changes.
 * Cmd (Command): Binary command. It causes a given action to be executed.
-
-## DCCT and ICT Applications PV Structure
-
-The PVs for the DCCT and ICT applications follow the DISCS Collaboration naming convention, which is adopted by the Sirius Light Source.
-
-```
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Prop.FIELD-Suffix
-```
-
-The prefix macro substitution strings are defined by *Sec*, *Sub*, *Dis*, *Dev*, and *Idx*. When *Idx* is used, a *-* character should be added before the number in order to follow the convention.
 
 ## Running the OPIs
 

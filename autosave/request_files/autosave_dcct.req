@@ -1,23 +1,23 @@
 # Measurement Trigger source
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrg-Sel.VAL
+$(P)$(R)MeasTrg-Sel.VAL
 # Timer configuration
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TrgDelay-SP.VAL
+$(P)$(R)TrgDelay-SP.VAL
 # Measurement Settings
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasCount-SP.VAL
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Imped-Sel.VAL
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LineSync-Sel.VAL
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):NPLC-SP.VAL
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterCnt-SP.VAL
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterEnbl-Sel.VAL
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterTyp-Sel.VAL
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterWind-SP.VAL
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RelEnbl-Sel.VAL
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RelLvl-SP.VAL
+$(P)$(R)MeasCount-SP.VAL
+$(P)$(R)Imped-Sel.VAL
+$(P)$(R)LineSync-Sel.VAL
+$(P)$(R)NPLC-SP.VAL
+$(P)$(R)FilterCnt-SP.VAL
+$(P)$(R)FilterEnbl-Sel.VAL
+$(P)$(R)FilterTyp-Sel.VAL
+$(P)$(R)FilterWind-SP.VAL
+$(P)$(R)RelEnbl-Sel.VAL
+$(P)$(R)RelLvl-SP.VAL
 # Current Measurement Range
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel.VAL
+$(P)$(R)Range-Sel.VAL
 # DCCT Test Input Setting
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Test-Sel.VAL
+$(P)$(R)Test-Sel.VAL
 # Current Threshold Detection
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimEnbl-Sel.VAL
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-SP.VAL
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):HFReject-Sel.VAL
+$(P)$(R)LowLimEnbl-Sel.VAL
+$(P)$(R)Threshold-SP.VAL
+$(P)$(R)HFReject-Sel.VAL

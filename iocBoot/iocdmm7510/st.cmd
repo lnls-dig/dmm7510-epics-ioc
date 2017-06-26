@@ -4,38 +4,48 @@
 
 cd ${TOP}
 
-# ###### MACRO SUBSTITUTION ###### 
+# ####################################################
+#		IOC SETTINGS
+#
+# --------------------------------------------
+#  Notes: Edit the macro substitution strings
+#  	 to define the IOC basic settings.   
+# --------------------------------------------
+#
+# ####################################################
 
-## Naming Convention for DMM
-epicsEnvSet DMSEC AS
-epicsEnvSet DMSUB Inj
-epicsEnvSet DMDIS TI
-epicsEnvSet DMDEV DMM
-epicsEnvSet DMIDX -1
-
-## Naming Convention for DCCT
-epicsEnvSet DCSEC AS
-epicsEnvSet DCSUB Inj
-epicsEnvSet DCDIS TI
-epicsEnvSet DCDEV DCCT
-epicsEnvSet DCIDX -1
-
-## Naming Convention for ICT
-epicsEnvSet ICSEC AS
-epicsEnvSet ICSUB Inj
-epicsEnvSet ICDIS TI
-epicsEnvSet ICDEV ICT
-epicsEnvSet ICIDX -1
-
-# DMM7510 IP address
+# DMM7510 IP address -------------------------
 epicsEnvSet DMMADDR "10.0.18.71"
+# --------------------------------------------
 
-# Enable/disable module lines
-epicsEnvSet DMM1_line ""
-epicsEnvSet DCCT1_line "#"
-epicsEnvSet ICT1_line "#"
+## Naming Convention for DMM7510 -------------
+# P
+epicsEnvSet PDMM "AS-Inj:TI-DMM-1:"
+# R
+epicsEnvSet RDMM ""
+# --------------------------------------------
 
-# ################################
+## Naming Convention for DCCT ----------------
+# P
+epicsEnvSet PDCCT "AS-Inj:TI-DCCT-1:"
+# R
+epicsEnvSet RDCCT ""
+# --------------------------------------------
+
+## Naming Convention for ICT -----------------
+# P
+epicsEnvSet PICT "AS-Inj:TI-ICT-1:"
+# R
+epicsEnvSet RICT ""
+# --------------------------------------------
+
+# Enable/disable module lines ----------------
+epicsEnvSet DMM_line ""
+epicsEnvSet DCCT_line ""
+epicsEnvSet ICT_line "#"
+# --------------------------------------------
+
+# ####################################################
 
 epicsEnvSet("STREAM_PROTOCOL_PATH", "$(TOP)/dmm7510App/Db")
 
@@ -45,14 +55,14 @@ dmm7510_registerRecordDeviceDriver pdbbase
 
 asSetFilename("$(TOP)/accessSecurityFile.acf")
 
-${DMM1_line}drvAsynIPPortConfigure("DMM${DMIDX}", "${DMMADDR}:5025 TCP",0,0,0)
+${DMM_line}drvAsynIPPortConfigure("DMMPORT", "10.0.18.71:5025 TCP",0,0,0)
 
 ## Load record instances
 
 # DMM
-${DMM1_line}dbLoadRecords("${TOP}/db/dmm7510.db", "P=${DMSEC}-${DMSUB}:, R=${DMDIS}-${DMDEV}${DMIDX}:, PORT=DMM${DMIDX}")
-${DCCT1_line}dbLoadRecords("${TOP}/db/dcct.db", "Sec=${DCSEC}, Sub=${DCSUB}, Dis=${DCDIS}, Dev=${DCDEV}, Idx=${DCIDX}, Instrument=${DMSEC}-${DMSUB}:${DMDIS}-${DMDEV}${DMIDX}")
-${ICT1_line}dbLoadRecords("${TOP}/db/ict.db", "Sec=${ICSEC}, Sub=${ICSUB}, Dis=${ICDIS}, Dev=${ICDEV}, Idx=${ICIDX}, Instrument=${DMSEC}-${DMSUB}:${DMDIS}-${DMDEV}${DMIDX}")
+${DMM_line}dbLoadRecords("${TOP}/db/dmm7510.db", "P=${PDMM}, R=${RDMM}, PORT=DMMPORT")
+${DCCT_line}dbLoadRecords("${TOP}/db/dcct.db", "P=${PDCCT}, R=${RDCCT}, Instrument=${PDMM}${RDMM}")
+${ICT_line}dbLoadRecords("${TOP}/db/ict.db", "P=${PICT}, R=${RICT}, Instrument=${PDMM}${RDMM}")
 
 # Specify save file path
 set_savefile_path("$(TOP)", "autosave")
@@ -62,9 +72,9 @@ set_requestfile_path("$(TOP)", "autosave/request_files")
 
 # Specify files to be restored, and when
 # DCCT
-${DCCT1_line}set_pass0_restoreFile("autosave_dcct.sav")
+${DCCT_line}set_pass0_restoreFile("autosave_dcct.sav")
 # ICT
-${ICT1_line}set_pass0_restoreFile("autosave_ict.sav")
+${ICT_line}set_pass0_restoreFile("autosave_ict.sav")
 
 # Enable/Disable backup files (0->Disable, 1->Enable)
 save_restoreSet_DatedBackupFiles(0)
@@ -86,7 +96,7 @@ iocInit
 
 # Create manual trigger for Autosave
 # DCCT
-${DCCT1_line}create_triggered_set("autosave_dcct.req", "${DCSEC}-${DCSUB}:${DCDIS}-${DCDEV}${DCIDX}:SaveTrg", "Sec=${DCSEC}, Sub=${DCSUB}, Dis=${DCDIS}, Dev=${DCDEV}, Idx=${DCIDX}")
+${DCCT_line}create_triggered_set("autosave_dcct.req", "${PDCCT}${RDCCT}SaveTrg", "P=${PDCCT}, R=${RDCCT}")
 # ICT
-${ICT1_line}create_triggered_set("autosave_ict.req", "${ICSEC}-${ICSUB}:${ICDIS}-${ICDEV}${ICIDX}:SaveTrg", "Sec=${ICSEC}, Sub=${ICSUB}, Dis=${ICDIS}, Dev=${ICDEV}, Idx=${ICIDX}")
+${ICT_line}create_triggered_set("autosave_ict.req", "${PICT}${RICT}SaveTrg", "P=${PICT}, R=${RICT}")
 

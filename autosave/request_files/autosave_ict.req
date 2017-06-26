@@ -1,18 +1,18 @@
 # Digitize Trigger source
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeTrg-Sel.VAL
+$(P)$(R)DigtzeTrg-Sel.VAL
 # Timer configuration
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):2ndReadDly-SP.VAL
+$(P)$(R)2ndReadDly-SP.VAL
 # Digitize Settings
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DigtzeCount-SP.VAL
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Imped-Sel.VAL
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Aperture-SP.VAL
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SampleRate-SP.VAL
+$(P)$(R)DigtzeCount-SP.VAL
+$(P)$(R)Imped-Sel.VAL
+$(P)$(R)Aperture-SP.VAL
+$(P)$(R)SampleRate-SP.VAL
 # Charge Digitize Range
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel.VAL
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):BCMRange-SP.VAL
+$(P)$(R)Range-Sel.VAL
+$(P)$(R)BCMRange-SP.VAL
 # BCM Calibration Settings
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalEnbl-Sel.VAL
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CalCharge-Sel.VAL
+$(P)$(R)CalEnbl-Sel.VAL
+$(P)$(R)CalCharge-Sel.VAL
 # Level Threshold
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-SP.VAL
-$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):HFReject-Sel.VAL
+$(P)$(R)Threshold-SP.VAL
+$(P)$(R)HFReject-Sel.VAL

@@ -3,7 +3,7 @@
 # Desc: Measurement trigger option.
 
 # Measurement trigger source
-record(mbbo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrg-Sel"){
+record(mbbo, "$(P)$(R)MeasTrg-Sel"){
   field(DESC, "Measurement trigger source")
   field(ZRST, "None")
   field(ONST, "External")
@@ -12,7 +12,7 @@ record(mbbo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrg-Sel"){
 }
 
 # Configuration reset used by download
-record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgRst"){
+record(bo, "$(P)$(R)MeasTrgRst"){
   field(ASG, "Reserved")
   field(DESC, "Meas. trigger reset used by download")
   field(ZNAM, "OFF")
@@ -22,32 +22,32 @@ record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgRst"){
 }
 
 # Trigger source selection branch index calc
-record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgCalc"){
+record(calcout, "$(P)$(R)MeasTrgCalc"){
   field(ASG, "Reserved")
   field(DESC, "Meas. trigger branch index calc")
   field(SCAN, "5 second")
-  field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrg-Sel.VAL")
-  field(INPB, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgRst.VAL")
+  field(INPA, "$(P)$(R)MeasTrg-Sel.VAL")
+  field(INPB, "$(P)$(R)MeasTrgRst.VAL")
   field(CALC, "B=0?(A+1):0")
   field(OOPT, "On Change")
   field(VAL, "7")							# Initialize in a nonexistent state
-  field(OUT, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgFout.PROC")
+  field(OUT, "$(P)$(R)MeasTrgFout.PROC")
 }
 
 # Fanout selects config branch to be executed
-record(fanout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgFout"){
+record(fanout, "$(P)$(R)MeasTrgFout"){
   field(ASG, "Reserved")
   field(DESC, "Meas. trigger source config selection")
   field(SELM, "Specified")
-  field(SELL, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgCalc.VAL")
-  field(LNK1, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigNone")
-  field(LNK2, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigEx")
-  field(LNK3, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigLvl")
-  field(LNK4, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigSoft")
+  field(SELL, "$(P)$(R)MeasTrgCalc.VAL")
+  field(LNK1, "$(P)$(R)ConfigNone")
+  field(LNK2, "$(P)$(R)ConfigEx")
+  field(LNK3, "$(P)$(R)ConfigLvl")
+  field(LNK4, "$(P)$(R)ConfigSoft")
 }
 
 # Settings for measurement external triggering
-record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigEx"){
+record(sseq, "$(P)$(R)ConfigEx"){
   field(ASG, "Reserved")
   field(DESC, "Settings for meas. external trg")
   field(SELM, "All")
@@ -57,16 +57,16 @@ record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigEx"){
   field(STR4, "TIMER1")
   field(STR5, "ON")
   field(STR6, ".1 second")
-  field(LNK1, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SoftMeas.SCAN")	# Disable meas. software triggering
-  field(LNK2, "$(Instrument):ExInEdge-Sel PP")				# External Input trigger edge = Rising
-  field(LNK3, "$(Instrument):Timer1Stim-Sel PP")			# Timer 1 stimulus = EXTERNAL
-  field(LNK4, "$(Instrument):MeasStim-Sel PP")				# Meas. trigger = Timer 1 (timer avoids trigger bouncing)
-  field(LNK5, "$(Instrument):ClrBuff1-Cmd PP")				# Clear buffer
-  field(LNK6, "$(Instrument):CntBuff1-Mon.SCAN")			# Buffer count scan triggers buffer readings
+  field(LNK1, "$(P)$(R)SoftMeas.SCAN")	# Disable meas. software triggering
+  field(LNK2, "$(Instrument)ExInEdge-Sel PP")				# External Input trigger edge = Rising
+  field(LNK3, "$(Instrument)Timer1Stim-Sel PP")			# Timer 1 stimulus = EXTERNAL
+  field(LNK4, "$(Instrument)MeasStim-Sel PP")				# Meas. trigger = Timer 1 (timer avoids trigger bouncing)
+  field(LNK5, "$(Instrument)ClrBuff1-Cmd PP")				# Clear buffer
+  field(LNK6, "$(Instrument)CntBuff1-Mon.SCAN")			# Buffer count scan triggers buffer readings
 }
 
 # Settings for measurement threshold triggering
-record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigLvl"){
+record(sseq, "$(P)$(R)ConfigLvl"){
   field(ASG, "Reserved")
   field(DESC, "Settings for meas. threshold trg")
   field(SELM, "All")
@@ -77,17 +77,17 @@ record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigLvl"){
   field(STR5, "Rising")
   field(STR6, "ON")
   field(STR7, ".1 second")
-  field(LNK1, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SoftMeas.SCAN")	# Disable meas. software triggering
-  field(LNK2, "$(Instrument):Timer1Stim-Sel PP")			# Timer 1 stimulus = ANALOGTRIGGER
-  field(LNK3, "$(Instrument):MeasStim-Sel PP")				# Meas. trigger = Timer 1
-  field(LNK4, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimEnbl-Sel PP")	# Disable low voltage level detection
-  field(LNK5, "$(Instrument):MATrEdgeSlp-Sel PP")			# Input voltage level trigger edge = Rising
-  field(LNK6, "$(Instrument):ClrBuff1-Cmd PP")				# Clear buffer
-  field(LNK7, "$(Instrument):CntBuff1-Mon.SCAN")			# Buffer count scan triggers buffer readings
+  field(LNK1, "$(P)$(R)SoftMeas.SCAN")	# Disable meas. software triggering
+  field(LNK2, "$(Instrument)Timer1Stim-Sel PP")			# Timer 1 stimulus = ANALOGTRIGGER
+  field(LNK3, "$(Instrument)MeasStim-Sel PP")				# Meas. trigger = Timer 1
+  field(LNK4, "$(P)$(R)LowLimEnbl-Sel PP")	# Disable low voltage level detection
+  field(LNK5, "$(Instrument)MATrEdgeSlp-Sel PP")			# Input voltage level trigger edge = Rising
+  field(LNK6, "$(Instrument)ClrBuff1-Cmd PP")				# Clear buffer
+  field(LNK7, "$(Instrument)CntBuff1-Mon.SCAN")			# Buffer count scan triggers buffer readings
 }
 
 # Settings for measurement software triggering
-record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigSoft"){
+record(sseq, "$(P)$(R)ConfigSoft"){
   field(ASG, "Reserved")
   field(DESC, "Settings for meas. software trg")
   field(SELM, "All")
@@ -95,23 +95,23 @@ record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigSoft"){
   field(STR2, "NONE")
   field(STR3, "ON")
   field(STR4, ".1 second")
-  field(LNK1, "$(Instrument):CntBuff1-Mon.SCAN")			# Disable buffer count scan and periodic reading fetching
-  field(LNK2, "$(Instrument):MeasStim-Sel PP")				# Disable meas. hardware triggers
-  field(LNK3, "$(Instrument):ClrBuff1-Cmd PP")				# Clear buffer
-  field(LNK4, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SoftMeas.SCAN")	# Enable meas. software triggering
+  field(LNK1, "$(Instrument)CntBuff1-Mon.SCAN")			# Disable buffer count scan and periodic reading fetching
+  field(LNK2, "$(Instrument)MeasStim-Sel PP")				# Disable meas. hardware triggers
+  field(LNK3, "$(Instrument)ClrBuff1-Cmd PP")				# Clear buffer
+  field(LNK4, "$(P)$(R)SoftMeas.SCAN")	# Enable meas. software triggering
 }
 
 # Continuously trigger software measurement
-record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SoftMeas"){
+record(bo, "$(P)$(R)SoftMeas"){
   field(DESC, "Force measurement when processed")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
   field(VAL, "1")
-  field(OUT, "$(Instrument):MeasBuff1-Cmd PP")
+  field(OUT, "$(Instrument)MeasBuff1-Cmd PP")
 }
 
 # Settings for disabling measurement trigger
-record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigNone"){
+record(sseq, "$(P)$(R)ConfigNone"){
   field(ASG, "Reserved")
   field(DESC, "Settings for NO measurement trigger")
   field(SELM, "All")
@@ -120,95 +120,95 @@ record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfigNone"){
   field(STR3, "Passive")
   field(STR4, "ON")
   field(STR5, "OFF")
-  field(LNK1, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SoftMeas.SCAN")	# Disable meas. software triggering
-  field(LNK2, "$(Instrument):MeasStim-Sel PP")				# Meas. trigger = NONE 
-  field(LNK3, "$(Instrument):CntBuff1-Mon.SCAN")			# Disable buffer count scan and periodic reading fetching
-  field(LNK4, "$(Instrument):ClrBuff1-Cmd PP")				# Clear buffer
-  field(LNK5, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimEnbl-Sel PP")	# Disable low voltage level detection
+  field(LNK1, "$(P)$(R)SoftMeas.SCAN")	# Disable meas. software triggering
+  field(LNK2, "$(Instrument)MeasStim-Sel PP")				# Meas. trigger = NONE 
+  field(LNK3, "$(Instrument)CntBuff1-Mon.SCAN")			# Disable buffer count scan and periodic reading fetching
+  field(LNK4, "$(Instrument)ClrBuff1-Cmd PP")				# Clear buffer
+  field(LNK5, "$(P)$(R)LowLimEnbl-Sel PP")	# Disable low voltage level detection
 }
 
 # Check measurement trigger configuration and update Sts
-record(scalcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck1"){
+record(scalcout, "$(P)$(R)ConfCheck1"){
   field(ASG, "Reserved")
   field(DESC, "Check calc 1 for meas. trigger config")
-  field(INAA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SoftMeas.SCAN CPP")
-  field(INBB, "$(Instrument):ExInEdge-Sts CPP")
-  field(INCC, "$(Instrument):MeasStim-Sts CPP")
-  field(INDD, "$(Instrument):CntBuff1-Mon.SCAN CPP")
-  field(INEE, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimEnbl-Sts CPP")
-  field(INFF, "$(Instrument):ExOutStim-Sts CPP")
-  field(INGG, "$(Instrument):MATrEdgeSlp-Sts CPP")
-  field(INHH, "$(Instrument):Timer1Stim-Sts CPP")
+  field(INAA, "$(P)$(R)SoftMeas.SCAN CPP")
+  field(INBB, "$(Instrument)ExInEdge-Sts CPP")
+  field(INCC, "$(Instrument)MeasStim-Sts CPP")
+  field(INDD, "$(Instrument)CntBuff1-Mon.SCAN CPP")
+  field(INEE, "$(P)$(R)LowLimEnbl-Sts CPP")
+  field(INFF, "$(Instrument)ExOutStim-Sts CPP")
+  field(INGG, "$(Instrument)MATrEdgeSlp-Sts CPP")
+  field(INHH, "$(Instrument)Timer1Stim-Sts CPP")
   field(CALC, "(AA=='Passive'&&BB=='RISING'&&CC=='TIMER1'&&DD=='.1 second')?1:0")
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck2")
+  field(FLNK, "$(P)$(R)ConfCheck2")
 }
 
-record(scalcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck2"){
+record(scalcout, "$(P)$(R)ConfCheck2"){
   field(ASG, "Reserved")
   field(DESC, "Check calc 2 for meas. trigger config")
-  field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck1.VAL")
-  field(INBB, "$(Instrument):Timer1Stim-Sts")
+  field(INPA, "$(P)$(R)ConfCheck1.VAL")
+  field(INBB, "$(Instrument)Timer1Stim-Sts")
   field(CALC, "(A=1&&BB=='EXTERNAL')?1:0")
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck3")
+  field(FLNK, "$(P)$(R)ConfCheck3")
 }
 
-record(scalcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck3"){
+record(scalcout, "$(P)$(R)ConfCheck3"){
   field(ASG, "Reserved")
   field(DESC, "Check calc 3 for meas. trigger config")
-  field(INAA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SoftMeas.SCAN")
-  field(INBB, "$(Instrument):MeasStim-Sts")
-  field(INCC, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimEnbl-Sts")
-  field(INDD, "$(Instrument):ExOutStim-Sts")
-  field(INEE, "$(Instrument):MATrEdgeSlp-Sts")
-  field(INPF, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck2.VAL")
+  field(INAA, "$(P)$(R)SoftMeas.SCAN")
+  field(INBB, "$(Instrument)MeasStim-Sts")
+  field(INCC, "$(P)$(R)LowLimEnbl-Sts")
+  field(INDD, "$(Instrument)ExOutStim-Sts")
+  field(INEE, "$(Instrument)MATrEdgeSlp-Sts")
+  field(INPF, "$(P)$(R)ConfCheck2.VAL")
   field(CALC, "F=0&&(AA=='Passive'&&BB=='TIMER1'&&CC=='OFF'&&DD=='NONE'&&EE=='Rising')?2:F")
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck4")
+  field(FLNK, "$(P)$(R)ConfCheck4")
 }
 
-record(scalcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck4"){
+record(scalcout, "$(P)$(R)ConfCheck4"){
   field(ASG, "Reserved")
   field(DESC, "Check calc 4 for meas. trigger config")
-  field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck3.VAL")
-  field(INPB, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck2.VAL")
-  field(INCC, "$(Instrument):CntBuff1-Mon.SCAN")
-  field(INDD, "$(Instrument):Timer1Stim-Sts")
+  field(INPA, "$(P)$(R)ConfCheck3.VAL")
+  field(INPB, "$(P)$(R)ConfCheck2.VAL")
+  field(INCC, "$(Instrument)CntBuff1-Mon.SCAN")
+  field(INDD, "$(Instrument)Timer1Stim-Sts")
   field(CALC, "(A=2&&CC=='.1 second'&&DD=='ANALOGTRIGGER')?2:B")
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck5")
+  field(FLNK, "$(P)$(R)ConfCheck5")
 }
 
-record(scalcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck5"){
+record(scalcout, "$(P)$(R)ConfCheck5"){
   field(ASG, "Reserved")
   field(DESC, "Check calc 5 for meas. trigger config")
-  field(INAA, "$(Instrument):MeasStim-Sts")
-  field(INBB, "$(Instrument):CntBuff1-Mon.SCAN")
-  field(INCC, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SoftMeas.SCAN")
-  field(INPD, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck4.VAL")
+  field(INAA, "$(Instrument)MeasStim-Sts")
+  field(INBB, "$(Instrument)CntBuff1-Mon.SCAN")
+  field(INCC, "$(P)$(R)SoftMeas.SCAN")
+  field(INPD, "$(P)$(R)ConfCheck4.VAL")
   field(CALC, "(D=0&&AA=='NONE'&&BB=='Passive'&&CC=='.1 second')?3:D")
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck6")
+  field(FLNK, "$(P)$(R)ConfCheck6")
 }
 
-record(scalcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck6"){
+record(scalcout, "$(P)$(R)ConfCheck6"){
   field(ASG, "Reserved")
   field(DESC, "Check calc 6 for meas. trigger config")
-  field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck5.VAL")
-  field(INBB, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SoftMeas.SCAN")
-  field(INCC, "$(Instrument):MeasStim-Sts")
-  field(INDD, "$(Instrument):CntBuff1-Mon.SCAN")
-  field(INEE, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimEnbl-Sts")
+  field(INPA, "$(P)$(R)ConfCheck5.VAL")
+  field(INBB, "$(P)$(R)SoftMeas.SCAN")
+  field(INCC, "$(Instrument)MeasStim-Sts")
+  field(INDD, "$(Instrument)CntBuff1-Mon.SCAN")
+  field(INEE, "$(P)$(R)LowLimEnbl-Sts")
   field(CALC, "(A=0&&BB=='Passive'&&CC=='NONE'&&DD=='Passive'&&EE=='OFF')?4:A")
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck7")
+  field(FLNK, "$(P)$(R)ConfCheck7")
 }
 
-record(scalcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck7"){
+record(scalcout, "$(P)$(R)ConfCheck7"){
   field(ASG, "Reserved")
   field(DESC, "Check calc 7 for meas. trigger config")
-  field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConfCheck6.VAL")
+  field(INPA, "$(P)$(R)ConfCheck6.VAL")
   field(CALC, "A=1?'External':(A=2?'InLevel':(A=3?'Software':(A=4?'None':'Unknown')))")
-  field(OUT, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrg-Sts PP")
+  field(OUT, "$(P)$(R)MeasTrg-Sts PP")
 }
 
 # Measurement trigger source status
-record(mbbi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrg-Sts"){
+record(mbbi, "$(P)$(R)MeasTrg-Sts"){
   field(ASG, "Reserved")
   field(DESC, "Measurement trigger source Sts")
   field(ZRST, "Unknown")
@@ -223,22 +223,22 @@ record(mbbi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrg-Sts"){
 # Desc: Timer used when measurement is triggered by level.
 
 # Timer delay (high level)
-record(ao, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TrgDelay-SP"){
+record(ao, "$(P)$(R)TrgDelay-SP"){
   field(DESC, "Trigger delay")
   field(DRVH, "100000")
   field(DRVL, "0.000008")
   field(PREC, "6")
   field(EGU, "seconds")
-  field(OUT, "$(Instrument):Timer1Dly-SP PP")
+  field(OUT, "$(Instrument)Timer1Dly-SP PP")
 }
 
 # Timer delay RB (high level)
-record(ai, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TrgDelay-RB"){
+record(ai, "$(P)$(R)TrgDelay-RB"){
   field(ASG, "Reserved")
   field(DESC, "Trigger delay RB")
   field(PREC, "6")
   field(EGU, "seconds")
-  field(INP, "$(Instrument):Timer1Dly-RB CPP")
+  field(INP, "$(Instrument)Timer1Dly-RB CPP")
 }
 
 ########################################################################
@@ -246,46 +246,46 @@ record(ai, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TrgDelay-RB"){
 # Desc: Average Beam Current measurement parameters.
 
 # Check if buffer 1 count is greater than 0
-record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):BuffCntCalc"){
+record(calcout, "$(P)$(R)BuffCntCalc"){
   field(ASG, "Reserved")
   field(DESC, "Buffer counter monitor calc")
   field(PRIO, "HIGH")
-  field(INPA, "$(Instrument):CntBuff1-Mon CPP")
+  field(INPA, "$(Instrument)CntBuff1-Mon CPP")
   field(CALC, "A>0")
   field(OOPT, "When Non-zero")
-  field(OUT, "$(Instrument):FetchBuff1-Mon.PROC")
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):BuffClear")
+  field(OUT, "$(Instrument)FetchBuff1-Mon.PROC")
+  field(FLNK, "$(P)$(R)BuffClear")
 }
 
 # Clear buffer after fetch was requested
-record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):BuffClear"){
+record(calcout, "$(P)$(R)BuffClear"){
   field(ASG, "Reserved")
   field(DESC, "Clear buffer calc")
   field(PRIO, "HIGH")
-  field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):BuffCntCalc.VAL")
+  field(INPA, "$(P)$(R)BuffCntCalc.VAL")
   field(CALC, "A")
   field(OOPT, "When Non-zero")
-  field(OUT, "$(Instrument):ClrBuff1-Cmd PP")
+  field(OUT, "$(Instrument)ClrBuff1-Cmd PP")
 }
 
 # PV with last monitored Beam Current
-record(ai, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):AvgCurr-Mon"){
+record(ai, "$(P)$(R)AvgCurr-Mon"){
   field(ASG, "Reserved")
   field(DESC, "Average Beam Current")
   field(PREC, "6")
   field(EGU, "mA")
-  field(INP, "$(Instrument):FetchBuff1-Mon CPP")
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CurrHstr-Mon")
+  field(INP, "$(Instrument)FetchBuff1-Mon CPP")
+  field(FLNK, "$(P)$(R)CurrHstr-Mon")
 }
 
 # Array with measurement history
-record(compress, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CurrHstr-Mon"){
+record(compress, "$(P)$(R)CurrHstr-Mon"){
   field(ASG, "Reserved")
   field(DESC, "History of average beam current readings")
   field(ALG, "Circular Buffer")
   field(NSAM, "1000")
   field(EGU, "mA")
-  field(INP, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):AvgCurr-Mon")
+  field(INP, "$(P)$(R)AvgCurr-Mon")
 }
 
 ########################################################################
@@ -293,174 +293,174 @@ record(compress, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CurrHstr-Mon"){
 # Desc: Measurement parameters.
 
 # Measurement count (high level)
-record(longout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasCount-SP"){
+record(longout, "$(P)$(R)MeasCount-SP"){
   field(DESC, "Measurement count high level PV")
   field(DRVH, "1000000")
   field(DRVL, "1")
-  field(OUT, "$(Instrument):MeasCount-SP.VAL PP")
+  field(OUT, "$(Instrument)MeasCount-SP.VAL PP")
 }
 
 # Measurement count RB (high level)
-record(longin, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasCount-RB"){
+record(longin, "$(P)$(R)MeasCount-RB"){
   field(ASG, "Reserved")
   field(DESC, "Measurement count RB high level PV")
-  field(INP, "$(Instrument):MeasCount-RB CPP")
+  field(INP, "$(Instrument)MeasCount-RB CPP")
 }
 
 # Input Impedance (high level)
-record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Imped-Sel"){
+record(bo, "$(P)$(R)Imped-Sel"){
   field(DESC, "Input impedance high level PV")
   field(ZNAM, "AUTO")
   field(ONAM, "10MOhm")
   field(VAL, "0")
-  field(OUT, "$(Instrument):MeasImpedance-Sel.VAL PP")
+  field(OUT, "$(Instrument)MeasImpedance-Sel.VAL PP")
 }
 
 # Input Impedance Sts (high level)
-record(bi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Imped-Sts"){
+record(bi, "$(P)$(R)Imped-Sts"){
   field(ASG, "Reserved")
   field(DESC, "Input impedance Sts high level PV")
   field(ZNAM, "AUTO")
   field(ONAM, "10MOhm")
-  field(INP, "$(Instrument):MeasImpedance-Sts CPP")
+  field(INP, "$(Instrument)MeasImpedance-Sts CPP")
 }
 
 # Line Synchronization (high level)
-record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LineSync-Sel"){
+record(bo, "$(P)$(R)LineSync-Sel"){
   field(DESC, "Line Sync high level PV")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
   field(VAL, "0")
-  field(OUT, "$(Instrument):MeasLineSync-Sel PP")
+  field(OUT, "$(Instrument)MeasLineSync-Sel PP")
 }
 
 # Line Synchronization Sts (high level)
-record(bi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LineSync-Sts"){
+record(bi, "$(P)$(R)LineSync-Sts"){
   field(ASG, "Reserved")
   field(DESC, "Line Sync Sts high level PV")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
-  field(INP, "$(Instrument):MeasLineSync-Sts CPP")
+  field(INP, "$(Instrument)MeasLineSync-Sts CPP")
 }
 
 # Number of power line cycles (high level)
-record(ao, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):NPLC-SP"){
+record(ao, "$(P)$(R)NPLC-SP"){
   field(DESC, "NPLC high level PV")
   field(DRVH, "15")
   field(DRVL, "0.0005")
   field(PREC, "4")
   field(VAL, "1")
   field(EGU, "PLC")
-  field(OUT, "$(Instrument):MeasNPLC-SP PP")
+  field(OUT, "$(Instrument)MeasNPLC-SP PP")
 }
 
 # Number of power line cycles RB (high level)
-record(ai, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):NPLC-RB"){
+record(ai, "$(P)$(R)NPLC-RB"){
   field(ASG, "Reserved")
   field(DESC, "NPLC RB high level PV")
   field(PREC, "4")
   field(EGU, "PLC")
-  field(INP, "$(Instrument):MeasNPLC-RB CPP")
+  field(INP, "$(Instrument)MeasNPLC-RB CPP")
 }
 
 # Filter counter (high level)
-record(longout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterCnt-SP"){
+record(longout, "$(P)$(R)FilterCnt-SP"){
   field(DESC, "Filter counter high level PV")
   field(DRVH, "100")
   field(DRVL, "1")
-  field(OUT, "$(Instrument):FilterCount-SP PP")
+  field(OUT, "$(Instrument)FilterCount-SP PP")
 }
 
 # Filter counter RB (high level)
-record(longin, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterCnt-RB"){
+record(longin, "$(P)$(R)FilterCnt-RB"){
   field(ASG, "Reserved")
   field(DESC, "Filter counter RB high level PV")
-  field(INP, "$(Instrument):FilterCount-RB CPP")
+  field(INP, "$(Instrument)FilterCount-RB CPP")
 }
 
 # Filter enable (high level)
-record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterEnbl-Sel"){
+record(bo, "$(P)$(R)FilterEnbl-Sel"){
   field(DESC, "Filter enable high level PV")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
-  field(OUT, "$(Instrument):FilterEnbl-Sel PP")
+  field(OUT, "$(Instrument)FilterEnbl-Sel PP")
 }
 
 # Filter enable Sts (high level)
-record(bi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterEnbl-Sts"){
+record(bi, "$(P)$(R)FilterEnbl-Sts"){
   field(ASG, "Reserved")
   field(DESC, "Filter enable Sts high level PV")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
-  field(INP, "$(Instrument):FilterEnbl-Sts CPP")
+  field(INP, "$(Instrument)FilterEnbl-Sts CPP")
 }
 
 # Filter type (high level)
-record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterTyp-Sel"){
+record(bo, "$(P)$(R)FilterTyp-Sel"){
   field(DESC, "Filter type high level PV")
   field(ZNAM, "Repeat")
   field(ONAM, "Moving")
-  field(OUT, "$(Instrument):FilterTyp-Sel PP")
+  field(OUT, "$(Instrument)FilterTyp-Sel PP")
 }
 
 # Filter type Sts (high level)
-record(bi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterTyp-Sts"){
+record(bi, "$(P)$(R)FilterTyp-Sts"){
   field(ASG, "Reserved")
   field(DESC, "Filter type Sts high level PV")
   field(ZNAM, "Repeat")
   field(ONAM, "Moving")
-  field(INP, "$(Instrument):FilterTyp-Sts CPP")
+  field(INP, "$(Instrument)FilterTyp-Sts CPP")
 }
 
 # Filter window (high level)
-record(longout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterWind-SP"){
+record(longout, "$(P)$(R)FilterWind-SP"){
   field(DESC, "Filter window high level PV")
   field(DRVH, "10")
   field(DRVL, "0")
   field(EGU, "%")
-  field(OUT, "$(Instrument):FilterWind-SP PP")
+  field(OUT, "$(Instrument)FilterWind-SP PP")
 }
 
 # Filter window RB (high level)
-record(longin, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterWind-RB"){
+record(longin, "$(P)$(R)FilterWind-RB"){
   field(ASG, "Reserved")
   field(DESC, "Filter window RB high level PV")
   field(EGU, "%")
-  field(INP, "$(Instrument):FilterWind-RB CPP")
+  field(INP, "$(Instrument)FilterWind-RB CPP")
 }
 
 # Relative offset enable (high level)
-record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RelEnbl-Sel"){
+record(bo, "$(P)$(R)RelEnbl-Sel"){
   field(DESC, "Rel. offset enable high level PV")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
   field(VAL, "0")
-  field(OUT, "$(Instrument):MRelOffEnbl-Sel PP")
+  field(OUT, "$(Instrument)MRelOffEnbl-Sel PP")
 }
 
 # Relative offset enable Sts (high level)
-record(bi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RelEnbl-Sts"){
+record(bi, "$(P)$(R)RelEnbl-Sts"){
   field(ASG, "Reserved")
   field(DESC, "Rel. offset enable Sts high level PV")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
-  field(INP, "$(Instrument):MRelOffEnbl-Sts CPP")
+  field(INP, "$(Instrument)MRelOffEnbl-Sts CPP")
 }
 
 # Relative offset level (high level)
-record(ao, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RelLvl-SP"){
+record(ao, "$(P)$(R)RelLvl-SP"){
   field(DESC, "Rel. offset level high level PV")
   field(PREC, "16")
   field(VAL, "0")
-  field(OUT, "$(Instrument):MRelOff-SP PP")
+  field(OUT, "$(Instrument)MRelOff-SP PP")
 }
 
 # Relative offset level RB (high level)
-record(ai, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RelLvl-RB"){
+record(ai, "$(P)$(R)RelLvl-RB"){
   field(ASG, "Reserved")
   field(DESC, "Rel. offset level RB high level PV")
   field(PREC, "16")
-  field(INP, "$(Instrument):MRelOff-RB CPP")
+  field(INP, "$(Instrument)MRelOff-RB CPP")
 }
 
 ########################################################################
@@ -468,23 +468,23 @@ record(ai, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RelLvl-RB"){
 # Desc: Measurement range selection.
 
 # DCCT Range selection
-record(mbbo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel"){
+record(mbbo, "$(P)$(R)Range-Sel"){
   field(DESC, "DCCT range")
   field(ZRST, "20 A")
   field(ONST, "2 A")
   field(TWST, "200 mA")
   field(THST, "20 mA")
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConvCalc")
+  field(FLNK, "$(P)$(R)ConvCalc")
 }
 
 # Calculation for setting conversion multiplier
-record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConvCalc"){
+record(calcout, "$(P)$(R)ConvCalc"){
   field(ASG, "Reserved")
   field(DESC, "Reading conversion factor")
-  field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel.VAL")
+  field(INPA, "$(P)$(R)Range-Sel.VAL")
   field(CALC, "2000/(10**A)")
-  field(OUT, "$(Instrument):MMathMFactor-SP PP")
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RangeCalc")
+  field(OUT, "$(Instrument)MMathMFactor-SP PP")
+  field(FLNK, "$(P)$(R)RangeCalc")
 }
 
 # Calculation for setting DCCT sensor range
@@ -492,38 +492,38 @@ record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ConvCalc"){
 # DCCT 'Pin 7' = DMM 'DigIO 2'
 # DCCT 'Pin 6' = DMM 'DigIO 1'
 #
-record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RangeCalc"){
+record(calcout, "$(P)$(R)RangeCalc"){
   field(ASG, "Reserved")
   field(DESC, "DCCT range calc")
-  field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel")
-  field(INPB, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Test-Sts")
+  field(INPA, "$(P)$(R)Range-Sel")
+  field(INPB, "$(P)$(R)Test-Sts")
   field(CALC, "(A=0?3:(A=1?2:(A=2?1:0)))|(((!B)&1)<<2)")
-  field(OUT, "$(Instrument):DigWrite-SP PP")
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ThreshUpdate")
+  field(OUT, "$(Instrument)DigWrite-SP PP")
+  field(FLNK, "$(P)$(R)ThreshUpdate")
 }
 
 # Level threshold update
-record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ThreshUpdate"){
+record(calcout, "$(P)$(R)ThreshUpdate"){
   field(ASG, "Reserved")
   field(DESC, "Threshold update")
-  field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-RB")
-  field(INPB, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel")
+  field(INPA, "$(P)$(R)Threshold-RB")
+  field(INPB, "$(P)$(R)Range-Sel")
   field(CALC, "(A*(10**B))/2000")
-  field(OUT, "$(Instrument):MATrEdgeLvl-SP PP")
-  field(FLNK, "$(Instrument):DigRead-Mon.PROC")
+  field(OUT, "$(Instrument)MATrEdgeLvl-SP PP")
+  field(FLNK, "$(Instrument)DigRead-Mon.PROC")
 }
 
 # Range status calculation
-record(scalcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RangeMonCalc"){
+record(scalcout, "$(P)$(R)RangeMonCalc"){
   field(ASG, "Reserved")
   field(DESC, "Calc of range from DigIO status")
-  field(INPA, "$(Instrument):DigRead-Mon CPP")
+  field(INPA, "$(Instrument)DigRead-Mon CPP")
   field(CALC, "(A&3)=3?'20 A':((A&3)=2?'2 A':((A&3)=1?'200 mA':'20 mA'))")
-  field(OUT, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sts PP")
+  field(OUT, "$(P)$(R)Range-Sts PP")
 }
 
 # Range status
-record(mbbi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sts"){
+record(mbbi, "$(P)$(R)Range-Sts"){
   field(ASG, "Reserved")
   field(DESC, "DCCT range Sts")
   field(ZRST, "UNKNOWN")
@@ -538,39 +538,39 @@ record(mbbi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sts"){
 # Desc: DCCT calibration signal enable.
 
 # Enable/disable DCCT calibration signal
-record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Test-Sel"){
+record(bo, "$(P)$(R)Test-Sel"){
   field(DESC, "DCCT calibration signal enable")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TestCalc")
+  field(FLNK, "$(P)$(R)TestCalc")
 }
 
 # Enable DCCT calibration signal calc
-record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TestCalc"){
+record(calcout, "$(P)$(R)TestCalc"){
   field(ASG, "Reserved")
   field(DESC, "DCCT calibration signal enable calc")
-  field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Test-Sel.VAL")
+  field(INPA, "$(P)$(R)Test-Sel.VAL")
   field(CALC, "!A")
-  field(OUT, "$(Instrument):Dig3State-Sel PP")
-  field(FLNK, "$(Instrument):Dig3State-Mon")
+  field(OUT, "$(Instrument)Dig3State-Sel PP")
+  field(FLNK, "$(Instrument)Dig3State-Mon.PROC")
 }
 
 # DCCT calibration signal enable status calc
-record(calc, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TestMonCalc"){
+record(calc, "$(P)$(R)TestMonCalc"){
   field(ASG, "Reserved")
   field(DESC, "DCCT cal. signal enable monitor calc")
-  field(INPA, "$(Instrument):Dig3State-Mon CPP")
+  field(INPA, "$(Instrument)Dig3State-Mon CPP")
   field(CALC, "!A")
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Test-Sts")
+  field(FLNK, "$(P)$(R)Test-Sts")
 }
 
 # DCCT calibration signal enable status
-record(bi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Test-Sts"){
+record(bi, "$(P)$(R)Test-Sts"){
   field(ASG, "Reserved")
   field(DESC, "DCCT calibration signal enable Sts")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
-  field(INP, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TestMonCalc.VAL")
+  field(INP, "$(P)$(R)TestMonCalc.VAL")
 }
 
 ########################################################################
@@ -578,43 +578,43 @@ record(bi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Test-Sts"){
 # Desc: Current loss detection parameters.
 
 # Enable/disable low current detection
-record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimEnbl-Sel"){
+record(bo, "$(P)$(R)LowLimEnbl-Sel"){
   field(DESC, "Curr. low threshold detection")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimCalc")
+  field(FLNK, "$(P)$(R)LowLimCalc")
 }
 
-record(calc, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimCalc"){
+record(calc, "$(P)$(R)LowLimCalc"){
   field(ASG, "Reserved")
   field(DESC, "Low threshold settings calc")
-  field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimEnbl-Sel")
+  field(INPA, "$(P)$(R)LowLimEnbl-Sel")
   field(CALC, "A=1?3:4")
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimSeq")
+  field(FLNK, "$(P)$(R)LowLimSeq")
 }
 
-record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimSeq"){
+record(sseq, "$(P)$(R)LowLimSeq"){
   field(ASG, "Reserved")
   field(DESC, "Low threshold settings seq")
   field(SELM, "Mask")
-  field(SELL, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimCalc.VAL")
+  field(SELL, "$(P)$(R)LowLimCalc.VAL")
   field(STR1, "Falling")
   field(STR2, "ANALOGTRIGGER")
   field(STR3, "NONE")
-  field(LNK1, "$(Instrument):MATrEdgeSlp-Sel PP")
-  field(LNK2, "$(Instrument):ExOutStim-Sel PP")
-  field(LNK3, "$(Instrument):ExOutStim-Sel PP")
+  field(LNK1, "$(Instrument)MATrEdgeSlp-Sel PP")
+  field(LNK2, "$(Instrument)ExOutStim-Sel PP")
+  field(LNK3, "$(Instrument)ExOutStim-Sel PP")
 }
 
-record(scalcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimCheck"){
+record(scalcout, "$(P)$(R)LowLimCheck"){
   field(ASG, "Reserved")
   field(DESC, "Low threshold settings check")
-  field(INAA, "$(Instrument):ExOutStim-Sts CPP")
+  field(INAA, "$(Instrument)ExOutStim-Sts CPP")
   field(CALC, "AA='ANALOGTRIGGER'?'ON':'OFF'")
-  field(OUT, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimEnbl-Sts PP")
+  field(OUT, "$(P)$(R)LowLimEnbl-Sts PP")
 }
 
-record(bi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimEnbl-Sts"){
+record(bi, "$(P)$(R)LowLimEnbl-Sts"){
   field(ASG, "Reserved")
   field(DESC, "Curr. low threshold detection Sts")
   field(ZNAM, "OFF")
@@ -622,43 +622,43 @@ record(bi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimEnbl-Sts"){
 }
 
 # Analog trigger threshold
-record(ao, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-SP"){
+record(ao, "$(P)$(R)Threshold-SP"){
   field(DESC, "Threshold level")
   field(DRVH, "2000")
   field(DRVL, "0")
   field(PREC, "6")
   field(EGU, "mA")
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ThreshCalc")
+  field(FLNK, "$(P)$(R)ThreshCalc")
 }
 
 # Threshold unit conversion
-record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ThreshCalc"){
+record(calcout, "$(P)$(R)ThreshCalc"){
   field(ASG, "Reserved")
   field(DESC, "Threshold unit conversion calc")
-  field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-SP")
-  field(INPB, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sts")
+  field(INPA, "$(P)$(R)Threshold-SP")
+  field(INPB, "$(P)$(R)Range-Sts")
   field(CALC, "B=0?0:1")
   field(OCAL, "(A*(10**(B-1)))/2000")
   field(DOPT, "Use OCAL")
   field(OOPT, "When Non-zero")
-  field(OUT, "$(Instrument):MATrEdgeLvl-SP PP")
+  field(OUT, "$(Instrument)MATrEdgeLvl-SP PP")
 }
 
 # Monitor calc for analog trigger level
-record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):ThreshMonCalc"){
+record(calcout, "$(P)$(R)ThreshMonCalc"){
   field(ASG, "Reserved")
   field(DESC, "Threshold level read calc")
-  field(INPA, "$(Instrument):MATrEdgeLvl-RB CPP")
-  field(INPB, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sts")
+  field(INPA, "$(Instrument)MATrEdgeLvl-RB CPP")
+  field(INPB, "$(P)$(R)Range-Sts")
   field(CALC, "B=0?0:1")
   field(OCAL, "(A*2000)/(10**(B-1))")
   field(DOPT, "Use OCAL")
   field(OOPT, "When Non-zero")
-  field(OUT, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-RB PP")
+  field(OUT, "$(P)$(R)Threshold-RB PP")
 }
 
 # Analog trigger threshold RB
-record(ai, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-RB"){
+record(ai, "$(P)$(R)Threshold-RB"){
   field(ASG, "Reserved")
   field(DESC, "Threshold level RB")
   field(EGU, "mA")
@@ -666,39 +666,39 @@ record(ai, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-RB"){
 }
 
 # High frequency rejection (high level)
-record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):HFReject-Sel"){
+record(bo, "$(P)$(R)HFReject-Sel"){
   field(DESC, "High freq rejection high level PV")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
-  field(OUT, "$(Instrument):MATrHFR-Sel PP")
+  field(OUT, "$(Instrument)MATrHFR-Sel PP")
 }
 
 # High frequency rejection Sts (high level)
-record(bi, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):HFReject-Sts"){
+record(bi, "$(P)$(R)HFReject-Sts"){
   field(ASG, "Reserved")
   field(DESC, "High freq rejection Sts high level PV")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
-  field(INP, "$(Instrument):MATrHFR-Sts CPP")
+  field(INP, "$(Instrument)MATrHFR-Sts CPP")
 }
 
 ########################################################################
 # Save
 # Desc: Save 'Sel' and 'SP' PV values.
 
-record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Save-Cmd"){
+record(bo, "$(P)$(R)Save-Cmd"){
   field(DESC, "Save PVs values cmd")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
   field(HIGH, "0.5")
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SaveTrg")
+  field(FLNK, "$(P)$(R)SaveTrg")
 }
 
 # This PV is monitored by autosave
-record(calc, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SaveTrg"){
+record(calc, "$(P)$(R)SaveTrg"){
   field(ASG, "Reserved")
   field(DESC, "Save PVs values trigger")
-  field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Save-Cmd.VAL")
+  field(INPA, "$(P)$(R)Save-Cmd.VAL")
   field(CALC, "A=1?!VAL:VAL")
   field(VAL, "0")
 }
@@ -713,26 +713,26 @@ record(calc, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):SaveTrg"){
 # ----------------------------------------------------------
 
 # Download command
-record(bo, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Download-Cmd"){
+record(bo, "$(P)$(R)Download-Cmd"){
   field(DESC, "Download IOC parameters cmd")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
   field(HIGH, "10")
   field(VAL, "1")
   field(PINI, "YES")
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadCalc")
+  field(FLNK, "$(P)$(R)DownloadCalc")
 }
 
-record(calcout, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadCalc"){
+record(calcout, "$(P)$(R)DownloadCalc"){
   field(ASG, "Reserved")
   field(DESC, "Download confirmation calc")
-  field(INPA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Download-Cmd.VAL")
+  field(INPA, "$(P)$(R)Download-Cmd.VAL")
   field(CALC, "A")
   field(OOPT, "When Non-zero")
-  field(OUT, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq1.PROC")
+  field(OUT, "$(P)$(R)DownloadSeq1.PROC")
 }
 
-record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq1"){
+record(sseq, "$(P)$(R)DownloadSeq1"){
   field(ASG, "Reserved")
   field(DESC, "Download sequence 1")
   field(SELM, "All")
@@ -742,16 +742,16 @@ record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq1"){
   field(STR4, "OFF")
   field(STR5, "OFF")
   field(DO6, "10")
-  field(LNK1, "$(Instrument):Reset-Cmd PP")					# reset
-  field(LNK2, "$(Instrument):MeasFnc-Sel PP")					# Meas. function = DC_VOLTAGE
-  field(LNK3, "$(Instrument):MAutoRange-Sel PP")				# Meas. autorange = OFF
-  field(LNK4, "$(Instrument):MeasAutoDly-Sel PP")				# Meas. autodelay = OFF
-  field(LNK5, "$(Instrument):AutoZero-Sel PP")					# Meas. autozero = OFF
-  field(LNK6, "$(Instrument):MRange-SP PP")					# Meas. range = 10 V
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq2")
+  field(LNK1, "$(Instrument)Reset-Cmd PP")					# reset
+  field(LNK2, "$(Instrument)MeasFnc-Sel PP")					# Meas. function = DC_VOLTAGE
+  field(LNK3, "$(Instrument)MAutoRange-Sel PP")				# Meas. autorange = OFF
+  field(LNK4, "$(Instrument)MeasAutoDly-Sel PP")				# Meas. autodelay = OFF
+  field(LNK5, "$(Instrument)AutoZero-Sel PP")					# Meas. autozero = OFF
+  field(LNK6, "$(Instrument)MRange-SP PP")					# Meas. range = 10 V
+  field(FLNK, "$(P)$(R)DownloadSeq2")
 }
 
-record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq2"){
+record(sseq, "$(P)$(R)DownloadSeq2"){
   field(ASG, "Reserved")
   field(DESC, "Download sequence 2")
   field(SELM, "All")
@@ -765,20 +765,20 @@ record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq2"){
   field(DO8, "1")
   field(DO9, "1")
   field(DOA, "1")
-  field(LNK1, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasCount-SP.PROC")		# Meas. count high level proc
-  field(LNK2, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Imped-Sel.PROC")		# Meas. input impedance proc
-  field(LNK3, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LineSync-Sel.PROC")		# Meas. line sync proc 
-  field(LNK4, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):NPLC-SP.PROC")			# Meas. NPLC proc
-  field(LNK5, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RelEnbl-Sel.PROC")		# Meas. relative offset enable proc
-  field(LNK6, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RelLvl-SP.PROC")		# Meas. relative offset level proc
-  field(LNK7, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterTyp-Sel.PROC")		# Filter type proc
-  field(LNK8, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterCnt-SP.PROC")		# Filter count proc
-  field(LNK9, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterWind-SP.PROC")		# Filter window proc
-  field(LNKA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterEnbl-Sel.PROC")		# Filter enable proc
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq3")
+  field(LNK1, "$(P)$(R)MeasCount-SP.PROC")		# Meas. count high level proc
+  field(LNK2, "$(P)$(R)Imped-Sel.PROC")		# Meas. input impedance proc
+  field(LNK3, "$(P)$(R)LineSync-Sel.PROC")		# Meas. line sync proc 
+  field(LNK4, "$(P)$(R)NPLC-SP.PROC")			# Meas. NPLC proc
+  field(LNK5, "$(P)$(R)RelEnbl-Sel.PROC")		# Meas. relative offset enable proc
+  field(LNK6, "$(P)$(R)RelLvl-SP.PROC")		# Meas. relative offset level proc
+  field(LNK7, "$(P)$(R)FilterTyp-Sel.PROC")		# Filter type proc
+  field(LNK8, "$(P)$(R)FilterCnt-SP.PROC")		# Filter count proc
+  field(LNK9, "$(P)$(R)FilterWind-SP.PROC")		# Filter window proc
+  field(LNKA, "$(P)$(R)FilterEnbl-Sel.PROC")		# Filter enable proc
+  field(FLNK, "$(P)$(R)DownloadSeq3")
 }
 
-record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq3"){
+record(sseq, "$(P)$(R)DownloadSeq3"){
   field(ASG, "Reserved")
   field(DESC, "Download sequence 3")
   field(SELM, "All")
@@ -791,19 +791,19 @@ record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq3"){
   field(DO7, "1")
   field(DO8, "1")
   field(STR9, "ON")
-  field(LNK1, "$(Instrument):Dig1Mod-Sel PP")					# DigIO 1 Mode = DIG_OUT
-  field(LNK2, "$(Instrument):Dig2Mod-Sel PP")					# DigIO 2 Mode = DIG_OUT
-  field(LNK3, "$(Instrument):Dig3Mod-Sel PP")					# DigIO 3 Mode = DIG_OUT
-  field(LNK4, "$(Instrument):Dig4Mod-Sel PP")					# DigIO 4 Mode = DIG_OUT
-  field(LNK5, "$(Instrument):Dig5Mod-Sel PP")					# DigIO 5 Mode = DIG_OUT
-  field(LNK6, "$(Instrument):Dig6Mod-Sel PP")					# DigIO 6 Mode = DIG_OUT
-  field(LNK7, "$(Instrument):Timer1Count-SP PP")				# Timer 1 count = 1
-  field(LNK8, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TrgDelay-SP.PROC")		# Timer 1 delay proc
-  field(LNK9, "$(Instrument):Timer1Enbl-Sel PP")				# Timer 1 enable
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq4")
+  field(LNK1, "$(Instrument)Dig1Mod-Sel PP")					# DigIO 1 Mode = DIG_OUT
+  field(LNK2, "$(Instrument)Dig2Mod-Sel PP")					# DigIO 2 Mode = DIG_OUT
+  field(LNK3, "$(Instrument)Dig3Mod-Sel PP")					# DigIO 3 Mode = DIG_OUT
+  field(LNK4, "$(Instrument)Dig4Mod-Sel PP")					# DigIO 4 Mode = DIG_OUT
+  field(LNK5, "$(Instrument)Dig5Mod-Sel PP")					# DigIO 5 Mode = DIG_OUT
+  field(LNK6, "$(Instrument)Dig6Mod-Sel PP")					# DigIO 6 Mode = DIG_OUT
+  field(LNK7, "$(Instrument)Timer1Count-SP PP")				# Timer 1 count = 1
+  field(LNK8, "$(P)$(R)TrgDelay-SP.PROC")		# Timer 1 delay proc
+  field(LNK9, "$(Instrument)Timer1Enbl-Sel PP")				# Timer 1 enable
+  field(FLNK, "$(P)$(R)DownloadSeq4")
 }
 
-record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq4"){
+record(sseq, "$(P)$(R)DownloadSeq4"){
   field(ASG, "Reserved")
   field(DESC, "Download sequence 4")
   field(SELM, "All")
@@ -817,21 +817,21 @@ record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq4"){
   field(DO8, "1")
   field(STR9, "Positive")
   field(DOA, "1")
-  field(LNK1, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel.PROC")		# Range proc
-  field(LNK2, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Test-Sel.PROC")		# DCCT calibration signal enable proc
-  field(LNK3, "$(Instrument):MMathOp-Sel PP")					# Math format = y=mx+b			
-  field(LNK4, "$(Instrument):MMathBFactor-SP PP")				# Math B factor = 0
-  field(LNK5, "$(Instrument):MMathEnbl-Sel PP")					# Math enable = ON
-  field(LNK6, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-SP.PROC")		# Level threshold proc (Analog Trig level)
-  field(LNK7, "$(Instrument):MATrMode-Sel PP")					# Analog trigger mode = Edge
-  field(LNK8, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):HFReject-Sel.PROC")		# High Freq rejection proc (Analog Trg HR reject)
-  field(LNK9, "$(Instrument):ExOutPol-Sel PP")					# External Output polarity = Positive
-  field(LNKA, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimEnbl-Sel.PROC")		# Low limit enable proc (Analog Trg Slope and Stim)
+  field(LNK1, "$(P)$(R)Range-Sel.PROC")		# Range proc
+  field(LNK2, "$(P)$(R)Test-Sel.PROC")		# DCCT calibration signal enable proc
+  field(LNK3, "$(Instrument)MMathOp-Sel PP")					# Math format = y=mx+b			
+  field(LNK4, "$(Instrument)MMathBFactor-SP PP")				# Math B factor = 0
+  field(LNK5, "$(Instrument)MMathEnbl-Sel PP")					# Math enable = ON
+  field(LNK6, "$(P)$(R)Threshold-SP.PROC")		# Level threshold proc (Analog Trig level)
+  field(LNK7, "$(Instrument)MATrMode-Sel PP")					# Analog trigger mode = Edge
+  field(LNK8, "$(P)$(R)HFReject-Sel.PROC")		# High Freq rejection proc (Analog Trg HR reject)
+  field(LNK9, "$(Instrument)ExOutPol-Sel PP")					# External Output polarity = Positive
+  field(LNKA, "$(P)$(R)LowLimEnbl-Sel.PROC")		# Low limit enable proc (Analog Trg Slope and Stim)
   field(DLY3, "2")								# Wait 2 seconds for Range-Sts to be set
-  field(FLNK, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq5")
+  field(FLNK, "$(P)$(R)DownloadSeq5")
 }
 
-record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq5"){
+record(sseq, "$(P)$(R)DownloadSeq5"){
   field(ASG, "Reserved")
   field(DESC, "Download sequence 5")
   field(SELM, "All")
@@ -840,10 +840,10 @@ record(sseq, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):DownloadSeq5"){
   field(STR3, "HIGH")
   field(STR4, "HIGH")
   field(DO5, "1")
-  field(LNK1, "$(Instrument):DigRead-Mon.PROC")					# DigIOs states read (range RB)
-  field(LNK2, "$(Instrument):CntBuff1-Mon.PRIO")				# Buffer count monitor priority = HIGH
-  field(LNK3, "$(Instrument):FetchBuff1-Mon.PRIO")				# Fetch buffer priority = HIGH
-  field(LNK4, "$(Instrument):ClrBuff1-Cmd.PRIO")				# Clear buffer cmd priority = HIGH
-  field(LNK5, "$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrgRst.VAL PP")		# Reset MeasTrgCalc so that next time it will process
+  field(LNK1, "$(Instrument)DigRead-Mon.PROC")					# DigIOs states read (range RB)
+  field(LNK2, "$(Instrument)CntBuff1-Mon.PRIO")				# Buffer count monitor priority = HIGH
+  field(LNK3, "$(Instrument)FetchBuff1-Mon.PRIO")				# Fetch buffer priority = HIGH
+  field(LNK4, "$(Instrument)ClrBuff1-Cmd.PRIO")				# Clear buffer cmd priority = HIGH
+  field(LNK5, "$(P)$(R)MeasTrgRst.VAL PP")		# Reset MeasTrgCalc so that next time it will process
 }
 

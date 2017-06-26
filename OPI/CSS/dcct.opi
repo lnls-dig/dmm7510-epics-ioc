@@ -18,11 +18,8 @@
   <height>600</height>
   <macros>
     <include_parent_macros>true</include_parent_macros>
-    <Sec>AS</Sec>
-    <Sub>Inj</Sub>
-    <Dis>TI</Dis>
-    <Dev>DCCT</Dev>
-    <Idx>1</Idx>
+    <P>AS-Inj:TI-DCCT-1:</P>
+    <R></R>
   </macros>
   <name></name>
   <rules />
@@ -221,7 +218,7 @@ $(pv_value)</tooltip>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
     <scripts />
-    <text>Device: $(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx)</text>
+    <text>Device: $(P)$(R)</text>
     <tooltip></tooltip>
     <transparent>true</transparent>
     <vertical_alignment>1</vertical_alignment>
@@ -319,7 +316,7 @@ $(pv_value)</tooltip>
     <name>Text Update</name>
     <precision>0</precision>
     <precision_from_pv>true</precision_from_pv>
-    <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):AvgCurr-Mon</pv_name>
+    <pv_name>$(P)$(R)AvgCurr-Mon</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -420,7 +417,7 @@ $(pv_value)</tooltip>
     <on_label>ON</on_label>
     <password></password>
     <push_action_index>0</push_action_index>
-    <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Download-Cmd</pv_name>
+    <pv_name>$(P)$(R)Download-Cmd</pv_name>
     <pv_value />
     <released_action_index>0</released_action_index>
     <rules />
@@ -591,7 +588,7 @@ $(trace_0_y_pv_value)</tooltip>
     <trace_0_x_pv></trace_0_x_pv>
     <trace_0_x_pv_value />
     <trace_0_y_axis_index>1</trace_0_y_axis_index>
-    <trace_0_y_pv>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):CurrHstr-Mon</trace_0_y_pv>
+    <trace_0_y_pv>$(P)$(R)CurrHstr-Mon</trace_0_y_pv>
     <trace_0_y_pv_value />
     <trace_count>1</trace_count>
     <transparent>false</transparent>
@@ -868,7 +865,7 @@ $(pv_value)</tooltip>
       <name>Text Update</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrg-Sts</pv_name>
+      <pv_name>$(P)$(R)MeasTrg-Sts</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -917,7 +914,7 @@ $(pv_value)</tooltip>
       <horizontal>false</horizontal>
       <items_from_pv>true</items_from_pv>
       <name>Choice Button</name>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasTrg-Sel</pv_name>
+      <pv_name>$(P)$(R)MeasTrg-Sel</pv_name>
       <pv_value />
       <rules />
       <scale_options>
@@ -1110,7 +1107,7 @@ $(pv_value)</tooltip>
       <name>Text Input</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TrgDelay-SP</pv_name>
+      <pv_name>$(P)$(R)TrgDelay-SP</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -1162,7 +1159,7 @@ $(pv_value)</tooltip>
       <name>Text Update</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):TrgDelay-RB</pv_name>
+      <pv_name>$(P)$(R)TrgDelay-RB</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -1353,7 +1350,7 @@ $(pv_value)</tooltip>
       <name>Text Update</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sts</pv_name>
+      <pv_name>$(P)$(R)Range-Sts</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -1402,7 +1399,7 @@ $(pv_value)</tooltip>
       <horizontal>false</horizontal>
       <items_from_pv>true</items_from_pv>
       <name>Choice Button</name>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Range-Sel</pv_name>
+      <pv_name>$(P)$(R)Range-Sel</pv_name>
       <pv_value />
       <rules />
       <scale_options>
@@ -1688,7 +1685,7 @@ $(pv_value)</tooltip>
       <name>Text Update</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimEnbl-Sts</pv_name>
+      <pv_name>$(P)$(R)LowLimEnbl-Sts</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -1737,7 +1734,7 @@ $(pv_value)</tooltip>
       <horizontal>true</horizontal>
       <items_from_pv>true</items_from_pv>
       <name>Choice Button</name>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LowLimEnbl-Sel</pv_name>
+      <pv_name>$(P)$(R)LowLimEnbl-Sel</pv_name>
       <pv_value />
       <rules />
       <scale_options>
@@ -1930,7 +1927,7 @@ $(pv_value)</tooltip>
       <name>Text Input</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-SP</pv_name>
+      <pv_name>$(P)$(R)Threshold-SP</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -1982,7 +1979,7 @@ $(pv_value)</tooltip>
       <name>Text Update</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Threshold-RB</pv_name>
+      <pv_name>$(P)$(R)Threshold-RB</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -2369,7 +2366,7 @@ $(pv_value)</tooltip>
       <name>Text Update</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasCount-RB</pv_name>
+      <pv_name>$(P)$(R)MeasCount-RB</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -2426,7 +2423,7 @@ $(pv_value)</tooltip>
       <page_increment>10.0</page_increment>
       <precision>3</precision>
       <precision_from_pv>false</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):MeasCount-SP</pv_name>
+      <pv_name>$(P)$(R)MeasCount-SP</pv_name>
       <pv_value />
       <rules />
       <scale_options>
@@ -2619,7 +2616,7 @@ $(pv_value)</tooltip>
       <name>Text Input</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):NPLC-SP</pv_name>
+      <pv_name>$(P)$(R)NPLC-SP</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -2671,7 +2668,7 @@ $(pv_value)</tooltip>
       <name>Text Update</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):NPLC-RB</pv_name>
+      <pv_name>$(P)$(R)NPLC-RB</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -2862,7 +2859,7 @@ $(pv_value)</tooltip>
       <name>Text Update</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):HFReject-Sts</pv_name>
+      <pv_name>$(P)$(R)HFReject-Sts</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -2911,7 +2908,7 @@ $(pv_value)</tooltip>
       <horizontal>true</horizontal>
       <items_from_pv>true</items_from_pv>
       <name>Choice Button</name>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):HFReject-Sel</pv_name>
+      <pv_name>$(P)$(R)HFReject-Sel</pv_name>
       <pv_value />
       <rules />
       <scale_options>
@@ -3099,7 +3096,7 @@ $(pv_value)</tooltip>
       <name>Text Update</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LineSync-Sts</pv_name>
+      <pv_name>$(P)$(R)LineSync-Sts</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -3148,7 +3145,7 @@ $(pv_value)</tooltip>
       <horizontal>true</horizontal>
       <items_from_pv>true</items_from_pv>
       <name>Choice Button</name>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):LineSync-Sel</pv_name>
+      <pv_name>$(P)$(R)LineSync-Sel</pv_name>
       <pv_value />
       <rules />
       <scale_options>
@@ -3336,7 +3333,7 @@ $(pv_value)</tooltip>
       <name>Text Update</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Imped-Sts</pv_name>
+      <pv_name>$(P)$(R)Imped-Sts</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -3385,7 +3382,7 @@ $(pv_value)</tooltip>
       <horizontal>true</horizontal>
       <items_from_pv>true</items_from_pv>
       <name>Choice Button_1</name>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Imped-Sel</pv_name>
+      <pv_name>$(P)$(R)Imped-Sel</pv_name>
       <pv_value />
       <rules />
       <scale_options>
@@ -3573,7 +3570,7 @@ $(pv_value)</tooltip>
       <name>Text Update</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RelEnbl-Sts</pv_name>
+      <pv_name>$(P)$(R)RelEnbl-Sts</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -3622,7 +3619,7 @@ $(pv_value)</tooltip>
       <horizontal>true</horizontal>
       <items_from_pv>true</items_from_pv>
       <name>Choice Button</name>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RelEnbl-Sel</pv_name>
+      <pv_name>$(P)$(R)RelEnbl-Sel</pv_name>
       <pv_value />
       <rules />
       <scale_options>
@@ -3815,7 +3812,7 @@ $(pv_value)</tooltip>
       <name>Text Input</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RelLvl-SP</pv_name>
+      <pv_name>$(P)$(R)RelLvl-SP</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -3867,7 +3864,7 @@ $(pv_value)</tooltip>
       <name>Text Update</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):RelLvl-RB</pv_name>
+      <pv_name>$(P)$(R)RelLvl-RB</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -4058,7 +4055,7 @@ $(pv_value)</tooltip>
       <name>Text Update</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Test-Sts</pv_name>
+      <pv_name>$(P)$(R)Test-Sts</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -4107,7 +4104,7 @@ $(pv_value)</tooltip>
       <horizontal>true</horizontal>
       <items_from_pv>true</items_from_pv>
       <name>Choice Button</name>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Test-Sel</pv_name>
+      <pv_name>$(P)$(R)Test-Sel</pv_name>
       <pv_value />
       <rules />
       <scale_options>
@@ -4166,7 +4163,7 @@ $(pv_value)</tooltip>
     <on_label>ON</on_label>
     <password></password>
     <push_action_index>0</push_action_index>
-    <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):Save-Cmd</pv_name>
+    <pv_name>$(P)$(R)Save-Cmd</pv_name>
     <pv_value />
     <released_action_index>0</released_action_index>
     <rules />
@@ -4401,7 +4398,7 @@ $(pv_value)</tooltip>
       <name>Text Input</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterCnt-SP</pv_name>
+      <pv_name>$(P)$(R)FilterCnt-SP</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -4453,7 +4450,7 @@ $(pv_value)</tooltip>
       <name>Text Update</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterCnt-RB</pv_name>
+      <pv_name>$(P)$(R)FilterCnt-RB</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -4640,7 +4637,7 @@ $(pv_value)</tooltip>
       <height>29</height>
       <items_from_pv>true</items_from_pv>
       <name>Combo</name>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterEnbl-Sel</pv_name>
+      <pv_name>$(P)$(R)FilterEnbl-Sel</pv_name>
       <pv_value />
       <rules />
       <scale_options>
@@ -4686,7 +4683,7 @@ $(pv_value)</tooltip>
       <name>Text Update</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterEnbl-Sts</pv_name>
+      <pv_name>$(P)$(R)FilterEnbl-Sts</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -4873,7 +4870,7 @@ $(pv_value)</tooltip>
       <height>29</height>
       <items_from_pv>true</items_from_pv>
       <name>Combo</name>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterTyp-Sel</pv_name>
+      <pv_name>$(P)$(R)FilterTyp-Sel</pv_name>
       <pv_value />
       <rules />
       <scale_options>
@@ -4919,7 +4916,7 @@ $(pv_value)</tooltip>
       <name>Text Update</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterTyp-Sts</pv_name>
+      <pv_name>$(P)$(R)FilterTyp-Sts</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -5115,7 +5112,7 @@ $(pv_value)</tooltip>
       <name>Text Input</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterWind-SP</pv_name>
+      <pv_name>$(P)$(R)FilterWind-SP</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -5167,7 +5164,7 @@ $(pv_value)</tooltip>
       <name>Text Update</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(Sec)-$(Sub):$(Dis)-$(Dev)$(Idx):FilterWind-RB</pv_name>
+      <pv_name>$(P)$(R)FilterWind-RB</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
