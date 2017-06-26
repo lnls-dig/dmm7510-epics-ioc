@@ -90,11 +90,11 @@ AUTOSAVE=$(SUPPORT)/<path to autosave>
 
     1. Insert the DMM7510 network address in the following line:
 
-```
-# DMM7510 IP address -------------------------
-epicsEnvSet DMMADDR "<DMM7510 IP address goes here>"
-# --------------------------------------------
-```
+    ```
+    # DMM7510 IP address -------------------------
+    epicsEnvSet DMMADDR "<DMM7510 IP address goes here>"
+    # --------------------------------------------
+    ```
 
     2. To define the prefixes for the DMM7510 PVs, edit the following lines:
 
