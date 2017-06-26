@@ -76,15 +76,15 @@ The IOC documentation can be found in *Doc/*. There you can find a manual with t
 
 1. In order to run this IOC you need to have **EPICS Base 3.14**, **SynApps 5.8**, and **StreamDevice 2-7-7** installed. The first step when configuring the IOC is making sure that the paths to support modules in the RELEASE file (*configure/RELEASE*) are correct. Set the following lines in the file:
 
-```
-SUPPORT=/<path>/<to>/<synApps>
-EPICS_BASE=/<path>/<to>/<epics>/<base>
-...
-ASYN=$(SUPPORT)/<path to asyn>
-STREAM=<path to stream device>
-CALC=$(SUPPORT)/<path to calc module>
-AUTOSAVE=$(SUPPORT)/<path to autosave>
-```
+    ```
+    SUPPORT=/<path>/<to>/<synApps>
+    EPICS_BASE=/<path>/<to>/<epics>/<base>
+    ...
+    ASYN=$(SUPPORT)/<path to asyn>
+    STREAM=<path to stream device>
+    CALC=$(SUPPORT)/<path to calc module>
+    AUTOSAVE=$(SUPPORT)/<path to autosave>
+    ```
 
 2. The second step is to edit the IOC startup script (*iocBoot/iocdmm7510/st.cmd*) to provide the multimeter network address to asynDriver and make sure that the multimeter *.db* file is loaded with the right prefixes and communication port. The *IOC Settings* section, in the beggining of the *st.cmd* file, defines the key macro substitution strings for the script.
 
@@ -98,95 +98,95 @@ AUTOSAVE=$(SUPPORT)/<path to autosave>
 
     2. To define the prefixes for the DMM7510 PVs, edit the following lines:
 
-```
-## Naming Convention for DMM7510 -------------
-# P
-epicsEnvSet PDMM "<DMM7510 P prefix goes here>"
-# R
-epicsEnvSet RDMM "<DMM7510 R prefix goes here>"
-# --------------------------------------------
-```
+    ```
+    ## Naming Convention for DMM7510 -------------
+    # P
+    epicsEnvSet PDMM "<DMM7510 P prefix goes here>"
+    # R
+    epicsEnvSet RDMM "<DMM7510 R prefix goes here>"
+    # --------------------------------------------
+    ```
 
     3. To define the prefixes for the DCCT application PVs, edit the following lines:
 
-```
-## Naming Convention for DCCT ----------------
-# P
-epicsEnvSet PDCCT "<DCCT P prefix goes here>"
-# R
-epicsEnvSet RDCCT "<DCCT R prefix goes here>"
-# --------------------------------------------
-```
+    ```
+    ## Naming Convention for DCCT ----------------
+    # P
+    epicsEnvSet PDCCT "<DCCT P prefix goes here>"
+    # R
+    epicsEnvSet RDCCT "<DCCT R prefix goes here>"
+    # --------------------------------------------
+    ```
 
     4. To define the prefixes for the ICT application PVs, edit the following lines:
 
-```
-## Naming Convention for ICT ----------------
-# P
-epicsEnvSet PICT "<ICT P prefix goes here>"
-# R
-epicsEnvSet RICT "<ICT R prefix goes here>"
-# --------------------------------------------
-```
+    ```
+    ## Naming Convention for ICT ----------------
+    # P
+    epicsEnvSet PICT "<ICT P prefix goes here>"
+    # R
+    epicsEnvSet RICT "<ICT R prefix goes here>"
+    # --------------------------------------------
+    ```
 
     5. To enable DMM7510 PVs, set *DMM_line* to "":
 
-```
-# Enable/disable module lines ----------------
-epicsEnvSet DMM_line ""
-```
-
+    ```
+    # Enable/disable module lines ----------------
+    epicsEnvSet DMM_line ""
+    ```
+    
     6. To disable DMM7510 PVs, set *DMM_line* to "#":
 
-```
-# Enable/disable module lines ----------------
-epicsEnvSet DMM_line "#"
-```
-
+    ```
+    # Enable/disable module lines ----------------
+    epicsEnvSet DMM_line "#"
+    ```
+    
     7. In order to enable DMM7510 and DCCT PVs, set both *DMM_line* and *DCCT_line* to "", and set *ICT_line* to "#" in order to disable ICT PVs.
 
-```
-# Enable/disable module lines ----------------
-epicsEnvSet DMM_line ""
-epicsEnvSet DCCT_line ""
-epicsEnvSet ICT_line "#"
-```
+    ```
+    # Enable/disable module lines ----------------
+    epicsEnvSet DMM_line ""
+    epicsEnvSet DCCT_line ""
+    epicsEnvSet ICT_line "#"
+    ```
 
     8. In order to enable DMM7510 and ICT PVs, set both *DMM_line* and *ICT_line* to "", and set *DCCT_line* to "#" in order to disable DCCT PVs.
 
-```
-# Enable/disable module lines ----------------
-epicsEnvSet DMM_line ""
-epicsEnvSet DCCT_line "#"
-epicsEnvSet ICT_line ""
-```
+    ```
+    # Enable/disable module lines ----------------
+    epicsEnvSet DMM_line ""
+    epicsEnvSet DCCT_line "#"
+    epicsEnvSet ICT_line ""
+    ```
 
 3. To build the IOC application, in the IOC top level directory, enter the following shell command:
 
-```sh
-$ make clean uninstall install
-```
+    ```sh
+    $ make clean uninstall install
+    ```
 
 4. Go to the startup script directory and make sure that you have permission to run it:
 
-```sh
-$ cd iocBoot/iocdmm7510
-$ chmod +x st.cmd
-```
+    ```sh
+    $ cd iocBoot/iocdmm7510
+    $ chmod +x st.cmd
+    ```
 
 5. Run the startup script:
 
-```sh
-$ ./st.cmd
-```
+    ```sh
+    $ ./st.cmd
+    ```
 
 ## DMM7510 PV Structure
 
 The PVs' structure in this IOC is composed of four parts: Two user-defined prefixes (*P* and *R*), the PV property name and field, and the suffix.
 
-```
-$(P)$(R)Prop.FIELD-Suffix
-```
+    ```
+    $(P)$(R)Prop.FIELD-Suffix
+    ```
 
 The prefixes are defined in the *st.cmd* startup script, when loading a *.db* file. The suffixes indicate the PV input type, and can be one of the following:
 
