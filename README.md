@@ -143,7 +143,7 @@ The IOC documentation can be found in *Doc/*. There you can find a manual with t
         epicsEnvSet DMM_line "#"
         ```
     
-    7. In order to enable DMM7510 and DCCT PVs, set both *DMM_line* and *DCCT_line* to "", and set *ICT_line* to "#" to disable ICT PVs.
+    7. In order to enable DMM7510 and DCCT PVs, set both *DMM_line* and *DCCT_line* to "" and set *ICT_line* to "#" to disable ICT PVs.
 
         ```
         # Enable/disable module lines ----------------
@@ -152,7 +152,7 @@ The IOC documentation can be found in *Doc/*. There you can find a manual with t
         epicsEnvSet ICT_line "#"
         ```
 
-    8. In order to enable DMM7510 and ICT PVs, set both *DMM_line* and *ICT_line* to "", and set *DCCT_line* to "#" to disable DCCT PVs.
+    8. In order to enable DMM7510 and ICT PVs, set both *DMM_line* and *ICT_line* to "" and set *DCCT_line* to "#" to disable DCCT PVs.
 
         ```
         # Enable/disable module lines ----------------
@@ -184,9 +184,9 @@ The IOC documentation can be found in *Doc/*. There you can find a manual with t
 
 The PVs' structure in this IOC is composed of four parts: Two user-defined prefixes (*P* and *R*), the PV property name and field, and the suffix.
 
-    ```
-    $(P)$(R)Prop.FIELD-Suffix
-    ```
+```
+$(P)$(R)Prop.FIELD-Suffix
+```
 
 The prefixes are defined in the *st.cmd* startup script, when loading a *.db* file. The suffixes indicate the PV input type, and can be one of the following:
 
