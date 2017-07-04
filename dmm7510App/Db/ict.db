@@ -211,7 +211,7 @@ record(acalcout, "$(P)$(R)ReadingsCalc"){
   field(NELM, "1000")
   field(INAA, "$(P)$(R)RawReadings-Mon.VAL")
   field(INPB, "$(P)$(R)DigtzeCount-RB.VAL")
-  field(CALC, "AVG(AA[0,B-1])-AVG(AA[B,2*B-1])")
+  field(CALC, "ABS(AVG(AA[0,B-1])-AVG(AA[B,2*B-1]))")
   field(OUT, "$(P)$(R)Charge-Mon PP")
 }
 

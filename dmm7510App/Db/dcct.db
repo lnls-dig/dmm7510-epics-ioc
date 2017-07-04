@@ -269,12 +269,13 @@ record(calcout, "$(P)$(R)BuffClear"){
 }
 
 # PV with last monitored Beam Current
-record(ai, "$(P)$(R)AvgCurr-Mon"){
+record(calc, "$(P)$(R)AvgCurr-Mon"){
   field(ASG, "Reserved")
   field(DESC, "Average Beam Current")
   field(PREC, "6")
   field(EGU, "mA")
-  field(INP, "$(Instrument)FetchBuff1-Mon CPP")
+  field(INPA, "$(Instrument)FetchBuff1-Mon CPP")
+  field(CALC, "ABS(A)")
   field(FLNK, "$(P)$(R)CurrHstr-Mon")
 }
 
