@@ -15,7 +15,7 @@ cd ${TOP}
 # ####################################################
 
 # DMM7510 IP address -------------------------
-epicsEnvSet DMMADDR "10.0.18.71"
+epicsEnvSet DMMADDR "10.0.18.54"
 # --------------------------------------------
 
 ## Naming Convention for DMM7510 -------------
@@ -55,7 +55,7 @@ dmm7510_registerRecordDeviceDriver pdbbase
 
 asSetFilename("$(TOP)/accessSecurityFile.acf")
 
-${DMM_line}drvAsynIPPortConfigure("DMMPORT", "10.0.18.71:5025 TCP",0,0,0)
+${DMM_line}drvAsynIPPortConfigure("DMMPORT", "${DMMADDR}:5025 TCP",0,0,0)
 
 ## Load record instances
 
