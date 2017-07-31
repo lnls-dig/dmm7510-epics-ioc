@@ -221,6 +221,8 @@ record(ai, "$(P)$(R)Charge-Mon"){
   field(DESC, "Beam Charge")
   field(PREC, "6")
   field(EGU, "nC")
+  field(ADEL, "-1")
+  field(MDEL, "-1")
   field(FLNK, "$(P)$(R)ChargeHstr-Mon")
 }
 
