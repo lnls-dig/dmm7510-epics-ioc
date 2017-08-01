@@ -2,22 +2,44 @@
 # Monitor new ICT data
 # Desc: Monitor new data from ICTs and set the new data flag.
 
+# ICT 1 error check
+record(calcout, "$(P)$(R)ErrorICT1-Mon"){
+#  field(ASG, "Reserved")
+  field(DESC, "ICT 1 flag error")
+  field(INPA, "$(P)$(R)FlgICT1-Mon.VAL")
+  field(INPB, "$(ict-1-prefix)Charge-Mon CPP")
+  field(CALC, "A>=1")
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(P)$(R)ErrorCnt-Mon.PROC PP")
+  field(FLNK, "$(P)$(R)FlgICT1-Mon")
+}
+
+# ICT 2 error check
+record(calcout, "$(P)$(R)ErrorICT2-Mon"){
+#  field(ASG, "Reserved")
+  field(DESC, "ICT 2 flag error")
+  field(INPA, "$(P)$(R)FlgICT2-Mon.VAL")
+  field(INPB, "$(ict-2-prefix)Charge-Mon CPP")
+  field(CALC, "A>=1")
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(P)$(R)ErrorCnt-Mon.PROC PP")
+  field(FLNK, "$(P)$(R)FlgICT2-Mon")
+}
+
 # ICT 1 new data flag
 record(calc, "$(P)$(R)FlgICT1-Mon"){
-  field(ASG, "Reserved")
+#  field(ASG, "Reserved")
   field(DESC, "New data flag for ICT1")
-  field(INPA, "$(ict-1-prefix)Charge-Mon.VAL CPP")
-  field(CALC, "VAL+1")
+  field(CALC, "VAL<1?(VAL+1):0")
   field(VAL, "0")
   field(FLNK, "$(P)$(R)ValidData")
 }
 
 # ICT 2 new data flag
 record(calc, "$(P)$(R)FlgICT2-Mon"){
-  field(ASG, "Reserved")
+#  field(ASG, "Reserved")
   field(DESC, "New data flag for ICT2")
-  field(INPA, "$(ict-2-prefix)Charge-Mon.VAL CPP")
-  field(CALC, "VAL+1")
+  field(CALC, "VAL<1?(VAL+1):0")
   field(VAL, "0")
   field(FLNK, "$(P)$(R)ValidData")
 }
@@ -29,66 +51,63 @@ record(calc, "$(P)$(R)FlgICT2-Mon"){
 
 # Efficiency calculation
 record(calcout, "$(P)$(R)ValidData"){
-  field(ASG, "Reserved")
+#  field(ASG, "Reserved")
   field(DESC, "Validate data from ICTs")
   field(INPA, "$(P)$(R)FlgICT1-Mon.VAL")
   field(INPB, "$(P)$(R)FlgICT2-Mon.VAL")
   field(CALC, "(A=1)&&(B=1)")
   field(OOPT, "When Non-zero")
   field(OUT, "$(P)$(R)Eff-Mon.PROC PP")
-  field(FLNK, "$(P)$(R)ErrorCalc")
-}
-
-# Error calculation
-record(calcout, "$(P)$(R)ErrorCalc"){
-  field(ASG, "Reserved")
-  field(DESC, "Look for errors")
-  field(INPA, "$(P)$(R)FlgICT1-Mon.VAL")
-  field(INPB, "$(P)$(R)FlgICT2-Mon.VAL")
-  field(CALC, "(A-B)#0")
-  field(OOPT, "When Non-zero")
-  field(OUT, "$(P)$(R)ErrorCnt-Mon.PROC PP")
   field(FLNK, "$(P)$(R)RstFlgs")
 }
 
 # Reset flags calc
 record(calcout, "$(P)$(R)RstFlgs"){
-  field(ASG, "Reserved")
+#  field(ASG, "Reserved")
   field(DESC, "Reset new data flags")
   field(INPA, "$(P)$(R)FlgICT1-Mon.VAL")
   field(INPB, "$(P)$(R)FlgICT2-Mon.VAL")
-  field(CALC, "((A>0)&&(B>0))||(A>1)||(B>1)")
+  field(CALC, "(A>0)&&(B>0)")
   field(OOPT, "When Non-zero")
   field(OUT, "$(P)$(R)RstFlgsSeq.PROC PP")
 }
 
 # Reset flags seq
 record(seq, "$(P)$(R)RstFlgsSeq"){
-  field(ASG, "Reserved")
+#  field(ASG, "Reserved")
   field(DESC, "Seq to reset new data flags")
   field(SELM, "All")
   field(DO1, "0")
   field(DO2, "0")
   field(LNK1, "$(P)$(R)FlgICT1-Mon")
-  field(LNK2, "$(P)$(R)FlgICT1-Mon")
+  field(LNK2, "$(P)$(R)FlgICT2-Mon")
 }
 
 # Error count monitor
 record(calc, "$(P)$(R)ErrorCnt-Mon"){
-  field(ASG, "Reserved")
+#  field(ASG, "Reserved")
   field(DESC, "Error count monitor")
   field(INPA, "$(P)$(R)ErrorRst-Cmd.VAL")
   field(CALC, "A=1?0:(VAL+1)")
-  field(VAL, "0")
 }
 
 # Error counter reset
 record(bo, "$(P)$(R)ErrorRst-Cmd"){
-  field(ASG, "Reserved")
-  field(DESC, "Reset error counter")
+#  field(ASG, "Reserved")
+  field(DESC, "Reset error counter cmd")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
-  field(HIGH, "0.5")
+  field(HIGH, "1.0")
+  field(OUT, "$(P)$(R)ErrorRstCalc.PROC PP")
+}
+
+# Calc for filtering reset command
+record(calcout, "$(P)$(R)ErrorRstCalc"){
+#  field(ASG, "Reserved")
+  field(DESC, "Error reset calc")
+  field(INPA, "$(P)$(R)ErrorRst-Cmd.VAL")
+  field(CALC, "A")
+  field(OOPT, "When Non-zero")
   field(OUT, "$(P)$(R)ErrorCnt-Mon.PROC PP")
 }
 
@@ -98,9 +117,11 @@ record(bo, "$(P)$(R)ErrorRst-Cmd"){
 
 # Efficiency calculation
 record(calcout, "$(P)$(R)Eff-Mon"){
-  field(ASG, "Reserved")
+#  field(ASG, "Reserved")
   field(DESC, "Efficiency calculation")
-  field(INPA, "$(ict-1-prefix)Charge-Mon.VAL CPP")
-  field(INPB, "$(ict-2-prefix)Charge-Mon.VAL CPP")
+  field(INPA, "$(ict-1-prefix)Charge-Mon.VAL")
+  field(INPB, "$(ict-2-prefix)Charge-Mon.VAL")
   field(CALC, "(A=0||B=0)?0:(B/A)")
+  field(ADEL, "-1")
+  field(MDEL, "-1")
 }
