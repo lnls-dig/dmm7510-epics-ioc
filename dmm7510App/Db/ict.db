@@ -211,8 +211,30 @@ record(acalcout, "$(P)$(R)ReadingsCalc"){
   field(NELM, "1000")
   field(INAA, "$(P)$(R)RawReadings-Mon.VAL")
   field(INPB, "$(P)$(R)DigtzeCount-RB.VAL")
-  field(CALC, "ABS(AVG(AA[0,B-1])-AVG(AA[B,2*B-1]))")
+  field(CALC, "CC:=AA[0,B-1];DD:=AA[B,2*B-1];ABS(AVG(AA[0,B-1])-AVG(AA[B,2*B-1]))")
   field(OUT, "$(P)$(R)Charge-Mon PP")
+  field(FLNK, "$(P)$(R)RawPulse-Mon")
+}
+
+# Raw BCM pulse waveform
+record(waveform, "$(P)$(R)RawPulse-Mon"){
+  field(ASG, "Reserved")
+  field(DESC, "Raw BCM pulse waveform")
+  field(NELM, "1000")
+  field(FTVL, "DOUBLE")
+  field(EGU, "nC")
+  field(INP, "$(P)$(R)ReadingsCalc.CC")
+  field(FLNK, "$(P)$(R)RawNoise-Mon")
+}
+
+# Raw noise waveform
+record(waveform, "$(P)$(R)RawNoise-Mon"){
+  field(ASG, "Reserved")
+  field(DESC, "Raw noise waveform")
+  field(NELM, "1000")
+  field(FTVL, "DOUBLE")
+  field(EGU, "nC")
+  field(INP, "$(P)$(R)ReadingsCalc.DD")
 }
 
 # PV with last monitored Charge
