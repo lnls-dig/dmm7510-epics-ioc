@@ -224,6 +224,8 @@
 			\item \emph{Charge-Mon} stores the latest filtered charge measurement.
 			\item \emph{ChargeHstr-Mon} is a circular buffer storing the last 1000 filtered measurements.
 			\item \emph{RawReadings-Mon} is an array containing the lastest measurement raw data, i.e., $ 2 \times count $ readings, in which the first and second halves correspond, respectively, to the first and second phases of the measurement.
+			\item \emph{RawPulse-Mon} is an array containing the first half of \emph{RawReadings-Mon}, i.e., raw data corresponding to measurements taken during the BCM pulse.
+			\item \emph{RawNoise-Mon} is an array containing the second half of \emph{RawReadings-Mon}, i.e., raw data corresponding to measurements taken after the BCM pulse, during the second measurement phase.
 		\end{enumerate}
 
 \section{Process Variables Description}\label{sec:process-variables}
@@ -245,6 +247,14 @@
 		% --- row ---
 		RawReadings-Mon & FLOAT[1000] & \begin{tabular}{@{}m{6cm}@{}}
 	    					Latest measurement raw data. This PV holds the raw data used when computing the latest measurement. The PV stores $ 2 \times count $ readings, in which the first and second halves correspond, respectively, to the first and second phases of the measurement.
+						\end{tabular} \\ \hline
+		% --- row ---
+		RawPulse-Mon & FLOAT[1000] & \begin{tabular}{@{}m{6cm}@{}}
+	    					First half of \emph{RawReadings-Mon} array. This PV holds the raw data corresponding to the first measurement phase, which is the data acquired during the BCM pulse. The first measurement phase contains $count$ readings.
+						\end{tabular} \\ \hline
+		% --- row ---
+		RawNoise-Mon & FLOAT[1000] & \begin{tabular}{@{}m{6cm}@{}}
+	    					Second half of \emph{RawReadings-Mon} array. This PV holds the raw data corresponding to the second measurement phase, which is the data acquired after the BCM pulse after \emph{2ndReadDly-SP} seconds, and used for noise rejection. The second measurement phase contains $count$ readings.
 						\end{tabular} \\ \hline
 		% --- row ---
 		DigtzeTrg-Sel & ENUM: None, External, InLevel & \begin{tabular}{@{}m{6cm}@{}}
