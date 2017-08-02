@@ -4,7 +4,7 @@
 
 # ICT 1 error check
 record(calcout, "$(P)$(R)ErrorICT1-Mon"){
-#  field(ASG, "Reserved")
+  field(ASG, "Reserved")
   field(DESC, "ICT 1 flag error")
   field(INPA, "$(P)$(R)FlgICT1-Mon.VAL")
   field(INPB, "$(ict-1-prefix)Charge-Mon CPP")
@@ -16,7 +16,7 @@ record(calcout, "$(P)$(R)ErrorICT1-Mon"){
 
 # ICT 2 error check
 record(calcout, "$(P)$(R)ErrorICT2-Mon"){
-#  field(ASG, "Reserved")
+  field(ASG, "Reserved")
   field(DESC, "ICT 2 flag error")
   field(INPA, "$(P)$(R)FlgICT2-Mon.VAL")
   field(INPB, "$(ict-2-prefix)Charge-Mon CPP")
@@ -28,7 +28,7 @@ record(calcout, "$(P)$(R)ErrorICT2-Mon"){
 
 # ICT 1 new data flag
 record(calc, "$(P)$(R)FlgICT1-Mon"){
-#  field(ASG, "Reserved")
+  field(ASG, "Reserved")
   field(DESC, "New data flag for ICT1")
   field(CALC, "VAL<1?(VAL+1):0")
   field(VAL, "0")
@@ -37,7 +37,7 @@ record(calc, "$(P)$(R)FlgICT1-Mon"){
 
 # ICT 2 new data flag
 record(calc, "$(P)$(R)FlgICT2-Mon"){
-#  field(ASG, "Reserved")
+  field(ASG, "Reserved")
   field(DESC, "New data flag for ICT2")
   field(CALC, "VAL<1?(VAL+1):0")
   field(VAL, "0")
@@ -51,7 +51,7 @@ record(calc, "$(P)$(R)FlgICT2-Mon"){
 
 # Efficiency calculation
 record(calcout, "$(P)$(R)ValidData"){
-#  field(ASG, "Reserved")
+  field(ASG, "Reserved")
   field(DESC, "Validate data from ICTs")
   field(INPA, "$(P)$(R)FlgICT1-Mon.VAL")
   field(INPB, "$(P)$(R)FlgICT2-Mon.VAL")
@@ -63,7 +63,7 @@ record(calcout, "$(P)$(R)ValidData"){
 
 # Reset flags calc
 record(calcout, "$(P)$(R)RstFlgs"){
-#  field(ASG, "Reserved")
+  field(ASG, "Reserved")
   field(DESC, "Reset new data flags")
   field(INPA, "$(P)$(R)FlgICT1-Mon.VAL")
   field(INPB, "$(P)$(R)FlgICT2-Mon.VAL")
@@ -74,7 +74,7 @@ record(calcout, "$(P)$(R)RstFlgs"){
 
 # Reset flags seq
 record(seq, "$(P)$(R)RstFlgsSeq"){
-#  field(ASG, "Reserved")
+  field(ASG, "Reserved")
   field(DESC, "Seq to reset new data flags")
   field(SELM, "All")
   field(DO1, "0")
@@ -85,7 +85,7 @@ record(seq, "$(P)$(R)RstFlgsSeq"){
 
 # Error count monitor
 record(calc, "$(P)$(R)ErrorCnt-Mon"){
-#  field(ASG, "Reserved")
+  field(ASG, "Reserved")
   field(DESC, "Error count monitor")
   field(INPA, "$(P)$(R)ErrorRst-Cmd.VAL")
   field(CALC, "A=1?0:(VAL+1)")
@@ -93,7 +93,7 @@ record(calc, "$(P)$(R)ErrorCnt-Mon"){
 
 # Error counter reset
 record(bo, "$(P)$(R)ErrorRst-Cmd"){
-#  field(ASG, "Reserved")
+  field(ASG, "Reserved")
   field(DESC, "Reset error counter cmd")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
@@ -103,7 +103,7 @@ record(bo, "$(P)$(R)ErrorRst-Cmd"){
 
 # Calc for filtering reset command
 record(calcout, "$(P)$(R)ErrorRstCalc"){
-#  field(ASG, "Reserved")
+  field(ASG, "Reserved")
   field(DESC, "Error reset calc")
   field(INPA, "$(P)$(R)ErrorRst-Cmd.VAL")
   field(CALC, "A")
@@ -117,11 +117,21 @@ record(calcout, "$(P)$(R)ErrorRstCalc"){
 
 # Efficiency calculation
 record(calcout, "$(P)$(R)Eff-Mon"){
-#  field(ASG, "Reserved")
-  field(DESC, "Efficiency calculation")
+  field(ASG, "Reserved")
+  field(DESC, "Efficiency monitor")
   field(INPA, "$(ict-1-prefix)Charge-Mon.VAL")
   field(INPB, "$(ict-2-prefix)Charge-Mon.VAL")
   field(CALC, "(A=0||B=0)?0:(B/A)")
   field(ADEL, "-1")
   field(MDEL, "-1")
+  field(FLNK, "$(P)$(R)EffHstr-Mon")
+}
+
+# Efficiency history
+record(compress, "$(P)$(R)EffHstr-Mon"){
+  field(ASG, "Reserved")
+  field(DESC, "Efficiency history")
+  field(ALG, "Circular Buffer")
+  field(NSAM, "1000")
+  field(INP, "$(P)$(R)Eff-Mon.VAL")
 }
