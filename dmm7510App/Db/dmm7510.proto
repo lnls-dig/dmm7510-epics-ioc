@@ -22,6 +22,10 @@ support_timesec_get{
 		disconnect;
 		connect 5000;
 	}
+	@readtimeout{
+		disconnect;
+		connect 5000;
+	}
 }
 
 ###########################################################################
