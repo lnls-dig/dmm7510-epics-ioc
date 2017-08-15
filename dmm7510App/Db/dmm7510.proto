@@ -441,13 +441,13 @@ digtz_acfilter_get{
 
 digtz_acfreq_set{
 	# set
-	out "";
+	out "dmm.digitize.coupling.acfrequency = %f";
 }
 
 digtz_acfreq_get{
 	# read
-	out "";
-	in "";
+	out "print(dmm.digitize.coupling.acfrequency)";
+	in "%f";
 }
 
 ###########################################################################
