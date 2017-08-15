@@ -468,6 +468,14 @@ record(ai, "$(P)$(R)RelLvl-RB"){
 # Current Measurement Range
 # Desc: Measurement range selection.
 
+# ######################################
+# NPCT Pin mapping
+#
+# NPCT Range 1/10 = DigIO line 1
+# NPCT Range 1/100 = DigIO line 2
+#
+# ######################################
+
 # DCCT Range selection
 record(mbbo, "$(P)$(R)Range-Sel"){
   field(DESC, "DCCT range")
@@ -537,6 +545,13 @@ record(mbbi, "$(P)$(R)Range-Sts"){
 ########################################################################
 # DCCT Calibration Setting
 # Desc: DCCT calibration signal enable.
+
+# ######################################
+# NPCT Pin mapping
+#
+# NPCT Calibration Enable = DigIO line 3
+#
+# ######################################
 
 # Enable/disable DCCT calibration signal
 record(bo, "$(P)$(R)Test-Sel"){
