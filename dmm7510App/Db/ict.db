@@ -269,7 +269,7 @@ record(longout, "$(P)$(R)DigtzeCount-SP"){
   field(FLNK, "$(P)$(R)DigtzeCntCalc")
 }
 
-# Set the last index of buffer to read to twice the count value,
+# Set the last index of buffer to read twice the count value,
 # since 2 x 'Count' samples are taken during digitizing
 record(calcout, "$(P)$(R)DigtzeCntCalc"){
   field(ASG, "Reserved")
@@ -343,6 +343,15 @@ record(longin, "$(P)$(R)SampleRate-RB"){
 # Charge Digitize Range
 # Desc: Digitize range selection.
 
+# ################################
+# BCM Range
+#
+# DigIO line 3 = Range Bit 2 (MSB)
+# DioIO line 6 = Range Bit 1
+# DigIO line 4 = Range Bit 0 (LSB)
+#
+# ################################
+
 # Beam Charge Monitor output full-scale range
 record(ao, "$(P)$(R)BCMRange-SP"){
   field(DESC, "Set this equal to BCM max output volt")
@@ -380,16 +389,16 @@ record(calcout, "$(P)$(R)ConvCalc"){
 
 # Calculation for setting ICT sensor range
 # Digital I/O mapping
-# BCM 'Pin 2' = DMM 'DigIO 2'
-# BCM 'Pin 1' = DMM 'DigIO 1'
-# BCM 'Pin 0' = DMM 'DigIO 0'
+# BCM Range B2 = DMM 'DigIO Line 3' 2
+# BCM Range B1 = DMM 'DigIO Line 6' 1
+# BCM Range B0 = DMM 'DigIO Line 4' 0
 #
 record(calcout, "$(P)$(R)RangeCalc"){
   field(ASG, "Reserved")
   field(DESC, "ICT range calc")
   field(INPA, "$(P)$(R)Range-Sel")
   field(INPB, "$(Instrument)DigRead-Mon")
-  field(CALC, "(A<3?(7-A):(6-A))|(B&56)")
+  field(CALC, "(A=0?44:(A=1?36:(A=2?12:(A=3?40:(A=4?32:(A=5?8:0))))))|(B&19)")	# Preserve lines 5, 2, and 1. Set range lines.
   field(OUT, "$(Instrument)DigWrite-SP PP")
   field(FLNK, "$(P)$(R)ThreshUpdate")
 }
@@ -411,7 +420,7 @@ record(scalcout, "$(P)$(R)RangeMonCalc"){
   field(ASG, "Reserved")
   field(DESC, "Calc of range from DigIO status")
   field(INPA, "$(Instrument)DigRead-Mon CPP")
-  field(CALC, "B:=A&7;B=7?1:(B=6?2:(B=5?3:((B=3||B=4)?4:(B=2?5:(B=1?6:(B=0?7:0))))))")
+  field(CALC, "B:=A&44;B=44?1:(B=36?2:(B=12?3:(B=40?4:((B=32||B=4)?5:(B=8?6:(B=0?7:0))))))")	# Remove non-range bits. Read range.
   field(OUT, "$(P)$(R)Range-Sts PP")
 }
 
@@ -433,6 +442,18 @@ record(mbbi, "$(P)$(R)Range-Sts"){
 # BCM Calibration Settings
 # Desc: Beam charge monitor calibration settings.
 
+# ###############################
+# BCM Calibration Enable
+#
+# DigIO line 1 = Enbl
+#
+# BCM Calibration Charge Selection
+# 
+# DigIO line 1 = Charge MSB
+# DioIO line 5 = Charge LSB
+#
+# ###############################
+
 # Calibration enable/disable
 record(bo, "$(P)$(R)CalEnbl-Sel"){
   field(DESC, "Enable BCM calibration signal")
@@ -441,13 +462,13 @@ record(bo, "$(P)$(R)CalEnbl-Sel"){
   field(FLNK, "$(P)$(R)CalEnblCalc")
 }
 
-# Set digital line 6 and OR it with other digital states
+# Set digital line 2 and OR it with other digital states
 record(calcout, "$(P)$(R)CalEnblCalc"){
   field(ASG, "Reserved")
   field(DESC, "Enable BCM calibration calc")
   field(INPA, "$(P)$(R)CalEnbl-Sel")
   field(INPB, "$(Instrument)DigRead-Mon")
-  field(CALC, "(A<<5)|(B&31)")
+  field(CALC, "(A<<1)|(B&61)")			# Preserve other lines. Set line 2 accordingly.
   field(OUT, "$(Instrument)DigWrite-SP PP")
   field(FLNK, "$(Instrument)DigRead-Mon.PROC")
 }
@@ -457,7 +478,7 @@ record(calcout, "$(P)$(R)CalEnblMonCalc"){
   field(ASG, "Reserved")
   field(DESC, "BCM calibration monitor calc")
   field(INPA, "$(Instrument)DigRead-Mon CPP")
-  field(CALC, "(A&32)=0?0:1")
+  field(CALC, "(A&2)=0?0:1")			# Filter other bits. Read calibration enable state.
   field(OUT, "$(P)$(R)CalEnbl-Sts PP")
 }
 
@@ -485,7 +506,7 @@ record(calcout, "$(P)$(R)CalChargeCalc"){
   field(DESC, "Calibration charge calc")
   field(INPA, "$(P)$(R)CalCharge-Sel")
   field(INPB, "$(Instrument)DigRead-Mon")
-  field(CALC, "((3-A)<<3)|(B&39)")
+  field(CALC, "(A=0?17:(A=1?1:(A=2?16:0)))|(B&46)")	# Preserve other lines. Set lines 1 and 5 accordingly.
   field(OUT, "$(Instrument)DigWrite-SP PP")
   field(FLNK, "$(Instrument)DigRead-Mon.PROC")
 }
@@ -495,7 +516,7 @@ record(calcout, "$(P)$(R)CalChargeMonCalc"){
   field(ASG, "Reserved")
   field(DESC, "Calibration charge monitor calc")
   field(INPA, "$(Instrument)DigRead-Mon CPP")
-  field(CALC, "3-((A>>3)&3)")
+  field(CALC, "B:=A&17;B=17?0:(B=1?1:(B=16?2:3))")	# Filter other bits. Read charge selection.
   field(OUT, "$(P)$(R)CalCharge-Sts PP")
 }
 
@@ -643,12 +664,12 @@ record(sseq, "$(P)$(R)DownloadSeq1"){
   field(LNK1, "$(Instrument)Reset-Cmd PP")					# reset
   field(LNK2, "$(Instrument)DigtzeFnc-Sel PP")					# Digitize function = DIGITIZE_VOLTAGE
   field(LNK3, "$(Instrument)DRange-SP PP")					# Digitize range = 10 V
-  field(LNK4, "$(Instrument)DigtzeCoup-Sel PP")				# Digitize coupling = DC
-  field(LNK5, "$(Instrument)DigtzeStim-Sel PP")				# Digitize stimulus = TIMER 1
-  field(LNK6, "$(P)$(R)SampleRate-SP.PROC")		# Digitize sample rate high level proc
-  field(LNK7, "$(P)$(R)DigtzeCount-SP.PROC")		# Digitize count high level proc
-  field(LNK8, "$(P)$(R)Aperture-SP.PROC")		# Digitize aperture high level proc
-  field(LNK9, "$(P)$(R)Imped-Sel.PROC")		# Digitize input impedance high level proc
+  field(LNK4, "$(Instrument)DigtzeCoup-Sel PP")					# Digitize coupling = DC
+  field(LNK5, "$(Instrument)DigtzeStim-Sel PP")					# Digitize stimulus = TIMER 1
+  field(LNK6, "$(P)$(R)SampleRate-SP.PROC")					# Digitize sample rate high level proc
+  field(LNK7, "$(P)$(R)DigtzeCount-SP.PROC")					# Digitize count high level proc
+  field(LNK8, "$(P)$(R)Aperture-SP.PROC")					# Digitize aperture high level proc
+  field(LNK9, "$(P)$(R)Imped-Sel.PROC")						# Digitize input impedance high level proc
   field(LNKA, "$(Instrument)StartRead1-SP PP")					# Start index for buffer reading = 1
   field(FLNK, "$(P)$(R)DownloadSeq2")
 }
@@ -673,10 +694,10 @@ record(sseq, "$(P)$(R)DownloadSeq2"){
   field(LNK4, "$(Instrument)Dig4Mod-Sel PP")					# DigIO 4 Mode = DIG_OUT
   field(LNK5, "$(Instrument)Dig5Mod-Sel PP")					# DigIO 5 Mode = DIG_OUT
   field(LNK6, "$(Instrument)Dig6Mod-Sel PP")					# DigIO 6 Mode = DIG_OUT
-  field(LNK7, "$(P)$(R)Range-Sel.PROC")               # Range
-  field(LNK8, "$(Instrument)DMathOp-Sel PP")                                   # Math format = y=mx+b                  
-  field(LNK9, "$(Instrument)DMathBFactor-SP PP")                               # Math B factor = 0
-  field(LNKA, "$(Instrument)DMathEnbl-Sel PP")                                 # Math enable = ON
+  field(LNK7, "$(P)$(R)Range-Sel.PROC")               				# Range
+  field(LNK8, "$(Instrument)DMathOp-Sel PP")					# Math format = y=mx+b                  
+  field(LNK9, "$(Instrument)DMathBFactor-SP PP")				# Math B factor = 0
+  field(LNKA, "$(Instrument)DMathEnbl-Sel PP")					# Math enable = ON
   field(DLY8, "2")								# Wait 2 seconds for Range-Sts to be set
   field(FLNK, "$(P)$(R)DownloadSeq3")
 }
@@ -694,15 +715,15 @@ record(sseq, "$(P)$(R)DownloadSeq3"){
   field(DO7, "1")
   field(STR8, "Start and elapse")
   field(DO9, "1")
-  field(LNK1, "$(P)$(R)Threshold-SP.PROC")		# Level threshold proc (Analog Trig level)
+  field(LNK1, "$(P)$(R)Threshold-SP.PROC")					# Level threshold proc (Analog Trig level)
   field(LNK2, "$(Instrument)DATrMode-Sel PP")					# Analog trigger mode = Edge
-  field(LNK3, "$(P)$(R)HFReject-Sel.PROC")		# High Freq rejection proc (Analog Trg HR reject)
+  field(LNK3, "$(P)$(R)HFReject-Sel.PROC")					# High Freq rejection proc (Analog Trg HR reject)
   field(LNK4, "$(Instrument)ExInEdge-Sel PP")					# External Input trigger edge = RISING
   field(LNK5, "$(Instrument)DATrEdgeSlp-Sel PP")				# Digitize analog trigger edge slope = Rising
-  field(LNK6, "$(P)$(R)2ndReadDly-SP.PROC")           # Timer 1 delay proc
-  field(LNK7, "$(Instrument)Timer1Count-SP PP")                                # Timer 1 count = 1
+  field(LNK6, "$(P)$(R)2ndReadDly-SP.PROC")					# Timer 1 delay proc
+  field(LNK7, "$(Instrument)Timer1Count-SP PP")					# Timer 1 count = 1
   field(LNK8, "$(Instrument)Timer1Gen-Sel PP")					# Timer 1 event generation = Start and elapse
-  field(LNK9, "$(P)$(R)DigtzeTrgRst.VAL PP")          # Reset DigtzeTrgCalc so that next time it will process
+  field(LNK9, "$(P)$(R)DigtzeTrgRst.VAL PP")          				# Reset DigtzeTrgCalc so that next time it will process
   field(FLNK, "$(P)$(R)DownloadSeq4")
 }
 
@@ -713,9 +734,9 @@ record(sseq, "$(P)$(R)DownloadSeq4"){
   field(DO1, "1")
   field(DO2, "1")
   field(STR3, "HIGH")
-  field(LNK1, "$(P)$(R)CalCharge-Sel.PROC")		# ICT calibration charge proc
-  field(LNK2, "$(P)$(R)CalEnbl-Sel.PROC")		# ICT calibration enable proc
-  field(LNK3, "$(Instrument)CntBuff1-Mon.PRIO")				# Buffer monitor priority = HIGH
+  field(LNK1, "$(P)$(R)CalCharge-Sel.PROC")					# ICT calibration charge proc
+  field(LNK2, "$(P)$(R)CalEnbl-Sel.PROC")					# ICT calibration enable proc
+  field(LNK3, "$(Instrument)CntBuff1-Mon.PRIO")					# Buffer monitor priority = HIGH
   field(DLY2, "2")								# Wait the cal. charge setting process to finish
 }
 

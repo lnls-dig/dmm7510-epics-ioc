@@ -1,5 +1,5 @@
 Terminator = NL;
-ExtraInput = Ignore;
+#ExtraInput = Ignore;
 ReplyTimeout = 5000;
 
 ###########################################################################
@@ -14,9 +14,17 @@ support_timesec_get{
 	# read
 	out "print(localnode.gettime())";
 	in "%i";
+	@replytimeout{
+		disconnect;
+		connect 5000;
+	}
 	@mismatch{
-		out "print(localnode.gettime())";
-		in "%i";
+		disconnect;
+		connect 5000;
+	}
+	@readtimeout{
+		disconnect;
+		connect 5000;
 	}
 }
 
@@ -43,10 +51,6 @@ exin_over_get{
 	# get
 	out "print(trigger.extin.overrun)";
 	in "%{false|true}";
-	@mismatch{
-		out "print(trigger.extin.overrun)";
-		in "%{false|true}";			
-	}
 }
 
 exout_pol_set{
@@ -105,10 +109,6 @@ digio_state_get{
 	# read
 	out "print(digio.line[\$1].state)";
 	in "digio.STATE_%{LOW|HIGH}";
-	@mismatch{
-		out "print(digio.line[\$1].state)";
-		in "digio.STATE_%{LOW|HIGH}";
-	}
 }
 
 digio_clrev_set{
@@ -131,10 +131,6 @@ digio_over_get{
 	# read
 	out "print(trigger.digin[\$1].overrun)";
 	in "%{false|true}";
-	@mismatch{
-		out "print(trigger.digin[\$1].overrun)";
-		in "%{false|true}";
-	}
 }
 
 digio_pol_set{
@@ -445,13 +441,13 @@ digtz_acfilter_get{
 
 digtz_acfreq_set{
 	# set
-	out "";
+	out "dmm.digitize.coupling.acfrequency = %f";
 }
 
 digtz_acfreq_get{
 	# read
-	out "";
-	in "";
+	out "print(dmm.digitize.coupling.acfrequency)";
+	in "%f";
 }
 
 ###########################################################################
@@ -924,10 +920,6 @@ trace_cnt_get{
 	# read
 	out "print(defbuffer\$1.n)";
 	in "%i";
-	@mismatch{
-		out "print(defbuffer\$1.n)";
-		in "%i";
-	}
 }
 
 trace_clr_set{
@@ -939,20 +931,12 @@ trace_start_get{
 	# read
 	out "print(defbuffer\$1.startindex)";
 	in "%i";
-	@mismatch{
-		out "print(defbuffer\$1.startindex)";
-		in "%i";
-	}
 }
 
 trace_end_get{
 	# read
 	out "print(defbuffer\$1.endindex)";
 	in "%i";
-	@mismatch{
-		out "print(defbuffer\$1.endindex)";
-		in "%i";
-	}
 }
 
 trace_read_get{
@@ -960,10 +944,6 @@ trace_read_get{
 	# read
 	out "printbuffer(%(\$1StartRead\$2-SP)i, %(\$1EndRead\$2-SP)i, defbuffer\$2.readings)";
 	in "%f";
-	@mismatch{
-		out "printbuffer(%(\$1StartRead\$2-SP)i, %(\$1EndRead\$2-SP)i, defbuffer\$2.readings)";
-		in "%f";
-	}
 }
 
 trace_fetch_get{
@@ -999,11 +979,6 @@ trace_avg_get{
 	out "statsVar = buffer.getstats(defbuffer\$1)";
 	out "print(statsVar.mean)";
 	in "%f";
-	@mismatch{
-		out "statsVar = buffer.getstats(defbuffer\$1)";
-		out "print(statsVar.mean)";
-		in "%f";
-	}
 }
 
 trace_clrstat_set{
@@ -1016,11 +991,6 @@ trace_max_get{
 	out "statsVar = buffer.getstats(defbuffer\$1)";
 	out "print(statsVar.max.reading)";
 	in "%f";
-	@mismatch{
-		out "statsVar = buffer.getstats(defbuffer\$1)";
-		out "print(statsVar.max.reading)";
-		in "%f";
-	}
 }
 
 trace_min_get{
@@ -1028,11 +998,6 @@ trace_min_get{
 	out "statsVar = buffer.getstats(defbuffer\$1)";
 	out "print(statsVar.min.reading)";
 	in "%f";
-	@mismatch{
-		out "statsVar = buffer.getstats(defbuffer\$1)";
-		out "print(statsVar.min.reading)";
-		in "%f";
-	}
 }
 
 trace_stdd_get{
@@ -1040,11 +1005,6 @@ trace_stdd_get{
 	out "statsVar = buffer.getstats(defbuffer\$1)";
 	out "print(statsVar.stddev)";
 	in "%f";
-	@mismatch{
-		out "statsVar = buffer.getstats(defbuffer\$1)";
-		out "print(statsVar.stddev)";
-		in "%f";
-	}
 }
 
 trace_meas_set{
@@ -1066,40 +1026,24 @@ acal_count_get{
 	# read
 	out "print(acal.count)";
 	in "%i";
-	@mismatch{
-		out "print(acal.count)";
-		in "%i";
-	}
 }
 
 acal_diff_get{
 	# read
 	out "print(acal.lastrun.tempdiff)";
 	in "%f";
-	@mismatch{
-		out "print(acal.lastrun.tempdiff)";
-		in "%f";
-	}
 }
 
 acal_last_get{
 	# read
 	out "print(acal.lastrun.time)";
 	in "%s";
-	@mismatch{
-		out "print(acal.lastrun.time)";
-		in "%s";
-	}
 }
 
 acal_next_get{
 	# read
 	out "print(acal.nextrun.time)";
 	in "%s";
-	@mismatch{
-		out "print(acal.nextrun.time)";
-		in "%s";
-	}
 }
 
 acal_rev_set{
@@ -1171,10 +1115,6 @@ blend_over_get{
 	# read
 	out "print(trigger.blender[\$1].overrun)";
 	in "%{true|false}";
-	@mismatch{
-		out "print(trigger.blender[\$1].overrun)";
-		in "%{true|false}";
-	}
 }
 
 blender_stim_set{
@@ -1206,10 +1146,6 @@ tm_list_get{
 	# read
 	out "print(trigger.model.getblocklist())";
 	in "%#s";
-	@mismatch{
-		out "print(trigger.model.getblocklist())";
-		in "%#s";
-	}
 }
 
 tm_clear_set{
@@ -1221,10 +1157,6 @@ tm_state_get{
 	# read
 	out "print(trigger.model.state())";
 	in "trigger.STATE_%{IDLE|RUNNING|WAITING|EMPTY|BUILDING|FAILED|ABORTING|ABORTED}\t%*s\t%*i";
-	@mismatch{
-		out "print(trigger.model.state())";
-		in "trigger.STATE_%{IDLE|RUNNING|WAITING|EMPTY|BUILDING|FAILED|ABORTING|ABORTED}\t%*s\t%*i";
-	}
 }
 
 ###########################################################################
@@ -1283,10 +1215,6 @@ timer_over_get{
 	# read
 	out "print(trigger.timer[\$1].start.overrun)";
 	in "%{false|true}";
-	@mismatch{
-		out "print(trigger.timer[\$1].start.overrun)";
-		in "%{false|true}";
-	}
 }
 
 timer_sec_set{
@@ -1355,30 +1283,18 @@ sys_cntlog_get{
 	# read
 	out "print(eventlog.getcount())";
 	in "%i";
-	@mismatch{
-		out "print(eventlog.getcount())";
-		in "%i";
-	}
 }
 
 sys_nextlog_get{
 	# read
 	out "print(eventlog.next())";
 	in "%#s";
-	@mismatch{
-		out "print(eventlog.next())";
-		in "%#s";
-	}
 }
 
 sys_linefr_get{
 	# read
 	out "print(localnode.linefreq)";
 	in "%i";
-	@mismatch{
-		out "print(localnode.linefreq)";
-		in "%i";
-	}
 }
 
 sys_passnew_set{
@@ -1390,10 +1306,6 @@ sys_temp_get{
 	# read
 	out "print(localnode.internaltemp)";
 	in "%f";
-	@mismatch{
-		out "print(localnode.internaltemp)";
-		in "%f";
-	}
 }
 
 sys_time_set{
@@ -1405,10 +1317,6 @@ sys_time_get{
 	# read
 	out "print(os.date('\%c', gettime()))";
 	in "%#s";
-	@mismatch{
-		out "print(os.date('\%c', gettime()))";
-		in "%#s";
-	}
 }
 
 ###########################################################################
