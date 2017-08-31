@@ -30,7 +30,7 @@ record(calcout, "$(P)$(R)MeasTrgCalc"){
   field(INPB, "$(P)$(R)MeasTrgRst.VAL")
   field(CALC, "B=0?(A+1):0")
   field(OOPT, "On Change")
-  field(VAL, "7")							# Initialize in a nonexistent state
+  field(VAL, "7")						# Initialize in a nonexistent state
   field(OUT, "$(P)$(R)MeasTrgFout.PROC")
 }
 
@@ -57,11 +57,11 @@ record(sseq, "$(P)$(R)ConfigEx"){
   field(STR4, "TIMER1")
   field(STR5, "ON")
   field(STR6, ".1 second")
-  field(LNK1, "$(P)$(R)SoftMeas.SCAN")	# Disable meas. software triggering
-  field(LNK2, "$(Instrument)ExInEdge-Sel PP")				# External Input trigger edge = Rising
+  field(LNK1, "$(P)$(R)SoftMeas.SCAN")				# Disable meas. software triggering
+  field(LNK2, "$(Instrument)ExInEdge-Sel PP")			# External Input trigger edge = Rising
   field(LNK3, "$(Instrument)Timer1Stim-Sel PP")			# Timer 1 stimulus = EXTERNAL
-  field(LNK4, "$(Instrument)MeasStim-Sel PP")				# Meas. trigger = Timer 1 (timer avoids trigger bouncing)
-  field(LNK5, "$(Instrument)ClrBuff1-Cmd PP")				# Clear buffer
+  field(LNK4, "$(Instrument)MeasStim-Sel PP")			# Meas. trigger = Timer 1 (timer avoids trigger bouncing)
+  field(LNK5, "$(Instrument)ClrBuff1-Cmd PP")			# Clear buffer
   field(LNK6, "$(Instrument)CntBuff1-Mon.SCAN")			# Buffer count scan triggers buffer readings
 }
 
@@ -77,12 +77,12 @@ record(sseq, "$(P)$(R)ConfigLvl"){
   field(STR5, "Rising")
   field(STR6, "ON")
   field(STR7, ".1 second")
-  field(LNK1, "$(P)$(R)SoftMeas.SCAN")	# Disable meas. software triggering
+  field(LNK1, "$(P)$(R)SoftMeas.SCAN")				# Disable meas. software triggering
   field(LNK2, "$(Instrument)Timer1Stim-Sel PP")			# Timer 1 stimulus = ANALOGTRIGGER
-  field(LNK3, "$(Instrument)MeasStim-Sel PP")				# Meas. trigger = Timer 1
-  field(LNK4, "$(P)$(R)LowLimEnbl-Sel PP")	# Disable low voltage level detection
-  field(LNK5, "$(Instrument)MATrEdgeSlp-Sel PP")			# Input voltage level trigger edge = Rising
-  field(LNK6, "$(Instrument)ClrBuff1-Cmd PP")				# Clear buffer
+  field(LNK3, "$(Instrument)MeasStim-Sel PP")			# Meas. trigger = Timer 1
+  field(LNK4, "$(P)$(R)LowLimEnbl-Sel PP")			# Disable low voltage level detection
+  field(LNK5, "$(Instrument)MATrEdgeSlp-Sel PP")		# Input voltage level trigger edge = Rising
+  field(LNK6, "$(Instrument)ClrBuff1-Cmd PP")			# Clear buffer
   field(LNK7, "$(Instrument)CntBuff1-Mon.SCAN")			# Buffer count scan triggers buffer readings
 }
 
@@ -96,9 +96,9 @@ record(sseq, "$(P)$(R)ConfigSoft"){
   field(STR3, "ON")
   field(STR4, ".1 second")
   field(LNK1, "$(Instrument)CntBuff1-Mon.SCAN")			# Disable buffer count scan and periodic reading fetching
-  field(LNK2, "$(Instrument)MeasStim-Sel PP")				# Disable meas. hardware triggers
-  field(LNK3, "$(Instrument)ClrBuff1-Cmd PP")				# Clear buffer
-  field(LNK4, "$(P)$(R)SoftMeas.SCAN")	# Enable meas. software triggering
+  field(LNK2, "$(Instrument)MeasStim-Sel PP")			# Disable meas. hardware triggers
+  field(LNK3, "$(Instrument)ClrBuff1-Cmd PP")			# Clear buffer
+  field(LNK4, "$(P)$(R)SoftMeas.SCAN")				# Enable meas. software triggering
 }
 
 # Continuously trigger software measurement
@@ -120,11 +120,11 @@ record(sseq, "$(P)$(R)ConfigNone"){
   field(STR3, "Passive")
   field(STR4, "ON")
   field(STR5, "OFF")
-  field(LNK1, "$(P)$(R)SoftMeas.SCAN")	# Disable meas. software triggering
-  field(LNK2, "$(Instrument)MeasStim-Sel PP")				# Meas. trigger = NONE 
+  field(LNK1, "$(P)$(R)SoftMeas.SCAN")				# Disable meas. software triggering
+  field(LNK2, "$(Instrument)MeasStim-Sel PP")			# Meas. trigger = NONE 
   field(LNK3, "$(Instrument)CntBuff1-Mon.SCAN")			# Disable buffer count scan and periodic reading fetching
-  field(LNK4, "$(Instrument)ClrBuff1-Cmd PP")				# Clear buffer
-  field(LNK5, "$(P)$(R)LowLimEnbl-Sel PP")	# Disable low voltage level detection
+  field(LNK4, "$(Instrument)ClrBuff1-Cmd PP")			# Clear buffer
+  field(LNK5, "$(P)$(R)LowLimEnbl-Sel PP")			# Disable low voltage level detection
 }
 
 # Check measurement trigger configuration and update Sts
@@ -464,6 +464,37 @@ record(ai, "$(P)$(R)RelLvl-RB"){
   field(INP, "$(Instrument)MRelOff-RB CPP")
 }
 
+# Relative offset acquire command (high level)
+record(bo, "$(P)$(R)RelAcq-Cmd"){
+  field(DESC, "Rel. offset acquire high level PV")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(HIGH, "0.5")
+  field(FLNK, "$(P)$(R)RelAcqCalc")
+}
+
+# Relative offset acquire command validation
+record(calcout, "$(P)$(R)RelAcqCalc"){
+  field(ASG, "Reserved")
+  field(DESC, "Rel. offset acquire calc 1")
+  field(INPA, "$(P)$(R)RelAcq-Cmd.VAL")
+  field(CALC, "A")
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(P)$(R)RelAcqSeq.PROC")
+}
+
+# Process rel. offset acquire from multimeter, wait, and copy readback to set point
+record(seq, "$(P)$(R)RelAcqSeq"){
+  field(ASG, "Reserved")
+  field(DESC, "Acquire rel. offset and update set point")
+  field(PREC, "16")
+  field(DO1, "1")
+  field(DOL2, "$(P)$(R)RelLvl-RB.VAL")
+  field(LNK1, "$(Instrument)MRelOffAcq-Cmd.VAL PP")	# acquire relative offset
+  field(DLY2, "2")					# wait for 2 seconds so that readback value can be updated 
+  field(LNK2, "$(P)$(R)RelLvl-SP.VAL PP")		# update rel. offset set point with readback value
+}
+
 ########################################################################
 # Current Measurement Range
 # Desc: Measurement range selection.
@@ -758,12 +789,12 @@ record(sseq, "$(P)$(R)DownloadSeq1"){
   field(STR4, "OFF")
   field(STR5, "OFF")
   field(DO6, "10")
-  field(LNK1, "$(Instrument)Reset-Cmd PP")					# reset
-  field(LNK2, "$(Instrument)MeasFnc-Sel PP")					# Meas. function = DC_VOLTAGE
-  field(LNK3, "$(Instrument)MAutoRange-Sel PP")				# Meas. autorange = OFF
-  field(LNK4, "$(Instrument)MeasAutoDly-Sel PP")				# Meas. autodelay = OFF
-  field(LNK5, "$(Instrument)AutoZero-Sel PP")					# Meas. autozero = OFF
-  field(LNK6, "$(Instrument)MRange-SP PP")					# Meas. range = 10 V
+  field(LNK1, "$(Instrument)Reset-Cmd PP")			# reset
+  field(LNK2, "$(Instrument)MeasFnc-Sel PP")			# Meas. function = DC_VOLTAGE
+  field(LNK3, "$(Instrument)MAutoRange-Sel PP")			# Meas. autorange = OFF
+  field(LNK4, "$(Instrument)MeasAutoDly-Sel PP")		# Meas. autodelay = OFF
+  field(LNK5, "$(Instrument)AutoZero-Sel PP")			# Meas. autozero = OFF
+  field(LNK6, "$(Instrument)MRange-SP PP")			# Meas. range = 10 V
   field(FLNK, "$(P)$(R)DownloadSeq2")
 }
 
@@ -781,16 +812,16 @@ record(sseq, "$(P)$(R)DownloadSeq2"){
   field(DO8, "1")
   field(DO9, "1")
   field(DOA, "1")
-  field(LNK1, "$(P)$(R)MeasCount-SP.PROC")		# Meas. count high level proc
-  field(LNK2, "$(P)$(R)Imped-Sel.PROC")		# Meas. input impedance proc
-  field(LNK3, "$(P)$(R)LineSync-Sel.PROC")		# Meas. line sync proc 
-  field(LNK4, "$(P)$(R)NPLC-SP.PROC")			# Meas. NPLC proc
-  field(LNK5, "$(P)$(R)RelEnbl-Sel.PROC")		# Meas. relative offset enable proc
-  field(LNK6, "$(P)$(R)RelLvl-SP.PROC")		# Meas. relative offset level proc
-  field(LNK7, "$(P)$(R)FilterTyp-Sel.PROC")		# Filter type proc
-  field(LNK8, "$(P)$(R)FilterCnt-SP.PROC")		# Filter count proc
-  field(LNK9, "$(P)$(R)FilterWind-SP.PROC")		# Filter window proc
-  field(LNKA, "$(P)$(R)FilterEnbl-Sel.PROC")		# Filter enable proc
+  field(LNK1, "$(P)$(R)MeasCount-SP.PROC")			# Meas. count high level proc
+  field(LNK2, "$(P)$(R)Imped-Sel.PROC")				# Meas. input impedance proc
+  field(LNK3, "$(P)$(R)LineSync-Sel.PROC")			# Meas. line sync proc 
+  field(LNK4, "$(P)$(R)NPLC-SP.PROC")				# Meas. NPLC proc
+  field(LNK5, "$(P)$(R)RelEnbl-Sel.PROC")			# Meas. relative offset enable proc
+  field(LNK6, "$(P)$(R)RelLvl-SP.PROC")				# Meas. relative offset level proc
+  field(LNK7, "$(P)$(R)FilterTyp-Sel.PROC")			# Filter type proc
+  field(LNK8, "$(P)$(R)FilterCnt-SP.PROC")			# Filter count proc
+  field(LNK9, "$(P)$(R)FilterWind-SP.PROC")			# Filter window proc
+  field(LNKA, "$(P)$(R)FilterEnbl-Sel.PROC")			# Filter enable proc
   field(FLNK, "$(P)$(R)DownloadSeq3")
 }
 
@@ -807,15 +838,15 @@ record(sseq, "$(P)$(R)DownloadSeq3"){
   field(DO7, "1")
   field(DO8, "1")
   field(STR9, "ON")
-  field(LNK1, "$(Instrument)Dig1Mod-Sel PP")					# DigIO 1 Mode = DIG_OUT
-  field(LNK2, "$(Instrument)Dig2Mod-Sel PP")					# DigIO 2 Mode = DIG_OUT
-  field(LNK3, "$(Instrument)Dig3Mod-Sel PP")					# DigIO 3 Mode = DIG_OUT
-  field(LNK4, "$(Instrument)Dig4Mod-Sel PP")					# DigIO 4 Mode = DIG_OUT
-  field(LNK5, "$(Instrument)Dig5Mod-Sel PP")					# DigIO 5 Mode = DIG_OUT
-  field(LNK6, "$(Instrument)Dig6Mod-Sel PP")					# DigIO 6 Mode = DIG_OUT
-  field(LNK7, "$(Instrument)Timer1Count-SP PP")				# Timer 1 count = 1
-  field(LNK8, "$(P)$(R)TrgDelay-SP.PROC")		# Timer 1 delay proc
-  field(LNK9, "$(Instrument)Timer1Enbl-Sel PP")				# Timer 1 enable
+  field(LNK1, "$(Instrument)Dig1Mod-Sel PP")			# DigIO 1 Mode = DIG_OUT
+  field(LNK2, "$(Instrument)Dig2Mod-Sel PP")			# DigIO 2 Mode = DIG_OUT
+  field(LNK3, "$(Instrument)Dig3Mod-Sel PP")			# DigIO 3 Mode = DIG_OUT
+  field(LNK4, "$(Instrument)Dig4Mod-Sel PP")			# DigIO 4 Mode = DIG_OUT
+  field(LNK5, "$(Instrument)Dig5Mod-Sel PP")			# DigIO 5 Mode = DIG_OUT
+  field(LNK6, "$(Instrument)Dig6Mod-Sel PP")			# DigIO 6 Mode = DIG_OUT
+  field(LNK7, "$(Instrument)Timer1Count-SP PP")			# Timer 1 count = 1
+  field(LNK8, "$(P)$(R)TrgDelay-SP.PROC")			# Timer 1 delay proc
+  field(LNK9, "$(Instrument)Timer1Enbl-Sel PP")			# Timer 1 enable
   field(FLNK, "$(P)$(R)DownloadSeq4")
 }
 
@@ -833,17 +864,17 @@ record(sseq, "$(P)$(R)DownloadSeq4"){
   field(DO8, "1")
   field(STR9, "Positive")
   field(DOA, "1")
-  field(LNK1, "$(P)$(R)Range-Sel.PROC")		# Range proc
-  field(LNK2, "$(P)$(R)Test-Sel.PROC")		# DCCT calibration signal enable proc
-  field(LNK3, "$(Instrument)MMathOp-Sel PP")					# Math format = y=mx+b			
-  field(LNK4, "$(Instrument)MMathBFactor-SP PP")				# Math B factor = 0
-  field(LNK5, "$(Instrument)MMathEnbl-Sel PP")					# Math enable = ON
-  field(LNK6, "$(P)$(R)Threshold-SP.PROC")		# Level threshold proc (Analog Trig level)
-  field(LNK7, "$(Instrument)MATrMode-Sel PP")					# Analog trigger mode = Edge
-  field(LNK8, "$(P)$(R)HFReject-Sel.PROC")		# High Freq rejection proc (Analog Trg HR reject)
-  field(LNK9, "$(Instrument)ExOutPol-Sel PP")					# External Output polarity = Positive
-  field(LNKA, "$(P)$(R)LowLimEnbl-Sel.PROC")		# Low limit enable proc (Analog Trg Slope and Stim)
-  field(DLY3, "2")								# Wait 2 seconds for Range-Sts to be set
+  field(LNK1, "$(P)$(R)Range-Sel.PROC")				# Range proc
+  field(LNK2, "$(P)$(R)Test-Sel.PROC")				# DCCT calibration signal enable proc
+  field(LNK3, "$(Instrument)MMathOp-Sel PP")			# Math format = y=mx+b			
+  field(LNK4, "$(Instrument)MMathBFactor-SP PP")		# Math B factor = 0
+  field(LNK5, "$(Instrument)MMathEnbl-Sel PP")			# Math enable = ON
+  field(LNK6, "$(P)$(R)Threshold-SP.PROC")			# Level threshold proc (Analog Trig level)
+  field(LNK7, "$(Instrument)MATrMode-Sel PP")			# Analog trigger mode = Edge
+  field(LNK8, "$(P)$(R)HFReject-Sel.PROC")			# High Freq rejection proc (Analog Trg HR reject)
+  field(LNK9, "$(Instrument)ExOutPol-Sel PP")			# External Output polarity = Positive
+  field(LNKA, "$(P)$(R)LowLimEnbl-Sel.PROC")			# Low limit enable proc (Analog Trg Slope and Stim)
+  field(DLY3, "2")						# Wait 2 seconds for Range-Sts to be set
   field(FLNK, "$(P)$(R)DownloadSeq5")
 }
 
@@ -856,10 +887,10 @@ record(sseq, "$(P)$(R)DownloadSeq5"){
   field(STR3, "HIGH")
   field(STR4, "HIGH")
   field(DO5, "1")
-  field(LNK1, "$(Instrument)DigRead-Mon.PROC")					# DigIOs states read (range RB)
-  field(LNK2, "$(Instrument)CntBuff1-Mon.PRIO")				# Buffer count monitor priority = HIGH
-  field(LNK3, "$(Instrument)FetchBuff1-Mon.PRIO")				# Fetch buffer priority = HIGH
-  field(LNK4, "$(Instrument)ClrBuff1-Cmd.PRIO")				# Clear buffer cmd priority = HIGH
-  field(LNK5, "$(P)$(R)MeasTrgRst.VAL PP")		# Reset MeasTrgCalc so that next time it will process
+  field(LNK1, "$(Instrument)DigRead-Mon.PROC")			# DigIOs states read (range RB)
+  field(LNK2, "$(Instrument)CntBuff1-Mon.PRIO")			# Buffer count monitor priority = HIGH
+  field(LNK3, "$(Instrument)FetchBuff1-Mon.PRIO")		# Fetch buffer priority = HIGH
+  field(LNK4, "$(Instrument)ClrBuff1-Cmd.PRIO")			# Clear buffer cmd priority = HIGH
+  field(LNK5, "$(P)$(R)MeasTrgRst.VAL PP")			# Reset MeasTrgCalc so that next time it will process
 }
 
