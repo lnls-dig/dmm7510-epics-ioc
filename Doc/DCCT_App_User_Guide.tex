@@ -13,6 +13,8 @@
 \usepackage{etoc} % used for generation of section local table of contents
 \usepackage{placeins} % defines the \FloatBarrier command
 \usepackage{siunitx} % SI units package
+\usepackage{xcolor} % for modifying box color
+\usepackage{adjustbox} % for modifying box parameters
 
 % Define graphics path
 \graphicspath{{figs/}}
@@ -125,7 +127,13 @@
 
 	\paragraph{} This section describes the basic steps when configuring the DCCT application. Further detail about the DCCT application PVs can be found in \emph{\nameref{sec:process-variables}}.
 
-	\paragraph{} It is recommended to \hyperref[disable-triggering]{disable measurement triggering} before making any changes to the application settings and to configure triggering only after everything else has been set. This avoids incorrect measurements and/or false post-mortem signal generation.
+	\bigskip
+	\noindent\adjustbox{minipage=\textwidth,cfbox=red 1.0pt 2ex}{
+		It is recommended that \hyperref[disable-triggering]{measurement triggering be disabled} before making any changes to the application settings and to configure triggering only after everything else has been set. This avoids incorrect measurements and/or false post-mortem signal generation.
+	}
+
+	\bigskip
+	\noindent\adjustbox{minipage=\textwidth,cfbox=red 1.0pt 2ex}{A new \hyperref[relative-offset]{voltage relative offset} should be acquired every time the range configuration is modified.}
 
 	\subsection{Measurement triggering}
 
@@ -242,13 +250,14 @@
 				\item \emph{FilterEnbl-Sts} indicates the filter enable status.
 			\end{enumerate}
 
-		\paragraph{Relative offset} The relative offset parameter is used to remove offsets caused by instrument zero drift.
+		\paragraph{Relative offset}\label{relative-offset} The relative offset parameter is used to remove offsets caused by instrument zero drift.
 
 			\begin{enumerate}
 				\item \emph{RelLvl-SP} sets the relative offset voltage level. The offset is subtracted from the measured voltage before any conversion is performed.
 				\item \emph{RelLvl-RB} indicates the configured relative offset voltage level.
 				\item \emph{RelEnbl-Sel} enables/disables the relative offset.
 				\item \emph{RelEnbl-Sts} indicates the relative offset enable status.
+				\item \emph{RelAcq-Cmd} sets the relative offset level equal to the multimeter input voltage level.
 			\end{enumerate}
 
 	\subsection{DCCT calibration}
@@ -421,6 +430,10 @@
 		% --- row ---
 		RelLvl-RB & FLOAT: 32-bit & \begin{tabular}{@{}m{6cm}@{}}
 	    					Relative offset level readback value.
+						\end{tabular} \\ \hline
+		% --- row ---
+		RelAcq-Cmd & BOOL : OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
+						Acquire relative offset. Measure the multimeter voltage input and assign it to \emph{RelLvl-SP}. It is recommended that a new offset be acquired every time a new range is selected.
 						\end{tabular} \\ \hline
 		% --- row ---
 		Test-Sel & BOOL: OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
