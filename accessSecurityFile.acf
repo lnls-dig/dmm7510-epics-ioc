@@ -1,3 +1,5 @@
+HAG(special) {lnls400-linux}
+
 ASG(DEFAULT){
 	RULE(1,READ)
 	RULE(1,WRITE)
@@ -6,4 +8,10 @@ ASG(DEFAULT){
 ASG(Reserved){
 	RULE(0,READ)
 	RULE(0,WRITE)
+	RULE(1,READ){
+	  HAG(special)
+	}
+	RULE(1,WRITE){
+	  HAG(special)
+	}
 }
