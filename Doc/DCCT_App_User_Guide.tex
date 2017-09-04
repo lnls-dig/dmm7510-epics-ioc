@@ -165,8 +165,8 @@
 			\begin{enumerate}
 				\item Set \emph{Range-Sel} to the desired DCCT sensor range.
 				\item Verify if \emph{Range-Sts} has changed accordingly.
-				\item Set \emph{Threshold-SP} to the current level threshold intended to trigger measurements.
-				\item Verify if \emph{Threshold-RB} has changed accordingly.
+				\item Set \emph{CurrThold-SP} to the current level threshold intended to trigger measurements.
+				\item Verify if \emph{CurrThold-RB} has changed accordingly.
 				\item Set \emph{HFReject-Sel} to indicate if high frequency rejection should be used.
 				\item Verify if \emph{HFReject-Sts} has changed accordingly.
 				\item Set \emph{MeasTrg-Sel} to \emph{InLevel}.
@@ -189,8 +189,8 @@
 			\begin{enumerate}
 				\item Set \emph{Range-Sel} to the desired DCCT sensor range.
 				\item Verify if \emph{Range-Sts} has changed accordingly.
-				\item Set \emph{Threshold-SP} to the desired current level threshold.
-				\item Verify if \emph{Threshold-RB} has changed accordingly.
+				\item Set \emph{CurrThold-SP} to the desired current level threshold.
+				\item Verify if \emph{CurrThold-RB} has changed accordingly.
 				\item Set \emph{HFReject-Sel} to indicate if high frequency rejection should be used.
 				\item Verify if \emph{HFReject-Sts} has changed accordingly.
 				\item Set \emph{LowLimEnbl-Sel} to \emph{ON}.
@@ -283,8 +283,9 @@
 	\paragraph{} The DCCT measurement data is available in the following EPICS PVs.
 
 		\begin{enumerate}
-			\item \emph{AvgCurr-Mon} stores the latest current measurement.
+			\item \emph{Current-Mon} stores the latest current measurement.
 			\item \emph{CurrHstr-Mon} is a circular buffer storing the last 1000 measurements.
+			\item \emph{StoredEBeam-Mon} indicates if there is beam, i.e., if the current is above the threshold.
 		\end{enumerate}
 
 \section{Process Variables Description}\label{sec:process-variables}
@@ -296,12 +297,16 @@
 		\caption{Application Process Variables} \\ \hline
 		\bfseries Name & \bfseries Data Type & \bfseries Description \endhead \hline
 		% --- row ---
-		AvgCurr-Mon & FLOAT: 32-bit & \begin{tabular}{@{}m{6cm}@{}}
+		Current-Mon & FLOAT: 32-bit & \begin{tabular}{@{}m{6cm}@{}}
 	    					Latest current measurement. This PV holds the latest measurement fetched from the multimeter.
 						\end{tabular} \\ \hline
 		% --- row ---
 		CurrHstr-Mon & FLOAT[1000] & \begin{tabular}{@{}m{6cm}@{}}
 	    					Last 1000 current measurements. This PV is a circular buffer holding the last 1000 current measurements.
+						\end{tabular} \\ \hline
+		% --- row ---
+		StoredEBeam-Mon & BOOL: False, True & \begin{tabular}{@{}m{6cm}@{}}
+	    					Indicates if there is beam stored. If the measured current is above the threshold specified by the \emph{CurrThold-SP} PV, the value is \emph{True}, otherwise it is \emph{False}.
 						\end{tabular} \\ \hline
 		% --- row ---
 		MeasTrg-Sel & ENUM: None, External, InLevel, Software & \begin{tabular}{@{}m{6cm}@{}}
@@ -336,11 +341,11 @@
 	    					Low beam current detection enable status.
 						\end{tabular} \\ \hline
 		% --- row ---
-		Threshold-SP & FLOAT: Min=0, Max=2000 & \begin{tabular}{@{}m{6cm}@{}}
+		CurrThold-SP & FLOAT: Min=0, Max=2000 & \begin{tabular}{@{}m{6cm}@{}}
 	    					Current threshold. The current threshold value, specified in \SI{}{\milli\ampere}, used by low current detection or level based triggering.
 						\end{tabular} \\ \hline
 		% --- row ---
-		Threshold-RB & FLOAT: Min=0, Max=2000 & \begin{tabular}{@{}m{6cm}@{}}
+		CurrThold-RB & FLOAT: Min=0, Max=2000 & \begin{tabular}{@{}m{6cm}@{}}
 	    					Current threshold readback value.
 						\end{tabular} \\ \hline
 		% --- row ---

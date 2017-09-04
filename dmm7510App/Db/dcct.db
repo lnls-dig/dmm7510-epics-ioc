@@ -269,7 +269,7 @@ record(calcout, "$(P)$(R)BuffClear"){
 }
 
 # PV with last monitored Beam Current
-record(calc, "$(P)$(R)AvgCurr-Mon"){
+record(calc, "$(P)$(R)Current-Mon"){
   field(ASG, "Reserved")
   field(DESC, "Average Beam Current")
   field(PREC, "6")
@@ -286,7 +286,7 @@ record(compress, "$(P)$(R)CurrHstr-Mon"){
   field(ALG, "Circular Buffer")
   field(NSAM, "1000")
   field(EGU, "mA")
-  field(INP, "$(P)$(R)AvgCurr-Mon")
+  field(INP, "$(P)$(R)Current-Mon")
   field(FLNK, "$(P)$(R)BeamStsCalc")
 }
 
@@ -294,8 +294,8 @@ record(compress, "$(P)$(R)CurrHstr-Mon"){
 record(calcout, "$(P)$(R)BeamStsCalc"){
   field(ASG, "Reserved")
   field(DESC, "Beam status calculation")
-  field(INPA, "$(P)$(R)AvgCurr-Mon")
-  field(INPB, "$(P)$(R)Threshold-RB")
+  field(INPA, "$(P)$(R)Current-Mon")
+  field(INPB, "$(P)$(R)CurrThold-RB")
   field(CALC, "A>=B?1:0")
   field(OUT, "$(P)$(R)StoredEBeam-Mon PP")
 }
@@ -565,7 +565,7 @@ record(calcout, "$(P)$(R)RangeCalc"){
 record(calcout, "$(P)$(R)ThreshUpdate"){
   field(ASG, "Reserved")
   field(DESC, "Threshold update")
-  field(INPA, "$(P)$(R)Threshold-RB")
+  field(INPA, "$(P)$(R)CurrThold-RB")
   field(INPB, "$(P)$(R)Range-Sel")
   field(CALC, "(A*(10**B))/2000")
   field(OUT, "$(Instrument)MATrEdgeLvl-SP PP")
@@ -705,12 +705,12 @@ record(sseq, "$(P)$(R)AlarmCurrSeq2"){
   field(SELL, "$(P)$(R)AlarmCurrCalc.VAL")
   field(STR1, "NO_ALARM")
   field(STR2, "MAJOR")
-  field(LNK1, "$(P)$(R)AvgCurr-Mon.LLSV NPP")
-  field(LNK2, "$(P)$(R)AvgCurr-Mon.LLSV NPP")
+  field(LNK1, "$(P)$(R)Current-Mon.LLSV NPP")
+  field(LNK2, "$(P)$(R)Current-Mon.LLSV NPP")
 }
 
 # Analog trigger threshold
-record(ao, "$(P)$(R)Threshold-SP"){
+record(ao, "$(P)$(R)CurrThold-SP"){
   field(DESC, "Threshold level")
   field(DRVH, "2000")
   field(DRVL, "-2000")
@@ -723,7 +723,7 @@ record(ao, "$(P)$(R)Threshold-SP"){
 record(calcout, "$(P)$(R)ThreshCalc"){
   field(ASG, "Reserved")
   field(DESC, "Threshold unit conversion calc")
-  field(INPA, "$(P)$(R)Threshold-SP")
+  field(INPA, "$(P)$(R)CurrThold-SP")
   field(INPB, "$(P)$(R)Range-Sts")
   field(CALC, "B=0?0:1")
   field(OCAL, "(A*(10**(B-1)))/2000")
@@ -742,11 +742,11 @@ record(calcout, "$(P)$(R)ThreshMonCalc"){
   field(OCAL, "(A*2000)/(10**(B-1))")
   field(DOPT, "Use OCAL")
   field(OOPT, "When Non-zero")
-  field(OUT, "$(P)$(R)Threshold-RB PP")
+  field(OUT, "$(P)$(R)CurrThold-RB PP")
 }
 
 # Analog trigger threshold RB
-record(ai, "$(P)$(R)Threshold-RB"){
+record(ai, "$(P)$(R)CurrThold-RB"){
   field(ASG, "Reserved")
   field(DESC, "Threshold level RB")
   field(EGU, "mA")
@@ -759,8 +759,8 @@ record(seq, "$(P)$(R)AlarmCurrSeq"){
   field(ASG, "Reserved")
   field(DESC, "Set current monitor alarm level")
   field(SELM, "All")
-  field(DOL1, "$(P)$(R)Threshold-RB")
-  field(LNK1, "$(P)$(R)AvgCurr-Mon.LOLO NPP")
+  field(DOL1, "$(P)$(R)CurrThold-RB")
+  field(LNK1, "$(P)$(R)Current-Mon.LOLO NPP")
 }
 
 # High frequency rejection (high level)
@@ -920,7 +920,7 @@ record(sseq, "$(P)$(R)DownloadSeq4"){
   field(LNK3, "$(Instrument)MMathOp-Sel PP")			# Math format = y=mx+b			
   field(LNK4, "$(Instrument)MMathBFactor-SP PP")		# Math B factor = 0
   field(LNK5, "$(Instrument)MMathEnbl-Sel PP")			# Math enable = ON
-  field(LNK6, "$(P)$(R)Threshold-SP.PROC")			# Level threshold proc (Analog Trig level)
+  field(LNK6, "$(P)$(R)CurrThold-SP.PROC")			# Level threshold proc (Analog Trig level)
   field(LNK7, "$(Instrument)MATrMode-Sel PP")			# Analog trigger mode = Edge
   field(LNK8, "$(P)$(R)HFReject-Sel.PROC")			# High Freq rejection proc (Analog Trg HR reject)
   field(LNK9, "$(Instrument)ExOutPol-Sel PP")			# External Output polarity = Positive
