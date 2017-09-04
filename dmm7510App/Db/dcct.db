@@ -270,12 +270,12 @@ record(calcout, "$(P)$(R)BuffClear"){
 
 # PV with last monitored Beam Current
 record(calc, "$(P)$(R)AvgCurr-Mon"){
-  field(ASG, "Reserved")
+#  field(ASG, "Reserved")
   field(DESC, "Average Beam Current")
   field(PREC, "6")
   field(EGU, "mA")
   field(INPA, "$(Instrument)FetchBuff1-Mon CPP")
-  field(CALC, "ABS(A)")
+  field(CALC, "A")
   field(FLNK, "$(P)$(R)CurrHstr-Mon")
 }
 
@@ -287,6 +287,25 @@ record(compress, "$(P)$(R)CurrHstr-Mon"){
   field(NSAM, "1000")
   field(EGU, "mA")
   field(INP, "$(P)$(R)AvgCurr-Mon")
+  field(FLNK, "$(P)$(R)BeamStsCalc")
+}
+
+# Beam status calculation
+record(calcout, "$(P)$(R)BeamStsCalc"){
+  field(ASG, "Reserved")
+  field(DESC, "Beam status calculation")
+  field(INPA, "$(P)$(R)AvgCurr-Mon")
+  field(INPB, "$(P)$(R)Threshold-RB")
+  field(CALC, "A>=B?1:0")
+  field(OUT, "$(P)$(R)StoredEBeam-Mon PP")
+}
+
+# Stored electron beam state monitor
+record(bi, "$(P)$(R)StoredEBeam-Mon"){
+  field(ASG, "Reserved")
+  field(DESC, "Flag indicating if there is beam")
+  field(ZNAM, "False")
+  field(ONAM, "True")
 }
 
 ########################################################################
@@ -452,7 +471,6 @@ record(bi, "$(P)$(R)RelEnbl-Sts"){
 record(ao, "$(P)$(R)RelLvl-SP"){
   field(DESC, "Rel. offset level high level PV")
   field(PREC, "16")
-  field(VAL, "0")
   field(OUT, "$(Instrument)MRelOff-SP PP")
 }
 
@@ -487,6 +505,7 @@ record(calcout, "$(P)$(R)RelAcqCalc"){
 record(seq, "$(P)$(R)RelAcqSeq"){
   field(ASG, "Reserved")
   field(DESC, "Acquire rel. offset and update set point")
+  field(SELM, "All")
   field(PREC, "16")
   field(DO1, "1")
   field(DOL2, "$(P)$(R)RelLvl-RB.VAL")
@@ -666,13 +685,35 @@ record(bi, "$(P)$(R)LowLimEnbl-Sts"){
   field(DESC, "Curr. low threshold detection Sts")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
+  field(FLNK, "$(P)$(R)AlarmCurrCalc")
+}
+
+# Calculate current monitor PV alarm state
+record(calc, "$(P)$(R)AlarmCurrCalc"){
+  field(ASG, "Reserved")
+  field(DESC, "Calc for curr monitor alarm state")
+  field(INPA, "$(P)$(R)LowLimEnbl-Sts")
+  field(CALC, "A+1")
+  field(FLNK, "$(P)$(R)AlarmCurrSeq2")
+}
+
+# Set current monitor PV alarm state
+record(sseq, "$(P)$(R)AlarmCurrSeq2"){
+  field(ASG, "Reserved")
+  field(DESC, "Enable/disable alarm for curr monitor")
+  field(SELM, "Specified")
+  field(SELL, "$(P)$(R)AlarmCurrCalc.VAL")
+  field(STR1, "NO_ALARM")
+  field(STR2, "MAJOR")
+  field(LNK1, "$(P)$(R)AvgCurr-Mon.LLSV NPP")
+  field(LNK2, "$(P)$(R)AvgCurr-Mon.LLSV NPP")
 }
 
 # Analog trigger threshold
 record(ao, "$(P)$(R)Threshold-SP"){
   field(DESC, "Threshold level")
   field(DRVH, "2000")
-  field(DRVL, "0")
+  field(DRVL, "-2000")
   field(PREC, "6")
   field(EGU, "mA")
   field(FLNK, "$(P)$(R)ThreshCalc")
@@ -710,6 +751,16 @@ record(ai, "$(P)$(R)Threshold-RB"){
   field(DESC, "Threshold level RB")
   field(EGU, "mA")
   field(PREC, "6")
+  field(FLNK, "$(P)$(R)AlarmCurrSeq")
+}
+
+# Set Beam Current alarm level using threshold
+record(seq, "$(P)$(R)AlarmCurrSeq"){
+  field(ASG, "Reserved")
+  field(DESC, "Set current monitor alarm level")
+  field(SELM, "All")
+  field(DOL1, "$(P)$(R)Threshold-RB")
+  field(LNK1, "$(P)$(R)AvgCurr-Mon.LOLO NPP")
 }
 
 # High frequency rejection (high level)
@@ -783,13 +834,13 @@ record(sseq, "$(P)$(R)DownloadSeq1"){
   field(ASG, "Reserved")
   field(DESC, "Download sequence 1")
   field(SELM, "All")
-  field(STR1, "ON")
+#  field(STR1, "ON")
   field(STR2, "DC_VOLTAGE")
   field(STR3, "OFF")
   field(STR4, "OFF")
   field(STR5, "OFF")
   field(DO6, "10")
-  field(LNK1, "$(Instrument)Reset-Cmd PP")			# reset
+#  field(LNK1, "$(Instrument)Reset-Cmd PP")	# reset is NOT USED since it sets EXTOUT POL. to Negative, CAUSING A FALSE TRIGGER
   field(LNK2, "$(Instrument)MeasFnc-Sel PP")			# Meas. function = DC_VOLTAGE
   field(LNK3, "$(Instrument)MAutoRange-Sel PP")			# Meas. autorange = OFF
   field(LNK4, "$(Instrument)MeasAutoDly-Sel PP")		# Meas. autodelay = OFF
