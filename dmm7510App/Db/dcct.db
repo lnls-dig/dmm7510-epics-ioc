@@ -270,7 +270,7 @@ record(calcout, "$(P)$(R)BuffClear"){
 
 # PV with last monitored Beam Current
 record(calc, "$(P)$(R)AvgCurr-Mon"){
-#  field(ASG, "Reserved")
+  field(ASG, "Reserved")
   field(DESC, "Average Beam Current")
   field(PREC, "6")
   field(EGU, "mA")
