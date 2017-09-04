@@ -121,7 +121,7 @@ record(calcout, "$(P)$(R)Eff-Mon"){
   field(DESC, "Efficiency monitor")
   field(INPA, "$(ict-1-prefix)Charge-Mon.VAL")
   field(INPB, "$(ict-2-prefix)Charge-Mon.VAL")
-  field(CALC, "(A=0||B=0)?0:(B/A)")
+  field(CALC, "(A=0||B=0)?0:(ABS(B/A))")
   field(ADEL, "-1")
   field(MDEL, "-1")
   field(FLNK, "$(P)$(R)EffHstr-Mon")
