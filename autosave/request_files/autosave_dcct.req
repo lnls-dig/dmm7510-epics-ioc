@@ -19,5 +19,5 @@ $(P)$(R)Range-Sel.VAL
 $(P)$(R)Test-Sel.VAL
 # Current Threshold Detection
 $(P)$(R)LowLimEnbl-Sel.VAL
-$(P)$(R)Threshold-SP.VAL
+$(P)$(R)CurrThold-SP.VAL
 $(P)$(R)HFReject-Sel.VAL
