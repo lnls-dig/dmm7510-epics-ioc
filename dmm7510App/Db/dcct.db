@@ -913,7 +913,7 @@ record(sseq, "$(P)$(R)DownloadSeq4"){
   field(DO6, "1")
   field(STR7, "Edge")
   field(DO8, "1")
-  field(STR9, "Positive")
+  field(STR9, "Negative")
   field(DOA, "1")
   field(LNK1, "$(P)$(R)Range-Sel.PROC")				# Range proc
   field(LNK2, "$(P)$(R)Test-Sel.PROC")				# DCCT calibration signal enable proc
@@ -923,7 +923,7 @@ record(sseq, "$(P)$(R)DownloadSeq4"){
   field(LNK6, "$(P)$(R)CurrThold-SP.PROC")			# Level threshold proc (Analog Trig level)
   field(LNK7, "$(Instrument)MATrMode-Sel PP")			# Analog trigger mode = Edge
   field(LNK8, "$(P)$(R)HFReject-Sel.PROC")			# High Freq rejection proc (Analog Trg HR reject)
-  field(LNK9, "$(Instrument)ExOutPol-Sel PP")			# External Output polarity = Positive
+  field(LNK9, "$(Instrument)ExOutPol-Sel PP")			# External Output polarity = Negative
   field(LNKA, "$(P)$(R)LowLimEnbl-Sel.PROC")			# Low limit enable proc (Analog Trg Slope and Stim)
   field(DLY3, "2")						# Wait 2 seconds for Range-Sts to be set
   field(FLNK, "$(P)$(R)DownloadSeq5")
