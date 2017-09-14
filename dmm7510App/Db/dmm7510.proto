@@ -1,6 +1,6 @@
 Terminator = NL;
 #ExtraInput = Ignore;
-ReplyTimeout = 5000;
+ReplyTimeout = 25500;
 
 ###########################################################################
 # Module Support
