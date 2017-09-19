@@ -1,5 +1,5 @@
 Terminator = NL;
-#ExtraInput = Ignore;
+ExtraInput = Ignore;
 ReplyTimeout = 35000;
 
 ###########################################################################

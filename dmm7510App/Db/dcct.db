@@ -63,6 +63,11 @@ record(sseq, "$(P)$(R)ConfigEx"){
   field(LNK4, "$(Instrument)MeasStim-Sel PP")			# Meas. trigger = Timer 1 (timer avoids trigger bouncing)
   field(LNK5, "$(Instrument)ClrBuff1-Cmd PP")			# Clear buffer
   field(LNK6, "$(Instrument)CntBuff1-Mon.SCAN")			# Buffer count scan triggers buffer readings
+  field(WAIT1, "Wait")
+  field(WAIT2, "Wait")
+  field(WAIT3, "Wait")
+  field(WAIT4, "Wait")
+  field(WAIT5, "Wait")
 }
 
 # Settings for measurement threshold triggering
@@ -84,6 +89,12 @@ record(sseq, "$(P)$(R)ConfigLvl"){
   field(LNK5, "$(Instrument)MATrEdgeSlp-Sel PP")		# Input voltage level trigger edge = Rising
   field(LNK6, "$(Instrument)ClrBuff1-Cmd PP")			# Clear buffer
   field(LNK7, "$(Instrument)CntBuff1-Mon.SCAN")			# Buffer count scan triggers buffer readings
+  field(WAIT1, "Wait")
+  field(WAIT2, "Wait")
+  field(WAIT3, "Wait")
+  field(WAIT4, "Wait")
+  field(WAIT5, "Wait")
+  field(WAIT6, "Wait")
 }
 
 # Settings for measurement software triggering
@@ -99,6 +110,9 @@ record(sseq, "$(P)$(R)ConfigSoft"){
   field(LNK2, "$(Instrument)MeasStim-Sel PP")			# Disable meas. hardware triggers
   field(LNK3, "$(Instrument)ClrBuff1-Cmd PP")			# Clear buffer
   field(LNK4, "$(P)$(R)SoftMeas.SCAN")				# Enable meas. software triggering
+  field(WAIT1, "Wait")
+  field(WAIT2, "Wait")
+  field(WAIT3, "Wait")
 }
 
 # Continuously trigger software measurement
@@ -125,6 +139,10 @@ record(sseq, "$(P)$(R)ConfigNone"){
   field(LNK3, "$(Instrument)CntBuff1-Mon.SCAN")			# Disable buffer count scan and periodic reading fetching
   field(LNK4, "$(Instrument)ClrBuff1-Cmd PP")			# Clear buffer
   field(LNK5, "$(P)$(R)LowLimEnbl-Sel PP")			# Disable low voltage level detection
+  field(WAIT1, "Wait")
+  field(WAIT2, "Wait")
+  field(WAIT3, "Wait")
+  field(WAIT4, "Wait")
 }
 
 # Check measurement trigger configuration and update Sts
