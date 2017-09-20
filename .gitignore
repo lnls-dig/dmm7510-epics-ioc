@@ -1,7 +1,7 @@
-OPI/logs.*
-OPI/.metadata
-autosave/*.sav*
-Doc/*.aux
-Doc/*.log
-Doc/*.out
-Doc/*.toc
+op/opi/logs.*
+op/opi/.metadata
+documentation/*.aux
+documentation/*.log
+documentation/*.out
+documentation/*.toc
+documentation/*.pdf
