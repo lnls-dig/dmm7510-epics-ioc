@@ -53,7 +53,7 @@ epicsEnvSet("STREAM_PROTOCOL_PATH", "$(TOP)/dmm7510App/Db")
 dbLoadDatabase "dbd/dmm7510.dbd"
 dmm7510_registerRecordDeviceDriver pdbbase
 
-asSetFilename("$(TOP)/accessSecurityFile.acf")
+asSetFilename("$(TOP)/dmm7510App/Db/accessSecurityFile.acf")
 
 ${DMM_line}drvAsynIPPortConfigure("DMMPORT", "${DMMADDR}:5025 TCP",0,0,0)
 
