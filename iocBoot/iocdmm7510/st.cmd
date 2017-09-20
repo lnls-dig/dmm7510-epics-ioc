@@ -68,7 +68,9 @@ ${ICT_line}dbLoadRecords("${TOP}/db/ict.db", "P=${PICT}, R=${RICT}, Instrument=$
 set_savefile_path("$(TOP)", "autosave")
 
 # Specify request files directories
-set_requestfile_path("$(TOP)", "autosave/request_files")
+set_requestfile_path("$(TOP)/iocBoot/$(IOC)", "")
+set_requestfile_path("$(TOP)/iocBoot/$(IOC)", "autosave")
+set_requestfile_path("$(TOP)", "dmm7510App/Db")
 
 # Specify files to be restored, and when
 # DCCT
