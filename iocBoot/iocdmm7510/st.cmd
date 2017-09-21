@@ -85,7 +85,7 @@ iocInit
 
 # Create manual trigger for Autosave
 # DCCT
-${DCCT_line}create_triggered_set("dcct_settings.req", "${PDCCT}${RDCCT}SaveTrg", "P=${PDCCT}, R=${RDCCT}")
+${DCCT_line}create_triggered_set("auto_settings_dcct.req", "${PDCCT}${RDCCT}SaveTrg", "P=${PDCCT}, R=${RDCCT}")
 # ICT
-${ICT_line}create_triggered_set("ict_settings.req", "${PICT}${RICT}SaveTrg", "P=${PICT}, R=${RICT}")
+${ICT_line}create_triggered_set("auto_settings_ict.req", "${PICT}${RICT}SaveTrg", "P=${PICT}, R=${RICT}")
 
