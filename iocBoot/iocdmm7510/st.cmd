@@ -45,6 +45,11 @@ epicsEnvSet DCCT_line ""
 epicsEnvSet ICT_line "#"
 # --------------------------------------------
 
+${DCCT_line}epicsEnvSet P "${PDCCT}"
+${DCCT_line}epicsEnvSet R "${RDCCT}"
+${ICT_line}epicsEnvSet P "${PICT}"
+${ICT_line}epicsEnvSet R "${RICT}"
+
 # ####################################################
 
 epicsEnvSet("STREAM_PROTOCOL_PATH", "$(TOP)/dmm7510App/Db")
@@ -64,25 +69,7 @@ ${DMM_line}dbLoadRecords("${TOP}/db/dmm7510.db", "P=${PDMM}, R=${RDMM}, PORT=DMM
 ${DCCT_line}dbLoadRecords("${TOP}/db/dcct.db", "P=${PDCCT}, R=${RDCCT}, Instrument=${PDMM}${RDMM}")
 ${ICT_line}dbLoadRecords("${TOP}/db/ict.db", "P=${PICT}, R=${RICT}, Instrument=${PDMM}${RDMM}")
 
-# Specify save file path
-set_savefile_path("$(TOP)", "autosave")
-
-# Specify request files directories
-set_requestfile_path("$(TOP)/iocBoot/$(IOC)", "")
-set_requestfile_path("$(TOP)/iocBoot/$(IOC)", "autosave")
-set_requestfile_path("$(TOP)", "dmm7510App/Db")
-
-# Specify files to be restored, and when
-# DCCT
-${DCCT_line}set_pass0_restoreFile("autosave_dcct.sav")
-# ICT
-${ICT_line}set_pass0_restoreFile("autosave_ict.sav")
-
-# Enable/Disable backup files (0->Disable, 1->Enable)
-save_restoreSet_DatedBackupFiles(0)
-
-# Number of copies of .sav files to maintain
-save_restoreSet_NumSeqFiles(0)
+< save_restore.cmd
 
 ## Run this to trace the stages of iocInit
 #traceIocInit
