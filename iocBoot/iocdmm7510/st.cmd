@@ -2,8 +2,6 @@
 
 < envPaths
 
-cd ${TOP}
-
 # ####################################################
 #		IOC SETTINGS
 #
@@ -55,7 +53,7 @@ ${ICT_line}epicsEnvSet R "${RICT}"
 epicsEnvSet("STREAM_PROTOCOL_PATH", "$(TOP)/dmm7510App/Db")
 
 ## Register all support components
-dbLoadDatabase "dbd/dmm7510.dbd"
+dbLoadDatabase ("${TOP}/dbd/dmm7510.dbd")
 dmm7510_registerRecordDeviceDriver pdbbase
 
 asSetFilename("$(TOP)/dmm7510App/Db/accessSecurityFile.acf")
@@ -74,7 +72,6 @@ ${ICT_line}dbLoadRecords("${TOP}/db/ict.db", "P=${PICT}, R=${RICT}, Instrument=$
 ## Run this to trace the stages of iocInit
 #traceIocInit
 
-cd ${TOP}/iocBoot/${IOC}
 iocInit
 
 ## Start any sequence programs
