@@ -63,6 +63,11 @@ record(sseq, "$(P)$(R)ConfigEx"){
   field(LNK4, "$(Instrument)MeasStim-Sel PP")			# Meas. trigger = Timer 1 (timer avoids trigger bouncing)
   field(LNK5, "$(Instrument)ClrBuff1-Cmd PP")			# Clear buffer
   field(LNK6, "$(Instrument)CntBuff1-Mon.SCAN")			# Buffer count scan triggers buffer readings
+  field(WAIT1, "Wait")
+  field(WAIT2, "Wait")
+  field(WAIT3, "Wait")
+  field(WAIT4, "Wait")
+  field(WAIT5, "Wait")
 }
 
 # Settings for measurement threshold triggering
@@ -84,6 +89,12 @@ record(sseq, "$(P)$(R)ConfigLvl"){
   field(LNK5, "$(Instrument)MATrEdgeSlp-Sel PP")		# Input voltage level trigger edge = Rising
   field(LNK6, "$(Instrument)ClrBuff1-Cmd PP")			# Clear buffer
   field(LNK7, "$(Instrument)CntBuff1-Mon.SCAN")			# Buffer count scan triggers buffer readings
+  field(WAIT1, "Wait")
+  field(WAIT2, "Wait")
+  field(WAIT3, "Wait")
+  field(WAIT4, "Wait")
+  field(WAIT5, "Wait")
+  field(WAIT6, "Wait")
 }
 
 # Settings for measurement software triggering
@@ -99,6 +110,9 @@ record(sseq, "$(P)$(R)ConfigSoft"){
   field(LNK2, "$(Instrument)MeasStim-Sel PP")			# Disable meas. hardware triggers
   field(LNK3, "$(Instrument)ClrBuff1-Cmd PP")			# Clear buffer
   field(LNK4, "$(P)$(R)SoftMeas.SCAN")				# Enable meas. software triggering
+  field(WAIT1, "Wait")
+  field(WAIT2, "Wait")
+  field(WAIT3, "Wait")
 }
 
 # Continuously trigger software measurement
@@ -125,6 +139,10 @@ record(sseq, "$(P)$(R)ConfigNone"){
   field(LNK3, "$(Instrument)CntBuff1-Mon.SCAN")			# Disable buffer count scan and periodic reading fetching
   field(LNK4, "$(Instrument)ClrBuff1-Cmd PP")			# Clear buffer
   field(LNK5, "$(P)$(R)LowLimEnbl-Sel PP")			# Disable low voltage level detection
+  field(WAIT1, "Wait")
+  field(WAIT2, "Wait")
+  field(WAIT3, "Wait")
+  field(WAIT4, "Wait")
 }
 
 # Check measurement trigger configuration and update Sts
@@ -216,6 +234,126 @@ record(mbbi, "$(P)$(R)MeasTrg-Sts"){
   field(TWST, "InLevel")
   field(THST, "Software")
   field(FRST, "None")
+  field(FLNK, "$(P)$(R)ProtecCalc")
+}
+
+# Disable changes in settings based on trigger configuration
+record(calc, "$(P)$(R)ProtecCalc"){
+  field(ASG, "Reserved")
+  field(DESC, "Enable/disable control PVs calc")
+  field(INPA, "$(P)$(R)MeasTrg-Sts")
+  field(CALC, "(A=4||A=0)?1:2")
+  field(FLNK, "$(P)$(R)ProtectSeq1")
+}
+
+# Define action to take
+record(seq, "$(P)$(R)ProtectSeq1"){
+  field(ASG, "Reserved")
+  field(DESC, "Enable/disable control PVs seq 1")
+  field(SELM, "Specified")
+  field(SELL, "$(P)$(R)ProtecCalc.VAL")
+  field(DO1, "1")
+  field(DO2, "1")
+  field(LNK1, "$(P)$(R)ProtectSeq2.PROC PP")
+  field(LNK2, "$(P)$(R)ProtectSeq4.PROC PP")
+}
+
+# Enable PVs
+record(seq, "$(P)$(R)ProtectSeq2"){
+  field(ASG, "Reserved")
+  field(DESC, "Enable/disable control PVs seq 2")
+  field(SELM, "All")
+  field(DO1, "0")
+  field(DO2, "0")
+  field(DO3, "0")
+  field(DO4, "0")
+  field(DO5, "0")
+  field(DO6, "0")
+  field(DO7, "0")
+  field(DO8, "0")
+  field(DO9, "0")
+  field(DOA, "0")
+  field(LNK1, "$(P)$(R)TrgDelay-SP.DISP")		# Enable trigger delay set point
+  field(LNK2, "$(P)$(R)Range-Sel.DISP")			# Enable range selection
+  field(LNK3, "$(P)$(R)LowLimEnbl-Sel.DISP")		# Enable low limit detection enable/disable
+  field(LNK4, "$(P)$(R)CurrThold-SP.DISP")		# Enable current threshold set point
+  field(LNK5, "$(P)$(R)HFReject-Sel.DISP")		# Enable HF rejection enable/disable
+  field(LNK6, "$(P)$(R)MeasCount-SP.DISP")		# Enable measure count set point
+  field(LNK7, "$(P)$(R)NPLC-SP.DISP")			# Enable NPLC set point
+  field(LNK8, "$(P)$(R)LineSync-Sel.DISP")		# Enable line synchronization enable/disable
+  field(LNK9, "$(P)$(R)Imped-Sel.DISP")			# Enable input impedance enable/disable
+  field(LNKA, "$(P)$(R)FilterEnbl-Sel.DISP")		# Enable filter enable/disable
+  field(FLNK, "$(P)$(R)ProtectSeq3")
+}
+
+record(seq, "$(P)$(R)ProtectSeq3"){
+  field(ASG, "Reserved")
+  field(DESC, "Enable/disable control PVs seq 3")
+  field(SELM, "All")
+  field(DO1, "0")
+  field(DO2, "0")
+  field(DO3, "0")
+  field(DO4, "0")
+  field(DO5, "0")
+  field(DO6, "0")
+  field(DO7, "0")
+  field(DO8, "0")
+  field(LNK1, "$(P)$(R)FilterCnt-SP.DISP")		# Enable filter count set point
+  field(LNK2, "$(P)$(R)FilterTyp-Sel.DISP")		# Enable filter type selection
+  field(LNK3, "$(P)$(R)FilterWind-SP.DISP")		# Enable filter window set point
+  field(LNK4, "$(P)$(R)RelEnbl-Sel.DISP")		# Enable relative offset enable/disable
+  field(LNK5, "$(P)$(R)RelLvl-SP.DISP")			# Enable relative offset set point
+  field(LNK6, "$(P)$(R)RelAcq-Cmd.DISP")		# Enable relative offset acquire command
+  field(LNK7, "$(P)$(R)Test-Sel.DISP")			# Enable test function enable/disable
+  field(LNK8, "$(P)$(R)LowLimEnbl-Sel")			# Set low limit enable to OFF (since it was disabled, initialization could not set it).
+}
+
+# Disable PVs
+record(seq, "$(P)$(R)ProtectSeq4"){
+  field(ASG, "Reserved")
+  field(DESC, "Enable/disable control PVs seq 4")
+  field(SELM, "All")
+  field(DO1, "1")
+  field(DO2, "1")
+  field(DO3, "1")
+  field(DO4, "1")
+  field(DO5, "1")
+  field(DO6, "1")
+  field(DO7, "1")
+  field(DO8, "1")
+  field(DO9, "1")
+  field(DOA, "1")
+  field(LNK1, "$(P)$(R)TrgDelay-SP.DISP")		# Disable trigger delay set point
+  field(LNK2, "$(P)$(R)Range-Sel.DISP")			# Disable range selection
+  field(LNK3, "$(P)$(R)LowLimEnbl-Sel.DISP")		# Disable low limit detection enable/disable
+  field(LNK4, "$(P)$(R)CurrThold-SP.DISP")		# Disable current threshold set point
+  field(LNK5, "$(P)$(R)HFReject-Sel.DISP")		# Disable HF rejection enable/disable
+  field(LNK6, "$(P)$(R)MeasCount-SP.DISP")		# Disable measure count set point
+  field(LNK7, "$(P)$(R)NPLC-SP.DISP")			# Disable NPLC set point
+  field(LNK8, "$(P)$(R)LineSync-Sel.DISP")		# Disable line synchronization enable/disable
+  field(LNK9, "$(P)$(R)Imped-Sel.DISP")			# Disable input impedance enable/disable
+  field(LNKA, "$(P)$(R)FilterEnbl-Sel.DISP")		# Disable filter enable/disable
+  field(FLNK, "$(P)$(R)ProtectSeq5")
+}
+
+record(seq, "$(P)$(R)ProtectSeq5"){
+  field(ASG, "Reserved")
+  field(DESC, "Enable/disable control PVs seq 5")
+  field(SELM, "All")
+  field(DO1, "1")
+  field(DO2, "1")
+  field(DO3, "1")
+  field(DO4, "1")
+  field(DO5, "1")
+  field(DO6, "1")
+  field(DO7, "1")
+  field(LNK1, "$(P)$(R)FilterCnt-SP.DISP")		# Disable filter count set point
+  field(LNK2, "$(P)$(R)FilterTyp-Sel.DISP")		# Disable filter type selection
+  field(LNK3, "$(P)$(R)FilterWind-SP.DISP")		# Disable filter window set point
+  field(LNK4, "$(P)$(R)RelEnbl-Sel.DISP")		# Disable relative offset enable/disable
+  field(LNK5, "$(P)$(R)RelLvl-SP.DISP")			# Disable relative offset set point
+  field(LNK6, "$(P)$(R)RelAcq-Cmd.DISP")		# Disable relative offset acquire command
+  field(LNK7, "$(P)$(R)Test-Sel.DISP")			# Disable test function enable/disable
 }
 
 ########################################################################
@@ -913,7 +1051,7 @@ record(sseq, "$(P)$(R)DownloadSeq4"){
   field(DO6, "1")
   field(STR7, "Edge")
   field(DO8, "1")
-  field(STR9, "Positive")
+  field(STR9, "Negative")
   field(DOA, "1")
   field(LNK1, "$(P)$(R)Range-Sel.PROC")				# Range proc
   field(LNK2, "$(P)$(R)Test-Sel.PROC")				# DCCT calibration signal enable proc
@@ -923,7 +1061,7 @@ record(sseq, "$(P)$(R)DownloadSeq4"){
   field(LNK6, "$(P)$(R)CurrThold-SP.PROC")			# Level threshold proc (Analog Trig level)
   field(LNK7, "$(Instrument)MATrMode-Sel PP")			# Analog trigger mode = Edge
   field(LNK8, "$(P)$(R)HFReject-Sel.PROC")			# High Freq rejection proc (Analog Trg HR reject)
-  field(LNK9, "$(Instrument)ExOutPol-Sel PP")			# External Output polarity = Positive
+  field(LNK9, "$(Instrument)ExOutPol-Sel PP")			# External Output polarity = Negative
   field(LNKA, "$(P)$(R)LowLimEnbl-Sel.PROC")			# Low limit enable proc (Analog Trg Slope and Stim)
   field(DLY3, "2")						# Wait 2 seconds for Range-Sts to be set
   field(FLNK, "$(P)$(R)DownloadSeq5")

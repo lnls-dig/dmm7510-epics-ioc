@@ -120,7 +120,7 @@
 
 	\subsection{Booster} 
 
-		\paragraph{} Since, for the Booster, the beam current measurements must be correlated to each separate Booster ramp cycle, the timing of measurements is important. The measurement trigger in this application can be provided by an external trigger pulse, or by the beam current level itself. When in external trigger mode, the multimeter measurements are triggered by the STD-EVE module at each Booster ramp cycle. When triggered by current level, a measurement starts when the input signal becomes greater than the specified threshold. For both triggering modes, there is an user-configurable delay that can be used for better positioning the measurement start in the ramp cycle.
+		\paragraph{} The Booster beam current measurements must be correlated to each separate Booster ramp cycle, requiring a triggering mechanism. The measurement trigger in this application can be provided by an external trigger pulse, or by the beam current level itself. When in external trigger mode, the multimeter measurements are triggered by the STD-EVE module at each Booster ramp cycle. When triggered by current level, a measurement starts when the input signal becomes greater than the specified threshold. For both triggering modes, there is an user-configurable delay that can be used for better positioning the measurement start in the ramp cycle.
 
 %--- Section: DCCT Software Configuration Steps ---
 \section{DCCT Software Configuration}
@@ -129,7 +129,7 @@
 
 	\bigskip
 	\noindent\adjustbox{minipage=\textwidth,cfbox=red 1.0pt 2ex}{
-		It is recommended that \hyperref[disable-triggering]{measurement triggering be disabled} before making any changes to the application settings and to configure triggering only after everything else has been set. This avoids incorrect measurements and/or false post-mortem signal generation.
+		It is necessary to \hyperref[disable-triggering]{disable measurement triggering} before making any changes to the application settings. All of the set point and selection PVs are disabled while the trigger mode is different from \emph{None} or \emph{Unknown}. This avoids incorrect measurements, false post-mortem signal generation, temporary communication loss with the multimeter, or even the need to restart the multimeter (powering it off and on again).
 	}
 
 	\bigskip
@@ -197,7 +197,7 @@
 				\item Verify if \emph{LowLimEnbl-Sts} status is \emph{ON}.
 			\end{enumerate}
 
-	\subsection{Measurement settings}
+	\subsection{Measurement settings}\label{measurement-settings}
 
 		% Measurement characteristcs figure 1
 		\begin{figure}[!h]
