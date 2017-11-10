@@ -1,0 +1,30 @@
+[Unit]
+Description=DMM7510 IOC %p%I
+After=rc-local.service
+Wants=rc-local.service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+# Source environment
+EnvironmentFile=/etc/sysconfig/dmm7510-epics-ioc
+EnvironmentFile=/etc/sysconfig/dmm7510-epics-ioc-mapping
+# Execute pre with root
+PermissionsStartOnly=true
+Environment=DMM7510_INSTANCE=%i
+ExecStartPre=/bin/mkdir -p /var/log/procServ/%p%i
+ExecStartPre=/bin/mkdir -p /var/run/procServ/%p%i
+#WorkingDirectory=${DMM7510_IOC_STARTUP}
+WorkingDirectory=/opt/epics/startup/ioc/dmm7510-epics-ioc/iocBoot/iocdmm7510
+# Run procServ with IOC
+ExecStart=/bin/bash -c "\
+    export DMM7510_DEVICE_TELNET_PORT_SUFFIX=DMM7510_$${DMM7510_INSTANCE}_PORT_SUFFIX && \
+    /usr/local/bin/procServ \
+    -f \
+    -n %p%i \
+    -i ^C^D \
+    $${PROCSERV_DMM7510_PORT_PREFIX}$${!DMM7510_DEVICE_TELNET_PORT_SUFFIX} \
+    ./runGenericCT.sh"
+
+[Install]
+WantedBy=multi-user.target
