@@ -25,9 +25,9 @@ fi
 mkdir -p "$INSTALL_DIR"
 
 # Copy generated EPICS files
-#for dir in bin lib db dbd; do
-#    cp -r "$TOP_DIR/$dir" "$INSTALL_DIR"
-#done
+for dir in bin lib db dbd; do
+    cp -r "$TOP_DIR/$dir" "$INSTALL_DIR"
+done
 
 ### *App files ###
 APPS=($(ls $TOP_DIR | grep "App"))
