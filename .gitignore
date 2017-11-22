@@ -1,7 +1,36 @@
-OPI/logs.*
-OPI/.metadata
-autosave/*.sav*
-Doc/*.aux
-Doc/*.log
-Doc/*.out
-Doc/*.toc
+# General files
+*.orig
+*.swap
+*~
+*.bak
+*.backup
+*.swp
+
+# EPICS generated
+bin
+lib
+include
+db
+dbd
+*_BAK.adl
+documentation.html
+envPaths*
+cdCommands
+dllPath.bat
+auto_settings*.sav*
+configure/*.local
+O.*/
+*~
+.cproject
+.project
+
+# CSS files
+op/opi/logs.*
+op/opi/.metadata
+
+# Documentation files
+documentation/*.aux
+documentation/*.log
+documentation/*.out
+documentation/*.toc
+documentation/*.pdf
