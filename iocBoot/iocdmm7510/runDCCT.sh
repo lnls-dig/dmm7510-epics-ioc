@@ -17,6 +17,11 @@ if [ -z "$IPADDR" ]; then
     exit 3
 fi
 
+if [ -z "$R" ] || [ -z "$RDMM" ]; then
+    echo "\$R or \$RDMM are not set, Please use -R and -RDMM option" >&2
+    exit 7
+fi
+
 cd "$IOC_BOOT_DIR"
 
-IPADDR="$IPADDR" IPPORT="$IPPORT" P="$P" R="$R" "$IOC_BIN" stDCCT.cmd
+IPADDR="$IPADDR" IPPORT="$IPPORT" P="$P" R="$R" RDMM="$RDMM" "$IOC_BIN" stDCCT.cmd

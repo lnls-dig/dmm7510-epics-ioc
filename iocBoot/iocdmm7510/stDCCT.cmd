@@ -15,8 +15,8 @@ asSetFilename("$(TOP)/dmm7510App/Db/accessSecurityFile.acf")
 drvAsynIPPortConfigure("${PORT}", "${IPADDR}:${IPPORT} TCP",0,0,0)
 
 ## Load record instances
-dbLoadRecords("${TOP}/db/dmm7510.db", "P=${P}, R=${R}, PORT=${PORT}")
-dbLoadRecords("${TOP}/db/dcct.db", "P=${P}, R=${R}, Instrument=${P}${R}")
+dbLoadRecords("${TOP}/db/dmm7510.db", "P=${P}, R=${RDMM}, PORT=${PORT}")
+dbLoadRecords("${TOP}/db/dcct.db", "P=${P}, R=${R}, Instrument=${P}${RDMM}")
 
 < save_restore.cmd
 
