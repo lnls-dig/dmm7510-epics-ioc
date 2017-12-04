@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# Source environment
+. ./checkEnv.sh
+
+# Parse command-line options
+. ./parseCMDOpts.sh "$@"
+
+# Check last command return status
+if [ $? -ne 0 ]; then
+	echo "Could not parse command-line options" >&2
+	exit 1
+fi
+
+if [ -z "$IPADDR" ]; then
+    echo "IP address not set. Please use -i option or set \$IPADDR environment variable" >&2
+    exit 3
+fi
+
+if [ -z "$R" ] || [ -z "$RDMM" ]; then
+    echo "\$R or \$RDMM are not set, Please use -R and -RDMM option" >&2
+    exit 7
+fi
+
+cd "$IOC_BOOT_DIR"
+
+IPADDR="$IPADDR" IPPORT="$IPPORT" P="$P" R="$R" RDMM="$RDMM" "$IOC_BIN" stICT.cmd
