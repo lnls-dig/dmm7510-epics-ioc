@@ -23,7 +23,7 @@ install:
 	$(foreach script,$(SCRIPTS),cp --preserve=mode $(INIT_SYSTEM)/$(script) ${SCRIPTS_PREFIX}/$(script) $(CMDSEP))
 
 uninstall:
-	$(foreach script,$(SCRIPTS),rm -f ${SCRITS_PREFIX}/$(script) $(CMDSEP))
+	$(foreach script,$(SCRIPTS),rm -f ${SCRIPTS_PREFIX}/$(script) $(CMDSEP))
 
 realuninstall: uninstall
 
