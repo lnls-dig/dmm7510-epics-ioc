@@ -135,8 +135,8 @@
 		\paragraph{Disable triggering}\label{disable-triggering} It might be useful, in some cases, to disable measurement triggering. In this configuration, all trigger types are disabled.
 
 			\begin{enumerate}
-				\item Set \emph{DigtzeTrg-Sel} PV to \emph{None}.
-				\item Wait until \emph{DigtzeTrg-Sts} has changed to \emph{None}.
+				\item Set \emph{SampleTrg-Sel} PV to \emph{None}.
+				\item Wait until \emph{SampleTrg-Sts} has changed to \emph{None}.
 			\end{enumerate}
 
 		\paragraph{External triggering} In the external triggering mode, the DMM7510 multimeter starts measurements in response to external trigger reception. When both measurement phases have completed, the EPICS application fetchs the multimeter buffer readings.
@@ -144,8 +144,8 @@
 			\begin{enumerate}
 				\item Set \emph{2ndReadDly-SP} to the desired delay between first and second group of measurements. The recommended value is \emph{0.01667} (1 power line cycle).
 				\item Verify if \emph{2ndReadDly-RB} value is correct.
-				\item Set \emph{DigtzeTrg-Sel} PV to \emph{External}.
-				\item Wait until \emph{DigtzeTrg-Sts} has changed to \emph{External}.
+				\item Set \emph{SampleTrg-Sel} PV to \emph{External}.
+				\item Wait until \emph{SampleTrg-Sts} has changed to \emph{External}.
 			\end{enumerate}
 
 		\paragraph{Charge level based triggering} In level based triggering mode, the DMM7510 multimeter starts measurements in response to a rising edge input signal that goes above the specified threshold. The threshold is specified in nC, so that it can be easily selected considering the expected minimum charge value.
@@ -158,8 +158,8 @@
 				\item Verify if \emph{Threshold-RB} has changed accordingly.
 				\item Set \emph{HFReject-Sel} to indicate if high frequency rejection should be used.
 				\item Verify if \emph{HFReject-Sts} has changed accordingly.
-				\item Set \emph{DigtzeTrg-Sel} to \emph{InLevel}.
-				\item Wait until \emph{DigtzeTrg-Sts} has changed to \emph{InLevel}.
+				\item Set \emph{SampleTrg-Sel} to \emph{InLevel}.
+				\item Wait until \emph{SampleTrg-Sts} has changed to \emph{InLevel}.
 			\end{enumerate}
 
 	\subsection{BCM Range selection}
@@ -186,8 +186,8 @@
 		\paragraph{} A few parameters are responsible for defining the measurement characteristics.
 
 			\begin{enumerate}
-				\item \emph{DigtzeCount-SP} sets the number of samples taken during each measurement phase. In total, $ 2\times count $ measurements are taken, first half just after the trigger, and second half one power line cycle later.
-				\item \emph{DigtzeCount-RB} indicates the configured number of measurements per measurement phase.
+				\item \emph{SampleCnt-SP} sets the number of samples taken during each measurement phase. In total, $ 2\times count $ measurements are taken, first half just after the trigger, and second half one power line cycle later.
+				\item \emph{SampleCnt-RB} indicates the configured number of measurements per measurement phase.
 				\item \emph{Aperture-SP} sets the measurement integration period in \SI{}{\micro\second}.
 				\item \emph{Aperture-RB} indicates the configured integration period in \SI{}{\micro\second}.
 				\item \emph{SampleRate-SP} sets the sampling rate of measurements. Indirectly determines the interval between samples.
@@ -257,11 +257,11 @@
 	    					Second half of \emph{RawReadings-Mon} array. This PV holds the raw data corresponding to the second measurement phase, which is the data acquired after the BCM pulse after \emph{2ndReadDly-SP} seconds, and used for noise rejection. The second measurement phase contains $count$ readings.
 						\end{tabular} \\ \hline
 		% --- row ---
-		DigtzeTrg-Sel & ENUM: None, External, InLevel & \begin{tabular}{@{}m{6cm}@{}}
+		SampleTrg-Sel & ENUM: None, External, InLevel & \begin{tabular}{@{}m{6cm}@{}}
 				      	  Digitize trigger source. When set to \emph{External}, the multimeter measurements are triggered by an external trigger. When set to \emph{InLevel}, measurements are triggered when the input signal exceeds the specified threshold (rising edge transition). For both \emph{External} and \emph{InLevel} triggering, the software fetchs $ 2 \times count $ readings from the multimeter's buffer as soon as they are available.
 					  \end{tabular} \\ \hline
 		% --- row ---
-		DigtzeTrg-Sts & ENUM: Unknown, External, InLevel, None & \begin{tabular}{@{}m{6cm}@{}}
+		SampleTrg-Sts & ENUM: Unknown, External, InLevel, None & \begin{tabular}{@{}m{6cm}@{}}
 	    					Trigger source selection status.
 						\end{tabular} \\ \hline
 		% --- row ---
@@ -301,11 +301,11 @@
 	    					BCM full scale output range. This value is used by conversion calculations.
 						\end{tabular} \\ \hline
 		% --- row ---
-		DigtzeCount-SP & LONG: Min=1, Max=1000000 & \begin{tabular}{@{}m{6cm}@{}}
+		SampleCnt-SP & LONG: Min=1, Max=1000000 & \begin{tabular}{@{}m{6cm}@{}}
 	    					Digitize count. Number of samples taken during each measurement phase. Along with the digitize sample rate, determines the duration of the measurement phases.
 						\end{tabular} \\ \hline
 		% --- row ---
-		DigtzeCount-RB & LONG: Min=1, Max=1000000 & \begin{tabular}{@{}m{6cm}@{}}
+		SampleCnt-RB & LONG: Min=1, Max=1000000 & \begin{tabular}{@{}m{6cm}@{}}
 	    					Digitize count readback value.
 						\end{tabular} \\ \hline
 		% --- row ---

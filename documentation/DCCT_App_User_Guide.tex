@@ -201,7 +201,7 @@
 
 		% Measurement characteristcs figure 1
 		\begin{figure}[!h]
-			\caption{Measurement with Count=1, NPLC=2, LineSync=ON}
+			\caption{Measurement with NPLC=2, LineSync=ON}
 			\label{fig:meas-param1}
 			\centering
 			\includegraphics[width=1.0\textwidth]{dcct-meas-param1-image}
@@ -209,26 +209,16 @@
 
 		% Measurement characteristcs figure 2
 		\begin{figure}[!h]
-			\caption{Measurement with Count=2, NPLC=2, LineSync=OFF}
+			\caption{Measurement with NPLC=2, AvgFilterEnbl=ON, AvgFilterCnt=3}
 			\label{fig:meas-param2}
 			\centering
 			\includegraphics[width=1.0\textwidth]{dcct-meas-param2-image}
-		\end{figure}
-
-		% Measurement characteristcs figure 3
-		\begin{figure}[!h]
-			\caption{Measurement with Count=1, NPLC=2, FilterEnbl=ON, FilterCnt=3}
-			\label{fig:meas-param3}
-			\centering
-			\includegraphics[width=1.0\textwidth]{dcct-meas-param3-image}
 		\end{figure}
 \FloatBarrier
 
 		\paragraph{General} A few parameters are responsible for defining the measurement characteristics.
 
 			\begin{enumerate}
-				\item \emph{MeasCount-SP} sets the number of measurements per trigger. Only the latest measurement is retrieved by the software.
-				\item \emph{MeasCount-RB} indicates the configured number of measurements per trigger.
 				\item \emph{NPLC-SP} sets the measurement integration period in number of power line cycles.
 				\item \emph{NPLC-RB} indicates the configured integration period in number of power line cycles.
 				\item \emph{LineSync-Sel} sets if measurement integration period is synched to power line cycle zero crossing. Line synchronization affects measurement speed.
@@ -240,14 +230,14 @@
 		\paragraph{Filter} It is possible to apply an averaging filter to measurements. If enabled, the specified number of samples are taken and averaged by the specified algorithm.
 
 			\begin{enumerate}
-				\item \emph{FilterCnt-SP} sets the number of measurements that are used to produce a reading.
-				\item \emph{FilterCnt-RB} indicates the configured number of measurements used to produce reading.
-				\item \emph{FilterTyp-Sel} sets the filter algorithm used.
-				\item \emph{FilterTyp-Sts} indicates the configured filter algorithm.
-				\item \emph{FilterWind-SP} sets the filter window. When a filter sample value exceeds the window threshold, the filter stack is filled immediately with that sample value.
-				\item \emph{FilterWind-RB} indicates the filter configured window.
-				\item \emph{FilterEnbl-Sel} enables/disables filtering.
-				\item \emph{FilterEnbl-Sts} indicates the filter enable status.
+				\item \emph{AvgFilterCnt-SP} sets the number of measurements that are used to produce a reading.
+				\item \emph{AvgFilterCnt-RB} indicates the configured number of measurements used to produce reading.
+				\item \emph{AvgFilterTyp-Sel} sets the average filter algorithm used.
+				\item \emph{AvgFilterTyp-Sts} indicates the configured average filter algorithm.
+				\item \emph{AvgFilterWind-SP} sets the average filter window. When a filter sample value exceeds the window threshold, the filter stack is filled immediately with that sample value.
+				\item \emph{AvgFilterWind-RB} indicates the filter configured window.
+				\item \emph{AvgFilterEnbl-Sel} enables/disables filtering.
+				\item \emph{AvgFilterEnbl-Sts} indicates the filter enable status.
 			\end{enumerate}
 
 		\paragraph{Relative offset}\label{relative-offset} The relative offset parameter is used to remove offsets caused by instrument zero drift.
@@ -288,6 +278,7 @@
 			\item \emph{StoredEBeam-Mon} indicates if there is beam, i.e., if the current is above the threshold.
 		\end{enumerate}
 
+\newpage
 \section{Process Variables Description}\label{sec:process-variables}
 
 	% Process Variables description table
@@ -357,14 +348,6 @@
 	    					High frequency rejection enable status.
 						\end{tabular} \\ \hline
 		% --- row ---
-		MeasCount-SP & LONG: Min=1, Max=1000000 & \begin{tabular}{@{}m{6cm}@{}}
-	    					Measurement count. Number of measurements to perform upon trigger reception.
-						\end{tabular} \\ \hline
-		% --- row ---
-		MeasCount-RB & LONG: Min=1, Max=1000000 & \begin{tabular}{@{}m{6cm}@{}}
-	    					Measurement count readback value.
-						\end{tabular} \\ \hline
-		% --- row ---
 		NPLC-SP & FLOAT: Min=0.0005, Max=15 & \begin{tabular}{@{}m{6cm}@{}}
 	    					Number of power line cycles. Specifies the duration of the measurement integration period in number of power line cycles.
 						\end{tabular} \\ \hline
@@ -389,36 +372,36 @@
 	    					Multimeter input impedance status.
 						\end{tabular} \\ \hline
 		% --- row ---
-		FilterEnbl-Sel & BOOL: OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
-	    					Enable/disable filter. When filtering is enabled, the multimeter buffer readings are the result of different measurements averaged together using the specified algorithm.
+		AvgFilterEnbl-Sel & BOOL: OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
+	    					Enable/disable the average filter. When filtering is enabled, the multimeter buffer readings are the result of different measurements averaged together using the specified algorithm.
 						\end{tabular} \\ \hline
 		% --- row ---
-		FilterEnbl-Sts & BOOL: OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
-	    					Filter enable status.
+		AvgFilterEnbl-Sts & BOOL: OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
+	    					Average filter enable status.
 						\end{tabular} \\ \hline
 		% --- row ---
-		FilterCnt-SP & LONG: Min=1, Max=100 & \begin{tabular}{@{}m{6cm}@{}}
-	    					Filter count. Specifies the number of samples used to produce the filtered value, which is saved to the multimeter's buffer.
+		AvgFilterCnt-SP & LONG: Min=1, Max=100 & \begin{tabular}{@{}m{6cm}@{}}
+	    					Average filter count. Specifies the number of samples used to produce the filtered value, which is saved to the multimeter's buffer.
 						\end{tabular} \\ \hline
 		% --- row ---
-		FilterCnt-RB & LONG: Min=1, Max=100 & \begin{tabular}{@{}m{6cm}@{}}
-	    					Filter count readback value.
+		AvgFilterCnt-RB & LONG: Min=1, Max=100 & \begin{tabular}{@{}m{6cm}@{}}
+	    					Average filter count readback value.
 						\end{tabular} \\ \hline
 		% --- row ---
-		FilterTyp-Sel & BOOL: Repeat, Moving & \begin{tabular}{@{}m{6cm}@{}}
-	    					Filter type selection. When set to \emph{Repeat}, a set of measurements are made and averaged together, resulting in the reading that is stored. When \emph{Moving} is selected, the measurements are made and continuously added to a FIFO of filter count length. Each time a new measurement is added to the FIFO, the FIFO elements' average produces a new filtered reading.
+		AvgFilterTyp-Sel & BOOL: Repeat, Moving & \begin{tabular}{@{}m{6cm}@{}}
+	    					Average filter type selection. When set to \emph{Repeat}, a set of measurements are made and averaged together, resulting in the reading that is stored. When \emph{Moving} is selected, the measurements are made and continuously added to a FIFO of filter count length. Each time a new measurement is added to the FIFO, the FIFO elements' average produces a new filtered reading.
 						\end{tabular} \\ \hline
 		% --- row ---
-		FilterTyp-Sts & BOOL: Repeat, Moving & \begin{tabular}{@{}m{6cm}@{}}
-	    					Filter type status.
+		AvgFilterTyp-Sts & BOOL: Repeat, Moving & \begin{tabular}{@{}m{6cm}@{}}
+	    					Average filter type status.
 						\end{tabular} \\ \hline
 		% --- row ---
-		FilterWind-SP & LONG: Min=0, Max=10 & \begin{tabular}{@{}m{6cm}@{}}
-	    					Filter window. Specifies the noise window size in percentage of range. The noise window allows a faster response to large signal changes. Readings that exceed the variation allowed by the window fills the filter stack immediately. Setting the filter window to \emph{0} disables the filter window.
+		AvgFilterWind-SP & LONG: Min=0, Max=10 & \begin{tabular}{@{}m{6cm}@{}}
+	    					Average filter window. Specifies the noise window size in percentage of range. The noise window allows a faster response to large signal changes. Readings that exceed the variation allowed by the window fills the filter stack immediately. Setting the filter window to \emph{0} disables the filter window.
 						\end{tabular} \\ \hline
 		% --- row ---
-		FilterWind-RB & LONG: Min=0, Max=10 & \begin{tabular}{@{}m{6cm}@{}}
-	    					Filter window readback value.
+		AvgFilterWind-RB & LONG: Min=0, Max=10 & \begin{tabular}{@{}m{6cm}@{}}
+	    					Average filter window readback value.
 						\end{tabular} \\ \hline
 		% --- row ---
 		RelEnbl-Sel & BOOL: OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
@@ -459,5 +442,4 @@
 	\end{longtable}
 
 \end{document}
-\grid
 \grid

@@ -344,7 +344,7 @@
 
 		\begin{tabular}{N}
 			\hline		
-			\bfseries MeasCount-SP\label{pv:meascount-sp} \\ \hline
+			\bfseries MeasCnt-SP\label{pv:meascount-sp} \\ \hline
 			\emph{Measure Count Set Point} \\
 			Data type: long \\
 			Min=1 \\
@@ -363,7 +363,7 @@
 
 		\begin{tabular}{N}
 			\hline
-			\bfseries MeasCount-RB\label{pv:meascount-rb} \\ \hline
+			\bfseries MeasCnt-RB\label{pv:meascount-rb} \\ \hline
 			\emph{Measure Count Read Back} \\
 			Data type: long \\
 			Description: This PV shows the number of measurements to make when a measurement is requested. \\
@@ -1480,7 +1480,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 
 		\begin{tabular}{N}
 			\hline
-			\bfseries FilterCount-SP\label{pv:filtercount-sp} \\ \hline
+			\bfseries FilterCnt-SP\label{pv:filtercount-sp} \\ \hline
 			\emph{Filter Count Set Point} \\
 			Data type: long \\
 			Min=1 \\
@@ -1499,7 +1499,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 
 		\begin{tabular}{N}
 			\hline
-			\bfseries FilterCount-RB\label{pv:filtercount-rb} \\ \hline
+			\bfseries FilterCnt-RB\label{pv:filtercount-rb} \\ \hline
 			\emph{Filter Count Read Back} \\
 			Data type: long \\
 			Description: This PV shows the number of measurements that are averaged when filtering is enabled. \\
@@ -1656,7 +1656,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 
 		\begin{tabular}{N}
 			\hline
-			\bfseries DigtzeCount-SP\label{pv:digtzecount-sp} \\ \hline
+			\bfseries DigtzeCnt-SP\label{pv:digtzecount-sp} \\ \hline
 			\emph{Digitize Count Set Point} \\
 			Data type: long \\
 			Min=1 \\
@@ -1675,7 +1675,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 
 		\begin{tabular}{N}
 			\hline
-			\bfseries DigtzeCount-RB\label{pv:digtzecount-rb} \\ \hline
+			\bfseries DigtzeCnt-RB\label{pv:digtzecount-rb} \\ \hline
 			\emph{Digitize Count Read Back} \\
 			Data type: long \\
 			Description: This PV shows the number of measurements to digitize when a measurement is requested. \\
@@ -3439,7 +3439,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 
 		\begin{tabular}{N}
 			\hline
-			\bfseries Timer{\textless n\textgreater}Count-SP\label{pv:timercount-sp} \\ \hline
+			\bfseries Timer{\textless n\textgreater}Cnt-SP\label{pv:timercount-sp} \\ \hline
 			\emph{Timer \textless n\textgreater Count Set Point} \\
 			Data type: float \\
 			Min=0 \\
@@ -3451,7 +3451,7 @@ level to above the level. Falling causes an analog trigger event when the signal
 
 		\begin{tabular}{N}
 			\hline
-			\bfseries Timer{\textless n\textgreater}Count-RB\label{pv:timercount-rb} \\ \hline
+			\bfseries Timer{\textless n\textgreater}Cnt-RB\label{pv:timercount-rb} \\ \hline
 			\emph{Timer \textless n\textgreater Count Read Back} \\
 			Data type: float \\
 			n: timer number (1 to 4) \\
@@ -3782,10 +3782,10 @@ count is not changed. \\
 
 		\begin{tabular}{N}
 			\hline
-			\bfseries ACalCount-Mon\label{pv:acalcount-mon} \\ \hline
+			\bfseries ACalCnt-Mon\label{pv:acalcount-mon} \\ \hline
 			\emph{Autocalibration Count Monitor} \\
 			Data type: long \\
-			This PV returns, when processed, the number of times automatic calibration has been run since the last factory calibration. Set \emph{ACalCount-Mon.PROC} to any value in order to get the automatic calibration count once. Set \emph{ACalCount-Mon.SCAN} to a valide EPICS SCAN value in order to monitor the automatic calibration count periodically. \\
+			This PV returns, when processed, the number of times automatic calibration has been run since the last factory calibration. Set \emph{ACalCnt-Mon.PROC} to any value in order to get the automatic calibration count once. Set \emph{ACalCnt-Mon.SCAN} to a valide EPICS SCAN value in order to monitor the automatic calibration count periodically. \\
 			TSP command: print(acal.count)
 		\end{tabular}
 
@@ -4097,10 +4097,10 @@ count is not changed. \\
 
 		\begin{tabular}{N}
 			\hline
-			\bfseries EvLogCount-Mon\label{pv:evlogcount-mon} \\ \hline
+			\bfseries EvLogCnt-Mon\label{pv:evlogcount-mon} \\ \hline
 			\emph{Event Log Count Monitor} \\
 			Data type: long \\
-			Description: When processed, this record reads the number of unread events in the event log. Set \emph{EvLogCount-Mon.PROC} to any value in order to read the number of unread events once. Set \emph{EvLogCount-Mon.SCAN} to a valide EPICS SCAN value in order to monitor the number of unread events periodically. \\
+			Description: When processed, this record reads the number of unread events in the event log. Set \emph{EvLogCnt-Mon.PROC} to any value in order to read the number of unread events once. Set \emph{EvLogCnt-Mon.SCAN} to a valide EPICS SCAN value in order to monitor the number of unread events periodically. \\
 			TSP command: print(eventlog.getcount())
 		\end{tabular}
 
