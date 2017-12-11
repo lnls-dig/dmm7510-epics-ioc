@@ -35,14 +35,6 @@ if [ -z "$DMM7510_NUMBER" ]; then
     exit 6
 fi
 
-# If running DCCT or ICT, R and RDMM must be set
-if [ "$DMM7510_TYPE" = "DCCT" ] || [ "$DMM7510_TYPE" = "ICT" ]; then
-    if [ -z "$R" ] || [ -z "$RDMM" ]; then
-        echo "\$R or \$RDMM are not set, Please use -R and -RDMM option" >&2
-        exit 7
-    fi
-fi
-
 # The indirect variable expansion was used for systemd integration, by using the
 # file in "scripts/systemd/sysconfig", but we are not using this approach anymore.
 # Instead we rely on static configuration of each serviceand pass the appropriate
