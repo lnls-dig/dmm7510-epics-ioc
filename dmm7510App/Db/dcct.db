@@ -272,17 +272,15 @@ record(seq, "$(P)$(R)ProtectSeq2"){
   field(DO7, "0")
   field(DO8, "0")
   field(DO9, "0")
-  field(DOA, "0")
   field(LNK1, "$(P)$(R)TrgDelay-SP.DISP")		# Enable trigger delay set point
   field(LNK2, "$(P)$(R)Range-Sel.DISP")			# Enable range selection
   field(LNK3, "$(P)$(R)LowLimEnbl-Sel.DISP")		# Enable low limit detection enable/disable
   field(LNK4, "$(P)$(R)CurrThold-SP.DISP")		# Enable current threshold set point
   field(LNK5, "$(P)$(R)HFReject-Sel.DISP")		# Enable HF rejection enable/disable
-  field(LNK6, "$(P)$(R)MeasCount-SP.DISP")		# Enable measure count set point
-  field(LNK7, "$(P)$(R)NPLC-SP.DISP")			# Enable NPLC set point
-  field(LNK8, "$(P)$(R)LineSync-Sel.DISP")		# Enable line synchronization enable/disable
-  field(LNK9, "$(P)$(R)Imped-Sel.DISP")			# Enable input impedance enable/disable
-  field(LNKA, "$(P)$(R)FilterEnbl-Sel.DISP")		# Enable filter enable/disable
+  field(LNK6, "$(P)$(R)NPLC-SP.DISP")			# Enable NPLC set point
+  field(LNK7, "$(P)$(R)LineSync-Sel.DISP")		# Enable line synchronization enable/disable
+  field(LNK8, "$(P)$(R)Imped-Sel.DISP")			# Enable input impedance enable/disable
+  field(LNK9, "$(P)$(R)AvgFilterEnbl-Sel.DISP")		# Enable filter enable/disable
   field(FLNK, "$(P)$(R)ProtectSeq3")
 }
 
@@ -298,9 +296,9 @@ record(seq, "$(P)$(R)ProtectSeq3"){
   field(DO6, "0")
   field(DO7, "0")
   field(DO8, "0")
-  field(LNK1, "$(P)$(R)FilterCnt-SP.DISP")		# Enable filter count set point
-  field(LNK2, "$(P)$(R)FilterTyp-Sel.DISP")		# Enable filter type selection
-  field(LNK3, "$(P)$(R)FilterWind-SP.DISP")		# Enable filter window set point
+  field(LNK1, "$(P)$(R)AvgFilterCnt-SP.DISP")		# Enable filter count set point
+  field(LNK2, "$(P)$(R)AvgFilterTyp-Sel.DISP")		# Enable filter type selection
+  field(LNK3, "$(P)$(R)AvgFilterWind-SP.DISP")		# Enable filter window set point
   field(LNK4, "$(P)$(R)RelEnbl-Sel.DISP")		# Enable relative offset enable/disable
   field(LNK5, "$(P)$(R)RelLvl-SP.DISP")			# Enable relative offset set point
   field(LNK6, "$(P)$(R)RelAcq-Cmd.DISP")		# Enable relative offset acquire command
@@ -322,17 +320,15 @@ record(seq, "$(P)$(R)ProtectSeq4"){
   field(DO7, "1")
   field(DO8, "1")
   field(DO9, "1")
-  field(DOA, "1")
   field(LNK1, "$(P)$(R)TrgDelay-SP.DISP")		# Disable trigger delay set point
   field(LNK2, "$(P)$(R)Range-Sel.DISP")			# Disable range selection
   field(LNK3, "$(P)$(R)LowLimEnbl-Sel.DISP")		# Disable low limit detection enable/disable
   field(LNK4, "$(P)$(R)CurrThold-SP.DISP")		# Disable current threshold set point
   field(LNK5, "$(P)$(R)HFReject-Sel.DISP")		# Disable HF rejection enable/disable
-  field(LNK6, "$(P)$(R)MeasCount-SP.DISP")		# Disable measure count set point
-  field(LNK7, "$(P)$(R)NPLC-SP.DISP")			# Disable NPLC set point
-  field(LNK8, "$(P)$(R)LineSync-Sel.DISP")		# Disable line synchronization enable/disable
-  field(LNK9, "$(P)$(R)Imped-Sel.DISP")			# Disable input impedance enable/disable
-  field(LNKA, "$(P)$(R)FilterEnbl-Sel.DISP")		# Disable filter enable/disable
+  field(LNK6, "$(P)$(R)NPLC-SP.DISP")			# Disable NPLC set point
+  field(LNK7, "$(P)$(R)LineSync-Sel.DISP")		# Disable line synchronization enable/disable
+  field(LNK8, "$(P)$(R)Imped-Sel.DISP")			# Disable input impedance enable/disable
+  field(LNK9, "$(P)$(R)AvgFilterEnbl-Sel.DISP")		# Disable filter enable/disable
   field(FLNK, "$(P)$(R)ProtectSeq5")
 }
 
@@ -347,9 +343,9 @@ record(seq, "$(P)$(R)ProtectSeq5"){
   field(DO5, "1")
   field(DO6, "1")
   field(DO7, "1")
-  field(LNK1, "$(P)$(R)FilterCnt-SP.DISP")		# Disable filter count set point
-  field(LNK2, "$(P)$(R)FilterTyp-Sel.DISP")		# Disable filter type selection
-  field(LNK3, "$(P)$(R)FilterWind-SP.DISP")		# Disable filter window set point
+  field(LNK1, "$(P)$(R)AvgFilterCnt-SP.DISP")		# Disable filter count set point
+  field(LNK2, "$(P)$(R)AvgFilterTyp-Sel.DISP")		# Disable filter type selection
+  field(LNK3, "$(P)$(R)AvgFilterWind-SP.DISP")		# Disable filter window set point
   field(LNK4, "$(P)$(R)RelEnbl-Sel.DISP")		# Disable relative offset enable/disable
   field(LNK5, "$(P)$(R)RelLvl-SP.DISP")			# Disable relative offset set point
   field(LNK6, "$(P)$(R)RelAcq-Cmd.DISP")		# Disable relative offset acquire command
@@ -450,21 +446,6 @@ record(bi, "$(P)$(R)StoredEBeam-Mon"){
 # Measurement Settings
 # Desc: Measurement parameters.
 
-# Measurement count (high level)
-record(longout, "$(P)$(R)MeasCount-SP"){
-  field(DESC, "Measurement count high level PV")
-  field(DRVH, "1000000")
-  field(DRVL, "1")
-  field(OUT, "$(Instrument)MeasCount-SP.VAL PP")
-}
-
-# Measurement count RB (high level)
-record(longin, "$(P)$(R)MeasCount-RB"){
-  field(ASG, "Reserved")
-  field(DESC, "Measurement count RB high level PV")
-  field(INP, "$(Instrument)MeasCount-RB CPP")
-}
-
 # Input Impedance (high level)
 record(bo, "$(P)$(R)Imped-Sel"){
   field(DESC, "Input impedance high level PV")
@@ -522,22 +503,22 @@ record(ai, "$(P)$(R)NPLC-RB"){
 }
 
 # Filter counter (high level)
-record(longout, "$(P)$(R)FilterCnt-SP"){
+record(longout, "$(P)$(R)AvgFilterCnt-SP"){
   field(DESC, "Filter counter high level PV")
   field(DRVH, "100")
   field(DRVL, "1")
-  field(OUT, "$(Instrument)FilterCount-SP PP")
+  field(OUT, "$(Instrument)FilterCnt-SP PP")
 }
 
 # Filter counter RB (high level)
-record(longin, "$(P)$(R)FilterCnt-RB"){
+record(longin, "$(P)$(R)AvgFilterCnt-RB"){
   field(ASG, "Reserved")
   field(DESC, "Filter counter RB high level PV")
-  field(INP, "$(Instrument)FilterCount-RB CPP")
+  field(INP, "$(Instrument)FilterCnt-RB CPP")
 }
 
 # Filter enable (high level)
-record(bo, "$(P)$(R)FilterEnbl-Sel"){
+record(bo, "$(P)$(R)AvgFilterEnbl-Sel"){
   field(DESC, "Filter enable high level PV")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
@@ -545,7 +526,7 @@ record(bo, "$(P)$(R)FilterEnbl-Sel"){
 }
 
 # Filter enable Sts (high level)
-record(bi, "$(P)$(R)FilterEnbl-Sts"){
+record(bi, "$(P)$(R)AvgFilterEnbl-Sts"){
   field(ASG, "Reserved")
   field(DESC, "Filter enable Sts high level PV")
   field(ZNAM, "OFF")
@@ -554,7 +535,7 @@ record(bi, "$(P)$(R)FilterEnbl-Sts"){
 }
 
 # Filter type (high level)
-record(bo, "$(P)$(R)FilterTyp-Sel"){
+record(bo, "$(P)$(R)AvgFilterTyp-Sel"){
   field(DESC, "Filter type high level PV")
   field(ZNAM, "Repeat")
   field(ONAM, "Moving")
@@ -562,7 +543,7 @@ record(bo, "$(P)$(R)FilterTyp-Sel"){
 }
 
 # Filter type Sts (high level)
-record(bi, "$(P)$(R)FilterTyp-Sts"){
+record(bi, "$(P)$(R)AvgFilterTyp-Sts"){
   field(ASG, "Reserved")
   field(DESC, "Filter type Sts high level PV")
   field(ZNAM, "Repeat")
@@ -571,7 +552,7 @@ record(bi, "$(P)$(R)FilterTyp-Sts"){
 }
 
 # Filter window (high level)
-record(longout, "$(P)$(R)FilterWind-SP"){
+record(longout, "$(P)$(R)AvgFilterWind-SP"){
   field(DESC, "Filter window high level PV")
   field(DRVH, "10")
   field(DRVL, "0")
@@ -580,7 +561,7 @@ record(longout, "$(P)$(R)FilterWind-SP"){
 }
 
 # Filter window RB (high level)
-record(longin, "$(P)$(R)FilterWind-RB"){
+record(longin, "$(P)$(R)AvgFilterWind-RB"){
   field(ASG, "Reserved")
   field(DESC, "Filter window RB high level PV")
   field(EGU, "%")
@@ -1000,17 +981,15 @@ record(sseq, "$(P)$(R)DownloadSeq2"){
   field(DO7, "1")
   field(DO8, "1")
   field(DO9, "1")
-  field(DOA, "1")
-  field(LNK1, "$(P)$(R)MeasCount-SP.PROC")			# Meas. count high level proc
-  field(LNK2, "$(P)$(R)Imped-Sel.PROC")				# Meas. input impedance proc
-  field(LNK3, "$(P)$(R)LineSync-Sel.PROC")			# Meas. line sync proc 
-  field(LNK4, "$(P)$(R)NPLC-SP.PROC")				# Meas. NPLC proc
-  field(LNK5, "$(P)$(R)RelEnbl-Sel.PROC")			# Meas. relative offset enable proc
-  field(LNK6, "$(P)$(R)RelLvl-SP.PROC")				# Meas. relative offset level proc
-  field(LNK7, "$(P)$(R)FilterTyp-Sel.PROC")			# Filter type proc
-  field(LNK8, "$(P)$(R)FilterCnt-SP.PROC")			# Filter count proc
-  field(LNK9, "$(P)$(R)FilterWind-SP.PROC")			# Filter window proc
-  field(LNKA, "$(P)$(R)FilterEnbl-Sel.PROC")			# Filter enable proc
+  field(LNK1, "$(P)$(R)Imped-Sel.PROC")				# Meas. input impedance proc
+  field(LNK2, "$(P)$(R)LineSync-Sel.PROC")			# Meas. line sync proc 
+  field(LNK3, "$(P)$(R)NPLC-SP.PROC")				# Meas. NPLC proc
+  field(LNK4, "$(P)$(R)RelEnbl-Sel.PROC")			# Meas. relative offset enable proc
+  field(LNK5, "$(P)$(R)RelLvl-SP.PROC")				# Meas. relative offset level proc
+  field(LNK6, "$(P)$(R)AvgFilterTyp-Sel.PROC")			# Filter type proc
+  field(LNK7, "$(P)$(R)AvgFilterCnt-SP.PROC")			# Filter count proc
+  field(LNK8, "$(P)$(R)AvgFilterWind-SP.PROC")			# Filter window proc
+  field(LNK9, "$(P)$(R)AvgFilterEnbl-Sel.PROC")			# Filter enable proc
   field(FLNK, "$(P)$(R)DownloadSeq3")
 }
 
@@ -1033,7 +1012,7 @@ record(sseq, "$(P)$(R)DownloadSeq3"){
   field(LNK4, "$(Instrument)Dig4Mod-Sel PP")			# DigIO 4 Mode = DIG_OUT
   field(LNK5, "$(Instrument)Dig5Mod-Sel PP")			# DigIO 5 Mode = DIG_OUT
   field(LNK6, "$(Instrument)Dig6Mod-Sel PP")			# DigIO 6 Mode = DIG_OUT
-  field(LNK7, "$(Instrument)Timer1Count-SP PP")			# Timer 1 count = 1
+  field(LNK7, "$(Instrument)Timer1Cnt-SP PP")			# Timer 1 count = 1
   field(LNK8, "$(P)$(R)TrgDelay-SP.PROC")			# Timer 1 delay proc
   field(LNK9, "$(Instrument)Timer1Enbl-Sel PP")			# Timer 1 enable
   field(FLNK, "$(P)$(R)DownloadSeq4")

@@ -3,7 +3,7 @@
 # Desc: Digitize trigger option.
 
 # Digitize trigger source
-record(mbbo, "$(P)$(R)DigtzeTrg-Sel"){
+record(mbbo, "$(P)$(R)SampleTrg-Sel"){
   field(DESC, "Digitize trigger source")
   field(ZRST, "None")
   field(ONST, "External")
@@ -11,7 +11,7 @@ record(mbbo, "$(P)$(R)DigtzeTrg-Sel"){
 }
 
 # Configuration reset used by download
-record(bo, "$(P)$(R)DigtzeTrgRst"){
+record(bo, "$(P)$(R)SampleTrgRst"){
   field(ASG, "Reserved")
   field(DESC, "Digtze trg reset used in download")
   field(ZNAM, "OFF")
@@ -21,24 +21,24 @@ record(bo, "$(P)$(R)DigtzeTrgRst"){
 }
 
 # Trigger source selection branch index calc
-record(calcout, "$(P)$(R)DigtzeTrgCalc"){
+record(calcout, "$(P)$(R)SampleTrgCalc"){
   field(ASG, "Reserved")
   field(DESC, "Digtze trg branch index calc")
   field(SCAN, "5 second")
-  field(INPA, "$(P)$(R)DigtzeTrg-Sel.VAL")
-  field(INPB, "$(P)$(R)DigtzeTrgRst.VAL")
+  field(INPA, "$(P)$(R)SampleTrg-Sel.VAL")
+  field(INPB, "$(P)$(R)SampleTrgRst.VAL")
   field(CALC, "B=0?(A+1):0")
   field(OOPT, "On Change")
   field(VAL, "7")						# Initialize in a nonexistent state
-  field(OUT, "$(P)$(R)DigtzeTrgFout.PROC")
+  field(OUT, "$(P)$(R)SampleTrgFout.PROC")
 }
 
 # Fanout selects config branch to be executed
-record(fanout, "$(P)$(R)DigtzeTrgFout"){
+record(fanout, "$(P)$(R)SampleTrgFout"){
   field(ASG, "Reserved")
   field(DESC, "Digtze trg source config selection")
   field(SELM, "Specified")
-  field(SELL, "$(P)$(R)DigtzeTrgCalc.VAL")
+  field(SELL, "$(P)$(R)SampleTrgCalc.VAL")
   field(LNK1, "$(P)$(R)ConfigNone")
   field(LNK2, "$(P)$(R)ConfigEx")
   field(LNK3, "$(P)$(R)ConfigLvl")
@@ -127,11 +127,11 @@ record(scalcout, "$(P)$(R)ConfCheck4"){
   field(DESC, "Check calc 4 for digtze trigger config")
   field(INPA, "$(P)$(R)ConfCheck3.VAL")
   field(CALC, "A=1?'External':(A=2?'InLevel':(A=3?'None':'Unknown'))")
-  field(OUT, "$(P)$(R)DigtzeTrg-Sts PP")
+  field(OUT, "$(P)$(R)SampleTrg-Sts PP")
 }
 
 # Digitize trigger source status
-record(mbbi, "$(P)$(R)DigtzeTrg-Sts"){
+record(mbbi, "$(P)$(R)SampleTrg-Sts"){
   field(ASG, "Reserved")
   field(DESC, "Digitize trigger source Sts")
   field(ZRST, "Unknown")
@@ -174,7 +174,7 @@ record(calcout, "$(P)$(R)BuffCntCalc"){
   field(DESC, "Buffer counter monitor calc")
   field(PRIO, "HIGH")
   field(INPA, "$(Instrument)CntBuff1-Mon CPP")
-  field(INPB, "$(P)$(R)DigtzeCount-RB.VAL")
+  field(INPB, "$(P)$(R)SampleCnt-RB.VAL")
   field(CALC, "((A>0)&&(A=(2*B)))?1:0")
   field(OOPT, "When Non-zero")
   field(OUT, "$(Instrument)ReadBuff1-Mon.PROC")
@@ -187,7 +187,7 @@ record(calcout, "$(P)$(R)BuffClear"){
   field(DESC, "Clear buffer calc")
   field(PRIO, "HIGH")
   field(INPA, "$(Instrument)CntBuff1-Mon.VAL")
-  field(INPB, "$(P)$(R)DigtzeCount-RB.VAL")
+  field(INPB, "$(P)$(R)SampleCnt-RB.VAL")
   field(CALC, "(A>0)&&(A>=(2*B))")
   field(OOPT, "When Non-zero")
   field(OUT, "$(Instrument)ClrBuff1-Cmd PP")
@@ -210,7 +210,7 @@ record(acalcout, "$(P)$(R)ReadingsCalc"){
   field(DESC, "Readings filter calc")
   field(NELM, "1000")
   field(INAA, "$(P)$(R)RawReadings-Mon.VAL")
-  field(INPB, "$(P)$(R)DigtzeCount-RB.VAL")
+  field(INPB, "$(P)$(R)SampleCnt-RB.VAL")
   field(CALC, "CC:=AA[0,B-1];DD:=AA[B,2*B-1];AVG(AA[0,B-1])-AVG(AA[B,2*B-1])")
   field(OUT, "$(P)$(R)Charge-Mon PP")
   field(FLNK, "$(P)$(R)RawPulse-Mon")
@@ -263,29 +263,29 @@ record(compress, "$(P)$(R)ChargeHstr-Mon"){
 # Desc: Digitize parameters.
 
 # Digitize count (high level)
-record(longout, "$(P)$(R)DigtzeCount-SP"){
+record(longout, "$(P)$(R)SampleCnt-SP"){
   field(DESC, "Digitize count high level PV")
   field(DRVH, "1000000")
   field(DRVL, "1")
-  field(OUT, "$(Instrument)DigtzeCount-SP.VAL PP")
-  field(FLNK, "$(P)$(R)DigtzeCntCalc")
+  field(OUT, "$(Instrument)DigtzeCnt-SP.VAL PP")
+  field(FLNK, "$(P)$(R)SampleCntCalc")
 }
 
 # Set the last index of buffer to read twice the count value,
 # since 2 x 'Count' samples are taken during digitizing
-record(calcout, "$(P)$(R)DigtzeCntCalc"){
+record(calcout, "$(P)$(R)SampleCntCalc"){
   field(ASG, "Reserved")
   field(DESC, "Calc sets last reading index in buffer")
-  field(INPA, "$(P)$(R)DigtzeCount-SP.VAL")
+  field(INPA, "$(P)$(R)SampleCnt-SP.VAL")
   field(CALC, "2*A")
   field(OUT, "$(Instrument)EndRead1-SP PP")
 }
 
 # Digitize count RB (high level)
-record(longin, "$(P)$(R)DigtzeCount-RB"){
+record(longin, "$(P)$(R)SampleCnt-RB"){
   field(ASG, "Reserved")
   field(DESC, "Digitize count RB high level PV")
-  field(INP, "$(Instrument)DigtzeCount-RB CPP")
+  field(INP, "$(Instrument)DigtzeCnt-RB CPP")
 }
 
 # Input Impedance (high level)
@@ -669,7 +669,7 @@ record(sseq, "$(P)$(R)DownloadSeq1"){
   field(LNK4, "$(Instrument)DigtzeCoup-Sel PP")		# Digitize coupling = DC
   field(LNK5, "$(Instrument)DigtzeStim-Sel PP")		# Digitize stimulus = TIMER 1
   field(LNK6, "$(P)$(R)SampleRate-SP.PROC")		# Digitize sample rate high level proc
-  field(LNK7, "$(P)$(R)DigtzeCount-SP.PROC")		# Digitize count high level proc
+  field(LNK7, "$(P)$(R)SampleCnt-SP.PROC")		# Digitize count high level proc
   field(LNK8, "$(P)$(R)Aperture-SP.PROC")		# Digitize aperture high level proc
   field(LNK9, "$(P)$(R)Imped-Sel.PROC")			# Digitize input impedance high level proc
   field(LNKA, "$(Instrument)StartRead1-SP PP")		# Start index for buffer reading = 1
@@ -723,9 +723,9 @@ record(sseq, "$(P)$(R)DownloadSeq3"){
   field(LNK4, "$(Instrument)ExInEdge-Sel PP")		# External Input trigger edge = RISING
   field(LNK5, "$(Instrument)DATrEdgeSlp-Sel PP")	# Digitize analog trigger edge slope = Rising
   field(LNK6, "$(P)$(R)2ndReadDly-SP.PROC")		# Timer 1 delay proc
-  field(LNK7, "$(Instrument)Timer1Count-SP PP")		# Timer 1 count = 1
+  field(LNK7, "$(Instrument)Timer1Cnt-SP PP")		# Timer 1 count = 1
   field(LNK8, "$(Instrument)Timer1Gen-Sel PP")		# Timer 1 event generation = Start and elapse
-  field(LNK9, "$(P)$(R)DigtzeTrgRst.VAL PP")          	# Reset DigtzeTrgCalc so that next time it will process
+  field(LNK9, "$(P)$(R)SampleTrgRst.VAL PP")          	# Reset DigtzeTrgCalc so that next time it will process
   field(FLNK, "$(P)$(R)DownloadSeq4")
 }
 

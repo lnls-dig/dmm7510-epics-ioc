@@ -387,7 +387,7 @@ $(pv_value)</tooltip>
       <show_scrollbar>true</show_scrollbar>
       <tooltip></tooltip>
       <transparent>true</transparent>
-      <visible>true</visible>
+      <visible>false</visible>
       <widget_type>Grouping Container</widget_type>
       <width>725</width>
       <wuid>6ffc2fbb:15b5e7181fb:-7ffa</wuid>
@@ -644,7 +644,7 @@ $(pv_value)</tooltip>
           <show_scrollbar>true</show_scrollbar>
           <tooltip></tooltip>
           <transparent>true</transparent>
-          <visible>true</visible>
+          <visible>false</visible>
           <widget_type>Grouping Container</widget_type>
           <width>665</width>
           <wuid>29dbf79c:15b6217ca6c:-784f</wuid>
@@ -1912,7 +1912,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(P)$(R)MeasCount-SP</pv_name>
+              <pv_name>$(P)$(R)MeasCnt-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -1964,7 +1964,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(P)$(R)MeasCount-RB</pv_name>
+              <pv_name>$(P)$(R)MeasCnt-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -2688,7 +2688,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(P)$(R)FilterCount-SP</pv_name>
+              <pv_name>$(P)$(R)FilterCnt-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -2740,7 +2740,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(P)$(R)FilterCount-RB</pv_name>
+              <pv_name>$(P)$(R)FilterCnt-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -9327,7 +9327,7 @@ $(pv_value)</tooltip>
           <show_scrollbar>true</show_scrollbar>
           <tooltip></tooltip>
           <transparent>true</transparent>
-          <visible>false</visible>
+          <visible>true</visible>
           <widget_type>Grouping Container</widget_type>
           <width>665</width>
           <wuid>29dbf79c:15b6217ca6c:-784e</wuid>
@@ -10751,7 +10751,7 @@ $(pv_value)</tooltip>
               <name>Text Input</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(P)$(R)DigtzeCount-SP</pv_name>
+              <pv_name>$(P)$(R)DigtzeCnt-SP</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -10803,7 +10803,7 @@ $(pv_value)</tooltip>
               <name>Text Update</name>
               <precision>0</precision>
               <precision_from_pv>true</precision_from_pv>
-              <pv_name>$(P)$(R)DigtzeCount-RB</pv_name>
+              <pv_name>$(P)$(R)DigtzeCnt-RB</pv_name>
               <pv_value />
               <rotation_angle>0.0</rotation_angle>
               <rules />
@@ -37230,7 +37230,7 @@ $(pv_value)</tooltip>
             <name>Text Update</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(P)$(R)ACalCount-Mon</pv_name>
+            <pv_name>$(P)$(R)ACalCnt-Mon</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -37286,7 +37286,7 @@ $(pv_value)</tooltip>
             </items>
             <items_from_pv>false</items_from_pv>
             <name>Combo</name>
-            <pv_name>$(P)$(R)ACalCount-Mon.SCAN</pv_name>
+            <pv_name>$(P)$(R)ACalCnt-Mon.SCAN</pv_name>
             <pv_value />
             <rules />
             <scale_options>
@@ -43488,7 +43488,7 @@ $(pv_value)</tooltip>
             <name>Text Update_1</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(P)$(R)Timer1Count-RB</pv_name>
+            <pv_name>$(P)$(R)Timer1Cnt-RB</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -43545,7 +43545,7 @@ $(pv_value)</tooltip>
             <name>Text Input</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(P)$(R)Timer1Count-SP</pv_name>
+            <pv_name>$(P)$(R)Timer1Cnt-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -44611,7 +44611,7 @@ $(pv_value)</tooltip>
             <name>Text Update_1</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(P)$(R)Timer2Count-RB</pv_name>
+            <pv_name>$(P)$(R)Timer2Cnt-RB</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -44668,7 +44668,7 @@ $(pv_value)</tooltip>
             <name>Text Input</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(P)$(R)Timer2Count-SP</pv_name>
+            <pv_name>$(P)$(R)Timer2Cnt-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -45734,7 +45734,7 @@ $(pv_value)</tooltip>
             <name>Text Update_1</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(P)$(R)Timer3Count-RB</pv_name>
+            <pv_name>$(P)$(R)Timer3Cnt-RB</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -45791,7 +45791,7 @@ $(pv_value)</tooltip>
             <name>Text Input</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(P)$(R)Timer3Count-SP</pv_name>
+            <pv_name>$(P)$(R)Timer3Cnt-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -46857,7 +46857,7 @@ $(pv_value)</tooltip>
             <name>Text Update_1</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(P)$(R)Timer4Count-RB</pv_name>
+            <pv_name>$(P)$(R)Timer4Cnt-RB</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -46914,7 +46914,7 @@ $(pv_value)</tooltip>
             <name>Text Input</name>
             <precision>0</precision>
             <precision_from_pv>true</precision_from_pv>
-            <pv_name>$(P)$(R)Timer4Count-SP</pv_name>
+            <pv_name>$(P)$(R)Timer4Cnt-SP</pv_name>
             <pv_value />
             <rotation_angle>0.0</rotation_angle>
             <rules />
@@ -49557,7 +49557,7 @@ $(pv_value)</tooltip>
       <show_scrollbar>true</show_scrollbar>
       <tooltip></tooltip>
       <transparent>true</transparent>
-      <visible>false</visible>
+      <visible>true</visible>
       <widget_type>Grouping Container</widget_type>
       <width>725</width>
       <wuid>6ffc2fbb:15b5e7181fb:-7ff2</wuid>
@@ -50439,7 +50439,7 @@ $(pv_value)</tooltip>
           <name>Text Update</name>
           <precision>0</precision>
           <precision_from_pv>true</precision_from_pv>
-          <pv_name>$(P)$(R)EvLogCount-Mon</pv_name>
+          <pv_name>$(P)$(R)EvLogCnt-Mon</pv_name>
           <pv_value />
           <rotation_angle>0.0</rotation_angle>
           <rules />
@@ -50495,7 +50495,7 @@ $(pv_value)</tooltip>
           </items>
           <items_from_pv>false</items_from_pv>
           <name>Combo</name>
-          <pv_name>$(P)$(R)EvLogCount-Mon.SCAN</pv_name>
+          <pv_name>$(P)$(R)EvLogCnt-Mon.SCAN</pv_name>
           <pv_value />
           <rules />
           <scale_options>

@@ -1948,16 +1948,16 @@ record(bi, "$(P)$(R)MeasLineSync-Sts"){
   field(INP, "@dmm7510.proto meas_linesync_get $(PORT)")
 }
 
-record(longout, "$(P)$(R)MeasCount-SP"){
+record(longout, "$(P)$(R)MeasCnt-SP"){
   field(DESC, "Number of meas. done after a request")
   field(DRVH, "1000000")
   field(DRVL, "1")
   field(DTYP, "stream")
   field(OUT, "@dmm7510.proto meas_cnt_set $(PORT)")
-  field(FLNK, "$(P)$(R)MeasCount-RB")
+  field(FLNK, "$(P)$(R)MeasCnt-RB")
 }
 
-record(longin, "$(P)$(R)MeasCount-RB"){
+record(longin, "$(P)$(R)MeasCnt-RB"){
   field(ASG, "Reserved")
   field(DESC, "Number of meas. done after a request RB")
   field(DTYP, "stream")
@@ -2054,16 +2054,16 @@ record(stringin, "$(P)$(R)MeasStim-Sts"){
 # Desc: Filter applied to measurement result.
 
 # The protocol sets the filter count for the SELECTED MEASUREMENT
-record(longout, "$(P)$(R)FilterCount-SP"){
+record(longout, "$(P)$(R)FilterCnt-SP"){
   field(DESC, "Measurement filter count")
   field(DRVH, "100")
   field(DRVL, "1")
   field(DTYP, "stream")
   field(OUT, "@dmm7510.proto filter_cnt_set $(PORT)")
-  field(FLNK, "$(P)$(R)FilterCount-RB")
+  field(FLNK, "$(P)$(R)FilterCnt-RB")
 }
 
-record(longin, "$(P)$(R)FilterCount-RB"){
+record(longin, "$(P)$(R)FilterCnt-RB"){
   field(ASG, "Reserved")
   field(DESC, "Measurement filter count RB")
   field(DTYP, "stream")
@@ -2252,16 +2252,16 @@ record(longin, "$(P)$(R)DigtzeSR-RB"){
   field(INP, "@dmm7510.proto digtz_sr_get $(PORT)")
 }
 
-record(longout, "$(P)$(R)DigtzeCount-SP"){
+record(longout, "$(P)$(R)DigtzeCnt-SP"){
   field(DESC, "Number of meas. done after a request")
   field(DRVH, "55000000")
   field(DRVL, "1")
   field(DTYP, "stream")
   field(OUT, "@dmm7510.proto digtz_cnt_set $(PORT)")
-  field(FLNK, "$(P)$(R)DigtzeCount-RB")
+  field(FLNK, "$(P)$(R)DigtzeCnt-RB")
 }
 
-record(longin, "$(P)$(R)DigtzeCount-RB"){
+record(longin, "$(P)$(R)DigtzeCnt-RB"){
   field(ASG, "Reserved")
   field(DESC, "Number of meas. done after a request RB")
   field(DTYP, "stream")
@@ -3607,7 +3607,7 @@ record(calcout, "$(P)$(R)DigtzBuff2Calc"){
 # Calibration
 # Desc: Temperature information and autocalibration.
 
-record(longin, "$(P)$(R)ACalCount-Mon"){
+record(longin, "$(P)$(R)ACalCnt-Mon"){
   field(DESC, "Num. of times autocal. has been run")
   field(DTYP, "stream")
   field(INP, "@dmm7510.proto acal_count_get $(PORT)")
@@ -4744,16 +4744,16 @@ record(calcout, "$(P)$(R)Timer1ClrCalc"){
   field(OUT, "@dmm7510.proto timer_clr_set(1) $(PORT)")
 }
 
-record(longout, "$(P)$(R)Timer1Count-SP"){
+record(longout, "$(P)$(R)Timer1Cnt-SP"){
   field(DESC, "Timer 1 repeat count")
   field(DRVH, "1048575")
   field(DRVL, "0")
   field(DTYP, "stream")
   field(OUT, "@dmm7510.proto timer_count_set(1) $(PORT)")
-  field(FLNK, "$(P)$(R)Timer1Count-RB")
+  field(FLNK, "$(P)$(R)Timer1Cnt-RB")
 }
 
-record(longin, "$(P)$(R)Timer1Count-RB"){
+record(longin, "$(P)$(R)Timer1Cnt-RB"){
   field(ASG, "Reserved")
   field(DESC, "Timer 1 repeat count RB")
   field(DTYP, "stream")
@@ -4968,16 +4968,16 @@ record(calcout, "$(P)$(R)Timer2ClrCalc"){
   field(OUT, "@dmm7510.proto timer_clr_set(2) $(PORT)")
 }
 
-record(longout, "$(P)$(R)Timer2Count-SP"){
+record(longout, "$(P)$(R)Timer2Cnt-SP"){
   field(DESC, "Timer 2 repeat count")
   field(DRVH, "1048575")
   field(DRVL, "0")
   field(DTYP, "stream")
   field(OUT, "@dmm7510.proto timer_count_set(2) $(PORT)")
-  field(FLNK, "$(P)$(R)Timer2Count-RB")
+  field(FLNK, "$(P)$(R)Timer2Cnt-RB")
 }
 
-record(longin, "$(P)$(R)Timer2Count-RB"){
+record(longin, "$(P)$(R)Timer2Cnt-RB"){
   field(ASG, "Reserved")
   field(DESC, "Timer 2 repeat count RB")
   field(DTYP, "stream")
@@ -5192,16 +5192,16 @@ record(calcout, "$(P)$(R)Timer3ClrCalc"){
   field(OUT, "@dmm7510.proto timer_clr_set(3) $(PORT)")
 }
 
-record(longout, "$(P)$(R)Timer3Count-SP"){
+record(longout, "$(P)$(R)Timer3Cnt-SP"){
   field(DESC, "Timer 3 repeat count")
   field(DRVH, "1048575")
   field(DRVL, "0")
   field(DTYP, "stream")
   field(OUT, "@dmm7510.proto timer_count_set(3) $(PORT)")
-  field(FLNK, "$(P)$(R)Timer3Count-RB")
+  field(FLNK, "$(P)$(R)Timer3Cnt-RB")
 }
 
-record(longin, "$(P)$(R)Timer3Count-RB"){
+record(longin, "$(P)$(R)Timer3Cnt-RB"){
   field(ASG, "Reserved")
   field(DESC, "Timer 3 repeat count RB")
   field(DTYP, "stream")
@@ -5416,16 +5416,16 @@ record(calcout, "$(P)$(R)Timer4ClrCalc"){
   field(OUT, "@dmm7510.proto timer_clr_set(4) $(PORT)")
 }
 
-record(longout, "$(P)$(R)Timer4Count-SP"){
+record(longout, "$(P)$(R)Timer4Cnt-SP"){
   field(DESC, "Timer 4 repeat count")
   field(DRVH, "1048575")
   field(DRVL, "0")
   field(DTYP, "stream")
   field(OUT, "@dmm7510.proto timer_count_set(4) $(PORT)")
-  field(FLNK, "$(P)$(R)Timer4Count-RB")
+  field(FLNK, "$(P)$(R)Timer4Cnt-RB")
 }
 
-record(longin, "$(P)$(R)Timer4Count-RB"){
+record(longin, "$(P)$(R)Timer4Cnt-RB"){
   field(ASG, "Reserved")
   field(DESC, "Timer 4 repeat count RB")
   field(DTYP, "stream")
@@ -5687,7 +5687,7 @@ record(calcout, "$(P)$(R)ClearEvLogCalc"){
 }
 
 # Number of events since last query or log clear
-record(longin, "$(P)$(R)EvLogCount-Mon"){
+record(longin, "$(P)$(R)EvLogCnt-Mon"){
   field(DESC, "Number of unread events in the log")
   field(EGU, "events")
   field(DTYP, "stream")
@@ -5995,7 +5995,7 @@ record(fanout, "$(P)$(R)UploadAll9"){
   field(SELM, "All")
   field(LNK1, "$(P)$(R)Blend2Stim3-Sts")
   field(LNK2, "$(P)$(R)Blend2Stim4-Sts")
-  field(LNK3, "$(P)$(R)Timer1Count-RB")
+  field(LNK3, "$(P)$(R)Timer1Cnt-RB")
   field(LNK4, "$(P)$(R)Timer1Dly-RB")
   field(LNK5, "$(P)$(R)Timer1Frac-RB")
   field(LNK6, "$(P)$(R)Timer1Gen-Sts")
@@ -6009,7 +6009,7 @@ record(fanout, "$(P)$(R)UploadAll10"){
   field(LNK1, "$(P)$(R)Timer1Sec-RB")
   field(LNK2, "$(P)$(R)Timer1Enbl-Sts")
   field(LNK3, "$(P)$(R)Timer1Stim-Sts")
-  field(LNK4, "$(P)$(R)Timer2Count-RB")
+  field(LNK4, "$(P)$(R)Timer2Cnt-RB")
   field(LNK5, "$(P)$(R)Timer2Dly-RB")
   field(LNK6, "$(P)$(R)Timer2Frac-RB")
   field(FLNK, "$(P)$(R)UploadAll11")
@@ -6023,7 +6023,7 @@ record(fanout, "$(P)$(R)UploadAll11"){
   field(LNK2, "$(P)$(R)Timer2Sec-RB")
   field(LNK3, "$(P)$(R)Timer2Enbl-Sts")
   field(LNK4, "$(P)$(R)Timer2Stim-Sts")
-  field(LNK5, "$(P)$(R)Timer3Count-RB")
+  field(LNK5, "$(P)$(R)Timer3Cnt-RB")
   field(LNK6, "$(P)$(R)Timer3Dly-RB")
   field(FLNK, "$(P)$(R)UploadAll12")
 }
@@ -6037,7 +6037,7 @@ record(fanout, "$(P)$(R)UploadAll12"){
   field(LNK3, "$(P)$(R)Timer3Sec-RB")
   field(LNK4, "$(P)$(R)Timer3Enbl-Sts")
   field(LNK5, "$(P)$(R)Timer3Stim-Sts")
-  field(LNK6, "$(P)$(R)Timer4Count-RB")
+  field(LNK6, "$(P)$(R)Timer4Cnt-RB")
   field(FLNK, "$(P)$(R)UploadAll13")
 }
 
@@ -6142,7 +6142,7 @@ record(fanout, "$(P)$(R)DigtzFout1"){
   field(SELM, "All")
   field(LNK1, "$(P)$(R)DigtzeApert-RB")
   field(LNK2, "$(P)$(R)DigtzeSR-RB")
-  field(LNK3, "$(P)$(R)DigtzeCount-RB")
+  field(LNK3, "$(P)$(R)DigtzeCnt-RB")
   field(LNK4, "$(P)$(R)DigtzeStim-Sts")
   field(LNK5, "$(P)$(R)DRange-RB")
   field(LNK6, "$(P)$(R)DRelOff-RB")
@@ -6166,9 +6166,9 @@ record(fanout, "$(P)$(R)MeasFout1"){
   field(DESC, "Upload measurement param. 1")
   field(SELM, "All")
   field(LNK1, "$(P)$(R)MeasAutoDly-Sts")
-  field(LNK2, "$(P)$(R)MeasCount-RB")
+  field(LNK2, "$(P)$(R)MeasCnt-RB")
   field(LNK3, "$(P)$(R)MeasStim-Sts")
-  field(LNK4, "$(P)$(R)FilterCount-RB")
+  field(LNK4, "$(P)$(R)FilterCnt-RB")
   field(LNK5, "$(P)$(R)FilterEnbl-Sts")
   field(LNK6, "$(P)$(R)FilterTyp-Sts")
   field(FLNK, "$(P)$(R)MeasFout2")

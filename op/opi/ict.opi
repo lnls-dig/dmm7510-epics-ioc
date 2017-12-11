@@ -865,7 +865,7 @@ $(pv_value)</tooltip>
       <name>Text Update</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(P)$(R)DigtzeTrg-Sts</pv_name>
+      <pv_name>$(P)$(R)SampleTrg-Sts</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -914,7 +914,7 @@ $(pv_value)</tooltip>
       <horizontal>false</horizontal>
       <items_from_pv>true</items_from_pv>
       <name>Choice Button</name>
-      <pv_name>$(P)$(R)DigtzeTrg-Sel</pv_name>
+      <pv_name>$(P)$(R)SampleTrg-Sel</pv_name>
       <pv_value />
       <rules />
       <scale_options>
@@ -2031,7 +2031,7 @@ $(pv_value)</tooltip>
       <name>Text Update</name>
       <precision>0</precision>
       <precision_from_pv>true</precision_from_pv>
-      <pv_name>$(P)$(R)DigtzeCount-RB</pv_name>
+      <pv_name>$(P)$(R)SampleCnt-RB</pv_name>
       <pv_value />
       <rotation_angle>0.0</rotation_angle>
       <rules />
@@ -2088,7 +2088,7 @@ $(pv_value)</tooltip>
       <page_increment>10.0</page_increment>
       <precision>3</precision>
       <precision_from_pv>false</precision_from_pv>
-      <pv_name>$(P)$(R)DigtzeCount-SP</pv_name>
+      <pv_name>$(P)$(R)SampleCnt-SP</pv_name>
       <pv_value />
       <rules />
       <scale_options>
