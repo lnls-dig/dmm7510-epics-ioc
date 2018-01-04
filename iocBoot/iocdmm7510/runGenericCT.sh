@@ -35,17 +35,6 @@ if [ -z "$DMM7510_NUMBER" ]; then
     exit 6
 fi
 
-# The indirect variable expansion was used for systemd integration, by using the
-# file in "scripts/systemd/sysconfig", but we are not using this approach anymore.
-# Instead we rely on static configuration of each serviceand pass the appropriate
-# command-line options
-#export DMM7510_CURRENT_PV_AREA_PREFIX=DMM7510_${DMM7510_INSTANCE}_PV_AREA_PREFIX
-#export DMM7510_CURRENT_PV_DEVICE_PREFIX=DMM7510_${DMM7510_INSTANCE}_PV_DEVICE_PREFIX
-#export DMM7510_CURRENT_DEVICE_IP=DMM7510_${DMM7510_INSTANCE}_DEVICE_IP
-#export EPICS_PV_AREA_PREFIX=${!DMM7510_CURRENT_PV_AREA_PREFIX}
-#export EPICS_PV_DEVICE_PREFIX=${!DMM7510_CURRENT_PV_DEVICE_PREFIX}
-#export EPICS_DEVICE_IP=${!DMM7510_CURRENT_DEVICE_IP}
-
 case ${DMM7510_TYPE} in
     DCCT)
         ST_CMD_FILE=stDCCT.cmd
@@ -69,4 +58,4 @@ echo "Using st.cmd file: "${ST_CMD_FILE}
 
 cd "$IOC_BOOT_DIR"
 
-IPADDR="$IPADDR" IPPORT="$IPPORT" P="$P" R="$R" RDMM="$RDMM" "$IOC_BIN" "$ST_CMD_FILE"
+IPADDR="$IPADDR" IPPORT="$IPPORT" P="$P" R="$R" "$IOC_BIN" "$ST_CMD_FILE"

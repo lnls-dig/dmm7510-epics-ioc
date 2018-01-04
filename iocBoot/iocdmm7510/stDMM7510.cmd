@@ -14,7 +14,7 @@ asSetFilename("$(TOP)/dmm7510App/Db/accessSecurityFile.acf")
 drvAsynIPPortConfigure("${PORT}", "${IPADDR}:${IPPORT} TCP",0,0,0)
 
 ## Load record instances
-dbLoadRecords("${TOP}/db/dmm7510.db", "P=${P}, R=${RDMM}, PORT=${PORT}")
+dbLoadRecords("${TOP}/db/dmm7510.db", "P=${P}, R=${R}, PORT=${PORT}")
 
 < save_restore.cmd
 
@@ -30,4 +30,4 @@ iocInit
 # No sequencer program
 
 # Create manual trigger for Autosave
-create_triggered_set("auto_settings_dcct.req", "${P}${R}SaveTrg", "P=${P}, R=${RDMM}")
+create_triggered_set("auto_settings_dcct.req", "${P}${R}SaveTrg", "P=${P}, R=${R}")
