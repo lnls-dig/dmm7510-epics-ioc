@@ -9,7 +9,14 @@ all: $(ALL)
 	pdflatex -dSubsetFonts=true -dEmbedAllFonts=true $^
 	pdflatex -dSubsetFonts=true -dEmbedAllFonts=true $^
 
-.PHONY: clean
+.PHONY: clean realclean mrproper distclean
 
 clean :
-	rm -f *.eps *.pdf *.dat *.log *.out *.aux *.dvi *.ps *.toc version.tex
+	rm -f *.eps *.dat *.log *.out *.aux *.dvi *.ps *.toc version.tex
+
+realclean: clean
+	rm -f *.pdf
+
+mrproper: realclean
+
+distclean: realclean
