@@ -16,7 +16,7 @@ drvAsynIPPortConfigure("${PORT}", "${IPADDR}:${IPPORT} TCP",0,0,0)
 ## Load record instances
 dbLoadRecords("${TOP}/db/dmm7510.db", "P=${P}, R=${R}, PORT=${PORT}")
 
-< save_restore.cmd
+#< save_restore.cmd
 
 ## Run this to trace the stages of iocInit
 #traceIocInit
