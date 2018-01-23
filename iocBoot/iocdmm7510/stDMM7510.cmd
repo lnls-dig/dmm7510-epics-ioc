@@ -30,4 +30,5 @@ iocInit
 # No sequencer program
 
 # Create manual trigger for Autosave
-create_triggered_set("auto_settings_dcct.req", "${P}${R}SaveTrg", "P=${P}, R=${R}")
+#create_triggered_set("auto_settings_dmm7510.req", "${P}${R}SaveTrg", "P=${P}, R=${R}")
+
