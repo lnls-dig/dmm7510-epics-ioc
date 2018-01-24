@@ -38,7 +38,7 @@ Afterwards, from the root repository directory, run `make install`. At any time,
 
 To run the IOC application, at the iocBoot/iocdmm7510 directory, run:
 
-    ./runGenericCT.sh -i IPADDR -d DEVICE [-P PREFIX1] [-R PREFIX2]
+    ./runGenericCT.sh -i IPADDR -d DEVICE [-p IPPORT] [-P PREFIX1] [-R PREFIX2]
 
 where the options are:
 
