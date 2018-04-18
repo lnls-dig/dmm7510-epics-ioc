@@ -1,10 +1,12 @@
 < envPaths
+
+epicsEnvSet("TOP", "../..")
+epicsEnvSet("STREAM_PROTOCOL_PATH", "$(TOP)/dmm7510App/Db")
+
 < DMM7510.config
 < DCCT.config
 
 ####################################################
-
-epicsEnvSet("STREAM_PROTOCOL_PATH", "$(TOP)/dmm7510App/Db")
 
 ## Register all support components
 dbLoadDatabase ("${TOP}/dbd/dmm7510.dbd")
