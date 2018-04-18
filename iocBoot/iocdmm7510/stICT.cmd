@@ -1,10 +1,12 @@
 < envPaths
+
+epicsEnvSet("TOP","../..")
+epicsEnvSet("STREAM_PROTOCOL_PATH", "$(TOP)/dmm7510App/Db")
+
 < DMM7510.config
 < ICT.config
 
 ####################################################
-
-epicsEnvSet("STREAM_PROTOCOL_PATH", "$(TOP)/dmm7510App/Db")
 
 ## Register all support components
 dbLoadDatabase ("${TOP}/dbd/dmm7510.dbd")
@@ -33,4 +35,4 @@ iocInit
 
 # Create manual trigger for Autosave
 create_triggered_set("auto_settings_ict.req", "${P}${R}SaveTrg", "P=${P}, R=${R}")
-
+set_savefile_name("auto_settings_ict.req", "auto_settings_${P}${R}.sav")

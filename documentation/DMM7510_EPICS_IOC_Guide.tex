@@ -11,7 +11,7 @@
 \usepackage{nameref} % make it possible to reference by name
 \usepackage{hyperref} % allow hiperlinks (links to other document parts and extern links)
 \usepackage{etoc} % used for generation of section local table of contents
-\usepackage{placeins}
+\usepackage{placeins} % defines the \FloatBarrier command
 \usepackage{siunitx} % SI units package
 \usepackage{enumitem} % allows removing space between list items
 \usepackage{xcolor,colortbl} % makes it possible to change table lines color
@@ -131,9 +131,11 @@
 			-RB & Read Back & A non-enumerated value (real number or string). Read-only. It displays the read back value of a parameter, providing confirmation to changes. \\ \hline
 			-Sel & Selection & Enumerated value. Sets a system parameter. \\ \hline
 			-Sts & Status & Enumerated value. Read-only. It displays the read back value of an enumerated parameter, providing confirmation to changes. \\ \hline
+			-Mon & Monitor & Non-enumerated value (real number or string). Read-only. It displays the value of a read-only type parameter which is being monitored. \\ \hline
 			-Cmd & Command & Binary command. It causes a given action to be executed. \\ \hline
 		\end{tabular}
 	\end{table}
+\FloatBarrier
 
 %--- Section: PV List ---
 \section{PV List}
@@ -4007,8 +4009,8 @@ count is not changed. \\
 			\emph{Reset Command} \\
 			Data type: bool\{\begin{itemize}[noitemsep]
 				\small
-				\item[] 
-				\item[] 
+				\item[] OFF
+				\item[] ON
 			\end{itemize}\} \\
 			Description: When set to 1 or \emph{ON}, this PV resets parameters to their default settings and clears the buffers. \\
 			TSP command: reset()
