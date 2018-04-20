@@ -14,7 +14,7 @@ PermissionsStartOnly=true
 Environment=DMM7510_INSTANCE=%i
 ExecStartPre=/bin/mkdir -p /var/log/procServ/%p%i
 ExecStartPre=/bin/mkdir -p /var/run/procServ/%p%i
-WorkingDirectory=/opt/epics/startup/ioc/dmm7510-epics-ioc/iocBoot/iocdmm7510
+WorkingDirectory=<INSTALL_PREFIX>/<IOC_NAME>/iocBoot/iocdmm7510
 # Run procServ with IOC
 ExecStart=/bin/bash -c "\
     DMM7510_CURRENT_PV_AREA_PREFIX=DMM7510_${DMM7510_INSTANCE}_PV_AREA_PREFIX && \
