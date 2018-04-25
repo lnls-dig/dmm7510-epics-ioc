@@ -17,12 +17,12 @@ usage () {
 
 while getopts ":t:P:R:i:p:d:" opt; do
   case $opt in
-    t) DMM7510_DEVICE_TELNET_PORT="$OPTARG" ;;
+    t) DEVICE_TELNET_PORT="$OPTARG" ;;
     P) P="$OPTARG" ;;
     R) R="$OPTARG" ;;
     i) IPADDR="$OPTARG" ;;
     p) IPPORT="$OPTARG" ;;
-    d) DMM7510_TYPE="$OPTARG" ;;
+    d) DEVICE_TYPE="$OPTARG" ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
       usage $0
