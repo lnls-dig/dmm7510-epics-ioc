@@ -921,6 +921,28 @@ record(calc, "$(P)$(R)SaveTrg"){
 }
 
 ########################################################################
+# Measurement Reliability
+# Desc: Combine critical parameters in one status.
+
+# Measurement reliability
+record(calcout, "$(P)$(R)ReliableMeas-Mon"){
+  field(DESC, "Measurement reliability")
+  field(INPA, "$(Instrument)ACalWarn-Mon CPP")
+  field(INPB, "$(Instrument)Network-Mon CPP")
+  field(CALC, "((A&1)<<1)|(B&1)")
+  field(HIHI, "1")
+  field(HHSV, "MAJOR")
+}
+
+# Measurement reliability strings
+# Initialized by sequencer program (sncDMM7510)
+record(waveform, "$(P)$(R)ReliableMeasLabels-Cte"){
+  field(DESC, "Labels for each bit in ReliableMeas-Mon")
+  field(FTVL, "STRING")
+  field(NELM, "2")
+}
+
+########################################################################
 # Multimeter Setup
 # Desc: General instrument initialization.
 

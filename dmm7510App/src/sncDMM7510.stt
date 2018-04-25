@@ -1,0 +1,36 @@
+program sncDMM7510
+
+%%//----------------------------------------
+%%// 	      Variables
+%%//----------------------------------------
+
+string TEMP_ERROR = "Temperature difference warning";
+string NETWORK_ERROR = "Network disconnection";
+
+%%//----------------------------------------
+%%// 	      Monitored PVs
+%%//----------------------------------------
+
+string error_list[2];
+assign error_list to "{P}{R}ReliableMeasLabels-Cte";
+
+%%//----------------------------------------
+%%//        State Notation Language
+%%//----------------------------------------
+
+ss initialization {
+    state init {
+	when () {
+	    printf("[sncDMM7510]: Initializing arrays of strings\n");
+            strcpy(error_list[0], TEMP_ERROR);
+            strcpy(error_list[1], NETWORK_ERROR);
+            pvPut(error_list, SYNC);
+	    printf("[sncDMM7510]: Initialization of arrays is finished\n");
+	} state wait
+    }
+
+    state wait{
+        when (1 == 2){
+        } state wait
+    }
+}
