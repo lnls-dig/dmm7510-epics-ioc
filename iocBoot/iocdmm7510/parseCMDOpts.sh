@@ -19,7 +19,7 @@ while getopts ":i:p:d:P:R:" opt; do
     R) R="$OPTARG" ;;
     i) IPADDR="$OPTARG" ;;
     p) IPPORT="$OPTARG" ;;
-    d) DEVICE="$OPTARG" ;;
+    d) DMM7510_TYPE="$OPTARG" ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
       usage $0

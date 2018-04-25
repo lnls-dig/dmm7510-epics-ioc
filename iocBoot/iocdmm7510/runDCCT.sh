@@ -21,7 +21,6 @@ if [ -z "$IPPORT" ]; then
     IPPORT="5025"
 fi
 
-
 cd "$IOC_BOOT_DIR"
 
 IPADDR="$IPADDR" IPPORT="$IPPORT" P="$P" R="$R" "$IOC_BIN" stDCCT.cmd
