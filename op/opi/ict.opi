@@ -4472,7 +4472,7 @@ $(pv_value)</tooltip>
       </led_border_color>
       <led_packed>false</led_packed>
       <name>Byte Monitor</name>
-      <numBits>2</numBits>
+      <numBits>3</numBits>
       <off_color>
         <color red="0" green="100" blue="0" />
       </off_color>
