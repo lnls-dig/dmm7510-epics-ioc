@@ -300,6 +300,14 @@
 	    					Indicates if there is beam stored. If the measured current is above the threshold specified by the \emph{CurrThold-SP} PV, the value is \emph{True}, otherwise it is \emph{False}.
 						\end{tabular} \\ \hline
 		% --- row ---
+		ReliableMeas-Mon & LONG: Min=0, Max=7 & \begin{tabular}{@{}m{6cm}@{}}
+	    					Indicates any condition that makes readings invalid or impossible. Each bit of this PV indicates a different problem, when set: Bit 0 = Invalid/disabled measurement trigger; Bit 1 = Network disconnected; Bit 2 = Temperature variation is too large, multimeter calibration required. An alarm is raised when any of the bits is set.
+						\end{tabular} \\ \hline
+		% --- row ---
+		ReliableMeasLabels-Cte & STRING[3] & \begin{tabular}{@{}m{6cm}@{}}
+	    					Contains the description of each of the bits in the 'ReliableMeas-Mon' PV. Each array element is an EPICS string (40 char array). The array element at index 0 corresponds to the least significant bit in the 'ReliableMeas-Mon' PV, the array element at index 1 corresponds to the next least significant bit in 'ReliableMeas-Mon', and so forth.
+						\end{tabular} \\ \hline
+		% --- row ---
 		MeasTrg-Sel & ENUM: None, External, InLevel, Software & \begin{tabular}{@{}m{6cm}@{}}
 				      	  Measurement trigger source. When set to \emph{External}, the multimeter measurements are triggered by an external trigger. When set to \emph{InLevel}, measurements are triggered when the input signal exceeds the specified threshold (rising edge transition). For both \emph{External} and \emph{InLevel} triggering, the software fetchs priodically the latest reading stored in the multimeter's buffer. When set to \emph{Software}, measurements are requested periodically by software.
 					  \end{tabular} \\ \hline

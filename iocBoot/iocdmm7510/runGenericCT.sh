@@ -1,5 +1,8 @@
 #!/bin/sh
 
+set -e
+set +u
+
 # Source environment
 . ./checkEnv.sh
 
@@ -17,22 +20,13 @@ if [ -z "$IPADDR" ]; then
     exit 3
 fi
 
-if [ -z "$DEVICE" ]; then
-    echo "Device type is not set. Please use -d option" >&2
-    exit 4
+if [ -z "$IPPORT" ]; then
+    IPPORT="5025"
 fi
-
-DMM7510_TYPE=$(echo ${DEVICE} | grep -Eo "[^0-9]+");
-DMM7510_NUMBER=$(echo ${DEVICE} | grep -Eo "[0-9]+");
 
 if [ -z "$DMM7510_TYPE" ]; then
     echo "Device type is not set. Please use -d option" >&2
     exit 5
-fi
-
-if [ -z "$DMM7510_NUMBER" ]; then
-    echo "Device number is not set. Please use -d option" >&2
-    exit 6
 fi
 
 case ${DMM7510_TYPE} in

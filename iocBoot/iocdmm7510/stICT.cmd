@@ -29,9 +29,8 @@ iocInit
 
 ## Start any sequence programs
 
-# Sequencer STATE MACHINES Initialization
-
-# No sequencer program
+# Auxiliary tasks
+seq sncDMM7510, "P=$(P), R=$(R)"
 
 # Create manual trigger for Autosave
 create_triggered_set("auto_settings_ict.req", "${P}${R}SaveTrg", "P=${P}, R=${R}")

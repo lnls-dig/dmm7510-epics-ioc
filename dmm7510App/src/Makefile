@@ -33,26 +33,26 @@ dmm7510_SRCS += dmm7510_registerRecordDeviceDriver.cpp
 dmm7510_SRCS_DEFAULT += dmm7510Main.cpp
 dmm7510_SRCS_vxWorks += -nil-
 
-# Link in the code from our support library
-dmm7510_LIBS += dmm7510Support
-
 # To build SNL programs, SNCSEQ must be defined
 # in the <top>/configure/RELEASE file
 ifneq ($(SNCSEQ),)
-    # Build sncExample into dmm7510Support
-    sncExample_SNCFLAGS += +r
-    dmm7510_DBD += sncExample.dbd
-    dmm7510Support_SRCS += sncExample.stt
+    # Build sncDMM7510 into dmm7510Support
+    sncDMM7510_SNCFLAGS += +r
+    dmm7510_DBD += sncDMM7510.dbd
+    dmm7510Support_SRCS += sncDMM7510.stt
     dmm7510Support_LIBS += seq pv
     dmm7510_LIBS += seq pv
 
-    # Build sncProgram as a standalone program
-    PROD_HOST += sncProgram
-    sncProgram_SNCFLAGS += +m
-    sncProgram_SRCS += sncProgram.st
-    sncProgram_LIBS += seq pv
-    sncProgram_LIBS += $(EPICS_BASE_HOST_LIBS)
+    # Build sncDMM7510Program as a standalone program
+    PROD_HOST += sncDMM7510Program
+    sncDMM7510Program_SNCFLAGS += +m
+    sncDMM7510Program_SRCS += sncDMM7510Program.st
+    sncDMM7510Program_LIBS += seq pv
+    sncDMM7510Program_LIBS += $(EPICS_BASE_HOST_LIBS)
 endif
+
+# Link in the code from our support library
+dmm7510_LIBS += dmm7510Support
 
 # Finally link IOC to the EPICS Base libraries
 dmm7510_LIBS += $(EPICS_BASE_IOC_LIBS)

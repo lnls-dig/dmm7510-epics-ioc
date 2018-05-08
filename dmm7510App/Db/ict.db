@@ -600,6 +600,29 @@ record(bi, "$(P)$(R)HFReject-Sts"){
 }
 
 ########################################################################
+# Measurement Reliability
+# Desc: Combine critical parameters in one status.
+
+# Measurement reliability
+record(calcout, "$(P)$(R)ReliableMeas-Mon"){
+  field(DESC, "Measurement reliability")
+  field(INPA, "$(Instrument)ACalWarn-Mon CPP")
+  field(INPB, "$(Instrument)Network-Mon CPP")
+  field(INPC, "$(P)$(R)SampleTrg-Sts CPP")
+  field(CALC, "((A&1)<<2)|((B&1)<<1)|(C=!1&&C!=2&&C!=3)")
+  field(HIHI, "1")
+  field(HHSV, "MAJOR")
+}
+
+# Measurement reliability strings
+# Initialized by sequencer program (sncDMM7510)
+record(waveform, "$(P)$(R)ReliableMeasLabels-Cte"){
+  field(DESC, "Labels for each bit in ReliableMeas-Mon")
+  field(FTVL, "STRING")
+  field(NELM, "3")
+}
+
+########################################################################
 # Save
 # Desc: Save 'Sel' and 'SP' PV values.
 

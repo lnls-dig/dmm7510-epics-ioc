@@ -1,5 +1,8 @@
 #!/bin/sh
 
+set -e
+set +u
+
 # Source environment
 . ./checkEnv.sh
 
@@ -15,6 +18,10 @@ fi
 if [ -z "$IPADDR" ]; then
     echo "IP address not set. Please use -i option or set \$IPADDR environment variable" >&2
     exit 3
+fi
+
+if [ -z "$IPPORT" ]; then
+    IPPORT="5025"
 fi
 
 cd "$IOC_BOOT_DIR"

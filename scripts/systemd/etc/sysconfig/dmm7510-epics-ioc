@@ -1,5 +1,4 @@
 # General configuration
-DMM7510_IOC_STARTUP=/opt/epics/startup/ioc/dmm7510-epics-ioc/iocBoot/iocdmm7510
 EPICS_HOST_ARCH=linux-x86_64
 PROCSERV_DMM7510_PORT_PREFIX=400
 EPICS_CA_MAX_ARRAY_BYTES=50000000
