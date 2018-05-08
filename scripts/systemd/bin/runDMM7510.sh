@@ -2,8 +2,8 @@
 
 set -u
 
-if [ -z "$DMC30017_INSTANCE" ]; then
-    echo "DMC30017_INSTANCE environment variable is not set." >&2
+if [ -z "$DMM7510_INSTANCE" ]; then
+    echo "DMM7510_INSTANCE environment variable is not set." >&2
     exit 1
 fi
 
