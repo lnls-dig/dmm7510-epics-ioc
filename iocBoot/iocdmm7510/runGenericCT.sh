@@ -29,6 +29,19 @@ if [ -z "$DEVICE_TYPE" ]; then
     exit 5
 fi
 
+DMM7510_TYPE=$(echo ${DEVICE_TYPE} | grep -Eo "[^0-9]+");
+DMM7510_NUMBER=$(echo ${DEVICE_TYPE} | grep -Eo "[0-9]+");
+
+if [ -z "$DMM7510_TYPE" ]; then
+    echo "DMM7510 device type is not valid. Please check the -d option" >&2
+    exit 6
+fi
+
+if [ -z "$DMM7510_NUMBER" ]; then
+    echo "DMM7510 instance number is not valid. Please check the -d option" >&2
+    exit 7
+fi
+
 case ${DMM7510_TYPE} in
     DCCT)
         ST_CMD_FILE=stDCCT.cmd
