@@ -24,7 +24,7 @@ if [ -z "$IPPORT" ]; then
     IPPORT="5025"
 fi
 
-if [ -z "$DMM7510_TYPE" ]; then
+if [ -z "$DEVICE_TYPE" ]; then
     echo "Device type is not set. Please use -d option" >&2
     exit 5
 fi
