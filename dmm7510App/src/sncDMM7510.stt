@@ -12,7 +12,7 @@ string TRIG_ERROR = "No valid trigger mode active";
 %%// 	      Monitored PVs
 %%//----------------------------------------
 
-string error_list[2];
+string error_list[3];
 assign error_list to "{P}{R}ReliableMeasLabels-Cte";
 
 %%//----------------------------------------
