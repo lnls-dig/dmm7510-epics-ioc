@@ -10,6 +10,7 @@ SED = sed
 # Prefixes
 IOC_NAME ?=
 INSTALL_PREFIX ?=
+BIN_FILES_PREFIX ?= /usr/local
 
 # OS information
 SERVICE_NAME = $(shell basename $(realpath ${TOP}))
@@ -26,6 +27,11 @@ SCRIPTS=$(SCRIPTS_FULL_NAME:./%=%)
 SCRIPTS_SERVICE_IN=$(SCRIPTS_SERVICE_IN_FULL_NAME:./%=%)
 SCRIPTS_SERVICE=$(SCRIPTS_SERVICE_FULL_NAME:./%=%)
 
+# Binary files
+BIN_FILES_FULL_NAME := $(shell cd ${INIT_SYSTEM} && find bin -type f)
+# Strip off a leading ./
+BIN_FILES=$(BIN_FILES_FULL_NAME:./%=%)
+
 .PHONY: all clean mrproper install uninstall
 
 all:
@@ -33,8 +39,10 @@ all:
 install: scripts_in_gen
 	$(foreach script,$(SCRIPTS),mkdir -p $(dir ${SCRIPTS_PREFIX}/$(script)) $(CMDSEP))
 	$(foreach script,$(SCRIPTS),cp --preserve=mode $(INIT_SYSTEM)/$(script) ${SCRIPTS_PREFIX}/$(script) $(CMDSEP))
+	$(foreach bin,$(BIN_FILES),cp --preserve=mode ${INIT_SYSTEM}/$(bin) ${BIN_FILES_PREFIX}/$(bin) $(CMDSEP))
 
 uninstall: scripts_in_degen
+	-$(foreach bin,$(BIN_FILES),rm -f ${BIN_FILES_PREFIX}/$(bin) $(CMDSEP))
 	$(foreach script,$(SCRIPTS),rm -f ${SCRIPTS_PREFIX}/$(script) $(CMDSEP))
 
 scripts_in_gen:
