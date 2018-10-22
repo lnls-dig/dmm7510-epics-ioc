@@ -1,23 +1,35 @@
+# Measurement Mode
+$(P)$(R)MeasMode-Sel
 # Measurement Trigger source
-$(P)$(R)MeasTrg-Sel.VAL
+$(P)$(R)MeasTrg-Sel
 # Timer configuration
-$(P)$(R)TrgDelay-SP.VAL
-# Measurement Settings
-$(P)$(R)MeasCount-SP.VAL
-$(P)$(R)Imped-Sel.VAL
-$(P)$(R)LineSync-Sel.VAL
-$(P)$(R)NPLC-SP.VAL
-$(P)$(R)FilterCnt-SP.VAL
-$(P)$(R)FilterEnbl-Sel.VAL
-$(P)$(R)FilterTyp-Sel.VAL
-$(P)$(R)FilterWind-SP.VAL
-$(P)$(R)RelEnbl-Sel.VAL
-$(P)$(R)RelLvl-SP.VAL
+$(P)$(R)TrgDelay-SP
+# Normal Measurement Settings
+$(P)$(R)SampleCnt-SP
+$(P)$(R)MeasPeriod-SP
+$(P)$(R)Imped-Sel
+$(P)$(R)LineSync-Sel
+$(P)$(R)NPLC-SP
+$(P)$(R)AvgFilterCnt-SP
+$(P)$(R)AvgFilterEnbl-Sel
+$(P)$(R)AvgFilterTyp-Sel
+$(P)$(R)AvgFilterWind-SP
+$(P)$(R)RelEnbl-Sel
+$(P)$(R)RelLvl-SP
+# Fast Measurement Settings
+$(P)$(R)FastSampleCnt-SP
+$(P)$(R)FastMeasPeriod-SP
+$(P)$(R)FastImped-Sel
+$(P)$(R)FastAperture-SP
+$(P)$(R)FastSampleRate-SP
+$(P)$(R)FastRelEnbl-Sel
+$(P)$(R)FastRelLvl-SP
+$(P)$(R)FastRelAcq-Cmd
 # Current Measurement Range
-$(P)$(R)Range-Sel.VAL
+$(P)$(R)Range-Sel
 # DCCT Test Input Setting
-$(P)$(R)Test-Sel.VAL
+$(P)$(R)Test-Sel
 # Current Threshold Detection
-$(P)$(R)LowLimEnbl-Sel.VAL
-$(P)$(R)CurrThold-SP.VAL
-$(P)$(R)HFReject-Sel.VAL
+$(P)$(R)LowLimEnbl-Sel
+$(P)$(R)CurrThold-SP
+$(P)$(R)HFReject-Sel

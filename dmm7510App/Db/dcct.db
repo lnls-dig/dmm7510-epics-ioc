@@ -1,5 +1,142 @@
 ########################################################################
+# Measurement Mode Selection
+#
+# Desc: Select measurement or digitize mode from multimeter.
+#       This setting impacts the whole process chain.
+
+# Select multimeter measurement mode
+record(bo, "$(P)$(R)MeasMode-Sel"){
+  field(DESC, "Measurement mode")
+  field(ZNAM, "Normal")
+  field(ONAM, "Fast")
+  field(FLNK, "$(P)$(R)MeasModeCalc")
+}
+
+# Set the multimeter to the given measurement mode
+record(calcout, "$(P)$(R)MeasModeCalc"){
+  field(ASG, "Reserved")
+  field(DESC, "Select multimeter meas. mode")
+  field(INPA, "$(P)$(R)MeasMode-Sel")
+  field(CALC, "A=0?1:2")
+  field(FLNK, "$(P)$(R)MeasModeSeq")
+}
+
+record(sseq, "$(P)$(R)MeasModeSeq"){
+  field(ASG, "Reserved")
+  field(DESC, "Set multimeter meas. mode")
+  field(SELM, "Specified")
+  field(SELL, "$(P)$(R)MeasModeCalc.VAL")
+  field(STR1, "DC_VOLTAGE")
+  field(STR2, "DIGITIZE_VOLTAGE")
+  field(LNK1, "$(Instrument)MeasFnc-Sel PP")
+  field(LNK2, "$(Instrument)DigtzeFnc-Sel PP")
+  field(FLNK, "$(P)$(R)DsblConfigCalc")
+}
+
+# Disable dbPutField to records of the other mode
+record(calcout, "$(P)$(R)DsblConfigCalc"){
+  field(ASG, "Reserved")
+  field(DESC, "Disable dbPutField to invalid records")
+  field(INPA, "$(P)$(R)MeasMode-Sel")
+  field(CALC, "A=0?2:1")
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(P)$(R)DsblConfigGetMode.PROC PP")
+  field(FLNK, "$(P)$(R)DownloadDly")  # start download of the params
+}
+
+record(sseq, "$(P)$(R)DsblConfigGetMode"){
+  field(ASG, "Reserved")
+  field(DESC, "Get meas. mode to choose recs to disable")
+  field(SELM, "Specified")
+  field(SELL, "$(P)$(R)DsblConfigCalc")
+  field(DO1, "1")
+  field(LNK1, "$(P)$(R)DsblConfigNormal1.PROC PP")
+  field(DO2, "1")
+  field(LNK2, "$(P)$(R)DsblConfigFast.PROC PP")
+}
+
+# Disable Normal Mode config records
+record(sseq, "$(P)$(R)DsblConfigNormal1"){
+  field(ASG, "Reserved")
+  field(DESC, "Disable Normal Mode records seq 1")
+  field(SELM, "All")
+  field(DO1, "1")
+  field(LNK1, "$(P)$(R)NPLC-SP.DISP")
+  field(DO2, "1")
+  field(LNK2, "$(P)$(R)LineSync-Sel.DISP")
+  field(DO3, "1")
+  field(LNK3, "$(P)$(R)Imped-Sel.DISP")
+  field(DO4, "1")
+  field(LNK4, "$(P)$(R)RelEnbl-Sel.DISP")
+  field(DO5, "1")
+  field(LNK5, "$(P)$(R)RelLvl-SP.DISP")
+  field(DO6, "1")
+  field(LNK6, "$(P)$(R)RelAcq-Cmd.DISP")
+  field(DO7, "1")
+  field(LNK7, "$(P)$(R)SampleCnt-SP.DISP")
+  field(DO8, "1")
+  field(LNK8, "$(P)$(R)MeasPeriod-SP.DISP")
+  field(FLNK, "$(P)$(R)DsblConfigNormal2")
+}
+
+record(sseq, "$(P)$(R)DsblConfigNormal2"){
+  field(ASG, "Reserved")
+  field(DESC, "Disable Normal Mode records seq 2")
+  field(SELM, "All")
+  field(DO1, "1")
+  field(LNK1, "$(P)$(R)AvgFilterCnt-SP.DISP")
+  field(DO2, "1")
+  field(LNK2, "$(P)$(R)AvgFilterTyp-Sel.DISP")
+  field(DO3, "1")
+  field(LNK3, "$(P)$(R)AvgFilterWind-SP.DISP")
+  field(DO4, "1")
+  field(LNK4, "$(P)$(R)AvgFilterEnbl-Sel.DISP")
+}
+
+# Disable Fast Mode config records
+record(sseq, "$(P)$(R)DsblConfigFast"){
+  field(ASG, "Reserved")
+  field(DESC, "Disable Fast Mode records")
+  field(SELM, "All")
+  field(DO1, "1")
+  field(LNK1, "$(P)$(R)FastSampleCnt-SP.DISP")
+  field(DO2, "1")
+  field(LNK2, "$(P)$(R)FastImped-Sel.DISP")
+  field(DO3, "1")
+  field(LNK3, "$(P)$(R)FastAperture-SP.DISP")
+  field(DO4, "1")
+  field(LNK4, "$(P)$(R)FastSampleRate-SP.DISP")
+  field(DO5, "1")
+  field(LNK5, "$(P)$(R)FastRelEnbl-Sel.DISP")
+  field(DO6, "1")
+  field(LNK6, "$(P)$(R)FastRelLvl-SP.DISP")
+  field(DO7, "1")
+  field(LNK7, "$(P)$(R)FastRelAcq-Cmd.DISP")
+  field(DO8, "1")
+  field(LNK8, "$(P)$(R)FastMeasPeriod-SP.DISP")
+}
+
+# Measurement Mode Status
+record(scalcout, "$(P)$(R)MeasModeMonCalc"){
+  field(ASG, "Reserved")
+  field(DESC, "Meas. mode status calc")
+  field(INAA, "$(Instrument)MeasFnc-Sts CPP")
+  field(INBB, "$(Instrument)DigtzeFnc-Sts CPP")
+  field(CALC, "AA='DC_VOLTAGE'?'Normal':(BB='DIGITIZE_VOLTAGE'?'Fast':'Unknown')")
+  field(OUT, "$(P)$(R)MeasMode-Sts PP")
+}
+
+record(mbbi, "$(P)$(R)MeasMode-Sts"){
+  field(DESC, "Measurement mode Sts")
+  field(ZRST, "Unknown")
+  field(ONST, "Normal")
+  field(TWST, "Fast")
+  field(FLNK, "$(P)$(R)ProtectCalc") # Check if records should be enabled
+}
+
+########################################################################
 # Measurement Trigger source
+#
 # Desc: Measurement trigger option.
 
 # Measurement trigger source
@@ -25,39 +162,69 @@ record(bo, "$(P)$(R)MeasTrgRst"){
 record(calcout, "$(P)$(R)MeasTrgCalc"){
   field(ASG, "Reserved")
   field(DESC, "Meas. trigger branch index calc")
-  field(SCAN, "5 second")
+  field(SCAN, "Passive")                                        # SCAN is overridden by Download to '5 second'
   field(INPA, "$(P)$(R)MeasTrg-Sel.VAL")
   field(INPB, "$(P)$(R)MeasTrgRst.VAL")
-  field(CALC, "B=0?(A+1):0")
+  field(INPC, "$(P)$(R)MeasMode-Sts")
+  field(CALC, "B=0?(C=1?(A+1):(C=2?(A+5):0)):0")
   field(OOPT, "On Change")
-  field(VAL, "7")						# Initialize in a nonexistent state
-  field(OUT, "$(P)$(R)MeasTrgFout.PROC")
+  field(VAL, "7")                                               # Initialize in a nonexistent state
+  field(OUT, "$(P)$(R)MeasTrgSetUnknown.PROC PP")
+}
+
+record(sseq, "$(P)$(R)MeasTrgSetUnknown"){
+  field(ASG, "Reserved")
+  field(DESC, "Set meas trg temporarily to unknown")
+  field(SELM, "All")
+  field(STR1, "Unknown")
+  field(LNK1, "$(P)$(R)MeasTrg-Sts")                            # Set meas trigger status to 'Unknown'
+  field(FLNK, "$(P)$(R)MeasTrgFout.PROC PP")
 }
 
 # Fanout selects config branch to be executed
-record(fanout, "$(P)$(R)MeasTrgFout"){
+record(seq, "$(P)$(R)MeasTrgFout"){
   field(ASG, "Reserved")
   field(DESC, "Meas. trigger source config selection")
   field(SELM, "Specified")
   field(SELL, "$(P)$(R)MeasTrgCalc.VAL")
-  field(LNK1, "$(P)$(R)ConfigNone")
-  field(LNK2, "$(P)$(R)ConfigEx")
-  field(LNK3, "$(P)$(R)ConfigLvl")
-  field(LNK4, "$(P)$(R)ConfigSoft")
+  field(DO1, "1")
+  field(DO2, "1")
+  field(DO3, "1")
+  field(DO4, "1")
+  field(DO5, "1")
+  field(DO6, "1")
+  field(DO7, "1")
+  field(DO8, "1")
+  field(LNK1, "$(P)$(R)ConfigNone.PROC PP")
+  field(LNK2, "$(P)$(R)ConfigEx.PROC PP")
+  field(LNK3, "$(P)$(R)ConfigLvl.PROC PP")
+  field(LNK4, "$(P)$(R)ConfigSoft.PROC PP")
+  field(LNK5, "$(P)$(R)FastConfigNone.PROC PP")
+  field(LNK6, "$(P)$(R)FastConfigEx.PROC PP")
+  field(LNK7, "$(P)$(R)FastConfigLvl.PROC PP")
+  field(LNK8, "$(P)$(R)FastConfigSoft.PROC PP")
 }
+
+###################################################
+# Measurement Trigger source | Normal Mode
+#
+# Desc: Measurement config for Normal Mode.
 
 # Settings for measurement external triggering
 record(sseq, "$(P)$(R)ConfigEx"){
   field(ASG, "Reserved")
   field(DESC, "Settings for meas. external trg")
   field(SELM, "All")
+#  field(STR1, "Passive")
   field(STR1, "Passive")
   field(STR2, "RISING")
   field(STR3, "EXTERNAL")
   field(STR4, "TIMER1")
   field(STR5, "ON")
-  field(STR6, ".1 second")
-  field(LNK1, "$(P)$(R)SoftMeas.SCAN")				# Disable meas. software triggering
+  field(STR6, ".01 second")
+#  field(LNK1, "$(P)$(R)SoftMeas.SCAN")
+  field(LNK1, "$(Instrument)CntBuff1-Mon.SCAN")			# Disable scan while trigger is configured
+  field(DLY1, "1")                                              # Delay so last meas. finishes being fetched
   field(LNK2, "$(Instrument)ExInEdge-Sel PP")			# External Input trigger edge = Rising
   field(LNK3, "$(Instrument)Timer1Stim-Sel PP")			# Timer 1 stimulus = EXTERNAL
   field(LNK4, "$(Instrument)MeasStim-Sel PP")			# Meas. trigger = Timer 1 (timer avoids trigger bouncing)
@@ -75,20 +242,23 @@ record(sseq, "$(P)$(R)ConfigLvl"){
   field(ASG, "Reserved")
   field(DESC, "Settings for meas. threshold trg")
   field(SELM, "All")
+#  field(STR1, "Passive")
   field(STR1, "Passive")
   field(STR2, "ANALOGTRIGGER")
   field(STR3, "TIMER1")
   field(STR4, "OFF")
   field(STR5, "Rising")
   field(STR6, "ON")
-  field(STR7, ".1 second")
-  field(LNK1, "$(P)$(R)SoftMeas.SCAN")				# Disable meas. software triggering
+  field(STR7, ".01 second")
+#  field(LNK1, "$(P)$(R)SoftMeas.SCAN")
+  field(LNK1, "$(Instrument)CntBuff1-Mon.SCAN")			# Disable scan while trigger is configured
+  field(DLY1, "1")                                              # Delay so last meas. finishes being fetched
   field(LNK2, "$(Instrument)Timer1Stim-Sel PP")			# Timer 1 stimulus = ANALOGTRIGGER
   field(LNK3, "$(Instrument)MeasStim-Sel PP")			# Meas. trigger = Timer 1
   field(LNK4, "$(P)$(R)LowLimEnbl-Sel PP")			# Disable low voltage level detection
   field(LNK5, "$(Instrument)MATrEdgeSlp-Sel PP")		# Input voltage level trigger edge = Rising
   field(LNK6, "$(Instrument)ClrBuff1-Cmd PP")			# Clear buffer
-  field(LNK7, "$(Instrument)CntBuff1-Mon.SCAN")			# Buffer count scan triggers buffer readings
+  field(LNK7, "$(Instrument)CntBuff1-Mon.SCAN")			# BufferCnt scan is goint to trigger buffer readings
   field(WAIT1, "Wait")
   field(WAIT2, "Wait")
   field(WAIT3, "Wait")
@@ -105,43 +275,51 @@ record(sseq, "$(P)$(R)ConfigSoft"){
   field(STR1, "Passive")
   field(STR2, "NONE")
   field(STR3, "ON")
-  field(STR4, ".1 second")
-  field(LNK1, "$(Instrument)CntBuff1-Mon.SCAN")			# Disable buffer count scan and periodic reading fetching
+#  field(STR4, ".1 second")
+  field(STR5, ".01 second")
+  field(STR6, "ON")
+  field(LNK1, "$(Instrument)CntBuff1-Mon.SCAN")			# Disable scan while trigger is configured
   field(LNK2, "$(Instrument)MeasStim-Sel PP")			# Disable meas. hardware triggers
+  field(DLY2, "1")                                              # Delay so last meas. finishes being fetched
   field(LNK3, "$(Instrument)ClrBuff1-Cmd PP")			# Clear buffer
-  field(LNK4, "$(P)$(R)SoftMeas.SCAN")				# Enable meas. software triggering
+#  field(LNK4, "$(P)$(R)SoftMeas.SCAN")				# Enable meas. software triggering   DEBUG
+  field(LNK5, "$(Instrument)CntBuff1-Mon.SCAN")			# BufferCnt scan is going to trigger buffer readings
+  field(LNK6, "$(Instrument)MeasBuff1-Cmd PP")                  # Start Soft measurement chain
   field(WAIT1, "Wait")
   field(WAIT2, "Wait")
   field(WAIT3, "Wait")
+  field(WAIT5, "Wait")
 }
 
 # Continuously trigger software measurement
-record(bo, "$(P)$(R)SoftMeas"){
-  field(DESC, "Force measurement when processed")
-  field(ZNAM, "OFF")
-  field(ONAM, "ON")
-  field(VAL, "1")
-  field(OUT, "$(Instrument)MeasBuff1-Cmd PP")
-}
+#record(bo, "$(P)$(R)SoftMeas"){
+#  field(DESC, "Force measurement when processed")
+#  field(ZNAM, "OFF")
+#  field(ONAM, "ON")
+#  field(VAL, "1") DEBUG
+#  field(VAL, "0")
+#  field(OUT, "$(Instrument)MeasBuff1-Cmd PP") DEBUG
+#}
 
 # Settings for disabling measurement trigger
 record(sseq, "$(P)$(R)ConfigNone"){
   field(ASG, "Reserved")
   field(DESC, "Settings for NO measurement trigger")
   field(SELM, "All")
+#  field(STR1, "Passive")
   field(STR1, "Passive")
   field(STR2, "NONE")
-  field(STR3, "Passive")
   field(STR4, "ON")
   field(STR5, "OFF")
-  field(LNK1, "$(P)$(R)SoftMeas.SCAN")				# Disable meas. software triggering
+#  field(LNK1, "$(P)$(R)SoftMeas.SCAN")				# Disable meas. software triggering
+  field(LNK1, "$(Instrument)CntBuff1-Mon.SCAN")                 # Disable scan while trigger is configured
   field(LNK2, "$(Instrument)MeasStim-Sel PP")			# Meas. trigger = NONE 
-  field(LNK3, "$(Instrument)CntBuff1-Mon.SCAN")			# Disable buffer count scan and periodic reading fetching
+  field(DLY2, "1")                                              # Delay so last meas finishes being fetched
   field(LNK4, "$(Instrument)ClrBuff1-Cmd PP")			# Clear buffer
   field(LNK5, "$(P)$(R)LowLimEnbl-Sel PP")			# Disable low voltage level detection
   field(WAIT1, "Wait")
   field(WAIT2, "Wait")
-  field(WAIT3, "Wait")
+#  field(WAIT3, "Wait")
   field(WAIT4, "Wait")
 }
 
@@ -149,7 +327,7 @@ record(sseq, "$(P)$(R)ConfigNone"){
 record(scalcout, "$(P)$(R)ConfCheck1"){
   field(ASG, "Reserved")
   field(DESC, "Check calc 1 for meas. trigger config")
-  field(INAA, "$(P)$(R)SoftMeas.SCAN CPP")
+#  field(INAA, "$(P)$(R)SoftMeas.SCAN CPP")
   field(INBB, "$(Instrument)ExInEdge-Sts CPP")
   field(INCC, "$(Instrument)MeasStim-Sts CPP")
   field(INDD, "$(Instrument)CntBuff1-Mon.SCAN CPP")
@@ -157,8 +335,18 @@ record(scalcout, "$(P)$(R)ConfCheck1"){
   field(INFF, "$(Instrument)ExOutStim-Sts CPP")
   field(INGG, "$(Instrument)MATrEdgeSlp-Sts CPP")
   field(INHH, "$(Instrument)Timer1Stim-Sts CPP")
-  field(CALC, "(AA=='Passive'&&BB=='RISING'&&CC=='TIMER1'&&DD=='.1 second')?1:0")
-  field(FLNK, "$(P)$(R)ConfCheck2")
+#  field(CALC, "(AA=='Passive'&&BB=='RISING'&&CC=='TIMER1'&&DD=='.1 second')?1:0")
+  field(CALC, "(BB=='RISING'&&CC=='TIMER1'&&DD=='.01 second')?1:0")
+  field(FLNK, "$(P)$(R)ConfCheckMode")
+}
+
+record(calcout, "$(P)$(R)ConfCheckMode"){
+  field(ASG, "Reserved")
+  field(DESC, "Check mode calc for meas. trg config")
+  field(INPA, "$(P)$(R)MeasMode-Sts")
+  field(CALC, "A=1")
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(P)$(R)ConfCheck2.PROC PP")
 }
 
 record(scalcout, "$(P)$(R)ConfCheck2"){
@@ -173,13 +361,14 @@ record(scalcout, "$(P)$(R)ConfCheck2"){
 record(scalcout, "$(P)$(R)ConfCheck3"){
   field(ASG, "Reserved")
   field(DESC, "Check calc 3 for meas. trigger config")
-  field(INAA, "$(P)$(R)SoftMeas.SCAN")
+#  field(INAA, "$(P)$(R)SoftMeas.SCAN")
   field(INBB, "$(Instrument)MeasStim-Sts")
   field(INCC, "$(P)$(R)LowLimEnbl-Sts")
   field(INDD, "$(Instrument)ExOutStim-Sts")
   field(INEE, "$(Instrument)MATrEdgeSlp-Sts")
   field(INPF, "$(P)$(R)ConfCheck2.VAL")
-  field(CALC, "F=0&&(AA=='Passive'&&BB=='TIMER1'&&CC=='OFF'&&DD=='NONE'&&EE=='Rising')?2:F")
+#  field(CALC, "F=0&&(AA=='Passive'&&BB=='TIMER1'&&CC=='OFF'&&DD=='NONE'&&EE=='Rising')?2:F")
+  field(CALC, "F=0&&(BB=='TIMER1'&&CC=='OFF'&&DD=='NONE'&&EE=='Rising')?2:F")
   field(FLNK, "$(P)$(R)ConfCheck4")
 }
 
@@ -190,7 +379,7 @@ record(scalcout, "$(P)$(R)ConfCheck4"){
   field(INPB, "$(P)$(R)ConfCheck2.VAL")
   field(INCC, "$(Instrument)CntBuff1-Mon.SCAN")
   field(INDD, "$(Instrument)Timer1Stim-Sts")
-  field(CALC, "(A=2&&CC=='.1 second'&&DD=='ANALOGTRIGGER')?2:B")
+  field(CALC, "(A=2&&CC=='.01 second'&&DD=='ANALOGTRIGGER')?2:B")
   field(FLNK, "$(P)$(R)ConfCheck5")
 }
 
@@ -199,9 +388,11 @@ record(scalcout, "$(P)$(R)ConfCheck5"){
   field(DESC, "Check calc 5 for meas. trigger config")
   field(INAA, "$(Instrument)MeasStim-Sts")
   field(INBB, "$(Instrument)CntBuff1-Mon.SCAN")
-  field(INCC, "$(P)$(R)SoftMeas.SCAN")
+#  field(INCC, "$(P)$(R)SoftMeas.SCAN")
+  field(INCC, "$(P)$(R)MeasTrg-Sel")
   field(INPD, "$(P)$(R)ConfCheck4.VAL")
-  field(CALC, "(D=0&&AA=='NONE'&&BB=='Passive'&&CC=='.1 second')?3:D")
+#  field(CALC, "(D=0&&AA=='NONE'&&BB=='Passive'&&CC=='.1 second')?3:D")
+  field(CALC, "(D=0&&AA=='NONE'&&BB=='.01 second'&&CC=='Software')?3:D")
   field(FLNK, "$(P)$(R)ConfCheck6")
 }
 
@@ -209,11 +400,12 @@ record(scalcout, "$(P)$(R)ConfCheck6"){
   field(ASG, "Reserved")
   field(DESC, "Check calc 6 for meas. trigger config")
   field(INPA, "$(P)$(R)ConfCheck5.VAL")
-  field(INBB, "$(P)$(R)SoftMeas.SCAN")
+#  field(INBB, "$(P)$(R)SoftMeas.SCAN")
   field(INCC, "$(Instrument)MeasStim-Sts")
   field(INDD, "$(Instrument)CntBuff1-Mon.SCAN")
   field(INEE, "$(P)$(R)LowLimEnbl-Sts")
-  field(CALC, "(A=0&&BB=='Passive'&&CC=='NONE'&&DD=='Passive'&&EE=='OFF')?4:A")
+#  field(CALC, "(A=0&&BB=='Passive'&&CC=='NONE'&&DD=='Passive'&&EE=='OFF')?4:A")
+  field(CALC, "(A=0&&CC=='NONE'&&DD=='Passive'&&EE=='OFF')?4:A")
   field(FLNK, "$(P)$(R)ConfCheck7")
 }
 
@@ -222,8 +414,222 @@ record(scalcout, "$(P)$(R)ConfCheck7"){
   field(DESC, "Check calc 7 for meas. trigger config")
   field(INPA, "$(P)$(R)ConfCheck6.VAL")
   field(CALC, "A=1?'External':(A=2?'InLevel':(A=3?'Software':(A=4?'None':'Unknown')))")
+  field(FLNK, "$(P)$(R)ConfCheck8")
+}
+
+record(scalcout, "$(P)$(R)ConfCheck8"){
+  field(ASG, "Reserved")
+  field(DESC, "Check calc 8 for meas. trigger config")
+  field(INPA, "$(P)$(R)MeasMode-Sts")
+  field(INBB, "$(P)$(R)ConfCheck7.SVAL")
+  field(CALC, "A=0?'Unknown':BB")
   field(OUT, "$(P)$(R)MeasTrg-Sts PP")
 }
+
+###################################################
+# Measurement Trigger source | Fast Mode
+#
+# Desc: Measurement config for Fast Mode.
+
+# Settings for Fast measurement external triggering
+record(sseq, "$(P)$(R)FastConfigEx"){
+  field(ASG, "Reserved")
+  field(DESC, "Settings for meas. external trg")
+  field(SELM, "All")
+#  field(STR1, "Passive")
+  field(STR1, "Passive")
+  field(STR2, "RISING")
+  field(STR3, "EXTERNAL")
+  field(STR4, "TIMER1")
+  field(STR5, "ON")
+  field(STR6, ".01 second")
+#  field(LNK1, "$(P)$(R)FastSoftMeas.SCAN")			# Disable meas. software triggering
+  field(LNK1, "$(Instrument)CntBuff1-Mon.SCAN")			# Disable scan while trigger is configured
+  field(DLY1, "1")                                              # Delay so last meas. finishes being fetched
+  field(LNK2, "$(Instrument)ExInEdge-Sel PP")			# External Input trigger edge = Rising
+  field(LNK3, "$(Instrument)Timer1Stim-Sel PP")			# Timer 1 stimulus = EXTERNAL
+  field(LNK4, "$(Instrument)DigtzeStim-Sel PP")			# Digitize trigger = Timer 1 (timer avoids trigger bouncing)
+  field(LNK5, "$(Instrument)ClrBuff1-Cmd PP")			# Clear buffer
+  field(LNK6, "$(Instrument)CntBuff1-Mon.SCAN")			# Buffer count scan triggers buffer readings
+}
+
+# Settings for Fast measurement threshold triggering
+record(sseq, "$(P)$(R)FastConfigLvl"){
+  field(ASG, "Reserved")
+  field(DESC, "Settings for meas. threshold trg")
+  field(SELM, "All")
+#  field(STR1, "Passive")
+  field(STR1, "Passive")
+  field(STR2, "ANALOGTRIGGER")
+  field(STR3, "TIMER1")
+  field(STR4, "OFF")
+  field(STR5, "Rising")
+  field(STR6, "ON")
+  field(STR7, ".01 second")
+#  field(LNK1, "$(P)$(R)FastSoftMeas.SCAN")			# Disable meas. software triggering
+  field(LNK1, "$(Instrument)CntBuff1-Mon.SCAN")			# Disable scan while trigger is configured
+  field(DLY1, "1")                                              # Delay so last meas. finishes being fetched
+  field(LNK2, "$(Instrument)Timer1Stim-Sel PP")			# Timer 1 stimulus = ANALOGTRIGGER
+  field(LNK3, "$(Instrument)DigtzeStim-Sel PP")			# Digitize trigger = Timer 1
+  field(LNK4, "$(P)$(R)LowLimEnbl-Sel PP")			# Disable low voltage level detection
+  field(LNK5, "$(Instrument)DATrEdgeSlp-Sel PP")		# Input voltage level trigger edge = Rising
+  field(LNK6, "$(Instrument)ClrBuff1-Cmd PP")			# Clear buffer
+  field(LNK7, "$(Instrument)CntBuff1-Mon.SCAN")			# Buffer count scan triggers buffer readings
+}
+
+# Settings for Fast measurement software triggering
+record(sseq, "$(P)$(R)FastConfigSoft"){
+  field(ASG, "Reserved")
+  field(DESC, "Settings for meas. software trg")
+  field(SELM, "All")
+  field(STR1, "Passive")
+  field(STR2, "NONE")
+  field(STR3, "ON")
+#  field(STR4, ".1 second")
+  field(STR5, ".01 second")
+  field(STR6, "ON")
+  field(LNK1, "$(Instrument)CntBuff1-Mon.SCAN")                 # Disable buffer count scan and periodic reading fetching
+  field(LNK2, "$(Instrument)DigtzeStim-Sel PP")                 # Disable digitize hardware triggers
+  field(DLY2, "1")                                              # Delay so last meas. finishes being fetched
+  field(LNK3, "$(Instrument)ClrBuff1-Cmd PP")                   # Clear buffer
+#  field(LNK4, "$(P)$(R)FastSoftMeas.SCAN")                     # Enable meas. software triggering
+  field(LNK5, "$(Instrument)CntBuff1-Mon.SCAN")                 # BufferCnt scan is going to trigger buffer readings
+  field(LNK6, "$(Instrument)DigtzBuff1-Cmd PP")                 # Start Soft measurement chain
+}
+
+# Continuously trigger software Fast measurement
+#record(bo, "$(P)$(R)FastSoftMeas"){
+#  field(DESC, "Force measurement when processed")
+#  field(ZNAM, "OFF")
+#  field(ONAM, "ON")
+#  field(VAL, "1")
+#  field(OUT, "$(Instrument)DigtzBuff1-Cmd PP")
+#}
+
+# Settings for disabling Fast measurement trigger
+record(sseq, "$(P)$(R)FastConfigNone"){
+  field(ASG, "Reserved")
+  field(DESC, "Settings for NO measurement trigger")
+  field(SELM, "All")
+#  field(STR1, "Passive")
+  field(STR2, "Passive")
+  field(STR3, "NONE")
+  field(STR4, "ON")
+  field(STR5, "OFF")
+#  field(LNK1, "$(P)$(R)FastSoftMeas.SCAN")			# Disable meas. software triggering
+  field(LNK2, "$(Instrument)CntBuff1-Mon.SCAN")			# Disable buffer count scan and periodic reading fetching
+  field(LNK3, "$(Instrument)DigtzeStim-Sel PP")			# Meas. trigger = NONE 
+  field(DLY3, "1")                                              # Delay so last meas finishes being fetched
+  field(LNK4, "$(Instrument)ClrBuff1-Cmd PP")			# Clear buffer
+  field(LNK5, "$(P)$(R)LowLimEnbl-Sel PP")			# Disable low voltage level detection
+}
+
+# Check Fast measurement trigger configuration and update Sts
+record(scalcout, "$(P)$(R)FastConfCheck1"){
+  field(ASG, "Reserved")
+  field(DESC, "Check calc 1 for meas. trigger config")
+#  field(INAA, "$(P)$(R)FastSoftMeas.SCAN CPP")
+  field(INBB, "$(Instrument)ExInEdge-Sts CPP")
+  field(INCC, "$(Instrument)DigtzeStim-Sts CPP")
+  field(INDD, "$(Instrument)CntBuff1-Mon.SCAN CPP")
+  field(INEE, "$(P)$(R)LowLimEnbl-Sts CPP")
+  field(INFF, "$(Instrument)ExOutStim-Sts CPP")
+  field(INGG, "$(Instrument)DATrEdgeSlp-Sts CPP")
+  field(INHH, "$(Instrument)Timer1Stim-Sts CPP")
+#  field(CALC, "(AA=='Passive'&&BB=='RISING'&&CC=='TIMER1'&&DD=='.1 second')?1:0")
+  field(CALC, "(BB=='RISING'&&CC=='TIMER1'&&DD=='.01 second')?1:0")
+  field(FLNK, "$(P)$(R)FastConfCheckMode")
+}
+
+record(calcout, "$(P)$(R)FastConfCheckMode"){
+  field(ASG, "Reserved")
+  field(DESC, "Check mode calc for meas. trg config")
+  field(INPA, "$(P)$(R)MeasMode-Sts")
+  field(CALC, "A=2")
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(P)$(R)FastConfCheck2.PROC PP")
+}
+
+record(scalcout, "$(P)$(R)FastConfCheck2"){
+  field(ASG, "Reserved")
+  field(DESC, "Check calc 2 for meas. trigger config")
+  field(INPA, "$(P)$(R)FastConfCheck1.VAL")
+  field(INBB, "$(Instrument)Timer1Stim-Sts")
+  field(CALC, "(A=1&&BB=='EXTERNAL')?1:0")
+  field(FLNK, "$(P)$(R)FastConfCheck3")
+}
+
+record(scalcout, "$(P)$(R)FastConfCheck3"){
+  field(ASG, "Reserved")
+  field(DESC, "Check calc 3 for meas. trigger config")
+#  field(INAA, "$(P)$(R)FastSoftMeas.SCAN")
+  field(INBB, "$(Instrument)DigtzeStim-Sts")
+  field(INCC, "$(P)$(R)LowLimEnbl-Sts")
+  field(INDD, "$(Instrument)ExOutStim-Sts")
+  field(INEE, "$(Instrument)DATrEdgeSlp-Sts")
+  field(INPF, "$(P)$(R)FastConfCheck2.VAL")
+#  field(CALC, "F=0&&(AA=='Passive'&&BB=='TIMER1'&&CC=='OFF'&&DD=='NONE'&&EE=='Rising')?2:F")
+  field(CALC, "F=0&&(BB=='TIMER1'&&CC=='OFF'&&DD=='NONE'&&EE=='Rising')?2:F")
+  field(FLNK, "$(P)$(R)FastConfCheck4")
+}
+
+record(scalcout, "$(P)$(R)FastConfCheck4"){
+  field(ASG, "Reserved")
+  field(DESC, "Check calc 4 for meas. trigger config")
+  field(INPA, "$(P)$(R)FastConfCheck3.VAL")
+  field(INPB, "$(P)$(R)FastConfCheck2.VAL")
+  field(INCC, "$(Instrument)CntBuff1-Mon.SCAN")
+  field(INDD, "$(Instrument)Timer1Stim-Sts")
+  field(CALC, "(A=2&&CC=='.01 second'&&DD=='ANALOGTRIGGER')?2:B")
+  field(FLNK, "$(P)$(R)FastConfCheck5")
+}
+
+record(scalcout, "$(P)$(R)FastConfCheck5"){
+  field(ASG, "Reserved")
+  field(DESC, "Check calc 5 for meas. trigger config")
+  field(INAA, "$(Instrument)DigtzeStim-Sts")
+  field(INBB, "$(Instrument)CntBuff1-Mon.SCAN")
+#  field(INCC, "$(P)$(R)FastSoftMeas.SCAN")
+  field(INCC, "$(P)$(R)MeasTrg-Sel")
+  field(INPD, "$(P)$(R)FastConfCheck4.VAL")
+  field(CALC, "(D=0&&AA=='NONE'&&BB=='.01 second'&&CC=='Software')?3:D")
+  field(FLNK, "$(P)$(R)FastConfCheck6")
+}
+
+record(scalcout, "$(P)$(R)FastConfCheck6"){
+  field(ASG, "Reserved")
+  field(DESC, "Check calc 6 for meas. trigger config")
+  field(INPA, "$(P)$(R)FastConfCheck5.VAL")
+#  field(INBB, "$(P)$(R)FastSoftMeas.SCAN")
+  field(INCC, "$(Instrument)DigtzeStim-Sts")
+  field(INDD, "$(Instrument)CntBuff1-Mon.SCAN")
+  field(INEE, "$(P)$(R)LowLimEnbl-Sts")
+#  field(CALC, "(A=0&&BB=='Passive'&&CC=='NONE'&&DD=='Passive'&&EE=='OFF')?4:A")
+  field(CALC, "(A=0&&CC=='NONE'&&DD=='Passive'&&EE=='OFF')?4:A")
+  field(FLNK, "$(P)$(R)FastConfCheck7")
+}
+
+record(scalcout, "$(P)$(R)FastConfCheck7"){
+  field(ASG, "Reserved")
+  field(DESC, "Check calc 7 for meas. trigger config")
+  field(INPA, "$(P)$(R)FastConfCheck6.VAL")
+  field(CALC, "A=1?'External':(A=2?'InLevel':(A=3?'Software':(A=4?'None':'Unknown')))")
+  field(FLNK, "$(P)$(R)FastConfCheck8")
+}
+
+record(scalcout, "$(P)$(R)FastConfCheck8"){
+  field(ASG, "Reserved")
+  field(DESC, "Check calc 8 for meas. trigger config")
+  field(INPA, "$(P)$(R)MeasMode-Sts")
+  field(INBB, "$(P)$(R)FastConfCheck7.SVAL")
+  field(CALC, "A=0?'Unknown':BB")
+  field(OUT, "$(P)$(R)MeasTrg-Sts PP")
+}
+
+###################################################
+# Measurement Trigger Source Readback | Both modes
+#
+# Desc: Trigger config readback update.
 
 # Measurement trigger source status
 record(mbbi, "$(P)$(R)MeasTrg-Sts"){
@@ -234,15 +640,16 @@ record(mbbi, "$(P)$(R)MeasTrg-Sts"){
   field(TWST, "InLevel")
   field(THST, "Software")
   field(FRST, "None")
-  field(FLNK, "$(P)$(R)ProtecCalc")
+  field(FLNK, "$(P)$(R)ProtectCalc")
 }
 
 # Disable changes in settings based on trigger configuration
-record(calc, "$(P)$(R)ProtecCalc"){
+record(calc, "$(P)$(R)ProtectCalc"){
   field(ASG, "Reserved")
   field(DESC, "Enable/disable control PVs calc")
   field(INPA, "$(P)$(R)MeasTrg-Sts")
-  field(CALC, "(A=4||A=0)?1:2")
+  field(INPB, "$(P)$(R)MeasMode-Sts")
+  field(CALC, "(A=4||A=0)?(B=1?1:(B=2?2:3)):3")
   field(FLNK, "$(P)$(R)ProtectSeq1")
 }
 
@@ -251,17 +658,19 @@ record(seq, "$(P)$(R)ProtectSeq1"){
   field(ASG, "Reserved")
   field(DESC, "Enable/disable control PVs seq 1")
   field(SELM, "Specified")
-  field(SELL, "$(P)$(R)ProtecCalc.VAL")
+  field(SELL, "$(P)$(R)ProtectCalc.VAL")
   field(DO1, "1")
   field(DO2, "1")
-  field(LNK1, "$(P)$(R)ProtectSeq2.PROC PP")
-  field(LNK2, "$(P)$(R)ProtectSeq4.PROC PP")
+  field(DO3, "1")
+  field(LNK1, "$(P)$(R)ProtectSeqNormal1.PROC PP")
+  field(LNK2, "$(P)$(R)ProtectSeqFast1.PROC PP")
+  field(LNK3, "$(P)$(R)ProtectSeqDsbl1.PROC PP")
 }
 
-# Enable PVs
-record(seq, "$(P)$(R)ProtectSeq2"){
+# Enable Normal Mode config PVs
+record(seq, "$(P)$(R)ProtectSeqNormal1"){
   field(ASG, "Reserved")
-  field(DESC, "Enable/disable control PVs seq 2")
+  field(DESC, "Enable Normal Mode config PVs seq 1")
   field(SELM, "All")
   field(DO1, "0")
   field(DO2, "0")
@@ -272,21 +681,37 @@ record(seq, "$(P)$(R)ProtectSeq2"){
   field(DO7, "0")
   field(DO8, "0")
   field(DO9, "0")
-  field(LNK1, "$(P)$(R)TrgDelay-SP.DISP")		# Enable trigger delay set point
-  field(LNK2, "$(P)$(R)Range-Sel.DISP")			# Enable range selection
-  field(LNK3, "$(P)$(R)LowLimEnbl-Sel.DISP")		# Enable low limit detection enable/disable
-  field(LNK4, "$(P)$(R)CurrThold-SP.DISP")		# Enable current threshold set point
-  field(LNK5, "$(P)$(R)HFReject-Sel.DISP")		# Enable HF rejection enable/disable
-  field(LNK6, "$(P)$(R)NPLC-SP.DISP")			# Enable NPLC set point
-  field(LNK7, "$(P)$(R)LineSync-Sel.DISP")		# Enable line synchronization enable/disable
-  field(LNK8, "$(P)$(R)Imped-Sel.DISP")			# Enable input impedance enable/disable
-  field(LNK9, "$(P)$(R)AvgFilterEnbl-Sel.DISP")		# Enable filter enable/disable
-  field(FLNK, "$(P)$(R)ProtectSeq3")
+  field(LNK1, "$(P)$(R)SampleCnt-SP.DISP")		# Enable sample count set point
+  field(LNK2, "$(P)$(R)RelEnbl-Sel.DISP")		# Enable relative offset enable/disable
+  field(LNK3, "$(P)$(R)RelLvl-SP.DISP")			# Enable relative offset set point
+  field(LNK4, "$(P)$(R)RelAcq-Cmd.DISP")		# Enable relative offset acquire command
+  field(LNK5, "$(P)$(R)NPLC-SP.DISP")			# Enable NPLC set point
+  field(LNK6, "$(P)$(R)LineSync-Sel.DISP")		# Enable line synchronization enable/disable
+  field(LNK7, "$(P)$(R)Imped-Sel.DISP")			# Enable input impedance enable/disable
+  field(LNK8, "$(P)$(R)SampleCnt-SP.DISP")              # Enable sample count set point
+  field(LNK9, "$(P)$(R)MeasPeriod-SP.DISP")		# Enable measurement period set point
+  field(FLNK, "$(P)$(R)ProtectSeqNormal2")
 }
 
-record(seq, "$(P)$(R)ProtectSeq3"){
+record(seq, "$(P)$(R)ProtectSeqNormal2"){
   field(ASG, "Reserved")
-  field(DESC, "Enable/disable control PVs seq 3")
+  field(DESC, "Enable Normal Mode config PVs seq 2")
+  field(SELM, "All")
+  field(DO1, "0")
+  field(DO2, "0")
+  field(DO3, "0")
+  field(DO4, "0")
+  field(LNK1, "$(P)$(R)AvgFilterCnt-SP.DISP")		# Enable filter count set point
+  field(LNK2, "$(P)$(R)AvgFilterTyp-Sel.DISP")		# Enable filter type selection
+  field(LNK3, "$(P)$(R)AvgFilterWind-SP.DISP")		# Enable filter window set point
+  field(LNK4, "$(P)$(R)AvgFilterEnbl-Sel.DISP")		# Enable filter enable/disable
+  field(FLNK, "$(P)$(R)ProtectSeqBoth1")
+}
+
+# Enable Fast Mode config PVs
+record(seq, "$(P)$(R)ProtectSeqFast1"){
+  field(ASG, "Reserved")
+  field(DESC, "Enable Fast Mode config PVs")
   field(SELM, "All")
   field(DO1, "0")
   field(DO2, "0")
@@ -296,20 +721,42 @@ record(seq, "$(P)$(R)ProtectSeq3"){
   field(DO6, "0")
   field(DO7, "0")
   field(DO8, "0")
-  field(LNK1, "$(P)$(R)AvgFilterCnt-SP.DISP")		# Enable filter count set point
-  field(LNK2, "$(P)$(R)AvgFilterTyp-Sel.DISP")		# Enable filter type selection
-  field(LNK3, "$(P)$(R)AvgFilterWind-SP.DISP")		# Enable filter window set point
-  field(LNK4, "$(P)$(R)RelEnbl-Sel.DISP")		# Enable relative offset enable/disable
-  field(LNK5, "$(P)$(R)RelLvl-SP.DISP")			# Enable relative offset set point
-  field(LNK6, "$(P)$(R)RelAcq-Cmd.DISP")		# Enable relative offset acquire command
-  field(LNK7, "$(P)$(R)Test-Sel.DISP")			# Enable test function enable/disable
-  field(LNK8, "$(P)$(R)LowLimEnbl-Sel")			# Set low limit enable to OFF (since it was disabled, initialization could not set it).
+  field(LNK1, "$(P)$(R)FastAperture-SP.DISP")          # Enable 'fast mode' aperture set point
+  field(LNK2, "$(P)$(R)FastSampleRate-SP.DISP")        # Enable 'fast mode' sample rate set point
+  field(LNK3, "$(P)$(R)FastRelEnbl-Sel.DISP")          # Enable 'fast mode' relative offset enable/disable
+  field(LNK4, "$(P)$(R)FastRelLvl-SP.DISP")            # Enable 'fast mode' relative offset set point
+  field(LNK5, "$(P)$(R)FastRelAcq-Cmd.DISP")           # Enable 'fast mode' relative offset acquire command
+  field(LNK6, "$(P)$(R)FastSampleCnt-SP.DISP")         # Enable 'fast mode' sample count set point
+  field(LNK7, "$(P)$(R)FastImped-Sel.DISP")            # Enable 'fast mode' impedance set point
+  field(LNK8, "$(P)$(R)FastMeasPeriod-SP.DISP")        # Enable 'fast mode' measurement period set point
+  field(FLNK, "$(P)$(R)ProtectSeqBoth1")
+}
+
+# Enable config PVs common to both modes
+record(seq, "$(P)$(R)ProtectSeqBoth1"){
+  field(ASG, "Reserved")
+  field(DESC, "Enable common config PVs seq 1")
+  field(SELM, "All")
+  field(DO1, "0")
+  field(DO2, "0")
+  field(DO3, "0")
+  field(DO4, "0")
+  field(DO5, "0")
+  field(DO6, "0")
+  field(DO7, "0")
+  field(LNK1, "$(P)$(R)TrgDelay-SP.DISP")		# Enable trigger delay set point
+  field(LNK2, "$(P)$(R)Range-Sel.DISP")			# Enable range selection
+  field(LNK3, "$(P)$(R)LowLimEnbl-Sel.DISP")		# Enable low limit detection enable/disable
+  field(LNK4, "$(P)$(R)LowLimEnbl-Sel") # Set low limit enable to OFF (since it was disabled, init could not set it)
+  field(LNK5, "$(P)$(R)CurrThold-SP.DISP")		# Enable current threshold set point
+  field(LNK6, "$(P)$(R)HFReject-Sel.DISP")		# Enable HF rejection enable/disable
+  field(LNK7, "$(P)$(R)Test-Sel.DISP")                  # Enable test function enable/disable
 }
 
 # Disable PVs
-record(seq, "$(P)$(R)ProtectSeq4"){
+record(seq, "$(P)$(R)ProtectSeqDsbl1"){
   field(ASG, "Reserved")
-  field(DESC, "Enable/disable control PVs seq 4")
+  field(DESC, "Disable all config PVs seq 1")
   field(SELM, "All")
   field(DO1, "1")
   field(DO2, "1")
@@ -320,6 +767,7 @@ record(seq, "$(P)$(R)ProtectSeq4"){
   field(DO7, "1")
   field(DO8, "1")
   field(DO9, "1")
+  field(DOA, "1")
   field(LNK1, "$(P)$(R)TrgDelay-SP.DISP")		# Disable trigger delay set point
   field(LNK2, "$(P)$(R)Range-Sel.DISP")			# Disable range selection
   field(LNK3, "$(P)$(R)LowLimEnbl-Sel.DISP")		# Disable low limit detection enable/disable
@@ -329,12 +777,13 @@ record(seq, "$(P)$(R)ProtectSeq4"){
   field(LNK7, "$(P)$(R)LineSync-Sel.DISP")		# Disable line synchronization enable/disable
   field(LNK8, "$(P)$(R)Imped-Sel.DISP")			# Disable input impedance enable/disable
   field(LNK9, "$(P)$(R)AvgFilterEnbl-Sel.DISP")		# Disable filter enable/disable
-  field(FLNK, "$(P)$(R)ProtectSeq5")
+  field(LNKA, "$(P)$(R)SampleCnt-SP.DISP")              # Disable sample count set point
+  field(FLNK, "$(P)$(R)ProtectSeqDsbl2")
 }
 
-record(seq, "$(P)$(R)ProtectSeq5"){
+record(seq, "$(P)$(R)ProtectSeqDsbl2"){
   field(ASG, "Reserved")
-  field(DESC, "Enable/disable control PVs seq 5")
+  field(DESC, "Disable all config PVs seq 2")
   field(SELM, "All")
   field(DO1, "1")
   field(DO2, "1")
@@ -343,6 +792,9 @@ record(seq, "$(P)$(R)ProtectSeq5"){
   field(DO5, "1")
   field(DO6, "1")
   field(DO7, "1")
+  field(DO8, "1")
+  field(DO9, "1")
+  field(DOA, "1")
   field(LNK1, "$(P)$(R)AvgFilterCnt-SP.DISP")		# Disable filter count set point
   field(LNK2, "$(P)$(R)AvgFilterTyp-Sel.DISP")		# Disable filter type selection
   field(LNK3, "$(P)$(R)AvgFilterWind-SP.DISP")		# Disable filter window set point
@@ -350,10 +802,33 @@ record(seq, "$(P)$(R)ProtectSeq5"){
   field(LNK5, "$(P)$(R)RelLvl-SP.DISP")			# Disable relative offset set point
   field(LNK6, "$(P)$(R)RelAcq-Cmd.DISP")		# Disable relative offset acquire command
   field(LNK7, "$(P)$(R)Test-Sel.DISP")			# Disable test function enable/disable
+  field(LNK8, "$(P)$(R)MeasPeriod-SP.DISP")             # Disable measurement period set point
+  field(LNK9, "$(P)$(R)FastSampleCnt-SP.DISP")          # Disable 'fast mode' sample count set point
+  field(LNKA, "$(P)$(R)FastImped-Sel.DISP")             # Disable 'fast mode' impedance set point
+  field(FLNK, "$(P)$(R)ProtectSeqDsbl3")
+}
+
+record(seq, "$(P)$(R)ProtectSeqDsbl3"){
+  field(ASG, "Reserved")
+  field(DESC, "Disable all config PVs seq 3")
+  field(SELM, "All")
+  field(DO1, "1")
+  field(DO2, "1")
+  field(DO3, "1")
+  field(DO4, "1")
+  field(DO5, "1")
+  field(DO6, "1")
+  field(LNK1, "$(P)$(R)FastAperture-SP.DISP")           # Disable 'fast mode' aperture set point
+  field(LNK2, "$(P)$(R)FastSampleRate-SP.DISP")         # Disable 'fast mode' sample rate set point
+  field(LNK3, "$(P)$(R)FastRelEnbl-Sel.DISP")           # Disable 'fast mode' relative offset enable/disable
+  field(LNK4, "$(P)$(R)FastRelLvl-SP.DISP")             # Disable 'fast mode' relative offset set point
+  field(LNK5, "$(P)$(R)FastRelAcq-Cmd.DISP")            # Disable 'fast mode' relative offset acquire command
+  field(LNK6, "$(P)$(R)FastMeasPeriod-SP.DISP")         # Disable 'fast mode' measurement period set point
 }
 
 ########################################################################
 # Timer configuration
+#
 # Desc: Timer used when measurement is triggered by level.
 
 # Timer delay (high level)
@@ -377,39 +852,92 @@ record(ai, "$(P)$(R)TrgDelay-RB"){
 
 ########################################################################
 # Average Current Measurement
+#
 # Desc: Average Beam Current measurement parameters.
+
+record(calcout, "$(P)$(R)BuffProtectRead"){
+  field(DESC, "Protect buffer reading")
+  field(INPA, "$(Instrument)CntBuff1-Mon CPP")
+  field(CALC, "A=0")
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(P)$(R)EmptyFlg PP")
+  field(FLNK, "$(P)$(R)BuffCntCalc")
+}
+
+record(bi, "$(P)$(R)EmptyFlg"){
+  field(DESC, "Buffer is empty flag")
+}
 
 # Check if buffer 1 count is greater than 0
 record(calcout, "$(P)$(R)BuffCntCalc"){
   field(ASG, "Reserved")
   field(DESC, "Buffer counter monitor calc")
   field(PRIO, "HIGH")
-  field(INPA, "$(Instrument)CntBuff1-Mon CPP")
-  field(CALC, "A>0")
+  field(INPA, "$(P)$(R)BuffProtectRead.A")
+  field(INPB, "$(P)$(R)SampleCnt-RB.VAL")
+  field(INPC, "$(P)$(R)FastSampleCnt-RB.VAL")
+  field(INPD, "$(P)$(R)MeasMode-Sts.VAL")
+  field(INPE, "$(P)$(R)MeasTrg-Sts.VAL")
+  field(INPF, "$(P)$(R)EmptyFlg")
+  field(CALC, "E=3||(F#0&&(((A>=B)&&(D=1))||((A>=C)&&(D=2))))?1:0")
   field(OOPT, "When Non-zero")
-  field(OUT, "$(Instrument)FetchBuff1-Mon.PROC")
-  field(FLNK, "$(P)$(R)BuffClear")
+  field(OCAL, "E#3?3:(D=1?7:11)")
+  field(DOPT, "Use OCAL")
+  field(OUT, "$(P)$(R)ReadAndClear.PROC PP")
+  field(FLNK, "$(P)$(R)EmptyFlgClr")
 }
 
-# Clear buffer after fetch was requested
-record(calcout, "$(P)$(R)BuffClear"){
-  field(ASG, "Reserved")
-  field(DESC, "Clear buffer calc")
-  field(PRIO, "HIGH")
+record(calcout, "$(P)$(R)EmptyFlgClr"){
+  field(DESC, "Clear empty flag")
   field(INPA, "$(P)$(R)BuffCntCalc.VAL")
   field(CALC, "A")
   field(OOPT, "When Non-zero")
-  field(OUT, "$(Instrument)ClrBuff1-Cmd PP")
+  field(DOPT, "Use OCAL")
+  field(OCAL, "0")
+  field(OUT, "$(P)$(R)EmptyFlg PP")
+}
+
+record(sseq, "$(P)$(R)ReadAndClear"){
+  field(ASG, "Reserved")
+  field(SELM, "Mask")
+  field(SELL, "$(P)$(R)BuffCntCalc.OVAL")
+  field(DO1, "1")
+  field(STR2, "ON")
+  field(STR3, "ON")
+  field(STR4, "ON")
+  field(LNK1, "$(Instrument)ReadBuff1-Mon.PROC CA")
+  field(WAIT1, "Wait")
+  field(LNK2, "$(Instrument)ClrBuff1-Cmd CA")
+  field(WAIT2, "Wait")
+  field(LNK3, "$(Instrument)MeasBuff1-Cmd CA")
+  field(WAIT3, "Wait")
+  field(LNK4, "$(Instrument)DigtzBuff1-Cmd CA")
+  field(WAIT4, "Wait")
+}
+
+# Raw readings array
+record(waveform, "$(P)$(R)RawReadings-Mon"){
+  field(ASG, "Reserved")
+  field(DESC, "Raw readings array")
+  field(FTVL, "DOUBLE")
+  field(NELM, "1000000")
+  field(EGU, "mA")
+  field(INP, "$(Instrument)ReadBuff1-Mon CPP")
+  field(FLNK, "$(P)$(R)Current-Mon")
 }
 
 # PV with last monitored Beam Current
-record(calc, "$(P)$(R)Current-Mon"){
+record(acalcout, "$(P)$(R)Current-Mon"){
   field(ASG, "Reserved")
   field(DESC, "Average Beam Current")
+  field(NELM, "1000000")
   field(PREC, "6")
   field(EGU, "mA")
-  field(INPA, "$(Instrument)FetchBuff1-Mon CPP")
-  field(CALC, "A")
+  field(INAA, "$(P)$(R)RawReadings-Mon.VAL")
+  field(INPB, "$(P)$(R)SampleCnt-RB.VAL")
+  field(INPC, "$(P)$(R)FastSampleCnt-RB.VAL")
+  field(INPD, "$(P)$(R)MeasMode-Sts.VAL")
+  field(CALC, "D=1?AVG(AA[0,B-1]):AVG(AA[0,C-1])")
   field(FLNK, "$(P)$(R)CurrHstr-Mon")
 }
 
@@ -443,8 +971,96 @@ record(bi, "$(P)$(R)StoredEBeam-Mon"){
 }
 
 ########################################################################
-# Measurement Settings
+# Measurement Settings | Normal Mode
+#
 # Desc: Measurement parameters.
+
+# Sample count (works along Meas Period)
+record(longout, "$(P)$(R)SampleCnt-SP"){
+  field(DESC, "Normal mode sample count")
+  field(DRVH, "5000")
+  field(DRVL, "1")
+  field(VAL, "1")
+  field(FLNK, "$(P)$(R)CorrectSampleCnt1")
+}
+
+record(longin, "$(P)$(R)SampleCnt-RB"){
+  field(DESC, "Normal mode sample count")
+  field(INP, "$(Instrument)MeasCnt-RB CPP")
+}
+
+# Measurement Period
+record(ao, "$(P)$(R)MeasPeriod-SP"){
+  field(DESC, "Total meas period")
+  field(DRVH, "10")
+  field(DRVL, "0.0000084")  # Min period = min aperture
+  field(VAL, "0.01667")
+  field(EGU, "s")
+  field(PREC, "7")
+  field(FLNK, "$(P)$(R)CorrectSampleCnt1")
+}
+
+record(calc, "$(P)$(R)MeasPeriod-RB"){
+  field(DESC, "Total meas period RB")
+  field(PREC, "7")
+  field(INPA, "$(Instrument)MeasApert-RB CPP")
+  field(INPB, "$(Instrument)MeasCnt-RB CPP")
+  field(CALC, "(A*0.001)*B")
+}
+
+# Correct and set sample count
+record(calcout, "$(P)$(R)CorrectSampleCnt1"){
+  field(ASG, "Reserved")
+  field(DESC, "Sample count correction calc 1")
+  field(INPA, "$(P)$(R)MeasPeriod-SP")
+  field(INPB, "$(P)$(R)SampleCnt-SP")
+  field(INPC, "0.0000084") # Min aperture
+  field(CALC, "A/B<C?floor(A/C):B")
+  field(FLNK, "$(P)$(R)CorrectSampleCnt2")
+}
+
+record(calcout, "$(P)$(R)CorrectSampleCnt2"){
+  field(ASG, "Reserved")
+  field(DESC, "Sample count correction calc 2")
+  field(INPA, "$(P)$(R)MeasPeriod-SP")
+  field(INPB, "$(P)$(R)SampleCnt-SP")
+  field(INPC, "0.25") # Max aperture
+  field(INPD, "$(P)$(R)CorrectSampleCnt1") # previous calc val
+  field(CALC, "A/B>C?ceil(A/C):D")
+  field(OUT, "$(P)$(R)CorrectedSampleCnt PP")
+  field(FLNK, "$(P)$(R)CorrectAperture")
+}
+
+# Correct and set aperture
+record(calcout, "$(P)$(R)CorrectAperture"){
+  field(ASG, "Reserved")
+  field(DESC, "Aperture calc")
+  field(EGU, "ms")
+  field(INPA, "$(P)$(R)MeasPeriod-SP")
+  field(INPB, "$(P)$(R)CorrectSampleCnt2.VAL")
+  field(CALC, "(A/B)*1000") # output in ms
+  field(OUT, "$(Instrument)MeasApert-SP PP")
+}
+
+# Corrected Sample Count
+record(longout, "$(P)$(R)CorrectedSampleCnt"){
+  field(ASG, "Reserved")
+  field(DESC, "Corrected sample count")
+  field(DRVH, "1000000")
+  field(DRVL, "1")
+  field(VAL, "1")
+  field(OUT, "$(Instrument)MeasCnt-SP PP")
+  field(FLNK, "$(P)$(R)SampleCntCalc")
+}
+
+# Set the last index of buffer to read equal to the count value
+record(calcout, "$(P)$(R)SampleCntCalc"){
+  field(ASG, "Reserved")
+  field(DESC, "Set last reading index in buffer")
+  field(INPA, "$(P)$(R)CorrectedSampleCnt.VAL")
+  field(CALC, "A")
+  field(OUT, "$(Instrument)EndRead1-SP PP")
+}
 
 # Input Impedance (high level)
 record(bo, "$(P)$(R)Imped-Sel"){
@@ -500,72 +1116,6 @@ record(ai, "$(P)$(R)NPLC-RB"){
   field(PREC, "4")
   field(EGU, "PLC")
   field(INP, "$(Instrument)MeasNPLC-RB CPP")
-}
-
-# Filter counter (high level)
-record(longout, "$(P)$(R)AvgFilterCnt-SP"){
-  field(DESC, "Filter counter high level PV")
-  field(DRVH, "100")
-  field(DRVL, "1")
-  field(OUT, "$(Instrument)FilterCnt-SP PP")
-}
-
-# Filter counter RB (high level)
-record(longin, "$(P)$(R)AvgFilterCnt-RB"){
-  field(ASG, "Reserved")
-  field(DESC, "Filter counter RB high level PV")
-  field(INP, "$(Instrument)FilterCnt-RB CPP")
-}
-
-# Filter enable (high level)
-record(bo, "$(P)$(R)AvgFilterEnbl-Sel"){
-  field(DESC, "Filter enable high level PV")
-  field(ZNAM, "OFF")
-  field(ONAM, "ON")
-  field(OUT, "$(Instrument)FilterEnbl-Sel PP")
-}
-
-# Filter enable Sts (high level)
-record(bi, "$(P)$(R)AvgFilterEnbl-Sts"){
-  field(ASG, "Reserved")
-  field(DESC, "Filter enable Sts high level PV")
-  field(ZNAM, "OFF")
-  field(ONAM, "ON")
-  field(INP, "$(Instrument)FilterEnbl-Sts CPP")
-}
-
-# Filter type (high level)
-record(bo, "$(P)$(R)AvgFilterTyp-Sel"){
-  field(DESC, "Filter type high level PV")
-  field(ZNAM, "Repeat")
-  field(ONAM, "Moving")
-  field(OUT, "$(Instrument)FilterTyp-Sel PP")
-}
-
-# Filter type Sts (high level)
-record(bi, "$(P)$(R)AvgFilterTyp-Sts"){
-  field(ASG, "Reserved")
-  field(DESC, "Filter type Sts high level PV")
-  field(ZNAM, "Repeat")
-  field(ONAM, "Moving")
-  field(INP, "$(Instrument)FilterTyp-Sts CPP")
-}
-
-# Filter window (high level)
-record(longout, "$(P)$(R)AvgFilterWind-SP"){
-  field(DESC, "Filter window high level PV")
-  field(DRVH, "10")
-  field(DRVL, "0")
-  field(EGU, "%")
-  field(OUT, "$(Instrument)FilterWind-SP PP")
-}
-
-# Filter window RB (high level)
-record(longin, "$(P)$(R)AvgFilterWind-RB"){
-  field(ASG, "Reserved")
-  field(DESC, "Filter window RB high level PV")
-  field(EGU, "%")
-  field(INP, "$(Instrument)FilterWind-RB CPP")
 }
 
 # Relative offset enable (high level)
@@ -634,7 +1184,299 @@ record(seq, "$(P)$(R)RelAcqSeq"){
 }
 
 ########################################################################
+# Measurement Settings | Fast Mode
+#
+# Desc: Measurement parameters.
+
+# Fast Sample count (works along Fast Meas Period)
+record(longout, "$(P)$(R)FastSampleCnt-SP"){
+  field(DESC, "Fast mode sample count")
+  field(DRVH, "5000")
+  field(DRVL, "1")
+  field(VAL, "1")
+  field(FLNK, "$(P)$(R)CorrectFastSampleCnt1")
+}
+
+record(longin, "$(P)$(R)FastSampleCnt-RB"){
+  field(DESC, "Fast mode sample count")
+  field(INP, "$(Instrument)DigtzeCnt-RB CPP")
+}
+
+# Fast Measurement Period
+record(ao, "$(P)$(R)FastMeasPeriod-SP"){
+  field(DESC, "Total meas period")
+  field(DRVH, "5")
+  field(DRVL, "0.000001")  # Min period = min aperture
+  field(VAL, "0.001")
+  field(EGU, "s")
+  field(PREC, "7")
+  field(FLNK, "$(P)$(R)CorrectFastSampleCnt1")
+}
+
+record(calc, "$(P)$(R)FastMeasPeriod-RB"){
+  field(DESC, "Total meas period RB")
+  field(PREC, "7")
+  field(INPA, "$(Instrument)DigtzeSR-RB CPP")
+  field(INPB, "$(Instrument)DigtzeCnt-RB CPP")
+  field(CALC, "(1/A)*B")
+}
+
+# Correct and set fast sample count
+record(calcout, "$(P)$(R)CorrectFastSampleCnt1"){
+  field(ASG, "Reserved")
+  field(DESC, "Sample count correction calc 1")
+  field(INPA, "$(P)$(R)FastMeasPeriod-SP")
+  field(INPB, "$(P)$(R)FastSampleCnt-SP")
+  field(INPC, "0.000001") # Min aperture
+  field(CALC, "A/B<C?floor(A/C):B")
+  field(FLNK, "$(P)$(R)CorrectFastSampleCnt2")
+}
+
+record(calcout, "$(P)$(R)CorrectFastSampleCnt2"){
+  field(ASG, "Reserved")
+  field(DESC, "Sample count correction calc 2")
+  field(INPA, "$(P)$(R)FastMeasPeriod-SP")
+  field(INPB, "$(P)$(R)FastSampleCnt-SP")
+  field(INPC, "0.001") # Max aperture
+  field(INPD, "$(P)$(R)CorrectFastSampleCnt1") # previous calc val
+  field(CALC, "A/B>C?ceil(A/C):D")
+  field(OUT, "$(P)$(R)CorrectedFastSampleCnt PP")
+  field(FLNK, "$(P)$(R)CorrectFastSampleRate")
+}
+
+# Correct and set the sample rate
+record(calcout, "$(P)$(R)CorrectFastSampleRate"){
+  field(ASG, "Reserved")
+  field(DESC, "Fast sample rate correction")
+  field(EGU, "samples")
+  field(INPA, "$(P)$(R)FastMeasPeriod-SP")
+  field(INPB, "$(P)$(R)CorrectFastSampleCnt2.VAL")
+  field(CALC, "floor(B/A)") # output in samples
+  field(OUT, "$(Instrument)DigtzeSR-SP PP")
+  field(FLNK, "$(P)$(R)SetAutoAperture")
+}
+
+# Auto adjust aperture
+record(calcout, "$(P)$(R)SetAutoAperture"){
+  field(ASG, "Reserved")
+  field(DESC, "Auto adjust aperture")
+  field(INPA, "1") # set auto aperture to 1
+  field(CALC, "A")
+  field(OUT, "$(Instrument)DigtzeApertAuto-Cmd PP")
+}
+
+# Corrected Fast Sample Count
+record(longout, "$(P)$(R)CorrectedFastSampleCnt"){
+  field(ASG, "Reserved")
+  field(DESC, "Corrected sample count")
+  field(DRVH, "55000000")
+  field(DRVL, "1")
+  field(VAL, "1")
+  field(OUT, "$(Instrument)DigtzeCnt-SP PP")
+  field(FLNK, "$(P)$(R)FastSampleCntCalc")
+}
+
+# Set the last index of buffer to read equal to the count value
+record(calcout, "$(P)$(R)FastSampleCntCalc"){
+  field(ASG, "Reserved")
+  field(DESC, "Set last reading index in buffer")
+  field(INPA, "$(P)$(R)CorrectedFastSampleCnt.VAL")
+  field(CALC, "A")
+  field(OUT, "$(Instrument)EndRead1-SP PP")
+}
+
+# Fast Mode Input Impedance (high level)
+record(bo, "$(P)$(R)FastImped-Sel"){
+  field(DESC, "Input impedance high level PV")
+  field(ZNAM, "AUTO")
+  field(ONAM, "10MOhm")
+  field(VAL, "0")
+  field(OUT, "$(Instrument)DigtzeImpedance-Sel.VAL PP")
+}
+
+# Input Impedance Sts (high level)
+record(bi, "$(P)$(R)FastImped-Sts"){
+  field(ASG, "Reserved")
+  field(DESC, "Input impedance Sts high level PV")
+  field(ZNAM, "AUTO")
+  field(ONAM, "10MOhm")
+  field(INP, "$(Instrument)DigtzeImpedance-Sts CPP")
+}
+
+# Digitize aperture (high level)
+record(ao, "$(P)$(R)FastAperture-SP"){
+  field(DRVH, "1000")
+  field(DRVL, "1")
+  field(EGU, "us")
+  field(VAL, "1")
+  field(OUT, "$(Instrument)DigtzeApert-SP PP")
+}
+
+# Digitize aperture RB (high level)
+record(ai, "$(P)$(R)FastAperture-RB"){
+  field(ASG, "Reserved")
+  field(DESC, "Digitize aperture RB high level PV")
+  field(EGU, "us")
+  field(INP, "$(Instrument)DigtzeApert-RB CPP")
+}
+
+# Digitize sample rate (high level)
+record(longout, "$(P)$(R)FastSampleRate-SP"){
+  field(DESC, "Digitize sampling rate")
+  field(DRVH, "1000000")
+  field(DRVL, "1000")
+  field(EGU, "rdgs per sec")
+  field(VAL, "1000000")
+  field(OUT, "$(Instrument)DigtzeSR-SP PP")
+}
+
+# Digitize sample rate RB (high level)
+record(longin, "$(P)$(R)FastSampleRate-RB"){
+  field(ASG, "Reserved")
+  field(DESC, "Digitize sampling rate RB")
+  field(EGU, "rdgs per sec")
+  field(INP, "$(Instrument)DigtzeSR-RB CPP")
+}
+
+# Relative offset enable (high level)
+record(bo, "$(P)$(R)FastRelEnbl-Sel"){
+  field(DESC, "Rel. offset enable high level PV")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(VAL, "0")
+  field(OUT, "$(Instrument)DRelOffEnbl-Sel PP")
+}
+
+# Relative offset enable Sts (high level)
+record(bi, "$(P)$(R)FastRelEnbl-Sts"){
+  field(ASG, "Reserved")
+  field(DESC, "Rel. offset enable Sts high level PV")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(INP, "$(Instrument)DRelOffEnbl-Sts CPP")
+}
+
+# Relative offset level (high level)
+record(ao, "$(P)$(R)FastRelLvl-SP"){
+  field(DESC, "Rel. offset level high level PV")
+  field(PREC, "16")
+  field(OUT, "$(Instrument)DRelOff-SP PP")
+}
+
+# Relative offset level RB (high level)
+record(ai, "$(P)$(R)FastRelLvl-RB"){
+  field(ASG, "Reserved")
+  field(DESC, "Rel. offset level RB high level PV")
+  field(PREC, "16")
+  field(INP, "$(Instrument)DRelOff-RB CPP")
+}
+
+# Relative offset acquire command (high level)
+record(bo, "$(P)$(R)FastRelAcq-Cmd"){
+  field(DESC, "Rel. offset acquire high level PV")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(HIGH, "0.5")
+  field(FLNK, "$(P)$(R)FastRelAcqCalc")
+}
+
+# Relative offset acquire command validation
+record(calcout, "$(P)$(R)FastRelAcqCalc"){
+  field(ASG, "Reserved")
+  field(DESC, "Rel. offset acquire calc 1")
+  field(INPA, "$(P)$(R)FastRelAcq-Cmd.VAL")
+  field(CALC, "A")
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(P)$(R)FastRelAcqSeq.PROC")
+}
+
+# Process rel. offset acquire from multimeter, wait, and copy readback to set point
+record(seq, "$(P)$(R)FastRelAcqSeq"){
+  field(ASG, "Reserved")
+  field(DESC, "Acquire rel. offset and update set point")
+  field(SELM, "All")
+  field(PREC, "16")
+  field(DO1, "1")
+  field(DOL2, "$(P)$(R)FastRelLvl-RB.VAL")
+  field(LNK1, "$(Instrument)DRelOffAcq-Cmd.VAL PP")	# acquire relative offset
+  field(DLY2, "2")					# wait for 2 seconds so that readback value can be updated 
+  field(LNK2, "$(P)$(R)FastRelLvl-SP.VAL PP")		# update rel. offset set point with readback value
+}
+
+########################################################################
+# Filter Settings | Normal Mode Only
+#
+# Desc: Average filter settings.
+
+# Filter counter (high level)
+record(longout, "$(P)$(R)AvgFilterCnt-SP"){
+  field(DESC, "Filter counter high level PV")
+  field(DRVH, "100")
+  field(DRVL, "1")
+  field(OUT, "$(Instrument)FilterCnt-SP PP")
+}
+
+# Filter counter RB (high level)
+record(longin, "$(P)$(R)AvgFilterCnt-RB"){
+  field(ASG, "Reserved")
+  field(DESC, "Filter counter RB high level PV")
+  field(INP, "$(Instrument)FilterCnt-RB CPP")
+}
+
+# Filter enable (high level)
+record(bo, "$(P)$(R)AvgFilterEnbl-Sel"){
+  field(DESC, "Filter enable high level PV")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(OUT, "$(Instrument)FilterEnbl-Sel PP")
+}
+
+# Filter enable Sts (high level)
+record(bi, "$(P)$(R)AvgFilterEnbl-Sts"){
+  field(ASG, "Reserved")
+  field(DESC, "Filter enable Sts high level PV")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(INP, "$(Instrument)FilterEnbl-Sts CPP")
+}
+
+# Filter type (high level)
+record(bo, "$(P)$(R)AvgFilterTyp-Sel"){
+  field(DESC, "Filter type high level PV")
+  field(ZNAM, "Repeat")
+  field(ONAM, "Moving")
+  field(OUT, "$(Instrument)FilterTyp-Sel PP")
+}
+
+# Filter type Sts (high level)
+record(bi, "$(P)$(R)AvgFilterTyp-Sts"){
+  field(ASG, "Reserved")
+  field(DESC, "Filter type Sts high level PV")
+  field(ZNAM, "Repeat")
+  field(ONAM, "Moving")
+  field(INP, "$(Instrument)FilterTyp-Sts CPP")
+}
+
+# Filter window (high level)
+record(longout, "$(P)$(R)AvgFilterWind-SP"){
+  field(DESC, "Filter window high level PV")
+  field(DRVH, "10")
+  field(DRVL, "0")
+  field(EGU, "%")
+  field(OUT, "$(Instrument)FilterWind-SP PP")
+}
+
+# Filter window RB (high level)
+record(longin, "$(P)$(R)AvgFilterWind-RB"){
+  field(ASG, "Reserved")
+  field(DESC, "Filter window RB high level PV")
+  field(EGU, "%")
+  field(INP, "$(Instrument)FilterWind-RB CPP")
+}
+
+########################################################################
 # Current Measurement Range
+#
 # Desc: Measurement range selection.
 
 # ######################################
@@ -652,8 +1494,32 @@ record(mbbo, "$(P)$(R)Range-Sel"){
   field(ONST, "2 A")
   field(TWST, "200 mA")
   field(THST, "20 mA")
-  field(FLNK, "$(P)$(R)ConvCalc")
+  field(FLNK, "$(P)$(R)ConvCalcGetMode")
 }
+
+record(calcout, "$(P)$(R)ConvCalcGetMode"){
+  field(ASG, "Reserved")
+  field(DESC, "Get meas. mode for range convertion")
+  field(INPA, "$(P)$(R)MeasMode-Sts")
+  field(CALC, "A=1?1:2")
+  field(FLNK, "$(P)$(R)ConvCalcSeq")
+}
+
+record(seq, "$(P)$(R)ConvCalcSeq"){
+  field(ASG, "Reserved")
+  field(DESC, "Choose mode for conversion calc")
+  field(SELM, "Specified")
+  field(SELL, "$(P)$(R)ConvCalcGetMode")
+  field(DO1, "1")
+  field(DO2, "1")
+  field(LNK1, "$(P)$(R)ConvCalc.PROC PP")
+  field(LNK2, "$(P)$(R)FastConvCalc.PROC PP")
+}
+
+###################################################
+# Current Measurement Range | Normal Mode
+#
+# Desc: Range config for Normal Mode.
 
 # Calculation for setting conversion multiplier
 record(calcout, "$(P)$(R)ConvCalc"){
@@ -692,19 +1558,132 @@ record(calcout, "$(P)$(R)ThreshUpdate"){
 }
 
 # Range status calculation
-record(scalcout, "$(P)$(R)RangeMonCalc"){
+record(scalcout, "$(P)$(R)RangeMonCalc1"){
   field(ASG, "Reserved")
   field(DESC, "Calc of range from DigIO status")
   field(INPA, "$(Instrument)DigRead-Mon CPP")
+  field(INPB, "$(Instrument)MMathMFactor-RB CPP")
   field(CALC, "(A&3)=3?'20 A':((A&3)=2?'2 A':((A&3)=1?'200 mA':'20 mA'))")
+  field(FLNK, "$(P)$(R)RangeMonGetMode")
+}
+
+record(scalcout, "$(P)$(R)RangeMonGetMode"){
+  field(ASG, "Reserved")
+  field(DESC, "Get mode to decide if should monitor")
+  field(INAA, "$(P)$(R)MeasMode-Sts")
+  field(CALC, "AA=='Normal'")
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(P)$(R)RangeMonCalc2.PROC PP")
+}
+
+record(scalcout, "$(P)$(R)RangeMonCalc2"){
+  field(ASG, "Reserved")
+  field(DESC, "Calc of range from MMathMFactor RB")
+  field(INPA, "$(Instrument)MMathMFactor-RB")
+  field(INBB, "$(P)$(R)RangeMonCalc1.SVAL")
+  field(CALC, "((A=2000)&&(BB='20 A'))||((A=200)&&(BB='2 A'))?BB:'Unknown'")
+  field(FLNK, "$(P)$(R)RangeMonCalc3")
+}
+
+record(scalcout, "$(P)$(R)RangeMonCalc3"){
+  field(ASG, "Reserved")
+  field(DESC, "Calc of range from MMathMFactor RB")
+  field(INPA, "$(Instrument)MMathMFactor-RB")
+  field(INBB, "$(P)$(R)RangeMonCalc1.SVAL")
+  field(INCC, "$(P)$(R)RangeMonCalc2.SVAL")
+  field(CALC, "CC!='Unknown'?CC:(((A=20)&&(BB='200 mA'))||((A=2)&&(BB='20 mA'))?BB:'Unknown')")
   field(OUT, "$(P)$(R)Range-Sts PP")
 }
+
+###################################################
+# Current Measurement Range | Fast Mode
+#
+# Desc: Range config for Fast Mode.
+
+# Calculation for setting conversion multiplier
+record(calcout, "$(P)$(R)FastConvCalc"){
+  field(ASG, "Reserved")
+  field(DESC, "Reading conversion factor")
+  field(INPA, "$(P)$(R)Range-Sel.VAL")
+  field(CALC, "2000/(10**A)")
+  field(OUT, "$(Instrument)DMathMFactor-SP PP")
+  field(FLNK, "$(P)$(R)FastRangeCalc")
+}
+
+# Calculation for setting DCCT sensor range
+# Digital I/O mapping
+# DCCT 'Pin 7' = DMM 'DigIO 2'
+# DCCT 'Pin 6' = DMM 'DigIO 1'
+#
+record(calcout, "$(P)$(R)FastRangeCalc"){
+  field(ASG, "Reserved")
+  field(DESC, "DCCT range calc")
+  field(INPA, "$(P)$(R)Range-Sel")
+  field(INPB, "$(P)$(R)Test-Sts")
+  field(CALC, "(A=0?3:(A=1?2:(A=2?1:0)))|(((!B)&1)<<2)")
+  field(OUT, "$(Instrument)DigWrite-SP PP")
+  field(FLNK, "$(P)$(R)FastThreshUpdate")
+}
+
+# Level threshold update
+record(calcout, "$(P)$(R)FastThreshUpdate"){
+  field(ASG, "Reserved")
+  field(DESC, "Threshold update")
+  field(INPA, "$(P)$(R)CurrThold-RB")
+  field(INPB, "$(P)$(R)Range-Sel")
+  field(CALC, "(A*(10**B))/2000")
+  field(OUT, "$(Instrument)DATrEdgeLvl-SP PP")
+  field(FLNK, "$(Instrument)DigRead-Mon.PROC")
+}
+
+# Range status calculation
+record(scalcout, "$(P)$(R)FastRangeMonCalc1"){
+  field(ASG, "Reserved")
+  field(DESC, "Calc of range from DigIO status")
+  field(INPA, "$(Instrument)DigRead-Mon CPP")
+  field(INPB, "$(Instrument)DMathMFactor-RB CPP")
+  field(CALC, "(A&3)=3?'20 A':((A&3)=2?'2 A':((A&3)=1?'200 mA':'20 mA'))")
+  field(FLNK, "$(P)$(R)FastRangeMonGetMode")
+}
+
+record(scalcout, "$(P)$(R)FastRangeMonGetMode"){
+  field(ASG, "Reserved")
+  field(DESC, "Get mode to decide if should monitor")
+  field(INAA, "$(P)$(R)MeasMode-Sts")
+  field(CALC, "AA=='Fast'")
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(P)$(R)FastRangeMonCalc2.PROC PP")
+}
+
+record(scalcout, "$(P)$(R)FastRangeMonCalc2"){
+  field(ASG, "Reserved")
+  field(DESC, "Calc of range from DMathMFactor RB")
+  field(INPA, "$(Instrument)DMathMFactor-RB")
+  field(INBB, "$(P)$(R)FastRangeMonCalc1.SVAL")
+  field(CALC, "((A=2000)&&(BB='20 A'))||((A=200)&&(BB='2 A'))?BB:'Unknown'")
+  field(FLNK, "$(P)$(R)FastRangeMonCalc3")
+}
+
+record(scalcout, "$(P)$(R)FastRangeMonCalc3"){
+  field(ASG, "Reserved")
+  field(DESC, "Calc of range from DMathMFactor RB")
+  field(INPA, "$(Instrument)DMathMFactor-RB")
+  field(INBB, "$(P)$(R)FastRangeMonCalc1.SVAL")
+  field(INCC, "$(P)$(R)FastRangeMonCalc2.SVAL")
+  field(CALC, "CC!='Unknown'?CC:(((A=20)&&(BB='200 mA'))||((A=2)&&(BB='20 mA'))?BB:'Unknown')")
+  field(OUT, "$(P)$(R)Range-Sts PP")
+}
+
+###################################################
+# Current Measurement Range | Both Modes
+#
+# Desc: Range config readback.
 
 # Range status
 record(mbbi, "$(P)$(R)Range-Sts"){
   field(ASG, "Reserved")
   field(DESC, "DCCT range Sts")
-  field(ZRST, "UNKNOWN")
+  field(ZRST, "Unknown")
   field(ONST, "20 A")
   field(TWST, "2 A")
   field(THST, "200 mA")
@@ -713,6 +1692,7 @@ record(mbbi, "$(P)$(R)Range-Sts"){
 
 ########################################################################
 # DCCT Calibration Setting
+#
 # Desc: DCCT calibration signal enable.
 
 # ######################################
@@ -760,6 +1740,7 @@ record(bi, "$(P)$(R)Test-Sts"){
 
 ########################################################################
 # Current Threshold Detection
+#
 # Desc: Current loss detection parameters.
 
 # Enable/disable low current detection
@@ -774,7 +1755,8 @@ record(calc, "$(P)$(R)LowLimCalc"){
   field(ASG, "Reserved")
   field(DESC, "Low threshold settings calc")
   field(INPA, "$(P)$(R)LowLimEnbl-Sel")
-  field(CALC, "A=1?3:4")
+  field(INPB, "$(P)$(R)MeasMode-Sts")
+  field(CALC, "A=1?(B=1?3:(B=2?10:4)):4")
   field(FLNK, "$(P)$(R)LowLimSeq")
 }
 
@@ -786,9 +1768,11 @@ record(sseq, "$(P)$(R)LowLimSeq"){
   field(STR1, "Falling")
   field(STR2, "ANALOGTRIGGER")
   field(STR3, "NONE")
+  field(STR4, "Falling")
   field(LNK1, "$(Instrument)MATrEdgeSlp-Sel PP")
   field(LNK2, "$(Instrument)ExOutStim-Sel PP")
   field(LNK3, "$(Instrument)ExOutStim-Sel PP")
+  field(LNK4, "$(Instrument)DATrEdgeSlp-Sel PP")
 }
 
 record(scalcout, "$(P)$(R)LowLimCheck"){
@@ -835,8 +1819,32 @@ record(ao, "$(P)$(R)CurrThold-SP"){
   field(DRVL, "-2000")
   field(PREC, "6")
   field(EGU, "mA")
-  field(FLNK, "$(P)$(R)ThreshCalc")
+  field(FLNK, "$(P)$(R)CurrTholdGetMode")
 }
+
+record(calcout, "$(P)$(R)CurrTholdGetMode"){
+  field(ASG, "Reserved")
+  field(DESC, "Get meas mode to set curr threshold")
+  field(INPA, "$(P)$(R)MeasMode-Sts")
+  field(CALC, "A=1?1:2")
+  field(FLNK, "$(P)$(R)CurrTholdSeq")
+}
+
+record(seq, "$(P)$(R)CurrTholdSeq"){
+  field(ASG, "Reserved")
+  field(DESC, "Thresh. setting based on meas. mode")
+  field(SELM, "Specified")
+  field(SELL, "$(P)$(R)CurrTholdGetMode")
+  field(DO1, "1")
+  field(DO2, "1")
+  field(LNK1, "$(P)$(R)ThreshCalc.PROC PP")
+  field(LNK2, "$(P)$(R)FastThreshCalc.PROC PP")
+}
+
+###################################################
+# Current Threshold Detection | Normal Mode
+#
+# Desc: Threshold config for Normal Mode.
 
 # Threshold unit conversion
 record(calcout, "$(P)$(R)ThreshCalc"){
@@ -864,6 +1872,42 @@ record(calcout, "$(P)$(R)ThreshMonCalc"){
   field(OUT, "$(P)$(R)CurrThold-RB PP")
 }
 
+###################################################
+# Current Threshold Detection | Fast Mode
+#
+# Desc: Threshold config for Fast Mode.
+
+# Threshold unit conversion
+record(calcout, "$(P)$(R)FastThreshCalc"){
+  field(ASG, "Reserved")
+  field(DESC, "Threshold unit conversion calc")
+  field(INPA, "$(P)$(R)CurrThold-SP")
+  field(INPB, "$(P)$(R)Range-Sts")
+  field(CALC, "B=0?0:1")
+  field(OCAL, "(A*(10**(B-1)))/2000")
+  field(DOPT, "Use OCAL")
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(Instrument)DATrEdgeLvl-SP PP")
+}
+
+# Monitor calc for analog trigger level
+record(calcout, "$(P)$(R)FastThreshMonCalc"){
+  field(ASG, "Reserved")
+  field(DESC, "Threshold level read calc")
+  field(INPA, "$(Instrument)DATrEdgeLvl-RB CPP")
+  field(INPB, "$(P)$(R)Range-Sts")
+  field(CALC, "B=0?0:1")
+  field(OCAL, "(A*2000)/(10**(B-1))")
+  field(DOPT, "Use OCAL")
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(P)$(R)CurrThold-RB PP")
+}
+
+###################################################
+# Current Threshold Detection | Both Modes
+#
+# Desc: Threshold config for both modes.
+
 # Analog trigger threshold RB
 record(ai, "$(P)$(R)CurrThold-RB"){
   field(ASG, "Reserved")
@@ -887,20 +1931,51 @@ record(bo, "$(P)$(R)HFReject-Sel"){
   field(DESC, "High freq rejection high level PV")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
-  field(OUT, "$(Instrument)MATrHFR-Sel PP")
+  field(FLNK, "$(P)$(R)HFRejectGetMode")
+}
+
+record(calcout, "$(P)$(R)HFRejectGetMode"){
+  field(DESC, "Get meas mode to set high freq reject")
+  field(INPA, "$(P)$(R)MeasMode-Sts")
+  field(CALC, "A=1?1:2")
+  field(OOPT, "When Non-zero")
+  field(FLNK, "$(P)$(R)HFRejectSeq")
+}
+
+record(seq, "$(P)$(R)HFRejectSeq"){
+  field(DESC, "High freq rejection seq")
+  field(SELM, "Specified")
+  field(SELL, "$(P)$(R)HFRejectGetMode")
+  field(DOL1, "$(P)$(R)HFReject-Sel")
+  field(DOL2, "$(P)$(R)HFReject-Sel")
+  field(LNK1, "$(Instrument)MATrHFR-Sel PP")
+  field(LNK2, "$(Instrument)DATrHFR-Sel PP")
 }
 
 # High frequency rejection Sts (high level)
+
+record(calcout, "$(P)$(R)HFRejectMonCalc"){
+  field(DESC, "High freq rejection monitor calc")
+  field(INPA, "$(Instrument)MATrHFR-Sts CPP")
+  field(INPB, "$(Instrument)DATrHFR-Sts CPP")
+  field(INPC, "$(P)$(R)MeasMode-Sts CPP")
+  field(CALC, "C=1||C=2")
+  field(OOPT, "When Non-zero")
+  field(DOPT, "Use OCAL")
+  field(OCAL, "C=1?A:B")
+  field(OUT, "$(P)$(R)HFReject-Sts PP")
+}
+
 record(bi, "$(P)$(R)HFReject-Sts"){
   field(ASG, "Reserved")
   field(DESC, "High freq rejection Sts high level PV")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
-  field(INP, "$(Instrument)MATrHFR-Sts CPP")
 }
 
 ########################################################################
 # Save
+#
 # Desc: Save 'Sel' and 'SP' PV values.
 
 record(bo, "$(P)$(R)Save-Cmd"){
@@ -922,6 +1997,7 @@ record(calc, "$(P)$(R)SaveTrg"){
 
 ########################################################################
 # Measurement Reliability
+#
 # Desc: Combine critical parameters in one status.
 
 # Measurement reliability
@@ -930,7 +2006,7 @@ record(calcout, "$(P)$(R)ReliableMeas-Mon"){
   field(INPA, "$(Instrument)ACalWarn-Mon CPP")
   field(INPB, "$(Instrument)Network-Mon CPP")
   field(INPC, "$(P)$(R)MeasTrg-Sts CPP")
-  field(CALC, "((A&1)<<2)|((B&1)<<1)|(C=!1&&C!=2&&C!=3)")
+  field(CALC, "((A&1)<<2)|(((!B)&1)<<1)|(C=!1&&C!=2&&C!=3)")
   field(HIHI, "1")
   field(HHSV, "MAJOR")
 }
@@ -945,6 +2021,7 @@ record(waveform, "$(P)$(R)ReliableMeasLabels-Cte"){
 
 ########################################################################
 # Multimeter Setup
+#
 # Desc: General instrument initialization.
 
 # ----------------------------------------------------------
@@ -955,34 +2032,87 @@ record(waveform, "$(P)$(R)ReliableMeasLabels-Cte"){
 # Download command
 record(bo, "$(P)$(R)Download-Cmd"){
   field(DESC, "Download IOC parameters cmd")
+  field(PINI, "YES")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
   field(HIGH, "10")
   field(VAL, "1")
-  field(PINI, "YES")
-  field(FLNK, "$(P)$(R)DownloadCalc")
+  field(FLNK, "$(P)$(R)ValidDownload")
 }
 
-record(calcout, "$(P)$(R)DownloadCalc"){
+record(calcout, "$(P)$(R)ValidDownload"){
   field(ASG, "Reserved")
-  field(DESC, "Download confirmation calc")
+  field(DESC, "Validate download cmd")
   field(INPA, "$(P)$(R)Download-Cmd.VAL")
   field(CALC, "A")
   field(OOPT, "When Non-zero")
-  field(OUT, "$(P)$(R)DownloadSeq1.PROC")
+  field(OUT, "$(P)$(R)PreDownloadSeq.PROC PP")
 }
+
+record(sseq, "$(P)$(R)PreDownloadSeq"){
+  field(ASG, "Reserved")
+  field(DESC, "Pre download sequence")
+  field(SELM, "All")
+  field(STR1, "Passive")
+  field(LNK1, "$(P)$(R)SoftMeas.SCAN") # Disable soft scan
+  field(STR2, "Passive")
+  field(LNK2, "$(P)$(R)FastSoftMeas.SCAN") # Disable fast soft scan
+  field(STR3, "ON")
+  field(LNK3, "$(Instrument)Reset-Cmd PP") # Reset instrument
+  field(FLNK, "$(P)$(R)MeasMode-Sel")
+}
+
+#     || FLNK
+#     \/
+#
+# MeasMode-Sel (sets meas. function)
+# Located at "Measurement Mode Selection Group"
+#
+#     || FLNK
+#     \/
+
+record(calcout, "$(P)$(R)DownloadDly"){
+  field(ASG, "Reserved")
+  field(DESC, "Apply delay before download")
+  field(INPA, "1")
+  field(CALC, "A")
+  field(ODLY, "5")                                         # Apply delay so that instrument can change function
+  field(OUT, "$(P)$(R)DownloadGetMode.PROC PP")
+}
+
+record(calcout, "$(P)$(R)DownloadGetMode"){
+  field(ASG, "Reserved")
+  field(DESC, "Download get meas. mode")
+  field(INPA, "$(P)$(R)MeasMode-Sts")
+  field(CALC, "A=1?1:2")
+  field(FLNK, "$(P)$(R)DownloadModeSeq")
+}
+
+record(sseq, "$(P)$(R)DownloadModeSeq"){
+  field(ASG, "Reserved")
+  field(DESC, "Download chain differs depending on mode")
+  field(SELM, "Specified")
+  field(SELL, "$(P)$(R)DownloadGetMode")
+  field(DO1, "1")
+  field(DO2, "1")
+  field(LNK1, "$(P)$(R)DownloadSeq1.PROC PP")
+  field(LNK2, "$(P)$(R)FastDownloadSeq1.PROC PP")
+}
+
+###################################################
+# Multimeter Setup | Normal Mode
+#
+# Desc: Multimeter initial config for Normal Mode.
 
 record(sseq, "$(P)$(R)DownloadSeq1"){
   field(ASG, "Reserved")
   field(DESC, "Download sequence 1")
   field(SELM, "All")
-#  field(STR1, "ON")
   field(STR2, "DC_VOLTAGE")
   field(STR3, "OFF")
   field(STR4, "OFF")
   field(STR5, "OFF")
   field(DO6, "10")
-#  field(LNK1, "$(Instrument)Reset-Cmd PP")	# reset is NOT USED since it sets EXTOUT POL. to Negative, CAUSING A FALSE TRIGGER
   field(LNK2, "$(Instrument)MeasFnc-Sel PP")			# Meas. function = DC_VOLTAGE
   field(LNK3, "$(Instrument)MAutoRange-Sel PP")			# Meas. autorange = OFF
   field(LNK4, "$(Instrument)MeasAutoDly-Sel PP")		# Meas. autodelay = OFF
@@ -1006,7 +2136,7 @@ record(sseq, "$(P)$(R)DownloadSeq2"){
   field(DO9, "1")
   field(LNK1, "$(P)$(R)Imped-Sel.PROC")				# Meas. input impedance proc
   field(LNK2, "$(P)$(R)LineSync-Sel.PROC")			# Meas. line sync proc 
-  field(LNK3, "$(P)$(R)NPLC-SP.PROC")				# Meas. NPLC proc
+  field(LNK3, "$(P)$(R)SampleCnt-SP.PROC")                      # Meas. sample count proc (process MeasPeriod in FLNK chain)
   field(LNK4, "$(P)$(R)RelEnbl-Sel.PROC")			# Meas. relative offset enable proc
   field(LNK5, "$(P)$(R)RelLvl-SP.PROC")				# Meas. relative offset level proc
   field(LNK6, "$(P)$(R)AvgFilterTyp-Sel.PROC")			# Filter type proc
@@ -1076,12 +2206,118 @@ record(sseq, "$(P)$(R)DownloadSeq5"){
   field(DO1, "1")
   field(STR2, "HIGH")
   field(STR3, "HIGH")
-  field(STR4, "HIGH")
-  field(DO5, "1")
+  field(DO4, "1")
+  field(STR5, "5 second")
   field(LNK1, "$(Instrument)DigRead-Mon.PROC")			# DigIOs states read (range RB)
   field(LNK2, "$(Instrument)CntBuff1-Mon.PRIO")			# Buffer count monitor priority = HIGH
-  field(LNK3, "$(Instrument)FetchBuff1-Mon.PRIO")		# Fetch buffer priority = HIGH
-  field(LNK4, "$(Instrument)ClrBuff1-Cmd.PRIO")			# Clear buffer cmd priority = HIGH
-  field(LNK5, "$(P)$(R)MeasTrgRst.VAL PP")			# Reset MeasTrgCalc so that next time it will process
+  field(LNK3, "$(Instrument)ClrBuff1-Cmd.PRIO")			# Clear buffer cmd priority = HIGH
+  field(LNK4, "$(P)$(R)MeasTrgRst.VAL PP")			# Reset MeasTrgCalc so that next time it will process
+  field(LNK5, "$(P)$(R)MeasTrgCalc.SCAN")                       # Meas. trigger selection should be scanned every 5 sec
+}
+
+###################################################
+# Multimeter Setup | Fast Mode
+#
+# Desc: Multimeter initial config for Fast Mode.
+
+record(sseq, "$(P)$(R)FastDownloadSeq1"){
+  field(ASG, "Reserved")
+  field(DESC, "Download sequence 1")
+  field(SELM, "All")
+#  field(STR1, "ON")
+  field(STR2, "DIGITIZE_VOLTAGE")
+  field(DO3, "10")
+  field(DO4, "1")
+  field(STR5, "DC")
+  field(DO6, "1")
+#  field(LNK1, "$(Instrument)Reset-Cmd PP")	# reset is NOT USED since it sets EXTOUT POL. to Negative, CAUSING A FALSE TRIGGER
+  field(LNK2, "$(Instrument)DigtzeFnc-Sel PP")		        # Meas. function = DIGITIZE_VOLTAGE
+  field(LNK3, "$(Instrument)DRange-SP PP")		        # Meas. range = 10 V
+  field(LNK4, "$(Instrument)StartRead1-SP PP")		        # Start index for buffer reading = 1
+  field(LNK5, "$(Instrument)DigtzeCoup-Sel PP")		        # Digitize coupling = DC
+  field(LNK6, "$(P)$(R)FastSampleCnt-SP.PROC")		        # Digitize count proc (process FastMeasPeriod in FLNK chain)
+  field(FLNK, "$(P)$(R)FastDownloadSeq2")
+}
+
+record(sseq, "$(P)$(R)FastDownloadSeq2"){
+  field(ASG, "Reserved")
+  field(DESC, "Download sequence 2")
+  field(SELM, "All")
+  field(DO1, "1")
+  field(DO2, "1")
+  field(DO3, "1")
+  field(LNK1, "$(P)$(R)FastImped-Sel.PROC")			# Meas. input impedance proc
+  field(LNK2, "$(P)$(R)FastRelEnbl-Sel.PROC")		        # Meas. relative offset enable proc
+  field(LNK3, "$(P)$(R)FastRelLvl-SP.PROC")			# Meas. relative offset level proc
+  field(FLNK, "$(P)$(R)FastDownloadSeq3")
+}
+
+record(sseq, "$(P)$(R)FastDownloadSeq3"){
+  field(ASG, "Reserved")
+  field(DESC, "Download sequence 3")
+  field(SELM, "All")
+  field(STR1, "DIGOUT")
+  field(STR2, "DIGOUT")
+  field(STR3, "DIGOUT")
+  field(STR4, "DIGOUT")
+  field(STR5, "DIGOUT")
+  field(STR6, "DIGOUT")
+  field(DO7, "1")
+  field(DO8, "1")
+  field(STR9, "ON")
+  field(LNK1, "$(Instrument)Dig1Mod-Sel PP")			# DigIO 1 Mode = DIG_OUT
+  field(LNK2, "$(Instrument)Dig2Mod-Sel PP")			# DigIO 2 Mode = DIG_OUT
+  field(LNK3, "$(Instrument)Dig3Mod-Sel PP")			# DigIO 3 Mode = DIG_OUT
+  field(LNK4, "$(Instrument)Dig4Mod-Sel PP")			# DigIO 4 Mode = DIG_OUT
+  field(LNK5, "$(Instrument)Dig5Mod-Sel PP")			# DigIO 5 Mode = DIG_OUT
+  field(LNK6, "$(Instrument)Dig6Mod-Sel PP")			# DigIO 6 Mode = DIG_OUT
+  field(LNK7, "$(Instrument)Timer1Cnt-SP PP")			# Timer 1 count = 1
+  field(LNK8, "$(P)$(R)TrgDelay-SP.PROC")			# Timer 1 delay proc
+  field(LNK9, "$(Instrument)Timer1Enbl-Sel PP")			# Timer 1 enable
+  field(FLNK, "$(P)$(R)FastDownloadSeq4")
+}
+
+record(sseq, "$(P)$(R)FastDownloadSeq4"){
+  field(ASG, "Reserved")
+  field(DESC, "Download sequence 4")
+  field(SELM, "All")
+  field(DO1, "1")
+  field(DO2, "1")
+  field(STR3, "y=mx+b")
+  field(DO4, "0")
+  field(STR5, "ON")
+  field(DO6, "1")
+  field(STR7, "Edge")
+  field(DO8, "1")
+  field(STR9, "Negative")
+  field(DOA, "1")
+  field(LNK1, "$(P)$(R)Range-Sel.PROC")				# Range proc
+  field(LNK2, "$(P)$(R)Test-Sel.PROC")				# DCCT calibration signal enable proc
+  field(LNK3, "$(Instrument)DMathOp-Sel PP")			# Math format = y=mx+b			
+  field(LNK4, "$(Instrument)DMathBFactor-SP PP")		# Math B factor = 0
+  field(LNK5, "$(Instrument)DMathEnbl-Sel PP")			# Math enable = ON
+  field(LNK6, "$(P)$(R)CurrThold-SP.PROC")			# Level threshold proc (Analog Trig level)
+  field(LNK7, "$(Instrument)DATrMode-Sel PP")			# Analog trigger mode = Edge
+  field(LNK8, "$(P)$(R)HFReject-Sel.PROC")			# High Freq rejection proc (Analog Trg HR reject)
+  field(LNK9, "$(Instrument)ExOutPol-Sel PP")			# External Output polarity = Negative
+  field(LNKA, "$(P)$(R)LowLimEnbl-Sel.PROC")			# Low limit enable proc (Analog Trg Slope and Stim)
+  field(DLY3, "2")						# Wait 2 seconds for Range-Sts to be set
+  field(FLNK, "$(P)$(R)FastDownloadSeq5")
+}
+
+record(sseq, "$(P)$(R)FastDownloadSeq5"){
+  field(ASG, "Reserved")
+  field(DESC, "Download sequence 5")
+  field(SELM, "All")
+  field(DO1, "1")
+  field(STR2, "HIGH")
+  field(STR3, "HIGH")
+  field(DO4, "1")
+  field(STR5, "5 second")
+  field(LNK1, "$(Instrument)DigRead-Mon.PROC")			# Read DigIOs states (range RB)
+  field(LNK2, "$(Instrument)CntBuff1-Mon.PRIO")			# Buffer count monitor priority = HIGH
+  field(LNK3, "$(Instrument)ClrBuff1-Cmd.PRIO")			# Clear buffer cmd priority = HIGH
+  field(LNK4, "$(P)$(R)MeasTrgRst.VAL PP")			# Reset MeasTrgCalc so that next time it will process
+  field(LNK5, "$(P)$(R)MeasTrgCalc.SCAN")                       # Meas. trigger selection should be scanned every 5 sec
 }
 
