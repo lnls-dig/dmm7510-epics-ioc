@@ -18,8 +18,8 @@
   <height>600</height>
   <macros>
     <include_parent_macros>true</include_parent_macros>
-    <P>BO-35D:DI-DCCT:</P>
-    <R></R>
+    <P>teste:</P>
+    <R>dcctfast:</R>
   </macros>
   <name></name>
   <rules />
@@ -5297,7 +5297,7 @@ $(pv_value)</tooltip>
     <widget_type>Rectangle</widget_type>
     <width>673</width>
     <wuid>7e6b8c7:165a0fa661d:-4c2d</wuid>
-    <x>27</x>
+    <x>24</x>
     <y>1470</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -5337,7 +5337,7 @@ $(pv_value)</tooltip>
     <width>265</width>
     <wrap_words>false</wrap_words>
     <wuid>7e6b8c7:165a0fa661d:-4c2c</wuid>
-    <x>39</x>
+    <x>35</x>
     <y>1482</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
@@ -5378,7 +5378,7 @@ $(pv_value)</tooltip>
     <widget_type>Grouping Container</widget_type>
     <width>127</width>
     <wuid>7e6b8c7:165a0fa661d:-52fd</wuid>
-    <x>57</x>
+    <x>48</x>
     <y>1506</y>
     <widget typeId="org.csstudio.opibuilder.widgets.Rectangle" version="1.0.0">
       <actions hook="false" hook_all="false" />
@@ -5631,5 +5631,61 @@ $(pv_value)</tooltip>
     <wuid>7e6b8c7:165a0fa661d:-4a5f</wuid>
     <x>534</x>
     <y>564</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <background_color>
+      <color red="180" green="204" blue="212" />
+    </background_color>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>4</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Ubuntu" height="11" style="0">Default</opifont.name>
+    </font>
+    <foreground_color>
+      <color red="192" green="192" blue="192" />
+    </foreground_color>
+    <group_name></group_name>
+    <height>373</height>
+    <macros>
+      <include_parent_macros>true</include_parent_macros>
+    </macros>
+    <name>Linking Container</name>
+    <opi_file>dcct_meas_normal.opi</opi_file>
+    <resize_behaviour>2</resize_behaviour>
+    <rules>
+      <rule name="Meas_Mode_Settings" prop_id="opi_file" out_exp="false">
+        <exp bool_exp="pv0==1">
+          <value>dcct_meas_normal.opi</value>
+        </exp>
+        <exp bool_exp="pv0==2">
+          <value>dcct_meas_fast.opi</value>
+        </exp>
+        <exp bool_exp="pv0&gt;2">
+          <value>dcct_meas_unknown.opi</value>
+        </exp>
+        <exp bool_exp="pv0&lt;0">
+          <value>dcct_meas_unknown.opi</value>
+        </exp>
+        <pv trig="true">$(P)$(R)MeasMode-Sts</pv>
+      </rule>
+    </rules>
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <tooltip></tooltip>
+    <visible>true</visible>
+    <widget_type>Linking Container</widget_type>
+    <width>673</width>
+    <wuid>7e6b8c7:165a0fa661d:c23</wuid>
+    <x>24</x>
+    <y>912</y>
   </widget>
 </display>
