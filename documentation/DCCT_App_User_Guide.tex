@@ -114,7 +114,7 @@
 
 	\subsection{Storage Ring} 
 
-		\paragraph{} Storage Ring beam current is measured periodically in fixed time steps. The measurement trigger can be provided by software, or by an external trigger pulse. When software triggering is selected, the DCCT application issues measurement commands at a 10 Hz rate. When external triggering is selected, the multimeter starts a measurement once an external trigger is received, which is provided by the Timing System. The most recent measurement is retrieved by the IOC at a rate of 5 Hz.
+		\paragraph{} Storage Ring beam current is measured periodically in fixed time steps. The measurement trigger can be provided by software, or by an external trigger pulse. When software triggering is selected, the DCCT application issues measurement commands at a "as fast as possible" rate, which is constrained by the multimeter to a rate close to 30 Hz. When external triggering is selected, the multimeter starts a measurement once an external trigger is received, which is provided by the Timing System. The most recent measurement is retrieved by the IOC at a rate of 100 Hz.
 
 		\paragraph{} Another important task of the Storage Ring DCCT system is to inform the Timing System whenever the beam current falls below a minimum threshold. If configured to do so, the multimeter constantly monitors the DCCT output, comparing it to the specified threshold. When the current level falls below the threshold, the multimeter outputs a trigger pulse to the STD-EVE timing module in less than \SI{2}{\micro\second}.
 
@@ -134,6 +134,21 @@
 
 	\bigskip
 	\noindent\adjustbox{minipage=\textwidth,cfbox=red 1.0pt 2ex}{A new \hyperref[relative-offset]{voltage relative offset} should be acquired every time the range configuration is modified.}
+
+	\bigskip
+	\noindent\adjustbox{minipage=\textwidth,cfbox=red 1.0pt 2ex}{When the application is configured for either \emph{External} or \emph{Level-based} triggering, the interval between triggers MUST be greater than the measurement period. This is necessary to guarantee that the multimeter has enough time to acquire and send the data to the IOC. Triggers issued too soon can cause the IOC to stop acquiring and/or the data to be corrupted}.
+
+	\subsection{Mesurement Mode}\label{measurement-mode}
+
+		\paragraph{Measurement mode selection}\label{measurement-mode-selection} The DMM7510 multimeter can operate in two different acquisition modes, the \emph{Measure} and \emph{Digitize} modes. In the DCCT IOC these modes are referred to as \emph{Normal} and \emph{Fast} modes, respectively. The \emph{Normal} mode provides greater resolution (7 and 1/2 digits, compared to 4 digits for \emph{Fast} mode), while the \emph{Fast} mode can provide slightly higher sample rates and greater resolution (1 more digit than \emph{Normal} mode) for high sample rates (1 KHz to 1 MHz).
+
+	\bigskip
+	\noindent\adjustbox{minipage=\textwidth,cfbox=teal 1.0pt 2ex}{The PVs in the \hyperref[measurement-settings]{Measurement Settings} section are divided in two groups, depending on the type of measurement they are associated with: PVs for the \emph{Normal Mode}, and PVs for the \emph{Fast Mode}.}
+
+			\begin{enumerate}
+				\item Set \emph{MeasMode-Sel} PV to the desired mode: \emph{Normal} or \emph{Fast}.
+				\item Wait until \emph{MeasMode-Sts} has changed to the chosen option and all the other settings have stabilized in the selected values (this takes a few seconds).
+			\end{enumerate}
 
 	\subsection{Measurement triggering}
 
@@ -216,18 +231,38 @@
 		\end{figure}
 \FloatBarrier
 
-		\paragraph{General} A few parameters are responsible for defining the measurement characteristics.
+	\bigskip
+	\noindent\adjustbox{minipage=\textwidth,cfbox=teal 1.0pt 2ex}{The measurement settings PVs that should be used depend on the selected \hyperref[measurement-mode]{Measurement Mode}. There is an indication above each PV group showing the mode associated to it.}
+
+		\paragraph{General} Some parameters define the measurement sampling characteristics.
+
+			\noindent\adjustbox{cfbox=darkgray 1.0pt 1ex}{Normal Mode PVs}
 
 			\begin{enumerate}
-				\item \emph{NPLC-SP} sets the measurement integration period in number of power line cycles.
-				\item \emph{NPLC-RB} indicates the configured integration period in number of power line cycles.
-				\item \emph{LineSync-Sel} sets if measurement integration period is synched to power line cycle zero crossing. Line synchronization affects measurement speed.
+				\item \emph{MeasPeriod-SP} sets the period, in seconds, of a measurement executed in response to a trigger or software request.
+				\item \emph{MeasPeriod-RB} indicates the configured measurement period, in seconds.
+				\item \emph{SampleCnt-SP} sets the number of samples to be taken during the specified measurement period. The resulting sample aperture is automatically calculated and set.
+				\item \emph{SampleCnt-RB} indicates the number of samples taken during each measurement period.
+				\item \emph{LineSync-Sel} sets if measurement integration period is synched to power line cycle zero crossing. Line synchronization affects measurement speed. The change in acquisition time caused by this setting is not accounted for by the \emph{MeasPeriod-RB} PV value.
 				\item \emph{LineSync-Sts} indicates the configured measurement power line synchronization status.
 				\item \emph{Imped-Sel} sets the multimeter's input impedance. Recommended setting is \emph{AUTO}.
 				\item \emph{Imped-Sts} indicates the configured multimeter's input impedance.
 			\end{enumerate}
 
+			\noindent\adjustbox{cfbox=darkgray 1.0pt 1ex}{Fast Mode PVs}
+
+			\begin{enumerate}
+				\item \emph{FastMeasPeriod-SP} sets the period, in seconds, of a measurement executed in response to a trigger or software request.
+				\item \emph{FastMeasPeriod-RB} indicates the configured measurement period, in seconds.
+				\item \emph{FastSampleCnt-SP} sets the number of samples to be taken during the specified measurement period. The resulting sample aperture is automatically calculated and set.
+				\item \emph{FastSampleCnt-RB} indicates the number of samples taken during each measurement period.
+				\item \emph{FastImped-Sel} sets the multimeter's input impedance. Recommended setting is \emph{AUTO}.
+				\item \emph{FastImped-Sts} indicates the configured multimeter's input impedance.
+			\end{enumerate}
+
 		\paragraph{Filter} It is possible to apply an averaging filter to measurements. If enabled, the specified number of samples are taken and averaged by the specified algorithm.
+
+			\noindent\adjustbox{cfbox=darkgray 1.0pt 1ex}{Normal Mode PVs}
 
 			\begin{enumerate}
 				\item \emph{AvgFilterCnt-SP} sets the number of measurements that are used to produce a reading.
@@ -240,7 +275,12 @@
 				\item \emph{AvgFilterEnbl-Sts} indicates the filter enable status.
 			\end{enumerate}
 
+	\bigskip
+	\noindent\adjustbox{minipage=\textwidth,cfbox=darkgray 1.0pt 2ex}{There are no filter settings for the \emph{Fast} measurement mode.}
+
 		\paragraph{Relative offset}\label{relative-offset} The relative offset parameter is used to remove offsets caused by instrument zero drift.
+
+			\noindent\adjustbox{cfbox=darkgray 1.0pt 1ex}{Normal Mode PVs}
 
 			\begin{enumerate}
 				\item \emph{RelLvl-SP} sets the relative offset voltage level. The offset is subtracted from the measured voltage before any conversion is performed.
@@ -248,6 +288,16 @@
 				\item \emph{RelEnbl-Sel} enables/disables the relative offset.
 				\item \emph{RelEnbl-Sts} indicates the relative offset enable status.
 				\item \emph{RelAcq-Cmd} sets the relative offset level equal to the multimeter input voltage level.
+			\end{enumerate}
+
+			\noindent\adjustbox{cfbox=darkgray 1.0pt 1ex}{Fast Mode PVs}
+
+			\begin{enumerate}
+				\item \emph{FastRelLvl-SP} sets the relative offset voltage level. The offset is subtracted from the measured voltage before any conversion is performed.
+				\item \emph{FastRelLvl-RB} indicates the configured relative offset voltage level.
+				\item \emph{FastRelEnbl-Sel} enables/disables the relative offset.
+				\item \emph{FastRelEnbl-Sts} indicates the relative offset enable status.
+				\item \emph{FastRelAcq-Cmd} sets the relative offset level equal to the multimeter input voltage level.
 			\end{enumerate}
 
 	\subsection{DCCT calibration}
@@ -273,8 +323,9 @@
 	\paragraph{} The DCCT measurement data is available in the following EPICS PVs.
 
 		\begin{enumerate}
-			\item \emph{Current-Mon} stores the latest current measurement.
-			\item \emph{CurrHstr-Mon} is a circular buffer storing the last 1000 measurements.
+			\item \emph{RawReadings-Mon} stores the last measurement waveform acquired.
+			\item \emph{Current-Mon} stores the average of the last waveform acquired, which represents the latest measurement.
+			\item \emph{CurrHstr-Mon} is a circular buffer storing the last 1000 measurements from \emph{Current-Mon}.
 			\item \emph{StoredEBeam-Mon} indicates if there is beam, i.e., if the current is above the threshold.
 		\end{enumerate}
 
