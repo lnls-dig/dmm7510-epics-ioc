@@ -1142,6 +1142,8 @@ record(bi, "$(P)$(R)RelEnbl-Sts"){
 record(ao, "$(P)$(R)RelLvl-SP"){
   field(DESC, "Rel. offset level high level PV")
   field(PREC, "16")
+  field(DRVH, "1000000")
+  field(DRVL, "-1000000")
   field(OUT, "$(Instrument)MRelOff-SP PP")
 }
 
@@ -1362,6 +1364,8 @@ record(bi, "$(P)$(R)FastRelEnbl-Sts"){
 record(ao, "$(P)$(R)FastRelLvl-SP"){
   field(DESC, "Rel. offset level high level PV")
   field(PREC, "16")
+  field(DRVH, "1000000")
+  field(DRVL, "-1000000")
   field(OUT, "$(Instrument)DRelOff-SP PP")
 }
 
