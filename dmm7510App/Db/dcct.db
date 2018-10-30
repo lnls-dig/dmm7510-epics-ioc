@@ -916,15 +916,17 @@ record(sseq, "$(P)$(R)ReadAndClear"){
 }
 
 # Raw readings array
-record(waveform, "$(P)$(R)RawReadings-Mon"){
-  field(ASG, "Reserved")
-  field(DESC, "Raw readings array")
-  field(FTVL, "DOUBLE")
-  field(NELM, "1000000")
-  field(EGU, "mA")
-  field(INP, "$(Instrument)ReadBuff1-Mon CPP")
-  field(FLNK, "$(P)$(R)Current-Mon")
-}
+#record(waveform, "$(P)$(R)RawReadings-Mon"){
+#  field(ASG, "Reserved")
+#  field(DESC, "Raw readings array")
+#  field(FTVL, "DOUBLE")
+#  field(NELM, "1000000")
+#  field(EGU, "mA")
+#  field(INP, "$(Instrument)ReadBuff1-Mon CPP")
+#  field(FLNK, "$(P)$(R)Current-Mon")
+#}
+
+alias("$(Instrument)ReadBuff1-Mon", "$(P)$(R)RawReadings-Mon")
 
 # PV with last monitored Beam Current
 record(acalcout, "$(P)$(R)Current-Mon"){
@@ -933,7 +935,7 @@ record(acalcout, "$(P)$(R)Current-Mon"){
   field(NELM, "1000000")
   field(PREC, "6")
   field(EGU, "mA")
-  field(INAA, "$(P)$(R)RawReadings-Mon.VAL")
+  field(INAA, "$(P)$(R)RawReadings-Mon.VAL CPP")
   field(INPB, "$(P)$(R)SampleCnt-RB.VAL")
   field(INPC, "$(P)$(R)FastSampleCnt-RB.VAL")
   field(INPD, "$(P)$(R)MeasMode-Sts.VAL")
@@ -2208,11 +2210,13 @@ record(sseq, "$(P)$(R)DownloadSeq5"){
   field(STR3, "HIGH")
   field(DO4, "1")
   field(STR5, "5 second")
+  field(STR6, "mA")
   field(LNK1, "$(Instrument)DigRead-Mon.PROC")			# DigIOs states read (range RB)
   field(LNK2, "$(Instrument)CntBuff1-Mon.PRIO")			# Buffer count monitor priority = HIGH
   field(LNK3, "$(Instrument)ClrBuff1-Cmd.PRIO")			# Clear buffer cmd priority = HIGH
   field(LNK4, "$(P)$(R)MeasTrgRst.VAL PP")			# Reset MeasTrgCalc so that next time it will process
   field(LNK5, "$(P)$(R)MeasTrgCalc.SCAN")                       # Meas. trigger selection should be scanned every 5 sec
+  field(LNK6, "$(Instrument)ReadBuff1-Mon.EGU")
 }
 
 ###################################################
@@ -2314,10 +2318,12 @@ record(sseq, "$(P)$(R)FastDownloadSeq5"){
   field(STR3, "HIGH")
   field(DO4, "1")
   field(STR5, "5 second")
+  field(STR6, "mA")
   field(LNK1, "$(Instrument)DigRead-Mon.PROC")			# Read DigIOs states (range RB)
   field(LNK2, "$(Instrument)CntBuff1-Mon.PRIO")			# Buffer count monitor priority = HIGH
   field(LNK3, "$(Instrument)ClrBuff1-Cmd.PRIO")			# Clear buffer cmd priority = HIGH
   field(LNK4, "$(P)$(R)MeasTrgRst.VAL PP")			# Reset MeasTrgCalc so that next time it will process
   field(LNK5, "$(P)$(R)MeasTrgCalc.SCAN")                       # Meas. trigger selection should be scanned every 5 sec
+  field(LNK6, "$(Instrument)ReadBuff1-Mon.EGU")
 }
 
