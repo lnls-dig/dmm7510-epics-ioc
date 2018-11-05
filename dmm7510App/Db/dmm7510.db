@@ -3210,6 +3210,8 @@ record(longin, "$(P)$(R)CntBuff1-Mon"){
   field(EGU, "rdgs")
   field(DTYP, "stream")
   field(INP, "@dmm7510.proto trace_cnt_get(1) $(PORT)")
+  field(ADEL, "-1")
+  field(MDEL, "-1")
 }
 
 record(longin, "$(P)$(R)CntBuff2-Mon"){
@@ -3217,6 +3219,8 @@ record(longin, "$(P)$(R)CntBuff2-Mon"){
   field(EGU, "rdgs")
   field(DTYP, "stream")
   field(INP, "@dmm7510.proto trace_cnt_get(2) $(PORT)")
+  field(ADEL, "-1")
+  field(MDEL, "-1")
 }
 
 record(bo, "$(P)$(R)ClrBuff1-Cmd"){
