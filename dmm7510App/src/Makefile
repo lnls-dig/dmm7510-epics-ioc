@@ -23,6 +23,7 @@ PROD_IOC = dmm7510
 DBD += dmm7510.dbd
 
 # dmm7510.dbd will include these files:
+dmm7510_DBD += menuScan.dbd
 dmm7510_DBD += base.dbd
 dmm7510_DBD += initTrace.dbd
 

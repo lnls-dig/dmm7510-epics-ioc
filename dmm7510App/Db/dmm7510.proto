@@ -1,6 +1,7 @@
 Terminator = NL;
 ExtraInput = Ignore;
 ReplyTimeout = 35000;
+MaxInput = 8000000;
 
 ###########################################################################
 # Module Support
@@ -235,7 +236,7 @@ digtz_func_get{
 
 meas_apert_set{
 	# set
-	out "dmm.measure.aperture = %f";
+	out "dmm.measure.aperture = %.7f";
 }
 
 meas_apert_get{

@@ -29,6 +29,10 @@ if [ -z "$DEVICE_TYPE" ]; then
     exit 5
 fi
 
+if [ -z "$EPICS_CA_MAX_ARRAY_BYTES" ]; then
+    EPICS_CA_MAX_ARRAY_BYTES="10000000"
+fi
+
 DMM7510_TYPE=$(echo ${DEVICE_TYPE} | grep -Eo "[^0-9]+");
 DMM7510_NUMBER=$(echo ${DEVICE_TYPE} | grep -Eo "[0-9]+");
 
@@ -65,4 +69,4 @@ echo "Using st.cmd file: "${ST_CMD_FILE}
 
 cd "$IOC_BOOT_DIR"
 
-IPADDR="$IPADDR" IPPORT="$IPPORT" P="$P" R="$R" "$IOC_BIN" "$ST_CMD_FILE"
+EPICS_CA_MAX_ARRAY_BYTES="$EPICS_CA_MAX_ARRAY_BYTES" IPADDR="$IPADDR" IPPORT="$IPPORT" P="$P" R="$R" "$IOC_BIN" "$ST_CMD_FILE"

@@ -3303,7 +3303,7 @@ record(calcout, "$(P)$(R)ReadBuff1Calc"){
 record(waveform, "$(P)$(R)ReadBuff1-Mon"){
   field(DESC, "Defbuffer1 readings monitor")
   field(FTVL, "DOUBLE")
-  field(NELM, "1000")
+  field(NELM, "1000000")
   field(DTYP, "stream")
   field(INP, "@dmm7510.proto trace_read_get($(P)$(R),1) $(PORT)")
 }
@@ -3357,7 +3357,7 @@ record(calcout, "$(P)$(R)ReadBuff2Calc"){
 record(waveform, "$(P)$(R)ReadBuff2-Mon"){
   field(DESC, "Defbuffer2 readings monitor")
   field(FTVL, "DOUBLE")
-  field(NELM, "1000")
+  field(NELM, "1000000")
   field(DTYP, "stream")
   field(INP, "@dmm7510.proto trace_read_get($(P)$(R),2) $(PORT)")
 }
