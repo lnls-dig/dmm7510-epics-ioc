@@ -114,7 +114,7 @@
 
 	\subsection{Storage Ring} 
 
-		\paragraph{} Storage Ring beam current is measured periodically in fixed time steps. The measurement trigger can be provided by software, or by an external trigger pulse. When software triggering is selected, the DCCT application issues measurement commands at a 10 Hz rate. When external triggering is selected, the multimeter starts a measurement once an external trigger is received, which is provided by the Timing System. The most recent measurement is retrieved by the IOC at a rate of 5 Hz.
+		\paragraph{} Storage Ring beam current is measured periodically in fixed time steps. The measurement trigger can be provided by software, or by an external trigger pulse. When software triggering is selected, the DCCT application issues measurement commands at a "as fast as possible" rate, which is constrained by the multimeter to a rate close to 30 Hz. When external triggering is selected, the multimeter starts a measurement once an external trigger is received, which is provided by the Timing System. The most recent measurement is retrieved by the IOC at a rate of 100 Hz.
 
 		\paragraph{} Another important task of the Storage Ring DCCT system is to inform the Timing System whenever the beam current falls below a minimum threshold. If configured to do so, the multimeter constantly monitors the DCCT output, comparing it to the specified threshold. When the current level falls below the threshold, the multimeter outputs a trigger pulse to the STD-EVE timing module in less than \SI{2}{\micro\second}.
 
@@ -134,6 +134,21 @@
 
 	\bigskip
 	\noindent\adjustbox{minipage=\textwidth,cfbox=red 1.0pt 2ex}{A new \hyperref[relative-offset]{voltage relative offset} should be acquired every time the range configuration is modified.}
+
+	\bigskip
+	\noindent\adjustbox{minipage=\textwidth,cfbox=red 1.0pt 2ex}{When the application is configured for either \emph{External} or \emph{Level-based} triggering, the interval between triggers MUST be greater than the measurement period. This is necessary to guarantee that the multimeter has enough time to acquire and send the data to the IOC. Triggers issued too soon can cause the IOC to stop acquiring and/or the data to be corrupted}.
+
+	\subsection{Mesurement Mode}\label{measurement-mode}
+
+		\paragraph{Measurement mode selection}\label{measurement-mode-selection} The DMM7510 multimeter can operate in two different acquisition modes, the \emph{Measure} and \emph{Digitize} modes. In the DCCT IOC these modes are referred to as \emph{Normal} and \emph{Fast} modes, respectively. The \emph{Normal} mode provides greater resolution (7 and 1/2 digits, compared to 4 digits for \emph{Fast} mode), while the \emph{Fast} mode can provide slightly higher sample rates and greater resolution (1 more digit than \emph{Normal} mode) for high sample rates (1 KHz to 1 MHz).
+
+	\bigskip
+	\noindent\adjustbox{minipage=\textwidth,cfbox=teal 1.0pt 2ex}{The PVs in the \hyperref[measurement-settings]{Measurement Settings} section are divided in two groups, depending on the type of measurement they are associated with: PVs for the \emph{Normal Mode}, and PVs for the \emph{Fast Mode}.}
+
+			\begin{enumerate}
+				\item Set \emph{MeasMode-Sel} PV to the desired mode: \emph{Normal} or \emph{Fast}.
+				\item Wait until \emph{MeasMode-Sts} has changed to the chosen option and all the other settings have stabilized in the selected values (this takes a few seconds).
+			\end{enumerate}
 
 	\subsection{Measurement triggering}
 
@@ -216,18 +231,38 @@
 		\end{figure}
 \FloatBarrier
 
-		\paragraph{General} A few parameters are responsible for defining the measurement characteristics.
+	\bigskip
+	\noindent\adjustbox{minipage=\textwidth,cfbox=teal 1.0pt 2ex}{The measurement settings PVs that should be used depend on the selected \hyperref[measurement-mode]{Measurement Mode}. There is an indication above each PV group showing the mode associated to it.}
+
+		\paragraph{General} Some parameters define the measurement sampling characteristics.
+
+			\noindent\adjustbox{cfbox=darkgray 1.0pt 1ex}{Normal Mode PVs}
 
 			\begin{enumerate}
-				\item \emph{NPLC-SP} sets the measurement integration period in number of power line cycles.
-				\item \emph{NPLC-RB} indicates the configured integration period in number of power line cycles.
-				\item \emph{LineSync-Sel} sets if measurement integration period is synched to power line cycle zero crossing. Line synchronization affects measurement speed.
+				\item \emph{MeasPeriod-SP} sets the period, in seconds, of a measurement executed in response to a trigger or software request.
+				\item \emph{MeasPeriod-RB} indicates the configured measurement period, in seconds.
+				\item \emph{SampleCnt-SP} sets the number of samples to be taken during the specified measurement period. The resulting sample aperture is automatically calculated and set.
+				\item \emph{SampleCnt-RB} indicates the number of samples taken during each measurement period.
+				\item \emph{LineSync-Sel} sets if measurement integration period is synched to power line cycle zero crossing. Line synchronization affects measurement speed. The change in acquisition time caused by this setting is not accounted for by the \emph{MeasPeriod-RB} PV value.
 				\item \emph{LineSync-Sts} indicates the configured measurement power line synchronization status.
 				\item \emph{Imped-Sel} sets the multimeter's input impedance. Recommended setting is \emph{AUTO}.
 				\item \emph{Imped-Sts} indicates the configured multimeter's input impedance.
 			\end{enumerate}
 
+			\noindent\adjustbox{cfbox=darkgray 1.0pt 1ex}{Fast Mode PVs}
+
+			\begin{enumerate}
+				\item \emph{FastMeasPeriod-SP} sets the period, in seconds, of a measurement executed in response to a trigger or software request.
+				\item \emph{FastMeasPeriod-RB} indicates the configured measurement period, in seconds.
+				\item \emph{FastSampleCnt-SP} sets the number of samples to be taken during the specified measurement period. The resulting sample aperture is automatically calculated and set.
+				\item \emph{FastSampleCnt-RB} indicates the number of samples taken during each measurement period.
+				\item \emph{FastImped-Sel} sets the multimeter's input impedance. Recommended setting is \emph{AUTO}.
+				\item \emph{FastImped-Sts} indicates the configured multimeter's input impedance.
+			\end{enumerate}
+
 		\paragraph{Filter} It is possible to apply an averaging filter to measurements. If enabled, the specified number of samples are taken and averaged by the specified algorithm.
+
+			\noindent\adjustbox{cfbox=darkgray 1.0pt 1ex}{Normal Mode PVs}
 
 			\begin{enumerate}
 				\item \emph{AvgFilterCnt-SP} sets the number of measurements that are used to produce a reading.
@@ -240,7 +275,12 @@
 				\item \emph{AvgFilterEnbl-Sts} indicates the filter enable status.
 			\end{enumerate}
 
+	\bigskip
+	\noindent\adjustbox{minipage=\textwidth,cfbox=darkgray 1.0pt 2ex}{There are no filter settings for the \emph{Fast} measurement mode.}
+
 		\paragraph{Relative offset}\label{relative-offset} The relative offset parameter is used to remove offsets caused by instrument zero drift.
+
+			\noindent\adjustbox{cfbox=darkgray 1.0pt 1ex}{Normal Mode PVs}
 
 			\begin{enumerate}
 				\item \emph{RelLvl-SP} sets the relative offset voltage level. The offset is subtracted from the measured voltage before any conversion is performed.
@@ -248,6 +288,16 @@
 				\item \emph{RelEnbl-Sel} enables/disables the relative offset.
 				\item \emph{RelEnbl-Sts} indicates the relative offset enable status.
 				\item \emph{RelAcq-Cmd} sets the relative offset level equal to the multimeter input voltage level.
+			\end{enumerate}
+
+			\noindent\adjustbox{cfbox=darkgray 1.0pt 1ex}{Fast Mode PVs}
+
+			\begin{enumerate}
+				\item \emph{FastRelLvl-SP} sets the relative offset voltage level. The offset is subtracted from the measured voltage before any conversion is performed.
+				\item \emph{FastRelLvl-RB} indicates the configured relative offset voltage level.
+				\item \emph{FastRelEnbl-Sel} enables/disables the relative offset.
+				\item \emph{FastRelEnbl-Sts} indicates the relative offset enable status.
+				\item \emph{FastRelAcq-Cmd} sets the relative offset level equal to the multimeter input voltage level.
 			\end{enumerate}
 
 	\subsection{DCCT calibration}
@@ -273,8 +323,9 @@
 	\paragraph{} The DCCT measurement data is available in the following EPICS PVs.
 
 		\begin{enumerate}
-			\item \emph{Current-Mon} stores the latest current measurement.
-			\item \emph{CurrHstr-Mon} is a circular buffer storing the last 1000 measurements.
+			\item \emph{RawReadings-Mon} stores the last measurement waveform acquired.
+			\item \emph{Current-Mon} stores the average of the last waveform acquired, which represents the latest measurement.
+			\item \emph{CurrHstr-Mon} is a circular buffer storing the last 1000 measurements from \emph{Current-Mon}.
 			\item \emph{StoredEBeam-Mon} indicates if there is beam, i.e., if the current is above the threshold.
 		\end{enumerate}
 
@@ -288,12 +339,24 @@
 		\caption{Application Process Variables} \\ \hline
 		\bfseries Name & \bfseries Data Type & \bfseries Description \endhead \hline
 		% --- row ---
+		MeasMode-Sel & ENUM: Normal, Fast & \begin{tabular}{@{}m{6cm}@{}}
+	    					Measurement acquisition mode. This PV selects the acquisition mode used by the multimeter, which can be 'Normal' or 'Fast'. When using 'Fast' acquisition, higher sample rates (1 KHz to 1 MHz) have greater resolution when compared to the 'Normal' mode. On the other hand, 'Normal' acquisition provides the best resolution as long as the sample period is long enough. Some PVs are specific to a given measurement mode and, when this is the case, this will be indicated at the PV description.
+						\end{tabular} \\ \hline
+		% --- row ---
+		MeasMode-Sts & ENUM: Unknown, Normal, Fast & \begin{tabular}{@{}m{6cm}@{}}
+	    					Measurement acquisition mode status. When the multimeter function is misconfigured, this PV displays the 'Unknown' status.
+						\end{tabular} \\ \hline
+		% --- row ---
 		Current-Mon & FLOAT: 32-bit & \begin{tabular}{@{}m{6cm}@{}}
-	    					Latest current measurement. This PV holds the latest measurement fetched from the multimeter.
+	    					Latest current measurement. This PV holds the average of the latest measurement waveform fetched from the multimeter.
 						\end{tabular} \\ \hline
 		% --- row ---
 		CurrHstr-Mon & FLOAT[1000] & \begin{tabular}{@{}m{6cm}@{}}
-	    					Last 1000 current measurements. This PV is a circular buffer holding the last 1000 current measurements.
+	    					Current measurement history. This PV is a circular buffer holding the last 1000 values of the PV \emph{Current-Mon}.
+						\end{tabular} \\ \hline
+		% --- row ---
+		RawReadings-Mon & FLOAT[1000000] & \begin{tabular}{@{}m{6cm}@{}}
+	    					Latest measurement raw waveform. This PV holds the last waveform fetched from the multimeter. The waveform count is defined by the \emph{SampleCnt-SP} PV for \emph{Normal} acquisition, and by the \emph{FastSampleCnt-SP} PV for \emph{Fast} acquisition.
 						\end{tabular} \\ \hline
 		% --- row ---
 		StoredEBeam-Mon & BOOL: False, True & \begin{tabular}{@{}m{6cm}@{}}
@@ -301,7 +364,7 @@
 						\end{tabular} \\ \hline
 		% --- row ---
 		ReliableMeas-Mon & LONG: Min=0, Max=7 & \begin{tabular}{@{}m{6cm}@{}}
-	    					Indicates any condition that makes readings invalid or impossible. Each bit of this PV indicates a different problem, when set: Bit 0 = Invalid/disabled measurement trigger; Bit 1 = Network disconnected; Bit 2 = Temperature variation is too large, multimeter calibration required. An alarm is raised when any of the bits is set.
+	    					Indicates any condition that makes readings invalid or impossible. Each bit of this PV indicates a different problem, when set: Bit 0 = "Invalid/disabled measurement trigger"; Bit 1 = "Network disconnected"; Bit 2 = "Temperature variation is too large, multimeter calibration required". An alarm is raised when any of the bits is set.
 						\end{tabular} \\ \hline
 		% --- row ---
 		ReliableMeasLabels-Cte & STRING[3] & \begin{tabular}{@{}m{6cm}@{}}
@@ -356,80 +419,132 @@
 	    					High frequency rejection enable status.
 						\end{tabular} \\ \hline
 		% --- row ---
-		NPLC-SP & FLOAT: Min=0.0005, Max=15 & \begin{tabular}{@{}m{6cm}@{}}
-	    					Number of power line cycles. Specifies the duration of the measurement integration period in number of power line cycles.
+		SampleCnt-SP & FLOAT: Min=1, Max=5000 & \begin{tabular}{@{}m{6cm}@{}}
+	    					Number of samples (\emph{NORMAL MODE}). Specifies the number of samples to be taken during the measurement period specified by the \emph{MeasPeriod-SP} PV.
 						\end{tabular} \\ \hline
 		% --- row ---
-		NPLC-RB & FLOAT: Min=0.0005, Max=15 & \begin{tabular}{@{}m{6cm}@{}}
-	    					Number of power line cycles readback value.
+		SampleCnt-RB & FLOAT: Min=1, Max=5000 & \begin{tabular}{@{}m{6cm}@{}}
+	    					Number of samples readback value (\emph{NORMAL MODE}).
+						\end{tabular} \\ \hline
+		% --- row ---
+		MeasPeriod-SP & FLOAT: Min=0.0000084, Max=10 & \begin{tabular}{@{}m{6cm}@{}}
+	    					Measurement period (\emph{NORMAL MODE}). Specifies the duration (in seconds) of each measurement started by an electrical, signal level based or software trigger. The aperture of each sample is automatically calculated depending on the settings of this PV and the \emph{SampleCnt-SP} PV.
+						\end{tabular} \\ \hline
+		% --- row ---
+		MeasPeriod-RB & FLOAT: Min=0.0000084, Max=10 & \begin{tabular}{@{}m{6cm}@{}}
+	    					Measurement period readback value (\emph{NORMAL MODE}).
 						\end{tabular} \\ \hline
 		% --- row ---
 		LineSync-Sel & BOOL: OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
-	    					Enable/disable line synchronization. When line synchronization is enabled, measurement start is synched to positive slope zero crossings of power line cycles.
+	    					Enable/disable line synchronization (\emph{NORMAL MODE}). When line synchronization is enabled, measurement start is synched to positive slope zero crossings of power line cycles. The \emph{MeasPeriod-RB} PV does not account for the effects of this setting.
 						\end{tabular} \\ \hline
 		% --- row ---
 		LineSync-Sts & BOOL: OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
-	    					Line synchronization enable status.
+	    					Line synchronization enable status (\emph{NORMAL MODE}).
 						\end{tabular} \\ \hline
 		% --- row ---
 		Imped-Sel & BOOL: AUTO, 10MOhm & \begin{tabular}{@{}m{6cm}@{}}
-	    					Multimeter input impedance. Selecting \emph{AUTO} optimizes for low noise and charge injection when the device under test has less than \SI{100}{\kohm} input resistance. Otherwise, \emph{10MOhm} optimizes for lowest noise.
+	    					Multimeter input impedance (\emph{NORMAL MODE}). Selecting \emph{AUTO} optimizes for low noise and charge injection when the device under test has less than \SI{100}{\kohm} input resistance. Otherwise, \emph{10MOhm} optimizes for lowest noise.
 						\end{tabular} \\ \hline
 		% --- row ---
 		Imped-Sts & BOOL: AUTO, 10MOhm & \begin{tabular}{@{}m{6cm}@{}}
-	    					Multimeter input impedance status.
+	    					Multimeter input impedance status (\emph{NORMAL MODE}).
 						\end{tabular} \\ \hline
 		% --- row ---
 		AvgFilterEnbl-Sel & BOOL: OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
-	    					Enable/disable the average filter. When filtering is enabled, the multimeter buffer readings are the result of different measurements averaged together using the specified algorithm.
+	    					Enable/disable the average filter (\emph{NORMAL MODE}). When filtering is enabled, the multimeter buffer readings are the result of different measurements averaged together using the specified algorithm. The \emph{MeasPeriod-RB} PV does not account for the effects of this setting.
 						\end{tabular} \\ \hline
 		% --- row ---
 		AvgFilterEnbl-Sts & BOOL: OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
-	    					Average filter enable status.
+	    					Average filter enable status (\emph{NORMAL MODE}).
 						\end{tabular} \\ \hline
 		% --- row ---
 		AvgFilterCnt-SP & LONG: Min=1, Max=100 & \begin{tabular}{@{}m{6cm}@{}}
-	    					Average filter count. Specifies the number of samples used to produce the filtered value, which is saved to the multimeter's buffer.
+	    					Average filter count (\emph{NORMAL MODE}). Specifies the number of samples used to produce the filtered value, which is saved to the multimeter's buffer. The \emph{MeasPeriod-RB} PV does not account for the effects of this setting.
 						\end{tabular} \\ \hline
 		% --- row ---
 		AvgFilterCnt-RB & LONG: Min=1, Max=100 & \begin{tabular}{@{}m{6cm}@{}}
-	    					Average filter count readback value.
+	    					Average filter count readback value (\emph{NORMAL MODE}).
 						\end{tabular} \\ \hline
 		% --- row ---
 		AvgFilterTyp-Sel & BOOL: Repeat, Moving & \begin{tabular}{@{}m{6cm}@{}}
-	    					Average filter type selection. When set to \emph{Repeat}, a set of measurements are made and averaged together, resulting in the reading that is stored. When \emph{Moving} is selected, the measurements are made and continuously added to a FIFO of filter count length. Each time a new measurement is added to the FIFO, the FIFO elements' average produces a new filtered reading.
+	    					Average filter type selection (\emph{NORMAL MODE}). When set to \emph{Repeat}, a set of measurements are made and averaged together, resulting in the reading that is stored. When \emph{Moving} is selected, the measurements are made and continuously added to a FIFO of filter count length. Each time a new measurement is added to the FIFO, the FIFO elements' average produces a new filtered reading.
 						\end{tabular} \\ \hline
 		% --- row ---
 		AvgFilterTyp-Sts & BOOL: Repeat, Moving & \begin{tabular}{@{}m{6cm}@{}}
-	    					Average filter type status.
+	    					Average filter type status (\emph{NORMAL MODE}).
 						\end{tabular} \\ \hline
 		% --- row ---
 		AvgFilterWind-SP & LONG: Min=0, Max=10 & \begin{tabular}{@{}m{6cm}@{}}
-	    					Average filter window. Specifies the noise window size in percentage of range. The noise window allows a faster response to large signal changes. Readings that exceed the variation allowed by the window fills the filter stack immediately. Setting the filter window to \emph{0} disables the filter window.
+	    					Average filter window (\emph{NORMAL MODE}). Specifies the noise window size in percentage of range. The noise window allows a faster response to large signal changes. Readings that exceed the variation allowed by the window fills the filter stack immediately. Setting the filter window to \emph{0} disables the filter window.
 						\end{tabular} \\ \hline
 		% --- row ---
 		AvgFilterWind-RB & LONG: Min=0, Max=10 & \begin{tabular}{@{}m{6cm}@{}}
-	    					Average filter window readback value.
+	    					Average filter window readback value (\emph{NORMAL MODE}).
 						\end{tabular} \\ \hline
 		% --- row ---
 		RelEnbl-Sel & BOOL: OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
-	    					Enable/disable relative offset. When relative offset is enabled, the relative offset level is subtracted from the readings raw value.
+	    					Enable/disable relative offset (\emph{NORMAL MODE}). When relative offset is enabled, the relative offset level is subtracted from the readings raw value.
 						\end{tabular} \\ \hline
 		% --- row ---
 		RelEnbl-Sts & BOOL: OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
-	    					Relative offset enable status.
+	    					Relative offset enable status (\emph{NORMAL MODE}).
 						\end{tabular} \\ \hline
 		% --- row ---
 		RelLvl-SP & FLOAT: 32-bit & \begin{tabular}{@{}m{6cm}@{}}
-	    					Relative offset level in volts. The level which is subtracted from readings raw value when relative offset is enabled.
+	    					Relative offset level in volts (\emph{NORMAL MODE}). The level which is subtracted from readings raw value when relative offset is enabled.
 						\end{tabular} \\ \hline
 		% --- row ---
 		RelLvl-RB & FLOAT: 32-bit & \begin{tabular}{@{}m{6cm}@{}}
-	    					Relative offset level readback value.
+	    					Relative offset level readback value (\emph{NORMAL MODE}).
 						\end{tabular} \\ \hline
 		% --- row ---
 		RelAcq-Cmd & BOOL : OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
-						Acquire relative offset. Measure the multimeter voltage input and assign it to \emph{RelLvl-SP}. It is recommended that a new offset be acquired every time a new range is selected.
+						Acquire relative offset (\emph{NORMAL MODE}). Measure the multimeter voltage input and assign it to \emph{RelLvl-SP}. It is recommended that a new offset be acquired every time a new range is selected.
+						\end{tabular} \\ \hline
+		% --- row ---
+		FastSampleCnt-SP & FLOAT: Min=1, Max=5000 & \begin{tabular}{@{}m{6cm}@{}}
+	    					Number of samples (\emph{FAST MODE}). Specifies the number of samples to be taken during the measurement period specified by the \emph{FastMeasPeriod-SP} PV.
+						\end{tabular} \\ \hline
+		% --- row ---
+		FastSampleCnt-RB & FLOAT: Min=1, Max=5000 & \begin{tabular}{@{}m{6cm}@{}}
+	    					Number of samples readback value (\emph{FAST MODE}).
+						\end{tabular} \\ \hline
+		% --- row ---
+		FastMeasPeriod-SP & FLOAT: Min=0.000001, Max=5 & \begin{tabular}{@{}m{6cm}@{}}
+	    					Measurement period (\emph{FAST MODE}). Specifies the duration (in seconds) of each measurement started by an electrical, signal level based or software trigger. The aperture of each sample is automatically calculated depending on the settings of this PV and the \emph{FastSampleCnt-SP} PV.
+						\end{tabular} \\ \hline
+		% --- row ---
+		FastMeasPeriod-RB & FLOAT: Min=0.000001, Max=5 & \begin{tabular}{@{}m{6cm}@{}}
+	    					Measurement period readback value (\emph{FAST MODE}).
+						\end{tabular} \\ \hline
+		% --- row ---
+		FastImped-Sel & BOOL: AUTO, 10MOhm & \begin{tabular}{@{}m{6cm}@{}}
+	    					Multimeter input impedance (\emph{FAST MODE}). Selecting \emph{AUTO} optimizes for low noise and charge injection when the device under test has less than \SI{100}{\kohm} input resistance. Otherwise, \emph{10MOhm} optimizes for lowest noise.
+						\end{tabular} \\ \hline
+		% --- row ---
+		FastImped-Sts & BOOL: AUTO, 10MOhm & \begin{tabular}{@{}m{6cm}@{}}
+	    					Multimeter input impedance status (\emph{FAST MODE}).
+						\end{tabular} \\ \hline
+		% --- row ---
+		FastRelEnbl-Sel & BOOL: OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
+	    					Enable/disable relative offset (\emph{FAST MODE}). When relative offset is enabled, the relative offset level is subtracted from the readings raw value.
+						\end{tabular} \\ \hline
+		% --- row ---
+		FastRelEnbl-Sts & BOOL: OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
+	    					Relative offset enable status (\emph{FAST MODE}).
+						\end{tabular} \\ \hline
+		% --- row ---
+		FastRelLvl-SP & FLOAT: 32-bit & \begin{tabular}{@{}m{6cm}@{}}
+	    					Relative offset level in volts (\emph{FAST MODE}). The level which is subtracted from readings raw value when relative offset is enabled.
+						\end{tabular} \\ \hline
+		% --- row ---
+		FastRelLvl-RB & FLOAT: 32-bit & \begin{tabular}{@{}m{6cm}@{}}
+	    					Relative offset level readback value (\emph{FAST MODE}).
+						\end{tabular} \\ \hline
+		% --- row ---
+		FastRelAcq-Cmd & BOOL : OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
+						Acquire relative offset (\emph{FAST MODE}). Measure the multimeter voltage input and assign it to \emph{RelLvl-SP}. It is recommended that a new offset be acquired every time a new range is selected.
 						\end{tabular} \\ \hline
 		% --- row ---
 		Test-Sel & BOOL: OFF, ON & \begin{tabular}{@{}m{6cm}@{}}

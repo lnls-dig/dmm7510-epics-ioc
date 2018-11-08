@@ -609,7 +609,7 @@ record(calcout, "$(P)$(R)ReliableMeas-Mon"){
   field(INPA, "$(Instrument)ACalWarn-Mon CPP")
   field(INPB, "$(Instrument)Network-Mon CPP")
   field(INPC, "$(P)$(R)SampleTrg-Sts CPP")
-  field(CALC, "((A&1)<<2)|((B&1)<<1)|(C=!1&&C!=2&&C!=3)")
+  field(CALC, "((A&1)<<2)|(((!B)&1)<<1)|(C=!1&&C!=2&&C!=3)")
   field(HIHI, "1")
   field(HHSV, "MAJOR")
 }
