@@ -1,9 +1,9 @@
-# Digitize Trigger source
-$(P)$(R)DigtzeTrg-Sel.VAL
+# Sample Trigger source
+$(P)$(R)SampleTrg-Sel.VAL
 # Timer configuration
 $(P)$(R)2ndReadDly-SP.VAL
 # Digitize Settings
-$(P)$(R)DigtzeCount-SP.VAL
+$(P)$(R)SampleCnt-SP.VAL
 $(P)$(R)Imped-Sel.VAL
 $(P)$(R)Aperture-SP.VAL
 $(P)$(R)SampleRate-SP.VAL
