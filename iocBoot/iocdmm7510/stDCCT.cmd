@@ -34,4 +34,6 @@ seq sncDMM7510, "P=$(P), R=$(R)"
 
 # Create manual trigger for Autosave
 create_triggered_set("auto_settings_dcct.req", "${P}${R}SaveTrg", "P=${P}, R=${R}")
+# Also, save things every 30 seconds
+create_monitor_set("auto_settings_dcct.req", 30, "P=${P}, R=${R}")
 set_savefile_name("auto_settings_dcct.req", "auto_settings_${P}${R}.sav")
