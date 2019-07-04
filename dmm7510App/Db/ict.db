@@ -151,6 +151,7 @@ record(ao, "$(P)$(R)2ndReadDly-SP"){
   field(DRVL, "0.000008")
   field(PREC, "6")
   field(EGU, "seconds")
+  field(VAL, "0.016667")
   field(OUT, "$(Instrument)Timer1Dly-SP PP")
 }
 
