@@ -330,6 +330,7 @@ record(longout, "$(P)$(R)SampleRate-SP"){
   field(DRVH, "1000000")
   field(DRVL, "1000")
   field(EGU, "rdgs per sec")
+  field(VAL, "1000000")
   field(OUT, "$(Instrument)DigtzeSR-SP PP")
 }
 
