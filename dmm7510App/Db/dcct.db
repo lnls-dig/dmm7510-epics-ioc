@@ -829,16 +829,28 @@ record(longout, "$(P)$(R)CorrectedSampleCnt"){
   field(DRVL, "1")
   field(VAL, "1")
   field(OUT, "$(Instrument)MeasCnt-SP PP")
-  field(FLNK, "$(P)$(R)SampleCntCalc")
+  field(FLNK, "$(P)$(R)SampleCntAux1")
 }
 
 # Set the last index of buffer to read equal to the count value
-record(calcout, "$(P)$(R)SampleCntCalc"){
+record(calcout, "$(P)$(R)SampleCntAux1"){
   field(ASG, "Reserved")
   field(DESC, "Set last reading index in buffer")
   field(INPA, "$(P)$(R)CorrectedSampleCnt.VAL")
   field(CALC, "A")
   field(OUT, "$(Instrument)EndRead1-SP PP")
+  field(FLNK, "$(P)$(R)SampleCntAux2")
+}
+
+# Set size of buffers equal to sample count
+record(seq, "$(P)$(R)SampleCntAux2"){
+  field(ASG, "Reserved")
+  field(DESC, "Set buffers size equal to sample cnt")
+  field(SELM, "All")
+  field(DOL1, "$(P)$(R)CorrectedSampleCnt.VAL")
+  field(LNK1, "$(Instrument)SizeBuff1-SP PP")
+  field(DOL2, "$(P)$(R)CorrectedSampleCnt.VAL")
+  field(LNK2, "$(Instrument)SizeBuff2-SP PP")
 }
 
 # Input Impedance (high level)
@@ -1054,16 +1066,28 @@ record(longout, "$(P)$(R)CorrectedFastSampleCnt"){
   field(DRVL, "1")
   field(VAL, "1")
   field(OUT, "$(Instrument)DigtzeCnt-SP PP")
-  field(FLNK, "$(P)$(R)FastSampleCntCalc")
+  field(FLNK, "$(P)$(R)FastSampleCntAux1")
 }
 
 # Set the last index of buffer to read equal to the count value
-record(calcout, "$(P)$(R)FastSampleCntCalc"){
+record(calcout, "$(P)$(R)FastSampleCntAux1"){
   field(ASG, "Reserved")
   field(DESC, "Set last reading index in buffer")
   field(INPA, "$(P)$(R)CorrectedFastSampleCnt.VAL")
   field(CALC, "A")
   field(OUT, "$(Instrument)EndRead1-SP PP")
+  field(FLNK, "$(P)$(R)FastSampleCntAux2")
+}
+
+# Set size of buffers equal to sample count
+record(seq, "$(P)$(R)FastSampleCntAux2"){
+  field(ASG, "Reserved")
+  field(DESC, "Set buffers size equal to sample cnt")
+  field(SELM, "All")
+  field(DOL1, "$(P)$(R)CorrectedFastSampleCnt.VAL")
+  field(LNK1, "$(Instrument)SizeBuff1-SP PP")
+  field(DOL2, "$(P)$(R)CorrectedFastSampleCnt.VAL")
+  field(LNK2, "$(Instrument)SizeBuff2-SP PP")
 }
 
 # Fast Mode Input Impedance (high level)
@@ -2100,7 +2124,7 @@ record(sseq, "$(P)$(R)FastDownloadSeq5"){
   field(LNK1, "$(Instrument)DigRead-Mon.PROC")      # Read DigIOs states (range RB)
   field(DO2, "1")
   field(LNK2, "$(P)$(R)MeasTrg-Sel.PROC")
-  field(DO3, "1")
+  field(DO3, "2")
   field(LNK3, "$(P)$(R)Enbl-Sel.PROC")
 }
 
