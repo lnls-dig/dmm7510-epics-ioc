@@ -1539,30 +1539,29 @@ record(calc, "$(P)$(R)LowLimCalc"){
   field(DESC, "Low threshold settings calc")
   field(INPA, "$(P)$(R)LowLimEnbl-Sel")
   field(INPB, "$(P)$(R)MeasMode-Sts")
-  field(CALC, "A=1?(B=1?3:(B=2?10:4)):4")
+  field(CALC, "A=1?(B=1?1:(B=2?2:0)):0")
   field(FLNK, "$(P)$(R)LowLimSeq")
 }
 
 record(sseq, "$(P)$(R)LowLimSeq"){
   field(ASG, "Reserved")
   field(DESC, "Low threshold settings seq")
-  field(SELM, "Mask")
+  field(SELM, "Specified")
   field(SELL, "$(P)$(R)LowLimCalc.VAL")
   field(STR1, "Falling")
-  field(STR2, "ANALOGTRIGGER")
-  field(STR3, "NONE")
-  field(STR4, "Falling")
+  field(STR2, "Falling")
   field(LNK1, "$(Instrument)MATrEdgeSlp-Sel PP")
-  field(LNK2, "$(Instrument)ExOutStim-Sel PP")
-  field(LNK3, "$(Instrument)ExOutStim-Sel PP")
-  field(LNK4, "$(Instrument)DATrEdgeSlp-Sel PP")
+  field(LNK2, "$(Instrument)DATrEdgeSlp-Sel PP")
 }
 
 record(scalcout, "$(P)$(R)LowLimCheck"){
   field(ASG, "Reserved")
   field(DESC, "Low threshold settings check")
-  field(INAA, "$(Instrument)ExOutStim-Sts CPP")
-  field(CALC, "AA='ANALOGTRIGGER'?'ON':'OFF'")
+  field(INPA, "$(P)$(R)LowLimEnbl-Sel")
+  field(INPB, "$(P)$(R)MeasMode-Sts")
+  field(INCC, "$(Instrument)MATrEdgeSlp-Sts CPP")
+  field(INDD, "$(Instrument)DATrEdgeSlp-Sts CPP")
+  field(CALC, "(A=1&&((B=1&&CC='Falling')||(B=2&&DD='Falling')))?'ON':'OFF'")
   field(OUT, "$(P)$(R)LowLimEnbl-Sts PP")
 }
 
