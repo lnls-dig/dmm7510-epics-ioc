@@ -146,29 +146,19 @@ record(mbbo, "$(P)$(R)MeasTrg-Sel"){
   field(ONST, "External")
   field(TWST, "InLevel")
   field(THST, "Software")
-}
-
-# Configuration reset used by download
-record(bo, "$(P)$(R)MeasTrgRst"){
-  field(ASG, "Reserved")
-  field(DESC, "Meas. trigger reset used by download")
-  field(ZNAM, "OFF")
-  field(ONAM, "ON")
-  field(HIGH, "5")
-  field(VAL, "0")
+  field(FLNK, "$(P)$(R)MeasTrgCalc")
 }
 
 # Trigger source selection branch index calc
 record(calcout, "$(P)$(R)MeasTrgCalc"){
   field(ASG, "Reserved")
   field(DESC, "Meas. trigger branch index calc")
-  field(SCAN, "Passive")                                        # SCAN is overridden by Download to '5 second'
+  field(SCAN, "Passive")                            # SCAN is overridden by Download to '5 second'
   field(INPA, "$(P)$(R)MeasTrg-Sel.VAL")
-  field(INPB, "$(P)$(R)MeasTrgRst.VAL")
-  field(INPC, "$(P)$(R)MeasMode-Sts")
-  field(CALC, "B=0?(C=1?(A+1):(C=2?(A+5):0)):0")
+  field(INPB, "$(P)$(R)MeasMode-Sts")
+  field(CALC, "B=1?(A+1):(B=2?(A+5):0)")
   field(OOPT, "On Change")
-  field(VAL, "7")                                               # Initialize in a nonexistent state
+  field(VAL, "7")                                   # Initialize in a nonexistent state
   field(OUT, "$(P)$(R)MeasTrgSetUnknown.PROC PP")
 }
 
@@ -177,7 +167,7 @@ record(sseq, "$(P)$(R)MeasTrgSetUnknown"){
   field(DESC, "Set meas trg temporarily to unknown")
   field(SELM, "All")
   field(STR1, "Unknown")
-  field(LNK1, "$(P)$(R)MeasTrg-Sts")                            # Set meas trigger status to 'Unknown'
+  field(LNK1, "$(P)$(R)MeasTrg-Sts")                # Set meas trigger status to 'Unknown'
   field(FLNK, "$(P)$(R)MeasTrgFout.PROC PP")
 }
 
@@ -215,26 +205,12 @@ record(sseq, "$(P)$(R)ConfigEx"){
   field(ASG, "Reserved")
   field(DESC, "Settings for meas. external trg")
   field(SELM, "All")
-#  field(STR1, "Passive")
   field(STR1, "Passive")
+  field(LNK1, "$(P)$(R)SoftMeas.SCAN")              # Disable software trigger
   field(STR2, "RISING")
+  field(LNK2, "$(Instrument)ExInEdge-Sel PP")       # External Input trigger edge = Rising
   field(STR3, "EXTERNAL")
-  field(STR4, "TIMER1")
-  field(STR5, "ON")
-  field(STR6, ".01 second")
-#  field(LNK1, "$(P)$(R)SoftMeas.SCAN")
-  field(LNK1, "$(Instrument)CntBuff1-Mon.SCAN")			# Disable scan while trigger is configured
-  field(DLY1, "1")                                              # Delay so last meas. finishes being fetched
-  field(LNK2, "$(Instrument)ExInEdge-Sel PP")			# External Input trigger edge = Rising
-  field(LNK3, "$(Instrument)Timer1Stim-Sel PP")			# Timer 1 stimulus = EXTERNAL
-  field(LNK4, "$(Instrument)MeasStim-Sel PP")			# Meas. trigger = Timer 1 (timer avoids trigger bouncing)
-  field(LNK5, "$(Instrument)ClrBuff1-Cmd PP")			# Clear buffer
-  field(LNK6, "$(Instrument)CntBuff1-Mon.SCAN")			# Buffer count scan triggers buffer readings
-  field(WAIT1, "Wait")
-  field(WAIT2, "Wait")
-  field(WAIT3, "Wait")
-  field(WAIT4, "Wait")
-  field(WAIT5, "Wait")
+  field(LNK3, "$(Instrument)Timer1Stim-Sel PP")     # Timer 1 stimulus = EXTERNAL
 }
 
 # Settings for measurement threshold triggering
@@ -242,29 +218,14 @@ record(sseq, "$(P)$(R)ConfigLvl"){
   field(ASG, "Reserved")
   field(DESC, "Settings for meas. threshold trg")
   field(SELM, "All")
-#  field(STR1, "Passive")
   field(STR1, "Passive")
+  field(LNK1, "$(P)$(R)SoftMeas.SCAN")              # Disable software trigger
   field(STR2, "ANALOGTRIGGER")
-  field(STR3, "TIMER1")
-  field(STR4, "OFF")
-  field(STR5, "Rising")
-  field(STR6, "ON")
-  field(STR7, ".01 second")
-#  field(LNK1, "$(P)$(R)SoftMeas.SCAN")
-  field(LNK1, "$(Instrument)CntBuff1-Mon.SCAN")			# Disable scan while trigger is configured
-  field(DLY1, "1")                                              # Delay so last meas. finishes being fetched
-  field(LNK2, "$(Instrument)Timer1Stim-Sel PP")			# Timer 1 stimulus = ANALOGTRIGGER
-  field(LNK3, "$(Instrument)MeasStim-Sel PP")			# Meas. trigger = Timer 1
-  field(LNK4, "$(P)$(R)LowLimEnbl-Sel PP")			# Disable low voltage level detection
-  field(LNK5, "$(Instrument)MATrEdgeSlp-Sel PP")		# Input voltage level trigger edge = Rising
-  field(LNK6, "$(Instrument)ClrBuff1-Cmd PP")			# Clear buffer
-  field(LNK7, "$(Instrument)CntBuff1-Mon.SCAN")			# BufferCnt scan is goint to trigger buffer readings
-  field(WAIT1, "Wait")
-  field(WAIT2, "Wait")
-  field(WAIT3, "Wait")
-  field(WAIT4, "Wait")
-  field(WAIT5, "Wait")
-  field(WAIT6, "Wait")
+  field(LNK2, "$(Instrument)Timer1Stim-Sel PP")     # Timer 1 stimulus = ANALOGTRIGGER
+  field(STR3, "OFF")
+  field(LNK3, "$(P)$(R)LowLimEnbl-Sel PP")          # Disable low voltage level detection
+  field(STR4, "Rising")
+  field(LNK4, "$(Instrument)MATrEdgeSlp-Sel PP")    # Input voltage level trigger edge = Rising
 }
 
 # Settings for measurement software triggering
@@ -272,33 +233,13 @@ record(sseq, "$(P)$(R)ConfigSoft"){
   field(ASG, "Reserved")
   field(DESC, "Settings for meas. software trg")
   field(SELM, "All")
-  field(STR1, "Passive")
-  field(STR2, "NONE")
-  field(STR3, "ON")
-#  field(STR4, ".1 second")
-  field(STR5, ".01 second")
-  field(STR6, "ON")
-  field(LNK1, "$(Instrument)CntBuff1-Mon.SCAN")			# Disable scan while trigger is configured
-  field(LNK2, "$(Instrument)MeasStim-Sel PP")			# Disable meas. hardware triggers
-  field(DLY2, "1")                                              # Delay so last meas. finishes being fetched
-  field(LNK3, "$(Instrument)ClrBuff1-Cmd PP")			# Clear buffer
-#  field(LNK4, "$(P)$(R)SoftMeas.SCAN")				# Enable meas. software triggering   DEBUG
-  field(LNK5, "$(Instrument)CntBuff1-Mon.SCAN")			# BufferCnt scan is going to trigger buffer readings
-  field(LNK6, "$(Instrument)MeasBuff1-Cmd PP")                  # Start Soft measurement chain
-  field(WAIT1, "Wait")
-  field(WAIT2, "Wait")
-  field(WAIT3, "Wait")
-  field(WAIT5, "Wait")
+  field(STR1, ".1 second")
+  field(LNK1, "$(P)$(R)SoftMeas.SCAN")              # Enable meas. software triggering
 }
 
-# Continuously trigger software measurement
+# Periodically send software trigger
 #record(bo, "$(P)$(R)SoftMeas"){
-#  field(DESC, "Force measurement when processed")
-#  field(ZNAM, "OFF")
-#  field(ONAM, "ON")
-#  field(VAL, "1") DEBUG
-#  field(VAL, "0")
-#  field(OUT, "$(Instrument)MeasBuff1-Cmd PP") DEBUG
+#  field(DESC, "Periodically send soft trigger")
 #}
 
 # Settings for disabling measurement trigger
