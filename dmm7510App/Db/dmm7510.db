@@ -6258,6 +6258,26 @@ record(fanout, "$(P)$(R)DATrFout2"){
 }
 
 ########################################################################
+# Debug commands
+# Desc: Commands useful for debugging procedures.
+
+record(bo, "$(P)$(R)SoftTrg-Cmd"){
+  field(DESC, "Send a *TRG to instrument")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(FLNK, "$(P)$(R)SoftTrgCalc")
+}
+
+record(calcout, "$(P)$(R)SoftTrgCalc"){
+  field(DESC, "Calc for soft trigger cmd")
+  field(INPA, "$(P)$(R)SoftTrg-Cmd")
+  field(CALC, "A")
+  field(OOPT, "When Non-zero")
+  field(DTYP, "stream")
+  field(INP, "@dmm7510.proto soft_trg_set $(PORT)")
+}
+
+########################################################################
 # Custom command
 # Desc: Allows a custom command to be issued through StreamDevice.
 
