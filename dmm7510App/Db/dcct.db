@@ -1818,6 +1818,13 @@ record(waveform, "$(P)$(R)ReliableMeasLabels-Cte"){
 # Desc: Defines the processing order during download.
 # ----------------------------------------------------------
 
+record(bi, "$(P)$(R)DownloadDone-Mon"){
+  field(DESC, "Download status")
+  field(ZNAM, "In Progress")
+  field(ONAM, "Finished")
+  field(VAL, "1")
+}
+
 # Auto download after reconnection
 record(calcout, "$(P)$(R)AutoDownload"){
   field(DESC, "Auto download after reconnection")
@@ -1836,17 +1843,18 @@ record(bo, "$(P)$(R)Download-Cmd"){
   field(PINI, "YES")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
-  field(HIGH, "10")
   field(VAL, "1")
-  field(FLNK, "$(P)$(R)ValidDownload")
 }
 
+# Download can only proceed after
+# sncDCCT process this rec
 record(calcout, "$(P)$(R)ValidDownload"){
   field(ASG, "Reserved")
   field(DESC, "Validate download cmd")
   field(INPA, "$(P)$(R)Download-Cmd.VAL")
   field(CALC, "A")
   field(OOPT, "When Non-zero")
+  field(ODLY, "1")  # Wait until sncDCCT stops getting readings
   field(OUT, "$(P)$(R)PreDownloadSeq.PROC PP")
 }
 
@@ -1854,11 +1862,15 @@ record(sseq, "$(P)$(R)PreDownloadSeq"){
   field(ASG, "Reserved")
   field(DESC, "Pre download sequence")
   field(SELM, "All")
-  field(DO1, "ON")
-  field(LNK1, "$(P)$(R)TMAbort-Cmd PP") # Abort trigger model
-  field(DLY2, "1")
+  field(DO1, "0")
+  field(LNK1, "$(P)$(R)DownloadDone-Mon PP")
   field(STR2, "ON")
-  field(LNK2, "$(Instrument)Reset-Cmd PP") # Reset instrument
+  field(LNK2, "$(P)$(R)TMAbort-Cmd PP") # Abort trigger model
+  field(DLY3, "1")
+  field(STR3, "ON")
+  field(LNK3, "$(Instrument)Reset-Cmd PP") # Reset instrument
+  field(DO4, "0")
+  field(LNK4, "$(P)$(R)MeasMode-Sel.DISA")
   field(FLNK, "$(P)$(R)MeasMode-Sel")
 }
 
@@ -1962,12 +1974,6 @@ record(sseq, "$(P)$(R)DownloadSeq3"){
   field(LNK5, "$(Instrument)Dig5Mod-Sel PP")        # DigIO 5 Mode = DIG_OUT
   field(STR6, "DIGOUT")
   field(LNK6, "$(Instrument)Dig6Mod-Sel PP")        # DigIO 6 Mode = DIG_OUT
-  field(DO7, "1")
-  field(LNK7, "$(Instrument)Timer1Cnt-SP PP")       # Timer 1 count = 1
-  field(DO8, "1")
-  field(LNK8, "$(P)$(R)TrgDelay-SP.PROC")           # Timer 1 delay proc
-  field(STR9, "ON")
-  field(LNK9, "$(Instrument)Timer1Enbl-Sel PP")     # Timer 1 enable
   field(FLNK, "$(P)$(R)DownloadSeq4")
 }
 
@@ -1976,8 +1982,10 @@ record(sseq, "$(P)$(R)DownloadSeq4"){
   field(DESC, "Download sequence 4")
   field(SELM, "All")
   field(DO1, "1")
+  field(DLY1, "1")                                  # wait digout setup
   field(LNK1, "$(P)$(R)Range-Sel.PROC")             # Range proc
   field(DO2, "1")
+  field(DLY2, "0.5")                                # wait range setup
   field(LNK2, "$(P)$(R)Test-Sel.PROC")              # DCCT calibration signal enable proc
   field(DLY3, "2")                                  # Wait 2 seconds for Range-Sts to be set
   field(STR3, "y=mx+b")
@@ -2006,9 +2014,12 @@ record(sseq, "$(P)$(R)DownloadSeq5"){
   field(DO1, "1")
   field(DO2, "1")
   field(DO3, "1")
+  field(DO4, "1")
+  field(DLY1, "1")                                  # delay until digouts are set
   field(LNK1, "$(Instrument)DigRead-Mon.PROC")      # DigIOs states read (range RB)
   field(LNK2, "$(P)$(R)MeasTrg-Sel.PROC")
   field(LNK3, "$(P)$(R)Enbl-Sel.PROC")
+  field(LNK4, "$(P)$(R)DownloadDone-Mon PP")        # Download finished
 }
 
 ###################################################
@@ -2062,12 +2073,6 @@ record(sseq, "$(P)$(R)FastDownloadSeq3"){
   field(LNK5, "$(Instrument)Dig5Mod-Sel PP")        # DigIO 5 Mode = DIG_OUT
   field(STR6, "DIGOUT")
   field(LNK6, "$(Instrument)Dig6Mod-Sel PP")        # DigIO 6 Mode = DIG_OUT
-  field(DO7, "1")
-  field(LNK7, "$(Instrument)Timer1Cnt-SP PP")       # Timer 1 count = 1
-  field(DO8, "1")
-  field(LNK8, "$(P)$(R)TrgDelay-SP.PROC")           # Timer 1 delay proc
-  field(STR9, "ON")
-  field(LNK9, "$(Instrument)Timer1Enbl-Sel PP")     # Timer 1 enable
   field(FLNK, "$(P)$(R)FastDownloadSeq4")
 }
 
@@ -2085,7 +2090,9 @@ record(sseq, "$(P)$(R)FastDownloadSeq4"){
   field(DO8, "1")
   field(STR9, "Negative")
   field(DOA, "1")
+  field(DLY1, "1")                                  # wait digout setup
   field(LNK1, "$(P)$(R)Range-Sel.PROC")             # Range proc
+  field(DLY2, "0.5")                                # wait range setup
   field(LNK2, "$(P)$(R)Test-Sel.PROC")              # DCCT calibration signal enable proc
   field(LNK3, "$(Instrument)DMathOp-Sel PP")        # Math format = y=mx+b
   field(LNK4, "$(Instrument)DMathBFactor-SP PP")    # Math B factor = 0
@@ -2104,10 +2111,13 @@ record(sseq, "$(P)$(R)FastDownloadSeq5"){
   field(DESC, "Download sequence 5")
   field(SELM, "All")
   field(DO1, "1")
+  field(DLY1, "1")                                  # delay until digouts are set
   field(LNK1, "$(Instrument)DigRead-Mon.PROC")      # Read DigIOs states (range RB)
   field(DO2, "1")
   field(LNK2, "$(P)$(R)MeasTrg-Sel.PROC")
-  field(DO3, "2")
+  field(DO3, "1")
   field(LNK3, "$(P)$(R)Enbl-Sel.PROC")
+  field(DO4, "1")
+  field(LNK4, "$(P)$(R)DownloadDone-Mon PP")        # Download finished
 }
 
