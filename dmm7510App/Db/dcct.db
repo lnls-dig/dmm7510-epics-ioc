@@ -198,8 +198,6 @@ record(sseq, "$(P)$(R)ConfigEx"){
   field(SELM, "All")
   field(STR1, "RISING")
   field(LNK1, "$(Instrument)ExInEdge-Sel PP")       # External Input trigger edge = Rising
-  field(STR2, "EXTERNAL")
-  field(LNK2, "$(Instrument)Timer1Stim-Sel PP")     # Timer 1 stimulus = EXTERNAL
 }
 
 # Settings for measurement threshold triggering
@@ -207,8 +205,6 @@ record(sseq, "$(P)$(R)ConfigLvl"){
   field(ASG, "Reserved")
   field(DESC, "Settings for meas. threshold trg")
   field(SELM, "All")
-  field(STR1, "ANALOGTRIGGER")
-  field(LNK1, "$(Instrument)Timer1Stim-Sel PP")     # Timer 1 stimulus = ANALOGTRIGGER
   field(STR2, "OFF")
   field(LNK2, "$(P)$(R)LowLimEnbl-Sel PP")          # Disable low voltage level detection
   field(STR3, "Rising")
@@ -224,7 +220,6 @@ record(scalcout, "$(P)$(R)ConfCheckMode"){
   field(INCC, "$(P)$(R)LowLimEnbl-Sts CPP")
   field(INDD, "$(Instrument)ExOutStim-Sts CPP")
   field(INEE, "$(Instrument)MATrEdgeSlp-Sts CPP")
-  field(INFF, "$(Instrument)Timer1Stim-Sts CPP")
   field(INGG, "$(P)$(R)MeasTrg-Sel CPP")
   field(CALC, "A=1?1:0")
   field(OOPT, "When Non-zero")
@@ -235,20 +230,20 @@ record(scalcout, "$(P)$(R)ConfCheck1"){
   field(ASG, "Reserved")
   field(DESC, "Check calc 1 for trg External")
   field(INAA, "$(Instrument)ExInEdge-Sts")
-  field(INBB, "$(Instrument)Timer1Stim-Sts")
-  field(CALC, "(BB=='RISING')&&(FF=='EXTERNAL')?1:0")
+  field(INBB, "$(P)$(R)MeasTrg-Sel")
+  field(CALC, "(AA=='RISING'&&BB=='External')?1:0")
   field(FLNK, "$(P)$(R)ConfCheck2")
 }
 
 record(scalcout, "$(P)$(R)ConfCheck2"){
   field(ASG, "Reserved")
   field(DESC, "Check calc 2 for trg InLvl")
+  field(INBB, "$(P)$(R)MeasTrg-Sel")
   field(INCC, "$(P)$(R)LowLimEnbl-Sts")
   field(INDD, "$(Instrument)ExOutStim-Sts")
   field(INEE, "$(Instrument)MATrEdgeSlp-Sts")
   field(INPF, "$(P)$(R)ConfCheck1.VAL")
-  field(INGG, "$(Instrument)Timer1Stim-Sts")
-  field(CALC, "F=0&&(CC=='OFF'&&DD=='NONE'&&EE=='Rising'&&GG=='ANALOGTRIGGER')?2:F")
+  field(CALC, "F=0&&(BB=='InLevel'&&CC=='OFF'&&DD=='NONE'&&EE=='Rising')?2:F")
   field(FLNK, "$(P)$(R)ConfCheck3")
 }
 
@@ -266,7 +261,7 @@ record(scalcout, "$(P)$(R)ConfCheck4"){
   field(DESC, "Check calc 4 for trg None")
   field(INAA, "$(P)$(R)MeasTrg-Sel")
   field(INPB, "$(P)$(R)ConfCheck3.VAL")
-  field(CALC, "(B=0&&AA='NONE')?4:B")
+  field(CALC, "(B=0&&AA='None')?4:B")
   field(FLNK, "$(P)$(R)ConfCheck5")
 }
 
@@ -290,8 +285,6 @@ record(sseq, "$(P)$(R)FastConfigEx"){
   field(SELM, "All")
   field(STR1, "RISING")
   field(LNK1, "$(Instrument)ExInEdge-Sel PP")       # External Input trigger edge = Rising
-  field(STR2, "EXTERNAL")
-  field(LNK2, "$(Instrument)Timer1Stim-Sel PP")     # Timer 1 stimulus = EXTERNAL
 }
 
 # Settings for Fast measurement threshold triggering
@@ -299,8 +292,6 @@ record(sseq, "$(P)$(R)FastConfigLvl"){
   field(ASG, "Reserved")
   field(DESC, "Settings for meas. threshold trg")
   field(SELM, "All")
-  field(STR1, "ANALOGTRIGGER")
-  field(LNK1, "$(Instrument)Timer1Stim-Sel PP")     # Timer 1 stimulus = ANALOGTRIGGER
   field(STR2, "OFF")
   field(LNK2, "$(P)$(R)LowLimEnbl-Sel PP")          # Disable low voltage level detection
   field(STR3, "Rising")
@@ -313,10 +304,10 @@ record(scalcout, "$(P)$(R)FastConfCheckMode"){
   field(DESC, "Check mode before trg type")
   field(INPA, "$(P)$(R)MeasMode-Sts CPP")
   field(INBB, "$(Instrument)ExInEdge-Sts CPP")
-  field(INEE, "$(P)$(R)LowLimEnbl-Sts CPP")
-  field(INFF, "$(Instrument)ExOutStim-Sts CPP")
-  field(INGG, "$(Instrument)DATrEdgeSlp-Sts CPP")
-  field(INHH, "$(Instrument)Timer1Stim-Sts CPP")
+  field(INCC, "$(P)$(R)LowLimEnbl-Sts CPP")
+  field(INDD, "$(Instrument)ExOutStim-Sts CPP")
+  field(INEE, "$(Instrument)DATrEdgeSlp-Sts CPP")
+  field(INFF, "$(P)$(R)MeasTrg-Sel CPP")
   field(CALC, "A=2?1:0")
   field(OOPT, "When Non-zero")
   field(OUT, "$(P)$(R)FastConfCheck1.PROC PP")
@@ -326,20 +317,20 @@ record(scalcout, "$(P)$(R)FastConfCheck1"){
   field(ASG, "Reserved")
   field(DESC, "Check calc 1 for trg External")
   field(INAA, "$(Instrument)ExInEdge-Sts")
-  field(INBB, "$(Instrument)Timer1Stim-Sts")
-  field(CALC, "(BB=='RISING')&&(FF=='EXTERNAL')?1:0")
+  field(INBB, "$(P)$(R)MeasTrg-Sel")
+  field(CALC, "(AA=='RISING'&&BB=='External')?1:0")
   field(FLNK, "$(P)$(R)FastConfCheck2")
 }
 
 record(scalcout, "$(P)$(R)FastConfCheck2"){
   field(ASG, "Reserved")
   field(DESC, "Check calc 2 for trg InLvl")
+  field(INBB, "$(P)$(R)MeasTrg-Sel")
   field(INCC, "$(P)$(R)LowLimEnbl-Sts")
   field(INDD, "$(Instrument)ExOutStim-Sts")
   field(INEE, "$(Instrument)MATrEdgeSlp-Sts")
   field(INPF, "$(P)$(R)FastConfCheck1.VAL")
-  field(INGG, "$(Instrument)Timer1Stim-Sts")
-  field(CALC, "F=0&&(CC=='OFF'&&DD=='NONE'&&EE=='Rising'&&GG=='ANALOGTRIGGER')?2:F")
+  field(CALC, "F=0&&(BB=='InLevel'&&CC=='OFF'&&DD=='NONE'&&EE=='Rising')?2:F")
   field(FLNK, "$(P)$(R)FastConfCheck3")
 }
 
@@ -357,7 +348,7 @@ record(scalcout, "$(P)$(R)FastConfCheck4"){
   field(DESC, "Check calc 4 for trg None")
   field(INAA, "$(P)$(R)MeasTrg-Sel")
   field(INPB, "$(P)$(R)FastConfCheck3.VAL")
-  field(CALC, "(B=0&&AA='NONE')?4:B")
+  field(CALC, "(B=0&&AA='None')?4:B")
   field(FLNK, "$(P)$(R)FastConfCheck5")
 }
 
