@@ -823,25 +823,21 @@ record(longout, "$(P)$(R)CorrectedSampleCnt"){
   field(FLNK, "$(P)$(R)SampleCntAux1")
 }
 
-# Set the last index of buffer to read equal to the count value
-record(calcout, "$(P)$(R)SampleCntAux1"){
-  field(ASG, "Reserved")
-  field(DESC, "Set last reading index in buffer")
-  field(INPA, "$(P)$(R)CorrectedSampleCnt.VAL")
-  field(CALC, "A")
-  field(OUT, "$(Instrument)EndRead1-SP PP")
-  field(FLNK, "$(P)$(R)SampleCntAux2")
-}
-
-# Set size of buffers equal to sample count
-record(seq, "$(P)$(R)SampleCntAux2"){
+# Set last buffer read index equal to sample cnt
+# set size of buffers equal to sample count
+# and set RawReadings nelm field
+record(seq, "$(P)$(R)SampleCntAux1"){
   field(ASG, "Reserved")
   field(DESC, "Set buffers size equal to sample cnt")
   field(SELM, "All")
   field(DOL1, "$(P)$(R)CorrectedSampleCnt.VAL")
-  field(LNK1, "$(Instrument)SizeBuff1-SP PP")
+  field(LNK1, "$(Instrument)EndRead1-SP PP")
   field(DOL2, "$(P)$(R)CorrectedSampleCnt.VAL")
-  field(LNK2, "$(Instrument)SizeBuff2-SP PP")
+  field(LNK2, "$(Instrument)SizeBuff1-SP PP")
+  field(DOL3, "$(P)$(R)CorrectedSampleCnt.VAL")
+  field(LNK3, "$(Instrument)SizeBuff2-SP PP")
+  field(DOL4, "$(P)$(R)CorrectedSampleCnt.VAL")
+  field(LNK4, "$(P)$(R)RawReadings-Mon.NELM")
 }
 
 # Input Impedance (high level)
@@ -1060,25 +1056,21 @@ record(longout, "$(P)$(R)CorrectedFastSampleCnt"){
   field(FLNK, "$(P)$(R)FastSampleCntAux1")
 }
 
-# Set the last index of buffer to read equal to the count value
-record(calcout, "$(P)$(R)FastSampleCntAux1"){
-  field(ASG, "Reserved")
-  field(DESC, "Set last reading index in buffer")
-  field(INPA, "$(P)$(R)CorrectedFastSampleCnt.VAL")
-  field(CALC, "A")
-  field(OUT, "$(Instrument)EndRead1-SP PP")
-  field(FLNK, "$(P)$(R)FastSampleCntAux2")
-}
-
-# Set size of buffers equal to sample count
-record(seq, "$(P)$(R)FastSampleCntAux2"){
+# Set last buffer read index equal to sample cnt
+# set size of buffers equal to sample count
+# and set RawReadings nelm field
+record(seq, "$(P)$(R)FastSampleCntAux1"){
   field(ASG, "Reserved")
   field(DESC, "Set buffers size equal to sample cnt")
   field(SELM, "All")
   field(DOL1, "$(P)$(R)CorrectedFastSampleCnt.VAL")
-  field(LNK1, "$(Instrument)SizeBuff1-SP PP")
+  field(LNK1, "$(Instrument)EndRead1-SP PP")
   field(DOL2, "$(P)$(R)CorrectedFastSampleCnt.VAL")
-  field(LNK2, "$(Instrument)SizeBuff2-SP PP")
+  field(LNK2, "$(Instrument)SizeBuff1-SP PP")
+  field(DOL3, "$(P)$(R)CorrectedFastSampleCnt.VAL")
+  field(LNK3, "$(Instrument)SizeBuff2-SP PP")
+  field(DOL4, "$(P)$(R)CorrectedFastSampleCnt.VAL")
+  field(LNK4, "$(P)$(R)RawReadings-Mon.NELM")
 }
 
 # Fast Mode Input Impedance (high level)
