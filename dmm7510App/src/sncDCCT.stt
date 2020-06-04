@@ -1,0 +1,598 @@
+program sncDCCT
+
+%%//----------------------------------------
+%%// 	      Variables
+%%//----------------------------------------
+
+string prev_buff_1_time;
+string prev_buff_2_time;
+
+%%//----------------------------------------
+%%// 	      Monitored PVs
+%%//----------------------------------------
+
+int meas_mode_sel_disa;
+assign meas_mode_sel_disa to "{P}{R}MeasMode-Sel.DISA";
+
+int meas_mode_sts;
+assign meas_mode_sts to "{P}{R}MeasMode-Sts";
+monitor meas_mode_sts;
+evflag meas_mode_sts_flg;
+sync meas_mode_sts meas_mode_sts_flg;
+
+int enbl_sel;
+assign enbl_sel to "{P}{R}Enbl-Sel";
+monitor enbl_sel;
+evflag enbl_sel_flg;
+sync enbl_sel enbl_sel_flg;
+
+int enbl_sts;
+assign enbl_sts to "{P}{R}Enbl-Sts";
+
+int meas_trg_sts;
+assign meas_trg_sts to "{P}{R}MeasTrg-Sts";
+monitor meas_trg_sts;
+evflag meas_trg_sts_flg;
+sync meas_trg_sts meas_trg_sts_flg;
+
+int low_lim_enbl_sts;
+assign low_lim_enbl_sts to "{P}{R}LowLimEnbl-Sts";
+monitor low_lim_enbl_sts;
+evflag low_lim_enbl_sts_flg;
+sync low_lim_enbl_sts low_lim_enbl_sts_flg;
+
+int meas_stim_sel;
+assign meas_stim_sel to "{P}{R}MeasStim-Sel";
+
+int tm_clear_cmd;
+assign tm_clear_cmd to "{P}{R}TMClear-Cmd";
+
+int tm_start_cmd;
+assign tm_start_cmd to "{P}{R}TMStart-Cmd";
+
+int tm_abort_cmd;
+assign tm_abort_cmd to "{P}{R}TMAbort-Cmd";
+
+string tm_mon_scan;
+assign tm_mon_scan to "{P}{R}TM-Mon.SCAN";
+
+int tm_mon;
+assign tm_mon to "{P}{R}TM-Mon";
+monitor tm_mon;
+evflag tm_mon_flg;
+sync tm_mon tm_mon_flg;
+
+int tm_idx_mon;
+assign tm_idx_mon to "{P}{R}TMIdx-Mon";
+monitor tm_idx_mon;
+evflag tm_idx_mon_flg;
+sync tm_idx_mon tm_idx_mon_flg;
+
+int download_done_mon;
+assign download_done_mon to "{P}{R}DownloadDone-Mon";
+monitor download_done_mon;
+evflag download_done_mon_flg;
+sync download_done_mon download_done_mon_flg;
+
+int download_cmd;
+assign download_cmd to "{P}{R}Download-Cmd";
+monitor download_cmd;
+evflag download_cmd_flg;
+sync download_cmd download_cmd_flg;
+
+int valid_download_proc;
+assign valid_download_proc to "{P}{R}ValidDownload.PROC";
+
+int soft_trg_cmd;
+assign soft_trg_cmd to "{P}{R}SoftTrg-Cmd";
+
+char custom_sp[250];
+assign custom_sp to "{P}{R}Custom-SP";
+
+int raw_buff_1_mon_proc;
+assign raw_buff_1_mon_proc to "{P}{R}RawBuff1-Mon.PROC";
+
+int raw_buff_2_mon_proc;
+assign raw_buff_2_mon_proc to "{P}{R}RawBuff2-Mon.PROC";
+
+int ex_out_pol_sel;
+assign ex_out_pol_sel to "{Instrument}ExOutPol-Sel";
+
+string ex_out_stim_sel;
+assign ex_out_stim_sel to "{Instrument}ExOutStim-Sel";
+
+int sample_cnt_rb;
+assign sample_cnt_rb to "{P}{R}SampleCnt-RB";
+monitor sample_cnt_rb;
+evflag sample_cnt_rb_flg;
+sync sample_cnt_rb sample_cnt_rb_flg;
+
+int fast_sample_cnt_rb;
+assign fast_sample_cnt_rb to "{P}{R}FastSampleCnt-RB";
+monitor fast_sample_cnt_rb;
+evflag fast_sample_cnt_rb_flg;
+sync fast_sample_cnt_rb fast_sample_cnt_rb_flg;
+
+string last_time_buff_1_mon;
+assign last_time_buff_1_mon to "{P}{R}LastTimeBuff1-Mon";
+monitor last_time_buff_1_mon;
+evflag last_time_buff_1_mon_flg;
+sync last_time_buff_1_mon last_time_buff_1_mon_flg;
+
+string last_time_buff_2_mon;
+assign last_time_buff_2_mon to "{P}{R}LastTimeBuff2-Mon";
+monitor last_time_buff_2_mon;
+evflag last_time_buff_2_mon_flg;
+sync last_time_buff_2_mon last_time_buff_2_mon_flg;
+
+string fetch_last_time_buff_scan;
+assign fetch_last_time_buff_scan to "{P}{R}FetchLastTimeBuff.SCAN";
+
+int cnt_buff_1_mon;
+assign cnt_buff_1_mon to "{Instrument}CntBuff1-Mon";
+monitor cnt_buff_1_mon;
+
+int cnt_buff_2_mon;
+assign cnt_buff_2_mon to "{Instrument}CntBuff2-Mon";
+monitor cnt_buff_2_mon;
+
+string cnt_buff_1_mon_scan;
+assign cnt_buff_1_mon_scan to "{Instrument}CntBuff1-Mon.SCAN";
+
+string cnt_buff_2_mon_scan;
+assign cnt_buff_2_mon_scan to "{Instrument}CntBuff2-Mon.SCAN";
+
+int meas_buff_1_cmd;
+assign meas_buff_1_cmd to "{Instrument}MeasBuff1-Cmd";
+
+int meas_buff_2_cmd;
+assign meas_buff_2_cmd to "{Instrument}MeasBuff2-Cmd";
+
+int clear_buff_1_cmd;
+assign clear_buff_1_cmd to "{Instrument}ClrBuff1-Cmd";
+
+int clear_buff_2_cmd;
+assign clear_buff_2_cmd to "{Instrument}ClrBuff2-Cmd";
+
+%%//----------------------------------------
+%%//        Escaped C Code
+%%//----------------------------------------
+
+%%#include <unistd.h>
+%%#include <string.h>
+
+%%#define SCAN_RATE ".02 second"
+
+%%//----------------------------------------
+%%//        State Notation Language
+%%//----------------------------------------
+
+ss dcct_acquisition {
+    state init {
+	when (delay(5.0) && efTestAndClear(download_cmd_flg)
+              && download_cmd == 1) {
+            printf("[sncDCCT] Initialization start\n");
+            // allow download to proceed
+            valid_download_proc = 1;
+            pvPut(valid_download_proc, SYNC);
+	} state wait_download
+    }
+
+    state wait_download {
+        entry {
+            printf("[sncDCCT] Waiting download\n");
+        }
+        when (efTestAndClear(download_done_mon_flg)
+              && download_done_mon == 1){
+            printf("[sncDCCT] Download finished\n");
+            // put download PV low
+            download_cmd = 0;
+            pvPut(download_cmd, SYNC);
+        } state wait_enbl
+    }
+
+    state wait_enbl{
+        when (efTestAndClear(download_cmd_flg)
+              && download_cmd == 1){
+            /* Download requested */
+            printf("[sncDCCT] Received request for download\n");
+            // allow download to proceed
+            valid_download_proc = 1;
+            pvPut(valid_download_proc, SYNC);
+        } state wait_download
+
+        when (enbl_sel == 1){
+        } state validate_enbl
+    }
+
+    state validate_enbl{
+        when (meas_mode_sts != 1 && meas_mode_sts != 2){
+            // Error: No valid meas mode is selected
+            // disable output trg
+            strcpy(ex_out_stim_sel, "NONE");
+            pvPut(ex_out_stim_sel, SYNC);
+            printf("[sncDCCT] Error: No valid meas mode is selected\n");
+            // update enbl status
+            enbl_sts = 0;
+            pvPut(enbl_sts, SYNC);
+            //  enbl = OFF to prevent a loop
+            enbl_sel = 0;
+            pvPut(enbl_sel, SYNC);
+            // sleep for 500 ms
+            usleep(500000);
+        } state wait_enbl
+        when (meas_trg_sts != 1 && meas_trg_sts != 2 && meas_trg_sts != 3){
+            // Error: No valid trigger is selected
+            // disable output trg
+            strcpy(ex_out_stim_sel, "NONE");
+            pvPut(ex_out_stim_sel, SYNC);
+            printf("[sncDCCT] Error: No valid trigger is selected\n");
+            // update enbl status
+            enbl_sts = 0;
+            pvPut(enbl_sts, SYNC);
+            //  enbl = OFF to prevent a loop
+            enbl_sel = 0;
+            pvPut(enbl_sel, SYNC);
+            // sleep for 500 ms
+            usleep(500000);
+        } state wait_enbl
+        when (meas_trg_sts == 2 && low_lim_enbl_sts != 0){
+            // Error: 'Low limit enbl' is ON while InLevel trig is selected
+            // disable output trg
+            strcpy(ex_out_stim_sel, "NONE");
+            pvPut(ex_out_stim_sel, SYNC);
+            printf("[sncDCCT] Error: LowLimEnbl and InLevel trig are both ON\n");
+            // update enbl status
+            enbl_sts = 0;
+            pvPut(enbl_sts, SYNC);
+            //  enbl = OFF to prevent a loop
+            enbl_sel = 0;
+            pvPut(enbl_sel, SYNC);
+            // sleep for 500 ms
+            usleep(500000);
+        } state wait_enbl
+        when (){
+            // Success
+            printf("[sncDCCT] Enabling acquisition\n");
+            // disable changes to meas mode
+            meas_mode_sel_disa = 1;
+            pvPut(meas_mode_sel_disa);
+        } state config_tm
+    }
+
+    state config_tm{
+        when (meas_trg_sts == 1 || meas_trg_sts == 2){
+            /* Load Trigger Model with hardware trg*/
+            // clear
+            tm_clear_cmd = 1;
+            pvPut(tm_clear_cmd, SYNC);
+            // sleep for 500 ms
+            usleep(500000);
+            // Block 1 - soft trg 1
+            strcpy(custom_sp, "trigger.model.setblock(1,trigger.BLOCK_WAIT,trigger.EVENT_COMMAND)");
+            pvPut(custom_sp, SYNC);
+            // Block 2 - hard trg 1
+            if (meas_trg_sts == 1) {
+                strcpy(custom_sp, "trigger.model.setblock(2,trigger.BLOCK_WAIT,trigger.EVENT_EXTERNAL,trigger.CLEAR_ENTER)");
+            }
+            else{
+                strcpy(custom_sp, "trigger.model.setblock(2,trigger.BLOCK_WAIT,trigger.EVENT_ANALOGTRIGGER)");
+            }
+            pvPut(custom_sp, SYNC);
+            // Block 3 - measurement 1
+            if (meas_mode_sts == 1){
+                sprintf(custom_sp, "trigger.model.setblock(3,trigger.BLOCK_MEASURE,defbuffer1,%d)", sample_cnt_rb);
+            }
+            else {
+                sprintf(custom_sp, "trigger.model.setblock(3,trigger.BLOCK_DIGITIZE,defbuffer1,%d)", fast_sample_cnt_rb);
+            }
+            pvPut(custom_sp, SYNC);
+            // Block 4 - soft trg 2
+            strcpy(custom_sp, "trigger.model.setblock(4,trigger.BLOCK_WAIT,trigger.EVENT_COMMAND)");
+            pvPut(custom_sp, SYNC);
+            // Block 5 - hard trg 2
+            if (meas_trg_sts == 1) {
+                strcpy(custom_sp, "trigger.model.setblock(5,trigger.BLOCK_WAIT,trigger.EVENT_EXTERNAL,trigger.CLEAR_ENTER)");
+            }
+            else{
+                strcpy(custom_sp, "trigger.model.setblock(5,trigger.BLOCK_WAIT,trigger.EVENT_ANALOGTRIGGER)");
+            }
+            pvPut(custom_sp, SYNC);
+            // Block 6 - measurement 2
+            if (meas_mode_sts == 1){
+                sprintf(custom_sp, "trigger.model.setblock(6,trigger.BLOCK_MEASURE,defbuffer2,%d)", sample_cnt_rb);
+            }
+            else {
+                sprintf(custom_sp, "trigger.model.setblock(6,trigger.BLOCK_DIGITIZE,defbuffer2,%d)", fast_sample_cnt_rb);
+            }
+            pvPut(custom_sp, SYNC);
+            // Block 7 - back to start
+            strcpy(custom_sp, "trigger.model.setblock(7, trigger.BLOCK_BRANCH_ALWAYS, 1)");
+            pvPut(custom_sp, SYNC);
+        } state run_tm
+        
+        when (){
+            /* Load Trigger Model with soft trigger only */
+            // clear
+            tm_clear_cmd = 1;
+            pvPut(tm_clear_cmd, SYNC);
+            // Block 1 - soft trg 1
+            strcpy(custom_sp, "trigger.model.setblock(1,trigger.BLOCK_WAIT,trigger.EVENT_COMMAND)");
+            pvPut(custom_sp, SYNC);
+            // Block 2 - measurement 1
+            if (meas_mode_sts == 1){
+                sprintf(custom_sp, "trigger.model.setblock(2,trigger.BLOCK_MEASURE,defbuffer1,%d)", sample_cnt_rb);
+            }
+            else {
+                sprintf(custom_sp, "trigger.model.setblock(2,trigger.BLOCK_DIGITIZE,defbuffer1,%d)", fast_sample_cnt_rb);
+            }
+            pvPut(custom_sp, SYNC);
+            // Block 3 - soft trg 2
+            strcpy(custom_sp, "trigger.model.setblock(3,trigger.BLOCK_WAIT,trigger.EVENT_COMMAND)");
+            pvPut(custom_sp, SYNC);
+            // Block 4 - measurement 2
+            if (meas_mode_sts == 1){
+                sprintf(custom_sp, "trigger.model.setblock(4,trigger.BLOCK_MEASURE,defbuffer2,%d)", sample_cnt_rb);
+            }
+            else {
+                sprintf(custom_sp, "trigger.model.setblock(4,trigger.BLOCK_DIGITIZE,defbuffer2,%d)", fast_sample_cnt_rb);
+            }
+            pvPut(custom_sp, SYNC);
+            // Block 5 - back to start
+            strcpy(custom_sp, "trigger.model.setblock(5, trigger.BLOCK_BRANCH_ALWAYS, 1)");
+            pvPut(custom_sp, SYNC);
+        } state prepare_buffers
+    }
+
+    state prepare_buffers{
+        when (delay(2.0)){
+            // clear buffers
+            clear_buff_1_cmd = 1;
+            pvPut(clear_buff_1_cmd, SYNC);
+            clear_buff_2_cmd = 1;
+            pvPut(clear_buff_2_cmd, SYNC);
+            usleep(2000000);
+            // pre-fill buffers
+            meas_buff_1_cmd = 1;
+            pvPut(meas_buff_1_cmd, SYNC);
+            meas_buff_2_cmd = 1;
+            pvPut(meas_buff_2_cmd, SYNC);
+            // monitor buffer fill
+            strcpy(cnt_buff_1_mon_scan, "1 second");
+            pvPut(cnt_buff_1_mon_scan, SYNC);
+            usleep(5000000);
+            strcpy(cnt_buff_2_mon_scan, "1 second");
+            pvPut(cnt_buff_2_mon_scan, SYNC);
+            usleep(5000000);
+        } state buffers_ready
+    }
+
+    state buffers_ready {
+        when (
+              ((cnt_buff_1_mon == sample_cnt_rb 
+                && meas_mode_sts == 1)
+                || (cnt_buff_1_mon == fast_sample_cnt_rb 
+                    && meas_mode_sts == 2))
+              && 
+               ((cnt_buff_2_mon == sample_cnt_rb 
+                  && meas_mode_sts == 1)
+                  || (cnt_buff_2_mon == fast_sample_cnt_rb 
+                      && meas_mode_sts == 2))
+               ){
+            // stop buffer fill monitor
+            strcpy(cnt_buff_1_mon_scan, "Passive");
+            pvPut(cnt_buff_1_mon_scan, SYNC);
+            strcpy(cnt_buff_2_mon_scan, "Passive");
+            pvPut(cnt_buff_2_mon_scan, SYNC);
+            // init previous buffer timestamps variables
+            strcpy(prev_buff_1_time, last_time_buff_1_mon);
+            strcpy(prev_buff_2_time, last_time_buff_2_mon);
+            // monitor buffers last index timestamp
+            strcpy(fetch_last_time_buff_scan, SCAN_RATE);
+            pvPut(fetch_last_time_buff_scan, SYNC);
+        } state run_tm
+    }
+
+    state run_tm{
+        when (strcmp(last_time_buff_1_mon, prev_buff_1_time) != 0
+               && strcmp(last_time_buff_2_mon, prev_buff_2_time) != 0){
+            // update previous buffer timestamps
+            strcpy(prev_buff_1_time, last_time_buff_1_mon);
+            strcpy(prev_buff_2_time, last_time_buff_2_mon);
+            // start TM
+            tm_start_cmd = 1;
+            pvPut(tm_start_cmd, SYNC);
+        } state start_acq
+    }
+
+    state start_acq{
+        when (delay(1.0)){
+            printf("[sncDCCT] Acquisition start\n");
+            // update enable status
+            enbl_sts = 1;
+            pvPut(enbl_sts, SYNC);
+            // enable low limit signal
+            if (low_lim_enbl_sts == 1 && meas_trg_sts != 2){
+                // select polarity
+                ex_out_pol_sel = 1; // negative pol
+                pvPut(ex_out_pol_sel, SYNC);
+                // enbl output trg
+                strcpy(ex_out_stim_sel, "ANALOGTRIGGER");
+                pvPut(ex_out_stim_sel, SYNC);
+            }
+            // monitor TM state index
+            strcpy(tm_mon_scan, SCAN_RATE);
+            pvPut(tm_mon_scan, SYNC);
+            // allow acquisition start
+            soft_trg_cmd = 1;
+            pvPut(soft_trg_cmd, SYNC);
+        } state acq_cycle_step_1
+    }
+
+    state acq_cycle_step_1{
+        when (efTestAndClear(download_cmd_flg)
+              && download_cmd == 1){
+            /* Download requested */
+            printf("[sncDCCT] Acquisition stopped\n");
+            // disable output trg
+            strcpy(ex_out_stim_sel, "NONE");
+            pvPut(ex_out_stim_sel, SYNC);
+            // stop TM monitor
+            strcpy(tm_mon_scan, "Passive");
+            pvPut(tm_mon_scan, SYNC);
+            // stop monitor buffers last timestamp
+            strcpy(fetch_last_time_buff_scan, "Passive");
+            pvPut(fetch_last_time_buff_scan, SYNC);
+            // abort TM
+            tm_abort_cmd = 1;
+            pvPut(tm_abort_cmd, SYNC);
+            // update enbl status
+            enbl_sts = 0;
+            pvPut(enbl_sts, SYNC);
+            // allow download to proceed
+            valid_download_proc = 1;
+            pvPut(valid_download_proc, SYNC);
+        } state wait_download
+
+        when (efTestAndClear(enbl_sel_flg)
+              && enbl_sel == 0){
+            /* Acquisition disabled */
+            printf("[sncDCCT] Acquisition stopped\n");
+            // disable output trg
+            strcpy(ex_out_stim_sel, "NONE");
+            pvPut(ex_out_stim_sel, SYNC);
+            // stop TM monitor
+            strcpy(tm_mon_scan, "Passive");
+            pvPut(tm_mon_scan, SYNC);
+            // stop monitor buffers last timestamp
+            strcpy(fetch_last_time_buff_scan, "Passive");
+            pvPut(fetch_last_time_buff_scan, SYNC);
+            // abort TM
+            tm_abort_cmd = 1;
+            pvPut(tm_abort_cmd, SYNC);
+            // update enbl status
+            enbl_sts = 0;
+            pvPut(enbl_sts, SYNC);
+        } state wait_enbl
+
+        when (tm_idx_mon == 4 && meas_trg_sts != 3
+               && strcmp(last_time_buff_1_mon, prev_buff_1_time) != 0){
+            // DEBUG
+            printf("[sncDCCT] Before update: last_time_buff1=%s, prev_buff1=%s\n",last_time_buff_1_mon,prev_buff_1_time);
+            // update previous buffer timestamp
+            strcpy(prev_buff_1_time, last_time_buff_1_mon);
+            // DEBUG
+            printf("[sncDCCT] After update: last_time_buff1=%s, prev_buff1=%s\n",last_time_buff_1_mon,prev_buff_1_time);
+            /* buffer 1 full:
+               send soft trg and
+               fetch reading */
+            soft_trg_cmd = 1;
+            pvPut(soft_trg_cmd, SYNC);
+            raw_buff_1_mon_proc = 1;
+            pvPut(raw_buff_1_mon_proc, SYNC);
+            // DEBUG
+            printf("[sncDCCT] *TRG sent. TMIdx = 4/ Buff1 read /Trg Mode \n");
+        } state acq_cycle_step_2
+
+        when (tm_idx_mon == 3 && meas_trg_sts == 3
+               && strcmp(last_time_buff_1_mon, prev_buff_1_time) != 0){
+            // DEBUG
+            printf("[sncDCCT] Before update: last_time_buff1=%s, prev_buff1=%s\n",last_time_buff_1_mon,prev_buff_1_time);
+            // update previous buffer timestamp
+            strcpy(prev_buff_1_time, last_time_buff_1_mon);
+            printf("[sncDCCT] After update update: last_time_buff1=%s, prev_buff1=%s\n",last_time_buff_1_mon,prev_buff_1_time);
+            /* soft mode - buffer 1 full:
+               send soft trg and
+               fetch reading */
+            soft_trg_cmd = 1;
+            pvPut(soft_trg_cmd, SYNC);
+            raw_buff_1_mon_proc = 1;
+            pvPut(raw_buff_1_mon_proc, SYNC);
+            // DEBUG
+            printf("[sncDCCT] *TRG sent. TMIdx = 3/ Buff1 read /Soft Mode \n");
+        } state acq_cycle_step_2
+    }
+
+    state acq_cycle_step_2 {
+        when (efTestAndClear(download_cmd_flg)
+              && download_cmd == 1){
+            /* Download requested */
+            printf("[sncDCCT] Acquisition stopped\n");
+            // disable output trg
+            strcpy(ex_out_stim_sel, "NONE");
+            pvPut(ex_out_stim_sel, SYNC);
+            // stop TM monitor
+            strcpy(tm_mon_scan, "Passive");
+            pvPut(tm_mon_scan, SYNC);
+            // stop monitor buffers last timestamp
+            strcpy(fetch_last_time_buff_scan, "Passive");
+            pvPut(fetch_last_time_buff_scan, SYNC);
+            // abort TM
+            tm_abort_cmd = 1;
+            pvPut(tm_abort_cmd, SYNC);
+            // update enbl status
+            enbl_sts = 0;
+            pvPut(enbl_sts, SYNC);
+            // allow download to proceed
+            valid_download_proc = 1;
+            pvPut(valid_download_proc, SYNC);
+        } state wait_download
+
+        when (efTestAndClear(enbl_sel_flg)
+              && enbl_sel == 0){
+            /* Acquisition disabled */
+            printf("[sncDCCT] Acquisition stopped\n");
+            // disable output trg
+            strcpy(ex_out_stim_sel, "NONE");
+            pvPut(ex_out_stim_sel, SYNC);
+            // stop TM monitor
+            strcpy(tm_mon_scan, "Passive");
+            pvPut(tm_mon_scan, SYNC);
+            // stop monitor buffers last timestamp
+            strcpy(fetch_last_time_buff_scan, "Passive");
+            pvPut(fetch_last_time_buff_scan, SYNC);
+            // abort TM
+            tm_abort_cmd = 1;
+            pvPut(tm_abort_cmd, SYNC);
+            // update enbl status
+            enbl_sts = 0;
+            pvPut(enbl_sts, SYNC);
+        } state wait_enbl
+
+        when (tm_idx_mon == 1 && meas_trg_sts != 3
+               && strcmp(last_time_buff_2_mon, prev_buff_2_time) != 0){
+            // DEBUG
+            printf("[sncDCCT] Before update: last_time_buff2=%s, prev_buff2=%s\n",last_time_buff_2_mon,prev_buff_2_time);
+            // update previous buffer timestamp
+            strcpy(prev_buff_2_time, last_time_buff_2_mon);
+            printf("[sncDCCT] After update update: last_time_buff2=%s, prev_buff2=%s\n",last_time_buff_2_mon,prev_buff_2_time);
+            /* buffer 2 full:
+               send soft trg and
+               fetch reading */
+            soft_trg_cmd = 1;
+            pvPut(soft_trg_cmd, SYNC);
+            raw_buff_2_mon_proc = 1;
+            pvPut(raw_buff_2_mon_proc, SYNC);
+            // DEBUG
+            printf("[sncDCCT] *TRG sent. TMIdx = 1/ Buff2 read /Trg Mode \n");
+        } state acq_cycle_step_1
+
+        when (tm_idx_mon == 1 && meas_trg_sts == 3
+               && strcmp(last_time_buff_2_mon, prev_buff_2_time) != 0){
+            // DEBUG
+            printf("[sncDCCT] Before update: last_time_buff2=%s, prev_buff2=%s\n",last_time_buff_2_mon, prev_buff_2_time);
+            // update previous buffer timestamp
+            strcpy(prev_buff_2_time, last_time_buff_2_mon);
+            printf("[sncDCCT] After update update: last_time_buff2=%s, prev_buff2=%s\n", last_time_buff_2_mon, prev_buff_2_time);
+            /* soft mode - buffer 2 full:
+               send soft trg and
+               fetch reading */
+            soft_trg_cmd = 1;
+            pvPut(soft_trg_cmd, SYNC);
+            raw_buff_2_mon_proc = 1;
+            pvPut(raw_buff_2_mon_proc, SYNC);
+            // DEBUG
+            printf("[sncDCCT] *TRG sent. TMIdx = 1/ Buff2 read /Soft Mode \n");
+        } state acq_cycle_step_1
+    }
+}

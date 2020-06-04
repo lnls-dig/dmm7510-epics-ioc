@@ -595,108 +595,114 @@ record(seq, "$(P)$(R)ProtectSeqDsbl3"){
 }
 
 ########################################################################
-# Timer configuration
-#
-# Desc: Timer used when measurement is triggered by level.
-
-# Timer delay (high level)
-record(ao, "$(P)$(R)TrgDelay-SP"){
-  field(DESC, "Trigger delay")
-  field(DRVH, "100000")
-  field(DRVL, "0.000008")
-  field(PREC, "6")
-  field(EGU, "seconds")
-  field(OUT, "$(Instrument)Timer1Dly-SP PP")
-}
-
-# Timer delay RB (high level)
-record(ai, "$(P)$(R)TrgDelay-RB"){
-  field(ASG, "Reserved")
-  field(DESC, "Trigger delay RB")
-  field(PREC, "6")
-  field(EGU, "seconds")
-  field(INP, "$(Instrument)Timer1Dly-RB CPP")
-}
-
-########################################################################
 # Average Current Measurement
 #
 # Desc: Average Beam Current measurement parameters.
 
-record(calcout, "$(P)$(R)BuffProtectRead"){
-  field(DESC, "Protect buffer reading")
-  field(INPA, "$(Instrument)CntBuff1-Mon CPP")
-  field(CALC, "A=0")
-  field(OOPT, "When Non-zero")
-  field(OUT, "$(P)$(R)EmptyFlg PP")
-  field(FLNK, "$(P)$(R)BuffCntCalc")
+# This record fetches the values of both
+# LastTimeBuff1-Mon and LastTimeBuff2-Mon from
+# the device
+record(bo, "$(P)$(R)FetchLastTimeBuff"){
+  field(DTYP, "stream")
+  field(OUT, "@dcct.proto last_time_get($(P)$(R)) $(PORT)")
 }
 
-record(bi, "$(P)$(R)EmptyFlg"){
-  field(DESC, "Buffer is empty flag")
+# This record is used by sncDCCT to monitor
+# the timestamp of the reading at last position
+# in buffer 1
+record(stringin, "$(P)$(R)LastTimeBuff1-Mon"){
+  field(DESC, "Monitor buff 1 last timestamp")
 }
 
-# Check if buffer 1 count is greater than 0
-record(calcout, "$(P)$(R)BuffCntCalc"){
-  field(ASG, "Reserved")
-  field(DESC, "Buffer counter monitor calc")
-  field(PRIO, "HIGH")
-  field(INPA, "$(P)$(R)BuffProtectRead.A")
-  field(INPB, "$(P)$(R)SampleCnt-RB.VAL")
-  field(INPC, "$(P)$(R)FastSampleCnt-RB.VAL")
-  field(INPD, "$(P)$(R)MeasMode-Sts.VAL")
-  field(INPE, "$(P)$(R)MeasTrg-Sts.VAL")
-  field(INPF, "$(P)$(R)EmptyFlg")
-  field(CALC, "E=3||(F#0&&(((A>=B)&&(D=1))||((A>=C)&&(D=2))))?1:0")
-  field(OOPT, "When Non-zero")
-  field(OCAL, "E#3?3:(D=1?7:11)")
-  field(DOPT, "Use OCAL")
-  field(OUT, "$(P)$(R)ReadAndClear.PROC PP")
-  field(FLNK, "$(P)$(R)EmptyFlgClr")
+# This record is used by sncDCCT to monitor
+# the timestamp of the reading at last position
+# in buffer 2
+record(stringin, "$(P)$(R)LastTimeBuff2-Mon"){
+  field(DESC, "Monitor buff 2 last timestamp")
 }
 
-record(calcout, "$(P)$(R)EmptyFlgClr"){
-  field(DESC, "Clear empty flag")
-  field(INPA, "$(P)$(R)BuffCntCalc.VAL")
-  field(CALC, "A")
-  field(OOPT, "When Non-zero")
-  field(DOPT, "Use OCAL")
-  field(OCAL, "0")
-  field(OUT, "$(P)$(R)EmptyFlg PP")
-}
-
-record(sseq, "$(P)$(R)ReadAndClear"){
-  field(ASG, "Reserved")
-  field(SELM, "Mask")
-  field(SELL, "$(P)$(R)BuffCntCalc.OVAL")
-  field(DO1, "1")
-  field(STR2, "ON")
-  field(STR3, "ON")
-  field(STR4, "ON")
-  field(LNK1, "$(Instrument)ReadBuff1-Mon.PROC CA")
-  field(WAIT1, "Wait")
-  field(LNK2, "$(Instrument)ClrBuff1-Cmd CA")
-  field(WAIT2, "Wait")
-  field(LNK3, "$(Instrument)MeasBuff1-Cmd CA")
-  field(WAIT3, "Wait")
-  field(LNK4, "$(Instrument)DigtzBuff1-Cmd CA")
-  field(WAIT4, "Wait")
-}
-
-# Raw readings array
-#record(waveform, "$(P)$(R)RawReadings-Mon"){
-#  field(ASG, "Reserved")
-#  field(DESC, "Raw readings array")
-#  field(FTVL, "DOUBLE")
-#  field(NELM, "1000000")
-#  field(EGU, "mA")
-#  field(INP, "$(Instrument)ReadBuff1-Mon CPP")
-#  field(FLNK, "$(P)$(R)Current-Mon")
+# Since the buffer size vary with sample
+# count, but cannot be less than 4,
+# the record below calcs the difference
+# between SAMPLE CNT and BUFF SIZE, so
+# that the correct timestamp can be
+# fetched from the buffer.
+#record(calcout, "$(P)$(R)SampleBuffDiff"){
+#  field(DESC, "Diff between sample cnt and buff size")
+#  field(INPA, "$(P)$(R)SampleCnt-RB CPP")
+#  field(INPB, "$(Instrument)SizeBuff1-RB CPP")
+#  field(CALC, "B-A")
 #}
 
-alias("$(Instrument)ReadBuff1-Mon", "$(P)$(R)RawReadings-Mon")
+# Last buff 1 set of readings timestamp
+record(stringin, "$(P)$(R)TimeRawBuff1-Mon"){
+  field(DESC, "Timestamp of first buffer1 reading")
+  field(DTYP, "Soft Channel")
+}
 
-# PV with last monitored Beam Current
+# Buffer 1 last raw readings
+record(waveform, "$(P)$(R)RawBuff1-Mon"){
+  field(DESC, "Read buffer1 data and start time")
+  field(FTVL, "DOUBLE")
+  field(NELM, "1000000")
+  field(EGU, "mA")
+  field(PREC, "6")
+  field(DTYP, "stream")
+  field(INP, "@dcct.proto buff_and_time_get($(P)$(R),1) $(PORT)")
+  field(FLNK, "$(P)$(R)PushNewReadings1")
+}
+
+record(acalcout, "$(P)$(R)PushNewReadings1"){
+  field(DESC, "Push readings from buff1 to common buff")
+  field(NELM, "1000000")
+  field(INAA, "$(P)$(R)RawBuff1-Mon")
+  field(INPB, "$(P)$(R)SampleCnt-RB")
+  field(INPC, "$(P)$(R)FastSampleCnt-RB.VAL")
+  field(INPD, "$(P)$(R)MeasMode-Sts.VAL")
+  field(CALC, "D=1?AA[0,B-1]:AA[0,C-1]")
+  field(OUT, "$(P)$(R)RawReadings-Mon PP")
+}
+
+# Last buff 2 set of readings timestamp
+record(stringin, "$(P)$(R)TimeRawBuff2-Mon"){
+  field(DESC, "Timestamp of first buffer2 reading")
+  field(DTYP, "Soft Channel")
+}
+
+# Buffer 2 last raw readings
+record(waveform, "$(P)$(R)RawBuff2-Mon"){
+  field(DESC, "Read buffer2 data and start time")
+  field(FTVL, "DOUBLE")
+  field(NELM, "1000000")
+  field(EGU, "mA")
+  field(PREC, "6")
+  field(DTYP, "stream")
+  field(INP, "@dcct.proto buff_and_time_get($(P)$(R),2) $(PORT)")
+  field(FLNK, "$(P)$(R)PushNewReadings2")
+}
+
+record(acalcout, "$(P)$(R)PushNewReadings2"){
+  field(DESC, "Push readings from buff2 to common buff")
+  field(NELM, "1000000")
+  field(INAA, "$(P)$(R)RawBuff2-Mon")
+  field(INPB, "$(P)$(R)SampleCnt-RB")
+  field(INPC, "$(P)$(R)FastSampleCnt-RB.VAL")
+  field(INPD, "$(P)$(R)MeasMode-Sts.VAL")
+  field(CALC, "D=1?AA[0,B-1]:AA[0,C-1]")
+  field(OUT, "$(P)$(R)RawReadings-Mon PP")
+}
+
+# Latest set of readings
+record(subArray, "$(P)$(R)RawReadings-Mon") {
+  field(DESC, "Raw Beam Current Readings")
+  field(PREC, "3")
+  field(EGU,  "mA")
+  field(FTVL, "DOUBLE")
+  field(NELM, "1000")
+  field(MALM, "1000000")
+}
+
+# Beam Current, i.e., average of readings set
 record(acalcout, "$(P)$(R)Current-Mon"){
   field(ASG, "Reserved")
   field(DESC, "Average Beam Current")
@@ -1795,7 +1801,7 @@ record(calcout, "$(P)$(R)ReliableMeas-Mon"){
   field(INPA, "$(Instrument)ACalWarn-Mon CPP")
   field(INPB, "$(Instrument)Network-Mon CPP")
   field(INPC, "$(P)$(R)MeasTrg-Sts CPP")
-  field(CALC, "((A&1)<<2)|(((!B)&1)<<1)|(C=!1&&C!=2&&C!=3)")
+  field(CALC, "((A&1)<<3)|(((!B)&1)<<2)|((C=!1&&C!=2&&C!=3)<<1)")
   field(HIHI, "1")
   field(HHSV, "MAJOR")
 }
