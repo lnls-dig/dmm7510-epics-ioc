@@ -18,7 +18,7 @@ drvAsynIPPortConfigure("${PORT}", "${IPADDR}:${IPPORT} TCP",0,0,0)
 
 ## Load record instances
 dbLoadRecords("${TOP}/db/dmm7510.db", "P=${P}, R=${R}, PORT=${PORT}")
-dbLoadRecords("${TOP}/db/dcct.db", "P=${P}, R=${R}, Instrument=${P}${R}")
+dbLoadRecords("${TOP}/db/dcct.db", "P=${P}, R=${R}, Instrument=${P}${R}, MAX_NUM_READINGS=${MAX_NUM_READINGS}")
 
 < save_restore.cmd
 
@@ -34,6 +34,6 @@ seq sncDMM7510, "P=$(P), R=$(R)"
 
 # Create manual trigger for Autosave
 create_triggered_set("auto_settings_dcct.req", "${P}${R}SaveTrg", "P=${P}, R=${R}")
-# Also, save things every 30 seconds
-create_monitor_set("auto_settings_dcct.req", 30, "P=${P}, R=${R}")
+# Also, save things every 10 seconds
+create_monitor_set("auto_settings_dcct.req", 10, "P=${P}, R=${R}")
 set_savefile_name("auto_settings_dcct.req", "auto_settings_${P}${R}.sav")

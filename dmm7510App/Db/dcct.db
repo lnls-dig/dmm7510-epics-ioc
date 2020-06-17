@@ -616,7 +616,7 @@ record(stringin, "$(P)$(R)TimeRawBuff1-Mon"){
 record(waveform, "$(P)$(R)RawBuff1-Mon"){
   field(DESC, "Read buffer1 data and start time")
   field(FTVL, "DOUBLE")
-  field(NELM, "1000000")
+  field(NELM, "$(MAX_NUM_READINGS)")
   field(EGU, "mA")
   field(PREC, "6")
   field(DTYP, "stream")
@@ -626,7 +626,7 @@ record(waveform, "$(P)$(R)RawBuff1-Mon"){
 
 record(acalcout, "$(P)$(R)PushNewReadings1"){
   field(DESC, "Push readings from buff1 to common buff")
-  field(NELM, "1000000")
+  field(NELM, "$(MAX_NUM_READINGS)")
   field(INAA, "$(P)$(R)RawBuff1-Mon")
   field(INPB, "$(P)$(R)SampleCnt-RB")
   field(INPC, "$(P)$(R)FastSampleCnt-RB.VAL")
@@ -652,7 +652,7 @@ record(stringin, "$(P)$(R)TimeRawBuff2-Mon"){
 record(waveform, "$(P)$(R)RawBuff2-Mon"){
   field(DESC, "Read buffer2 data and start time")
   field(FTVL, "DOUBLE")
-  field(NELM, "1000000")
+  field(NELM, "$(MAX_NUM_READINGS)")
   field(EGU, "mA")
   field(PREC, "6")
   field(DTYP, "stream")
@@ -662,7 +662,7 @@ record(waveform, "$(P)$(R)RawBuff2-Mon"){
 
 record(acalcout, "$(P)$(R)PushNewReadings2"){
   field(DESC, "Push readings from buff2 to common buff")
-  field(NELM, "1000000")
+  field(NELM, "$(MAX_NUM_READINGS)")
   field(INAA, "$(P)$(R)RawBuff2-Mon")
   field(INPB, "$(P)$(R)SampleCnt-RB")
   field(INPC, "$(P)$(R)FastSampleCnt-RB.VAL")
@@ -678,14 +678,14 @@ record(subArray, "$(P)$(R)RawReadings-Mon") {
   field(EGU,  "mA")
   field(FTVL, "DOUBLE")
   field(NELM, "1000")
-  field(MALM, "1000000")
+  field(MALM, "$(MAX_NUM_READINGS)")
 }
 
 # Beam Current, i.e., average of readings set
 record(acalcout, "$(P)$(R)Current-Mon"){
   field(ASG, "Reserved")
   field(DESC, "Average Beam Current")
-  field(NELM, "1000000")
+  field(NELM, "$(MAX_NUM_READINGS)")
   field(PREC, "6")
   field(EGU, "mA")
   field(INAA, "$(P)$(R)RawReadings-Mon.VAL CPP")
@@ -801,7 +801,7 @@ record(calcout, "$(P)$(R)CorrectAperture"){
 record(longout, "$(P)$(R)CorrectedSampleCnt"){
   field(ASG, "Reserved")
   field(DESC, "Corrected sample count")
-  field(DRVH, "1000000")
+  field(DRVH, "$(MAX_NUM_READINGS)") # must not exceed 1e6
   field(DRVL, "1")
   field(VAL, "1")
   field(OUT, "$(Instrument)MeasCnt-SP PP")
@@ -1039,7 +1039,7 @@ record(calcout, "$(P)$(R)SetAutoAperture"){
 record(longout, "$(P)$(R)CorrectedFastSampleCnt"){
   field(ASG, "Reserved")
   field(DESC, "Corrected sample count")
-  field(DRVH, "55000000")
+  field(DRVH, "$(MAX_NUM_READINGS)") # should not exceed 5.5e7
   field(DRVL, "1")
   field(VAL, "1")
   field(OUT, "$(Instrument)DigtzeCnt-SP PP")
