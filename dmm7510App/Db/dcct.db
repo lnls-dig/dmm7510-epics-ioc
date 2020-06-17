@@ -41,7 +41,6 @@ record(calcout, "$(P)$(R)DsblConfigCalc"){
   field(CALC, "A=0?2:1")
   field(OOPT, "When Non-zero")
   field(OUT, "$(P)$(R)DsblConfigGetMode.PROC PP")
-  field(FLNK, "$(P)$(R)DownloadDly")  # start download of the params
 }
 
 record(sseq, "$(P)$(R)DsblConfigGetMode"){
@@ -374,7 +373,6 @@ record(mbbi, "$(P)$(R)MeasTrg-Sts"){
   field(TWST, "InLevel")
   field(THST, "Software")
   field(FRST, "None")
-  field(FLNK, "$(P)$(R)ProtectCalc")
 }
 
 ###################################################
@@ -384,26 +382,23 @@ record(mbbi, "$(P)$(R)MeasTrg-Sts"){
 
 # Start measurements
 record(bo, "$(P)$(R)Enbl-Sel"){
-
   # ------------------------------------
   # This record is monitored by sncDCCT
   # which takes care of acquisition
   # ------------------------------------
-
   field(DESC, "Start DCCT acquisition")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
 }
 
 record(bi, "$(P)$(R)Enbl-Sts"){
-
   # ------------------------------------
   # This record is set by sncDCCT
   # ------------------------------------
-
   field(DESC, "DCCT acquisition status")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
+  # check if records should be enbl/dsbl
   field(FLNK, "$(P)$(R)ProtectCalc")
 }
 
@@ -485,14 +480,14 @@ record(seq, "$(P)$(R)ProtectSeqFast1"){
   field(DO6, "0")
   field(DO7, "0")
   field(DO8, "0")
-  field(LNK1, "$(P)$(R)FastAperture-SP.DISP")          # Enable 'fast mode' aperture set point
-  field(LNK2, "$(P)$(R)FastSampleRate-SP.DISP")        # Enable 'fast mode' sample rate set point
-  field(LNK3, "$(P)$(R)FastRelEnbl-Sel.DISP")          # Enable 'fast mode' relative offset enable/disable
-  field(LNK4, "$(P)$(R)FastRelLvl-SP.DISP")            # Enable 'fast mode' relative offset set point
-  field(LNK5, "$(P)$(R)FastRelAcq-Cmd.DISP")           # Enable 'fast mode' relative offset acquire command
-  field(LNK6, "$(P)$(R)FastSampleCnt-SP.DISP")         # Enable 'fast mode' sample count set point
-  field(LNK7, "$(P)$(R)FastImped-Sel.DISP")            # Enable 'fast mode' impedance set point
-  field(LNK8, "$(P)$(R)FastMeasPeriod-SP.DISP")        # Enable 'fast mode' measurement period set point
+  field(LNK1, "$(P)$(R)FastAperture-SP.DISP")   # Enable 'fast mode' aperture set point
+  field(LNK2, "$(P)$(R)FastSampleRate-SP.DISP") # Enable 'fast mode' sample rate set point
+  field(LNK3, "$(P)$(R)FastRelEnbl-Sel.DISP")   # Enable 'fast mode' relative offset enable/disable
+  field(LNK4, "$(P)$(R)FastRelLvl-SP.DISP")     # Enable 'fast mode' relative offset set point
+  field(LNK5, "$(P)$(R)FastRelAcq-Cmd.DISP")    # Enable 'fast mode' relative offset acquire command
+  field(LNK6, "$(P)$(R)FastSampleCnt-SP.DISP")  # Enable 'fast mode' sample count set point
+  field(LNK7, "$(P)$(R)FastImped-Sel.DISP")     # Enable 'fast mode' impedance set point
+  field(LNK8, "$(P)$(R)FastMeasPeriod-SP.DISP") # Enable 'fast mode' measurement period set point
   field(FLNK, "$(P)$(R)ProtectSeqBoth1")
 }
 
@@ -509,14 +504,14 @@ record(seq, "$(P)$(R)ProtectSeqBoth1"){
   field(DO6, "0")
   field(DO7, "0")
   field(DO8, "0")
-  field(LNK1, "$(P)$(R)TrgDelay-SP.DISP")		# Enable trigger delay set point
-  field(LNK2, "$(P)$(R)Range-Sel.DISP")			# Enable range selection
-  field(LNK3, "$(P)$(R)LowLimEnbl-Sel.DISP")		# Enable low limit detection enable/disable
-  field(LNK4, "$(P)$(R)LowLimEnbl-Sel") # Set low limit enable to OFF (since it was disabled, init could not set it)
-  field(LNK5, "$(P)$(R)CurrThold-SP.DISP")		# Enable current threshold set point
-  field(LNK6, "$(P)$(R)HFReject-Sel.DISP")		# Enable HF rejection enable/disable
-  field(LNK7, "$(P)$(R)Test-Sel.DISP")                  # Enable test function enable/disable
-  field(LNK8, "$(P)$(R)MeasTrg-Sel.DISP")               # Enable Measurement Trigger selection
+  field(LNK1, "$(P)$(R)Range-Sel.DISP")      # Enable range selection
+  field(LNK2, "$(P)$(R)LowLimEnbl-Sel.DISP") # Enable low limit detection enable/disable
+  field(LNK3, "$(P)$(R)LowLimEnbl-Sel")      # Set low limit enable to OFF (since it was disabled, init could not set it)
+  field(LNK4, "$(P)$(R)CurrThold-SP.DISP")   # Enable current threshold set point
+  field(LNK5, "$(P)$(R)HFReject-Sel.DISP")   # Enable HF rejection enable/disable
+  field(LNK6, "$(P)$(R)Test-Sel.DISP")       # Enable test function enable/disable
+  field(LNK7, "$(P)$(R)MeasTrg-Sel.DISP")    # Enable Measurement Trigger selection
+  field(LNK8, "$(P)$(R)MeasMode-Sel.DISP")   # Enable function change
 }
 
 # Disable PVs
@@ -533,17 +528,15 @@ record(seq, "$(P)$(R)ProtectSeqDsbl1"){
   field(DO7, "1")
   field(DO8, "1")
   field(DO9, "1")
-  field(DOA, "1")
-  field(LNK1, "$(P)$(R)TrgDelay-SP.DISP")		# Disable trigger delay set point
-  field(LNK2, "$(P)$(R)Range-Sel.DISP")			# Disable range selection
-  field(LNK3, "$(P)$(R)LowLimEnbl-Sel.DISP")		# Disable low limit detection enable/disable
-  field(LNK4, "$(P)$(R)CurrThold-SP.DISP")		# Disable current threshold set point
-  field(LNK5, "$(P)$(R)HFReject-Sel.DISP")		# Disable HF rejection enable/disable
-  field(LNK6, "$(P)$(R)NPLC-SP.DISP")			# Disable NPLC set point
-  field(LNK7, "$(P)$(R)LineSync-Sel.DISP")		# Disable line synchronization enable/disable
-  field(LNK8, "$(P)$(R)Imped-Sel.DISP")			# Disable input impedance enable/disable
-  field(LNK9, "$(P)$(R)AvgFilterEnbl-Sel.DISP")		# Disable filter enable/disable
-  field(LNKA, "$(P)$(R)SampleCnt-SP.DISP")              # Disable sample count set point
+  field(LNK1, "$(P)$(R)Range-Sel.DISP")			# Disable range selection
+  field(LNK2, "$(P)$(R)LowLimEnbl-Sel.DISP")		# Disable low limit detection enable/disable
+  field(LNK3, "$(P)$(R)CurrThold-SP.DISP")		# Disable current threshold set point
+  field(LNK4, "$(P)$(R)HFReject-Sel.DISP")		# Disable HF rejection enable/disable
+  field(LNK5, "$(P)$(R)NPLC-SP.DISP")			# Disable NPLC set point
+  field(LNK6, "$(P)$(R)LineSync-Sel.DISP")		# Disable line synchronization enable/disable
+  field(LNK7, "$(P)$(R)Imped-Sel.DISP")			# Disable input impedance enable/disable
+  field(LNK8, "$(P)$(R)AvgFilterEnbl-Sel.DISP")		# Disable filter enable/disable
+  field(LNK9, "$(P)$(R)SampleCnt-SP.DISP")              # Disable sample count set point
   field(FLNK, "$(P)$(R)ProtectSeqDsbl2")
 }
 
@@ -585,13 +578,15 @@ record(seq, "$(P)$(R)ProtectSeqDsbl3"){
   field(DO5, "1")
   field(DO6, "1")
   field(DO7, "1")
-  field(LNK1, "$(P)$(R)FastAperture-SP.DISP")           # Disable 'fast mode' aperture set point
-  field(LNK2, "$(P)$(R)FastSampleRate-SP.DISP")         # Disable 'fast mode' sample rate set point
-  field(LNK3, "$(P)$(R)FastRelEnbl-Sel.DISP")           # Disable 'fast mode' relative offset enable/disable
-  field(LNK4, "$(P)$(R)FastRelLvl-SP.DISP")             # Disable 'fast mode' relative offset set point
-  field(LNK5, "$(P)$(R)FastRelAcq-Cmd.DISP")            # Disable 'fast mode' relative offset acquire command
-  field(LNK6, "$(P)$(R)FastMeasPeriod-SP.DISP")         # Disable 'fast mode' measurement period set point
-  field(LNK7, "$(P)$(R)MeasTrg-Sel.DISP")               # Disable Measurement Trigger selection
+  field(DO8, "1")
+  field(LNK1, "$(P)$(R)FastAperture-SP.DISP")   # Disable 'fast mode' aperture set point
+  field(LNK2, "$(P)$(R)FastSampleRate-SP.DISP") # Disable 'fast mode' sample rate set point
+  field(LNK3, "$(P)$(R)FastRelEnbl-Sel.DISP")   # Disable 'fast mode' relative offset enable/disable
+  field(LNK4, "$(P)$(R)FastRelLvl-SP.DISP")     # Disable 'fast mode' relative offset set point
+  field(LNK5, "$(P)$(R)FastRelAcq-Cmd.DISP")    # Disable 'fast mode' relative offset acquire command
+  field(LNK6, "$(P)$(R)FastMeasPeriod-SP.DISP") # Disable 'fast mode' measurement period set point
+  field(LNK7, "$(P)$(R)MeasTrg-Sel.DISP")       # Disable Measurement Trigger selection
+  field(LNK8, "$(P)$(R)MeasMode-Sel.DISP")      # Disable function change
 }
 
 ########################################################################
@@ -1864,27 +1859,11 @@ record(sseq, "$(P)$(R)PreDownloadSeq"){
   field(DLY3, "1")
   field(STR3, "ON")
   field(LNK3, "$(Instrument)Reset-Cmd PP") # Reset instrument
-  field(DO4, "0")
-  field(LNK4, "$(P)$(R)MeasMode-Sel.DISA")
-  field(FLNK, "$(P)$(R)MeasMode-Sel")
-}
-
-#     || FLNK
-#     \/
-#
-# MeasMode-Sel (sets meas. function)
-# Located at "Measurement Mode Selection Group"
-#
-#     || FLNK
-#     \/
-
-record(calcout, "$(P)$(R)DownloadDly"){
-  field(ASG, "Reserved")
-  field(DESC, "Apply delay before download")
-  field(INPA, "1")
-  field(CALC, "A")
-  field(ODLY, "3")    # Apply delay so that instrument can change function
-  field(OUT, "$(P)$(R)DownloadGetMode.PROC PP")
+  field(DO4, "1")
+  field(LNK4, "$(P)$(R)MeasMode-Sel.PROC PP") # process meas function
+  field(DLY5, "3") # Wait 3 sec so DMM change function
+  field(DO5, "1")
+  field(LNK5, "$(P)$(R)DownloadGetMode.PROC PP")
 }
 
 record(calcout, "$(P)$(R)DownloadGetMode"){
