@@ -3261,12 +3261,16 @@ record(calcout, "$(P)$(R)ClrBuff2Calc"){
 
 record(longin, "$(P)$(R)StartBuff1-Mon"){
   field(DESC, "Defbuffer1 start index")
+  field(ADEL, "-1")
+  field(MDEL, "-1")
   field(DTYP, "stream")
   field(INP, "@dmm7510.proto trace_start_get(1) $(PORT)")
 }
 
 record(longin, "$(P)$(R)EndBuff1-Mon"){
   field(DESC, "Defbuffer1 end index")
+  field(ADEL, "-1")
+  field(MDEL, "-1")
   field(DTYP, "stream")
   field(INP, "@dmm7510.proto trace_end_get(1) $(PORT)")
 }
@@ -3317,12 +3321,16 @@ record(ai, "$(P)$(R)FetchBuff1-Mon"){
 
 record(longin, "$(P)$(R)StartBuff2-Mon"){
   field(DESC, "Defbuffer2 start index")
+  field(ADEL, "-1")
+  field(MDEL, "-1")
   field(DTYP, "stream")
   field(INP, "@dmm7510.proto trace_start_get(2) $(PORT)")
 }
 
 record(longin, "$(P)$(R)EndBuff2-Mon"){
   field(DESC, "Defbuffer2 end index")
+  field(ADEL, "-1")
+  field(MDEL, "-1")
   field(DTYP, "stream")
   field(INP, "@dmm7510.proto trace_end_get(2) $(PORT)")
 }
@@ -6280,7 +6288,7 @@ record(calcout, "$(P)$(R)SoftTrgCalc"){
   field(CALC, "A")
   field(OOPT, "When Non-zero")
   field(DTYP, "stream")
-  field(INP, "@dmm7510.proto soft_trg_set $(PORT)")
+  field(OUT, "@dmm7510.proto soft_trg_set $(PORT)")
 }
 
 ########################################################################
