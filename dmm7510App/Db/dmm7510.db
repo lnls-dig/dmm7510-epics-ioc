@@ -4711,6 +4711,12 @@ record(calcout, "$(P)$(R)TMClearCalc"){
   field(OUT, "@dmm7510.proto tm_clear_set $(PORT)")
 }
 
+# set by TM-Mon stream protocol
+record(longin, "$(P)$(R)TMIdx-Mon"){
+  field(DESC, "Trigger model position index")
+  field(DTYP, "Soft Channel")
+}
+
 record(mbbi, "$(P)$(R)TM-Mon"){
   field(DESC, "Trigger model state")
   field(ZRST, "Idle")
@@ -4722,7 +4728,7 @@ record(mbbi, "$(P)$(R)TM-Mon"){
   field(SXST, "Aborting")
   field(SVST, "Aborted")
   field(DTYP, "stream")
-  field(INP, "@dmm7510.proto tm_state_get $(PORT)")
+  field(INP, "@dmm7510.proto tm_state_get($(P)$(R)) $(PORT)")
 }
 
 ########################################################################
@@ -6274,7 +6280,7 @@ record(calcout, "$(P)$(R)SoftTrgCalc"){
   field(CALC, "A")
   field(OOPT, "When Non-zero")
   field(DTYP, "stream")
-  field(INP, "@dmm7510.proto soft_trg_set $(PORT)")
+  field(OUT, "@dmm7510.proto soft_trg_set $(PORT)")
 }
 
 ########################################################################

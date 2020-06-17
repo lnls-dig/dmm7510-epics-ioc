@@ -1157,7 +1157,7 @@ tm_clear_set{
 tm_state_get{
 	# read
 	out "print(trigger.model.state())";
-	in "trigger.STATE_%{IDLE|RUNNING|WAITING|EMPTY|BUILDING|FAILED|ABORTING|ABORTED}\t%*s\t%*i";
+	in "trigger.STATE_%{IDLE|RUNNING|WAITING|EMPTY|BUILDING|FAILED|ABORTING|ABORTED}\t%*s\t%(\$1TMIdx-Mon)i";
 }
 
 ###########################################################################
