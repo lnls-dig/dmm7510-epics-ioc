@@ -4,8 +4,9 @@ program sncDCCT
 %%// 	      Variables
 %%//----------------------------------------
 
-string prev_buff_1_time;
-string prev_buff_2_time;
+int prev_buff_1_end_idx;
+int prev_buff_2_end_idx;
+int var_sample_cnt;
 
 %%//----------------------------------------
 %%// 	      Monitored PVs
@@ -113,28 +114,17 @@ monitor fast_sample_cnt_rb;
 evflag fast_sample_cnt_rb_flg;
 sync fast_sample_cnt_rb fast_sample_cnt_rb_flg;
 
-string last_time_buff_1_mon;
-assign last_time_buff_1_mon to "{P}{R}LastTimeBuff1-Mon";
-monitor last_time_buff_1_mon;
-evflag last_time_buff_1_mon_flg;
-sync last_time_buff_1_mon last_time_buff_1_mon_flg;
-
-string last_time_buff_2_mon;
-assign last_time_buff_2_mon to "{P}{R}LastTimeBuff2-Mon";
-monitor last_time_buff_2_mon;
-evflag last_time_buff_2_mon_flg;
-sync last_time_buff_2_mon last_time_buff_2_mon_flg;
-
-string fetch_last_time_buff_scan;
-assign fetch_last_time_buff_scan to "{P}{R}FetchLastTimeBuff.SCAN";
-
 int cnt_buff_1_mon;
 assign cnt_buff_1_mon to "{Instrument}CntBuff1-Mon";
 monitor cnt_buff_1_mon;
+evflag cnt_buff_1_mon_flg;
+sync cnt_buff_1_mon cnt_buff_1_mon_flg;
 
 int cnt_buff_2_mon;
 assign cnt_buff_2_mon to "{Instrument}CntBuff2-Mon";
 monitor cnt_buff_2_mon;
+evflag cnt_buff_2_mon_flg;
+sync cnt_buff_2_mon cnt_buff_2_mon_flg;
 
 string cnt_buff_1_mon_scan;
 assign cnt_buff_1_mon_scan to "{Instrument}CntBuff1-Mon.SCAN";
@@ -148,11 +138,59 @@ assign meas_buff_1_cmd to "{Instrument}MeasBuff1-Cmd";
 int meas_buff_2_cmd;
 assign meas_buff_2_cmd to "{Instrument}MeasBuff2-Cmd";
 
+int digtz_buff_1_cmd;
+assign digtz_buff_1_cmd to "{Instrument}DigtzBuff1-Cmd";
+
+int digtz_buff_2_cmd;
+assign digtz_buff_2_cmd to "{Instrument}DigtzBuff2-Cmd";
+
 int clear_buff_1_cmd;
 assign clear_buff_1_cmd to "{Instrument}ClrBuff1-Cmd";
 
 int clear_buff_2_cmd;
 assign clear_buff_2_cmd to "{Instrument}ClrBuff2-Cmd";
+
+int start_buff_1_mon;
+assign start_buff_1_mon to "{Instrument}StartBuff1-Mon";
+monitor start_buff_1_mon;
+evflag start_buff_1_mon_flg;
+sync start_buff_1_mon start_buff_1_mon_flg;
+
+int start_buff_2_mon;
+assign start_buff_2_mon to "{Instrument}StartBuff2-Mon";
+monitor start_buff_2_mon;
+evflag start_buff_2_mon_flg;
+sync start_buff_2_mon start_buff_2_mon_flg;
+
+int end_buff_1_mon;
+assign end_buff_1_mon to "{Instrument}EndBuff1-Mon";
+monitor end_buff_1_mon;
+evflag end_buff_1_mon_flg;
+sync end_buff_1_mon end_buff_1_mon_flg;
+
+int end_buff_2_mon;
+assign end_buff_2_mon to "{Instrument}EndBuff2-Mon";
+monitor end_buff_2_mon;
+evflag end_buff_2_mon_flg;
+sync end_buff_2_mon end_buff_2_mon_flg;
+
+string start_buff_1_mon_scan;
+assign start_buff_1_mon_scan to "{Instrument}StartBuff1-Mon.SCAN";
+
+string start_buff_2_mon_scan;
+assign start_buff_2_mon_scan to "{Instrument}StartBuff2-Mon.SCAN";
+
+string end_buff_1_mon_scan;
+assign end_buff_1_mon_scan to "{Instrument}EndBuff1-Mon.SCAN";
+
+string end_buff_2_mon_scan;
+assign end_buff_2_mon_scan to "{Instrument}EndBuff2-Mon.SCAN";
+
+int idx_buff_1_mon_mon;
+assign idx_buff_1_mon_mon to "{P}{R}IdxBuff1-Mon";
+
+int idx_buff_2_mon;
+assign idx_buff_2_mon to "{P}{R}IdxBuff2-Mon";
 
 %%//----------------------------------------
 %%//        Escaped C Code
@@ -341,29 +379,65 @@ ss dcct_acquisition {
             // Block 5 - back to start
             strcpy(custom_sp, "trigger.model.setblock(5, trigger.BLOCK_BRANCH_ALWAYS, 1)");
             pvPut(custom_sp, SYNC);
-        } state prepare_buffers
+        } state clear_buffer_1
     }
 
-    state prepare_buffers{
+    state clear_buffer_1{
         when (delay(2.0)){
-            // clear buffers
+            // clear buffer 1
             clear_buff_1_cmd = 1;
             pvPut(clear_buff_1_cmd, SYNC);
+            // monitor buffer fill
+            strcpy(cnt_buff_1_mon_scan, SCAN_RATE);
+            pvPut(cnt_buff_1_mon_scan, SYNC);
+        } state clear_buffer_2
+    }
+
+    state clear_buffer_2{
+        when (efTestAndClear(cnt_buff_1_mon_flg)
+              && cnt_buff_1_mon == 0){
+            // clear buffer 2
             clear_buff_2_cmd = 1;
             pvPut(clear_buff_2_cmd, SYNC);
-            usleep(2000000);
-            // pre-fill buffers
-            meas_buff_1_cmd = 1;
-            pvPut(meas_buff_1_cmd, SYNC);
-            meas_buff_2_cmd = 1;
-            pvPut(meas_buff_2_cmd, SYNC);
             // monitor buffer fill
-            strcpy(cnt_buff_1_mon_scan, "1 second");
-            pvPut(cnt_buff_1_mon_scan, SYNC);
-            usleep(5000000);
-            strcpy(cnt_buff_2_mon_scan, "1 second");
+            strcpy(cnt_buff_2_mon_scan, SCAN_RATE);
             pvPut(cnt_buff_2_mon_scan, SYNC);
-            usleep(5000000);
+        } state prefill_buffer_1
+    }
+
+    state prefill_buffer_1{
+        when (efTestAndClear(cnt_buff_2_mon_flg)
+              && cnt_buff_2_mon == 0){
+            // prefill buffer 1
+            if (meas_mode_sts == 1){
+                meas_buff_1_cmd = 1;
+                pvPut(meas_buff_1_cmd, SYNC);
+            }
+            else{
+                digtz_buff_1_cmd = 1;
+                pvPut(digtz_buff_1_cmd, SYNC);
+            }
+        } state prefill_buffer_2
+    }
+
+    state prefill_buffer_2{
+        when (efTestAndClear(cnt_buff_1_mon_flg)
+              &&
+              ((cnt_buff_1_mon == sample_cnt_rb 
+                && meas_mode_sts == 1)
+               || 
+               (cnt_buff_1_mon == fast_sample_cnt_rb 
+                && meas_mode_sts == 2))
+             ){
+            // prefill buffer 2
+            if (meas_mode_sts == 1){
+                meas_buff_2_cmd = 1;
+                pvPut(meas_buff_2_cmd, SYNC);
+            }
+            else{
+                digtz_buff_2_cmd = 1;
+                pvPut(digtz_buff_2_cmd, SYNC);
+            }
         } state buffers_ready
     }
 
@@ -384,21 +458,41 @@ ss dcct_acquisition {
             pvPut(cnt_buff_1_mon_scan, SYNC);
             strcpy(cnt_buff_2_mon_scan, "Passive");
             pvPut(cnt_buff_2_mon_scan, SYNC);
-            // init previous buffer timestamps variables
-            strcpy(prev_buff_1_time, last_time_buff_1_mon);
-            strcpy(prev_buff_2_time, last_time_buff_2_mon);
-            // monitor buffers last index timestamp
-            strcpy(fetch_last_time_buff_scan, SCAN_RATE);
-            pvPut(fetch_last_time_buff_scan, SYNC);
+            // clear buffer index flags
+            efClear(end_buff_1_mon_flg);
+            efClear(end_buff_2_mon_flg);
+            // monitor buffers end index
+            strcpy(end_buff_1_mon_scan, SCAN_RATE);
+            pvPut(end_buff_1_mon_scan, SYNC);
+            strcpy(end_buff_2_mon_scan, SCAN_RATE);
+            pvPut(end_buff_2_mon_scan, SYNC);
+            // use a variable to store sample count
+            if (meas_mode_sts == 1){
+                var_sample_cnt = sample_cnt_rb;
+            }
+            else{
+                var_sample_cnt = fast_sample_cnt_rb;
+            }
+        } state buff_end_idx_ok
+    }
+
+    state buff_end_idx_ok{
+        when (efTestAndClear(end_buff_1_mon_flg)
+               && efTestAndClear(end_buff_2_mon_flg)){
+            // initialize previous buffer end indexes
+            prev_buff_1_end_idx = end_buff_1_mon;
+            prev_buff_2_end_idx = end_buff_2_mon;
+            // monitor TM state and index.
+            //   used to a)make sure TM finished
+            //   restarting and b) acquisition loop
+            strcpy(tm_mon_scan, SCAN_RATE);
+            pvPut(tm_mon_scan, SYNC);
         } state run_tm
     }
 
     state run_tm{
-        when (strcmp(last_time_buff_1_mon, prev_buff_1_time) != 0
-               && strcmp(last_time_buff_2_mon, prev_buff_2_time) != 0){
-            // update previous buffer timestamps
-            strcpy(prev_buff_1_time, last_time_buff_1_mon);
-            strcpy(prev_buff_2_time, last_time_buff_2_mon);
+        when (tm_mon != 2){
+            // when TM state has been read
             // start TM
             tm_start_cmd = 1;
             pvPut(tm_start_cmd, SYNC);
@@ -406,7 +500,8 @@ ss dcct_acquisition {
     }
 
     state start_acq{
-        when (delay(1.0)){
+        when (tm_mon == 2){
+            // when TM-Mon == Waiting
             printf("[sncDCCT] Acquisition start\n");
             // update enable status
             enbl_sts = 1;
@@ -420,9 +515,6 @@ ss dcct_acquisition {
                 strcpy(ex_out_stim_sel, "ANALOGTRIGGER");
                 pvPut(ex_out_stim_sel, SYNC);
             }
-            // monitor TM state index
-            strcpy(tm_mon_scan, SCAN_RATE);
-            pvPut(tm_mon_scan, SYNC);
             // allow acquisition start
             soft_trg_cmd = 1;
             pvPut(soft_trg_cmd, SYNC);
@@ -440,9 +532,11 @@ ss dcct_acquisition {
             // stop TM monitor
             strcpy(tm_mon_scan, "Passive");
             pvPut(tm_mon_scan, SYNC);
-            // stop monitor buffers last timestamp
-            strcpy(fetch_last_time_buff_scan, "Passive");
-            pvPut(fetch_last_time_buff_scan, SYNC);
+            // stop monitor buffers end index
+            strcpy(end_buff_1_mon_scan, "Passive");
+            pvPut(end_buff_1_mon_scan, SYNC);
+            strcpy(end_buff_2_mon_scan, "Passive");
+            pvPut(end_buff_2_mon_scan, SYNC);
             // abort TM
             tm_abort_cmd = 1;
             pvPut(tm_abort_cmd, SYNC);
@@ -464,9 +558,11 @@ ss dcct_acquisition {
             // stop TM monitor
             strcpy(tm_mon_scan, "Passive");
             pvPut(tm_mon_scan, SYNC);
-            // stop monitor buffers last timestamp
-            strcpy(fetch_last_time_buff_scan, "Passive");
-            pvPut(fetch_last_time_buff_scan, SYNC);
+            // stop monitor buffers end index
+            strcpy(end_buff_1_mon_scan, "Passive");
+            pvPut(end_buff_1_mon_scan, SYNC);
+            strcpy(end_buff_2_mon_scan, "Passive");
+            pvPut(end_buff_2_mon_scan, SYNC);
             // abort TM
             tm_abort_cmd = 1;
             pvPut(tm_abort_cmd, SYNC);
@@ -476,13 +572,17 @@ ss dcct_acquisition {
         } state wait_enbl
 
         when (tm_idx_mon == 4 && meas_trg_sts != 3
-               && strcmp(last_time_buff_1_mon, prev_buff_1_time) != 0){
+               && end_buff_1_mon != prev_buff_1_end_idx
+               && end_buff_1_mon % var_sample_cnt == 0){
             // DEBUG
-            printf("[sncDCCT] Before update: last_time_buff1=%s, prev_buff1=%s\n",last_time_buff_1_mon,prev_buff_1_time);
-            // update previous buffer timestamp
-            strcpy(prev_buff_1_time, last_time_buff_1_mon);
+            printf("[sncDCCT] Before update: curr_end_buff1=%d, prev_buff1=%d\n",end_buff_1_mon,prev_buff_1_end_idx);
+            // update previous buffer end index
+            prev_buff_1_end_idx = end_buff_1_mon;
+            // update initial buffer position (for new values)
+            idx_buff_1_mon_mon = end_buff_1_mon - var_sample_cnt + 1;
+            pvPut(idx_buff_1_mon_mon, SYNC);
             // DEBUG
-            printf("[sncDCCT] After update: last_time_buff1=%s, prev_buff1=%s\n",last_time_buff_1_mon,prev_buff_1_time);
+            printf("[sncDCCT] After update: curr_end_buff1=%d, prev_buff1=%d\n",end_buff_1_mon,prev_buff_1_end_idx);
             /* buffer 1 full:
                send soft trg and
                fetch reading */
@@ -495,12 +595,16 @@ ss dcct_acquisition {
         } state acq_cycle_step_2
 
         when (tm_idx_mon == 3 && meas_trg_sts == 3
-               && strcmp(last_time_buff_1_mon, prev_buff_1_time) != 0){
+               && end_buff_1_mon != prev_buff_1_end_idx
+               && end_buff_1_mon % var_sample_cnt == 0){
             // DEBUG
-            printf("[sncDCCT] Before update: last_time_buff1=%s, prev_buff1=%s\n",last_time_buff_1_mon,prev_buff_1_time);
-            // update previous buffer timestamp
-            strcpy(prev_buff_1_time, last_time_buff_1_mon);
-            printf("[sncDCCT] After update update: last_time_buff1=%s, prev_buff1=%s\n",last_time_buff_1_mon,prev_buff_1_time);
+            printf("[sncDCCT] Before update: curr_end_buff1=%d, prev_buff1=%d\n",end_buff_1_mon,prev_buff_1_end_idx);
+            // update previous buffer end index
+            prev_buff_1_end_idx = end_buff_1_mon;
+            // update initial buffer position (for new values)
+            idx_buff_1_mon_mon = end_buff_1_mon - var_sample_cnt + 1;
+            pvPut(idx_buff_1_mon_mon, SYNC);
+            printf("[sncDCCT] After update: curr_end_buff1=%d, prev_buff1=%d\n",end_buff_1_mon,prev_buff_1_end_idx);
             /* soft mode - buffer 1 full:
                send soft trg and
                fetch reading */
@@ -524,9 +628,11 @@ ss dcct_acquisition {
             // stop TM monitor
             strcpy(tm_mon_scan, "Passive");
             pvPut(tm_mon_scan, SYNC);
-            // stop monitor buffers last timestamp
-            strcpy(fetch_last_time_buff_scan, "Passive");
-            pvPut(fetch_last_time_buff_scan, SYNC);
+            // stop monitor buffers end index
+            strcpy(end_buff_1_mon_scan, "Passive");
+            pvPut(end_buff_1_mon_scan, SYNC);
+            strcpy(end_buff_2_mon_scan, "Passive");
+            pvPut(end_buff_2_mon_scan, SYNC);
             // abort TM
             tm_abort_cmd = 1;
             pvPut(tm_abort_cmd, SYNC);
@@ -548,9 +654,11 @@ ss dcct_acquisition {
             // stop TM monitor
             strcpy(tm_mon_scan, "Passive");
             pvPut(tm_mon_scan, SYNC);
-            // stop monitor buffers last timestamp
-            strcpy(fetch_last_time_buff_scan, "Passive");
-            pvPut(fetch_last_time_buff_scan, SYNC);
+            // stop monitor buffers end index
+            strcpy(end_buff_1_mon_scan, "Passive");
+            pvPut(end_buff_1_mon_scan, SYNC);
+            strcpy(end_buff_2_mon_scan, "Passive");
+            pvPut(end_buff_2_mon_scan, SYNC);
             // abort TM
             tm_abort_cmd = 1;
             pvPut(tm_abort_cmd, SYNC);
@@ -560,12 +668,16 @@ ss dcct_acquisition {
         } state wait_enbl
 
         when (tm_idx_mon == 1 && meas_trg_sts != 3
-               && strcmp(last_time_buff_2_mon, prev_buff_2_time) != 0){
+               && end_buff_2_mon != prev_buff_2_end_idx
+               && end_buff_2_mon % var_sample_cnt == 0){
             // DEBUG
-            printf("[sncDCCT] Before update: last_time_buff2=%s, prev_buff2=%s\n",last_time_buff_2_mon,prev_buff_2_time);
-            // update previous buffer timestamp
-            strcpy(prev_buff_2_time, last_time_buff_2_mon);
-            printf("[sncDCCT] After update update: last_time_buff2=%s, prev_buff2=%s\n",last_time_buff_2_mon,prev_buff_2_time);
+            printf("[sncDCCT] Before update: curr_end_buff2=%d, prev_buff2=%d\n",end_buff_2_mon,prev_buff_2_end_idx);
+            // update previous buffer end index
+            prev_buff_2_end_idx = end_buff_2_mon;
+            // update initial buffer position (for new values)
+            idx_buff_2_mon = end_buff_2_mon - var_sample_cnt + 1;
+            pvPut(idx_buff_2_mon, SYNC);
+            printf("[sncDCCT] After update: curr_end_buff2=%d, prev_buff2=%d\n",end_buff_2_mon,prev_buff_2_end_idx);
             /* buffer 2 full:
                send soft trg and
                fetch reading */
@@ -578,12 +690,16 @@ ss dcct_acquisition {
         } state acq_cycle_step_1
 
         when (tm_idx_mon == 1 && meas_trg_sts == 3
-               && strcmp(last_time_buff_2_mon, prev_buff_2_time) != 0){
+               && end_buff_2_mon != prev_buff_2_end_idx
+               && end_buff_2_mon % var_sample_cnt == 0){
             // DEBUG
-            printf("[sncDCCT] Before update: last_time_buff2=%s, prev_buff2=%s\n",last_time_buff_2_mon, prev_buff_2_time);
-            // update previous buffer timestamp
-            strcpy(prev_buff_2_time, last_time_buff_2_mon);
-            printf("[sncDCCT] After update update: last_time_buff2=%s, prev_buff2=%s\n", last_time_buff_2_mon, prev_buff_2_time);
+            printf("[sncDCCT] Before update: curr_end_buff2=%d, prev_buff2=%d\n",end_buff_2_mon,prev_buff_2_end_idx);
+            // update previous buffer end index
+            prev_buff_2_end_idx = end_buff_2_mon;
+            // update initial buffer position (for new values)
+            idx_buff_2_mon = end_buff_2_mon - var_sample_cnt + 1;
+            pvPut(idx_buff_2_mon, SYNC);
+            printf("[sncDCCT] After update: curr_end_buff2=%d, prev_buff2=%d\n",end_buff_2_mon,prev_buff_2_end_idx);
             /* soft mode - buffer 2 full:
                send soft trg and
                fetch reading */

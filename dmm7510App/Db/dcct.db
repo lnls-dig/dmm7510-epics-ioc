@@ -599,40 +599,12 @@ record(seq, "$(P)$(R)ProtectSeqDsbl3"){
 #
 # Desc: Average Beam Current measurement parameters.
 
-# This record fetches the values of both
-# LastTimeBuff1-Mon and LastTimeBuff2-Mon from
-# the device
-record(bo, "$(P)$(R)FetchLastTimeBuff"){
-  field(DTYP, "stream")
-  field(OUT, "@dcct.proto last_time_get($(P)$(R)) $(PORT)")
+# Index of first new reading in buffer 1
+#  (this is set by sncDCCT)
+record(longout, "$(P)$(R)IdxBuff1-Mon"){
+  field(DESC, "Index of first new buff 1 reading")
+  field(VAL, "1")
 }
-
-# This record is used by sncDCCT to monitor
-# the timestamp of the reading at last position
-# in buffer 1
-record(stringin, "$(P)$(R)LastTimeBuff1-Mon"){
-  field(DESC, "Monitor buff 1 last timestamp")
-}
-
-# This record is used by sncDCCT to monitor
-# the timestamp of the reading at last position
-# in buffer 2
-record(stringin, "$(P)$(R)LastTimeBuff2-Mon"){
-  field(DESC, "Monitor buff 2 last timestamp")
-}
-
-# Since the buffer size vary with sample
-# count, but cannot be less than 4,
-# the record below calcs the difference
-# between SAMPLE CNT and BUFF SIZE, so
-# that the correct timestamp can be
-# fetched from the buffer.
-#record(calcout, "$(P)$(R)SampleBuffDiff"){
-#  field(DESC, "Diff between sample cnt and buff size")
-#  field(INPA, "$(P)$(R)SampleCnt-RB CPP")
-#  field(INPB, "$(Instrument)SizeBuff1-RB CPP")
-#  field(CALC, "B-A")
-#}
 
 # Last buff 1 set of readings timestamp
 record(stringin, "$(P)$(R)TimeRawBuff1-Mon"){
@@ -648,7 +620,7 @@ record(waveform, "$(P)$(R)RawBuff1-Mon"){
   field(EGU, "mA")
   field(PREC, "6")
   field(DTYP, "stream")
-  field(INP, "@dcct.proto buff_and_time_get($(P)$(R),1) $(PORT)")
+  field(INP, "@dcct.proto buff_and_time_get($(P)$(R),1,$(Instrument)) $(PORT)")
   field(FLNK, "$(P)$(R)PushNewReadings1")
 }
 
@@ -661,6 +633,13 @@ record(acalcout, "$(P)$(R)PushNewReadings1"){
   field(INPD, "$(P)$(R)MeasMode-Sts.VAL")
   field(CALC, "D=1?AA[0,B-1]:AA[0,C-1]")
   field(OUT, "$(P)$(R)RawReadings-Mon PP")
+}
+
+# Index of first new reading in buffer 2
+#  (this is set by sncDCCT)
+record(longout, "$(P)$(R)IdxBuff2-Mon"){
+  field(DESC, "Index of first new buff 2 reading")
+  field(VAL, "1")
 }
 
 # Last buff 2 set of readings timestamp
@@ -677,7 +656,7 @@ record(waveform, "$(P)$(R)RawBuff2-Mon"){
   field(EGU, "mA")
   field(PREC, "6")
   field(DTYP, "stream")
-  field(INP, "@dcct.proto buff_and_time_get($(P)$(R),2) $(PORT)")
+  field(INP, "@dcct.proto buff_and_time_get($(P)$(R),2,$(Instrument)) $(PORT)")
   field(FLNK, "$(P)$(R)PushNewReadings2")
 }
 
@@ -829,21 +808,26 @@ record(longout, "$(P)$(R)CorrectedSampleCnt"){
   field(FLNK, "$(P)$(R)SampleCntAux1")
 }
 
-# Set last buffer read index equal to sample cnt
-# set size of buffers equal to sample count
+record(calc, "$(P)$(R)SampleCntAux1"){
+  field(DESC, "2 x sample count")
+  field(INPA, "$(P)$(R)CorrectedSampleCnt.VAL")
+  # buffer size cannot be < 10
+  field(CALC, "A*2>=10?A*2:(10+A-(10%A))")
+  field(FLNK, "$(P)$(R)SampleCntAux2")
+}
+
+# Set size of buffers equal to 2 x sample count
 # and set RawReadings nelm field
-record(seq, "$(P)$(R)SampleCntAux1"){
+record(seq, "$(P)$(R)SampleCntAux2"){
   field(ASG, "Reserved")
   field(DESC, "Set buffers size equal to sample cnt")
   field(SELM, "All")
-  field(DOL1, "$(P)$(R)CorrectedSampleCnt.VAL")
-  field(LNK1, "$(Instrument)EndRead1-SP PP")
-  field(DOL2, "$(P)$(R)CorrectedSampleCnt.VAL")
-  field(LNK2, "$(Instrument)SizeBuff1-SP PP")
+  field(DOL1, "$(P)$(R)SampleCntAux1.VAL")
+  field(LNK1, "$(Instrument)SizeBuff1-SP PP")
+  field(DOL2, "$(P)$(R)SampleCntAux1.VAL")
+  field(LNK2, "$(Instrument)SizeBuff2-SP PP")
   field(DOL3, "$(P)$(R)CorrectedSampleCnt.VAL")
-  field(LNK3, "$(Instrument)SizeBuff2-SP PP")
-  field(DOL4, "$(P)$(R)CorrectedSampleCnt.VAL")
-  field(LNK4, "$(P)$(R)RawReadings-Mon.NELM")
+  field(LNK3, "$(P)$(R)RawReadings-Mon.NELM")
 }
 
 # Input Impedance (high level)
@@ -1062,21 +1046,26 @@ record(longout, "$(P)$(R)CorrectedFastSampleCnt"){
   field(FLNK, "$(P)$(R)FastSampleCntAux1")
 }
 
-# Set last buffer read index equal to sample cnt
-# set size of buffers equal to sample count
+record(calc, "$(P)$(R)FastSampleCntAux1"){
+  field(DESC, "2 x sample count")
+  field(INPA, "$(P)$(R)CorrectedFastSampleCnt.VAL")
+  # buffer size cannot be < 10
+  field(CALC, "A*2>=10?A*2:(10+A-(10%A))")
+  field(FLNK, "$(P)$(R)FastSampleCntAux2")
+}
+
+# Set size of buffers equal to 2 x sample count
 # and set RawReadings nelm field
-record(seq, "$(P)$(R)FastSampleCntAux1"){
+record(seq, "$(P)$(R)FastSampleCntAux2"){
   field(ASG, "Reserved")
   field(DESC, "Set buffers size equal to sample cnt")
   field(SELM, "All")
-  field(DOL1, "$(P)$(R)CorrectedFastSampleCnt.VAL")
-  field(LNK1, "$(Instrument)EndRead1-SP PP")
-  field(DOL2, "$(P)$(R)CorrectedFastSampleCnt.VAL")
-  field(LNK2, "$(Instrument)SizeBuff1-SP PP")
+  field(DOL1, "$(P)$(R)FastSampleCntAux1.VAL")
+  field(LNK1, "$(Instrument)SizeBuff1-SP PP")
+  field(DOL2, "$(P)$(R)FastSampleCntAux1.VAL")
+  field(LNK2, "$(Instrument)SizeBuff2-SP PP")
   field(DOL3, "$(P)$(R)CorrectedFastSampleCnt.VAL")
-  field(LNK3, "$(Instrument)SizeBuff2-SP PP")
-  field(DOL4, "$(P)$(R)CorrectedFastSampleCnt.VAL")
-  field(LNK4, "$(P)$(R)RawReadings-Mon.NELM")
+  field(LNK3, "$(P)$(R)RawReadings-Mon.NELM")
 }
 
 # Fast Mode Input Impedance (high level)
