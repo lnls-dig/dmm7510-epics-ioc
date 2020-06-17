@@ -6280,7 +6280,7 @@ record(calcout, "$(P)$(R)SoftTrgCalc"){
   field(CALC, "A")
   field(OOPT, "When Non-zero")
   field(DTYP, "stream")
-  field(OUT, "@dmm7510.proto soft_trg_set $(PORT)")
+  field(INP, "@dmm7510.proto soft_trg_set $(PORT)")
 }
 
 ########################################################################
