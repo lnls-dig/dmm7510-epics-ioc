@@ -3619,6 +3619,7 @@ record(longin, "$(P)$(R)ACalCnt-Mon"){
 
 record(ai, "$(P)$(R)ACalDiff-Mon"){
   field(DESC, "Internal and last autocal. temp. diff.")
+  field(SCAN, "10 second")
   field(EGU, "DegC")
   field(PREC, "2")
   field(DTYP, "stream")
@@ -5742,6 +5743,7 @@ record(stringout, "$(P)$(R)PassNew-SP"){
 # Autozero must be ON for temperature to be updated
 record(ai, "$(P)$(R)Temp-Mon"){
   field(DESC, "Instrument internal temperature")
+  field(SCAN, "10 second")
   field(PREC, "2")
   field(EGU, "DegC")
   field(DTYP, "stream")
