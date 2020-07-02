@@ -739,6 +739,39 @@ record(compress, "$(P)$(R)TimestampHstr-Mon"){
   field(INP, "$(P)$(R)Timestamp-Mon")
 }
 
+# Calc time between measurements
+record(calcout, "$(P)$(R)MeasUpdatePeriodCalc1"){
+  field(DESC, "Measurement update period calc 1")
+  field(INPA, "$(P)$(R)Timestamp-Mon CPP")
+  field(CALC, "A")
+  field(OOPT, "On Change")
+  field(OUT, "$(P)$(R)MeasUpdatePeriodCalc3.A PP")
+}
+
+record(calcout, "$(P)$(R)MeasUpdatePeriodCalc2"){
+  field(DESC, "Measurement update period calc 2")
+  field(INPA, "$(P)$(R)MeasUpdatePeriodCalc1.A")
+  field(INPB, "$(P)$(R)Enbl-Sts CPP")
+  field(CALC, "B")
+  field(OOPT, "On Change")
+  field(OCAL, "0")
+  field(DOPT, "Use OCAL")
+  field(OUT, "$(P)$(R)MeasUpdatePeriodCalc3.A PP")
+}
+
+record(calcout, "$(P)$(R)MeasUpdatePeriodCalc3"){
+  field(DESC, "Measurement update period calc 3")
+  field(CALC, "C:=B;B:=A;C#0 && B#0?B-C:0")
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(P)$(R)MeasUpdatePeriod-Mon PP")
+}
+
+record(ai, "$(P)$(R)MeasUpdatePeriod-Mon"){
+  field(DESC, "Measurement update period")
+  field(PREC, "3")
+  field(EGU, "seconds")
+}
+
 ########################################################################
 # Measurement Settings | Normal Mode
 #
