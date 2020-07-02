@@ -718,6 +718,25 @@ record(bi, "$(P)$(R)StoredEBeam-Mon"){
   field(DESC, "Flag indicating if there is beam")
   field(ZNAM, "False")
   field(ONAM, "True")
+  field(FLNK, "$(P)$(R)Timestamp-Mon")
+}
+
+record(stringin, "$(P)$(R)Timestamp-Mon"){
+  field(DESC, "Timestamp of last measurement")
+  field(DTYP, "Soft Timestamp")
+  field(TSEL, "$(P)$(R)Current-Mon.TIME")
+  field(INP,  "@%s.%06f")
+  field(FLNK, "$(P)$(R)TimestampHstr-Mon")
+}
+
+# Array with timestamp history
+record(compress, "$(P)$(R)TimestampHstr-Mon"){
+  field(ASG, "Reserved")
+  field(DESC, "History of timestamps")
+  field(ALG, "Circular Buffer")
+  field(NSAM, "1000")
+  field(PREC, "6")
+  field(INP, "$(P)$(R)Timestamp-Mon")
 }
 
 ########################################################################
@@ -1785,7 +1804,7 @@ record(calcout, "$(P)$(R)ReliableMeas-Mon"){
   field(INPA, "$(Instrument)ACalWarn-Mon CPP")
   field(INPB, "$(Instrument)Network-Mon CPP")
   field(INPC, "$(P)$(R)MeasTrg-Sts CPP")
-  field(CALC, "((A&1)<<3)|(((!B)&1)<<2)|((C=!1&&C!=2&&C!=3)<<1)")
+  field(CALC, "((A&1)<<2)|(((!B)&1)<<1)|(C=!1&&C!=2&&C!=3)")
   field(HIHI, "1")
   field(HHSV, "MAJOR")
 }
