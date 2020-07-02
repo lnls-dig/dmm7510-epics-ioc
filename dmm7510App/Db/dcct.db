@@ -772,6 +772,33 @@ record(ai, "$(P)$(R)MeasUpdatePeriod-Mon"){
   field(EGU, "seconds")
 }
 
+# Reset current and timestamp
+# history circular buffers
+record(bo, "$(P)$(R)ClearHstr-Cmd"){
+  field(DESC, "Reset History Buffers")
+  field(ZNAM, "Off")
+  field(ONAM, "On")
+  field(HIGH, "0.3")
+  field(OUT, "$(P)$(R)ValidClearHstr.A PP")
+}
+
+record(calcout, "$(P)$(R)ValidClearHstr"){
+  field(DESC, "Validate clear history cmd")
+  field(INPA, "0")
+  field(CALC, "A")
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(P)$(R)ClearHstrSeq.PROC PP")
+}
+
+record(seq, "$(P)$(R)ClearHstrSeq"){
+  field(DESC, "Clear current and timestamp buffers")
+  field(SELM, "All")
+  field(DO1, "1")
+  field(LNK1, "$(P)$(R)CurrHstr-Mon.RES PP")
+  field(DO2, "1")
+  field(LNK2, "$(P)$(R)TimestampHstr-Mon.RES PP")
+}
+
 ########################################################################
 # Measurement Settings | Normal Mode
 #
