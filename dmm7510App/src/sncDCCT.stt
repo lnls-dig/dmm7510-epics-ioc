@@ -189,6 +189,21 @@ assign idx_buff_1_mon_mon to "{P}{R}IdxBuff1-Mon";
 int idx_buff_2_mon;
 assign idx_buff_2_mon to "{P}{R}IdxBuff2-Mon";
 
+string time_sec_mon_scan;
+assign time_sec_mon_scan to "{Instrument}TimeSec-Mon.SCAN";
+
+string time_sec_mon;
+assign time_sec_mon to "{Instrument}TimeSec-Mon";
+monitor time_sec_mon;
+evflag time_sec_mon_flg;
+sync time_sec_mon time_sec_mon_flg;
+
+int network_mon;
+assign network_mon to "{Instrument}Network-Mon";
+monitor network_mon;
+evflag network_mon_flg;
+sync network_mon network_mon_flg;
+
 %%//----------------------------------------
 %%//        Escaped C Code
 %%//----------------------------------------
@@ -197,6 +212,8 @@ assign idx_buff_2_mon to "{P}{R}IdxBuff2-Mon";
 %%#include <string.h>
 
 %%#define SCAN_RATE ".02 second"
+%%#define NETWORK_SCAN_RATE "5 second"
+%%#define ACQ_TIMEOUT 15.0
 
 %%//----------------------------------------
 %%//        State Notation Language
@@ -227,6 +244,17 @@ ss dcct_acquisition {
     }
 
     state wait_enbl{
+        entry{
+            // enable network connection monitoring
+            // while meaurement does not start
+            strcpy(time_sec_mon_scan, NETWORK_SCAN_RATE);
+            pvPut(time_sec_mon_scan, SYNC);
+            // clear connection monitoring flag
+            // to make sure connection state is up-to-date
+            // inside transition checks
+            efClear(time_sec_mon_flg);
+        }
+
         when (efTestAndClear(download_cmd_flg)
               && download_cmd == 1){
             /* Download requested */
@@ -236,7 +264,8 @@ ss dcct_acquisition {
             pvPut(valid_download_proc, SYNC);
         } state wait_download
 
-        when (enbl_sel == 1){
+        when (enbl_sel == 1 && efTestAndClear(time_sec_mon_flg)
+              && network_mon == 1){
         } state validate_enbl
     }
 
@@ -289,9 +318,11 @@ ss dcct_acquisition {
         when (){
             // Success
             printf("[sncDCCT] Enabling acquisition\n");
-            // disable changes to meas mode
-            meas_mode_sel_disa = 1;
-            pvPut(meas_mode_sel_disa);
+            // disable network connection monitoring
+            // since long measurements can momentarily
+            // stop communication from DMM side
+            strcpy(time_sec_mon_scan, "Passive");
+            pvPut(time_sec_mon_scan, SYNC);
         } state config_tm
     }
 
@@ -568,6 +599,11 @@ ss dcct_acquisition {
             pvPut(enbl_sts, SYNC);
         } state wait_enbl
 
+        when (delay(ACQ_TIMEOUT)){
+            /* give up after timeout and
+               go to failure state */
+        } state failure_recovery
+
         when (tm_idx_mon == 4 && meas_trg_sts != 3
                && end_buff_1_mon != prev_buff_1_end_idx
                && end_buff_1_mon % var_sample_cnt == 0){
@@ -664,6 +700,11 @@ ss dcct_acquisition {
             pvPut(enbl_sts, SYNC);
         } state wait_enbl
 
+        when (delay(ACQ_TIMEOUT)){
+            /* give up after timeout and
+               go to failure state */
+        } state failure_recovery
+
         when (tm_idx_mon == 1 && meas_trg_sts != 3
                && end_buff_2_mon != prev_buff_2_end_idx
                && end_buff_2_mon % var_sample_cnt == 0){
@@ -707,5 +748,49 @@ ss dcct_acquisition {
             // DEBUG
             printf("[sncDCCT] *TRG sent. TMIdx = 1/ Buff2 read /Soft Mode \n");
         } state acq_cycle_step_1
+    }
+
+    state failure_recovery {
+        entry{
+            printf("[sncDCCT] Acquisition timeout: waiting for reconnection to start recovery\n");
+            // stop TM monitor
+            strcpy(tm_mon_scan, "Passive");
+            pvPut(tm_mon_scan, SYNC);
+            // stop monitor buffers end index
+            strcpy(end_buff_1_mon_scan, "Passive");
+            pvPut(end_buff_1_mon_scan, SYNC);
+            strcpy(end_buff_2_mon_scan, "Passive");
+            pvPut(end_buff_2_mon_scan, SYNC);
+            // update enbl status
+            enbl_sts = 0;
+            pvPut(enbl_sts, SYNC);
+            // stop buffer fill monitor
+            // in case failure was at initialization
+            strcpy(cnt_buff_1_mon_scan, "Passive");
+            pvPut(cnt_buff_1_mon_scan, SYNC);
+            strcpy(cnt_buff_2_mon_scan, "Passive");
+            pvPut(cnt_buff_2_mon_scan, SYNC);
+            // clear network monitoring flag
+            efClear(time_sec_mon_flg);
+            // start network connection monitoring
+            strcpy(time_sec_mon_scan, NETWORK_SCAN_RATE);
+            pvPut(time_sec_mon_scan, SYNC);
+        }
+
+        when(efTestAndClear(time_sec_mon_flg) && network_mon == 1){
+            printf("[sncDCCT] Acquisition timeout: network OK, starting recovery\n");
+            // disable output trg
+            strcpy(ex_out_stim_sel, "NONE");
+            pvPut(ex_out_stim_sel, SYNC);
+            // abort TM
+            tm_abort_cmd = 1;
+            pvPut(tm_abort_cmd, SYNC);
+            // do download
+            download_cmd = 1;
+            pvPut(download_cmd, SYNC);
+            // allow download to proceed
+            valid_download_proc = 1;
+            pvPut(valid_download_proc, SYNC);
+        } state wait_download
     }
 }
