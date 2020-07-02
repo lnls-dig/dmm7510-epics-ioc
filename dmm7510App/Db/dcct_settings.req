@@ -31,3 +31,5 @@ $(P)$(R)Test-Sel
 $(P)$(R)LowLimEnbl-Sel
 $(P)$(R)CurrThold-SP
 $(P)$(R)HFReject-Sel
+# DCCT enable
+$(P)$(R)Enbl-Sel
