@@ -12,9 +12,6 @@ int var_sample_cnt;
 %%// 	      Monitored PVs
 %%//----------------------------------------
 
-int meas_mode_sel_disa;
-assign meas_mode_sel_disa to "{P}{R}MeasMode-Sel.DISA";
-
 int meas_mode_sts;
 assign meas_mode_sts to "{P}{R}MeasMode-Sts";
 monitor meas_mode_sts;
