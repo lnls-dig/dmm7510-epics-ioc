@@ -1626,6 +1626,9 @@ record(sseq, "$(P)$(R)LowLimSeq"){
   field(STR2, "Falling")
   field(LNK1, "$(Instrument)MATrEdgeSlp-Sel PP")
   field(LNK2, "$(Instrument)DATrEdgeSlp-Sel PP")
+  # always process status rec, since instrument
+  # pvs could not change value and not send monitor
+  field(FLNK, "$(P)$(R)LowLimCheck")
 }
 
 record(scalcout, "$(P)$(R)LowLimCheck"){
