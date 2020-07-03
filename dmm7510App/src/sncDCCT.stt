@@ -332,8 +332,6 @@ ss dcct_acquisition {
             // clear
             tm_clear_cmd = 1;
             pvPut(tm_clear_cmd, SYNC);
-            // sleep for 500 ms
-            usleep(500000);
             // Block 1 - soft trg 1
             strcpy(custom_sp, "trigger.model.setblock(1,trigger.BLOCK_WAIT,trigger.EVENT_COMMAND)");
             pvPut(custom_sp, SYNC);
@@ -375,7 +373,7 @@ ss dcct_acquisition {
             // Block 7 - back to start
             strcpy(custom_sp, "trigger.model.setblock(7, trigger.BLOCK_BRANCH_ALWAYS, 1)");
             pvPut(custom_sp, SYNC);
-        } state run_tm
+        } state clear_buffer_1
         
         when (){
             /* Load Trigger Model with soft trigger only */
