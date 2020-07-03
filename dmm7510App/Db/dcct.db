@@ -155,8 +155,6 @@ record(calcout, "$(P)$(R)MeasTrgCalc"){
   field(INPA, "$(P)$(R)MeasTrg-Sel.VAL")
   field(INPB, "$(P)$(R)MeasMode-Sts")
   field(CALC, "B=1?A:(B=2?(A+2):0)")
-  field(OOPT, "On Change")
-  field(VAL, "7")                                   # Initialize in a nonexistent state
   field(OUT, "$(P)$(R)MeasTrgSetUnknown.PROC PP")
 }
 
