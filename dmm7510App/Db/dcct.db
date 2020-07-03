@@ -1933,17 +1933,19 @@ record(sseq, "$(P)$(R)PreDownloadSeq"){
   field(DESC, "Pre download sequence")
   field(SELM, "All")
   field(DO1, "0")
-  field(LNK1, "$(P)$(R)DownloadDone-Mon PP")
-  field(STR2, "ON")
-  field(LNK2, "$(P)$(R)TMAbort-Cmd PP") # Abort trigger model
-  field(DLY3, "1")
+  field(LNK1, "$(P)$(R)DownloadDone-Mon PP") # download status
+  field(DO2, "0")
+  field(LNK2, "$(P)$(R)DownloadDoneFlag PP") # download internal sts
   field(STR3, "ON")
-  field(LNK3, "$(Instrument)Reset-Cmd PP") # Reset instrument
-  field(DO4, "1")
-  field(LNK4, "$(P)$(R)MeasMode-Sel.PROC PP") # process meas function
-  field(DLY5, "3") # Wait 3 sec so DMM change function
+  field(LNK3, "$(P)$(R)TMAbort-Cmd PP") # Abort trigger model
+  field(DLY4, "1")
+  field(STR4, "ON")
+  field(LNK4, "$(Instrument)Reset-Cmd PP") # Reset instrument
   field(DO5, "1")
-  field(LNK5, "$(P)$(R)DownloadGetMode.PROC PP")
+  field(LNK5, "$(P)$(R)MeasMode-Sel.PROC PP") # process meas function
+  field(DLY6, "3") # Wait 3 sec so DMM change function
+  field(DO6, "1")
+  field(LNK6, "$(P)$(R)DownloadGetMode.PROC PP")
 }
 
 record(calcout, "$(P)$(R)DownloadGetMode"){
@@ -2073,7 +2075,7 @@ record(sseq, "$(P)$(R)DownloadSeq5"){
   field(LNK1, "$(Instrument)DigRead-Mon.PROC")      # DigIOs states read (range RB)
   field(LNK2, "$(P)$(R)MeasTrg-Sel.PROC")
   field(LNK3, "$(P)$(R)Enbl-Sel.PROC")
-  field(LNK4, "$(P)$(R)DownloadDone-Mon PP")        # Download finished
+  field(LNK4, "$(P)$(R)DownloadDoneFlag PP")        # Download finished
 }
 
 ###################################################
@@ -2172,6 +2174,25 @@ record(sseq, "$(P)$(R)FastDownloadSeq5"){
   field(DO3, "1")
   field(LNK3, "$(P)$(R)Enbl-Sel.PROC")
   field(DO4, "1")
-  field(LNK4, "$(P)$(R)DownloadDone-Mon PP")        # Download finished
+  field(LNK4, "$(P)$(R)DownloadDoneFlag PP")        # Download finished
+}
+
+# flag indicating if download commands
+# have been sent
+record(bi, "$(P)$(R)DownloadDoneFlag"){
+  field(DESC, "Download cmds sent flag")
+  field(ZNAM, "In Progress")
+  field(ONAM, "Finished")
+  field(VAL, "1")
+}
+
+# set download done when config is finished
+record(calcout, "$(P)$(R)ValidDownloadDone"){
+  field(DESC, "Validate download end")
+  field(INPA, "$(P)$(R)DownloadDoneFlag CPP")
+  field(INPB, "$(P)$(R)MeasTrg-Sts CPP")
+  field(CALC, "A=1&&(B=1||B=2||B=3)?1:0")
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(P)$(R)DownloadDone-Mon PP")
 }
 
