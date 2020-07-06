@@ -425,14 +425,14 @@ ss dcct_acquisition {
             tm_clear_cmd = 1;
             pvPut(tm_clear_cmd, SYNC);
             // Block 1 - soft trg 1
-            strcpy(custom_sp, "trigger.model.setblock(1,trigger.BLOCK_WAIT,trigger.EVENT_COMMAND)");
+            strcpy(custom_sp, "trigger.model.setblock(1,trigger.BLOCK_WAIT,trigger.EVENT_COMMAND,trigger.CLEAR_ENTER)");
             pvPut(custom_sp, SYNC);
             // Block 2 - hard trg 1
             if (meas_trg_sts == 1) {
                 strcpy(custom_sp, "trigger.model.setblock(2,trigger.BLOCK_WAIT,trigger.EVENT_EXTERNAL,trigger.CLEAR_ENTER)");
             }
             else{
-                strcpy(custom_sp, "trigger.model.setblock(2,trigger.BLOCK_WAIT,trigger.EVENT_ANALOGTRIGGER)");
+                strcpy(custom_sp, "trigger.model.setblock(2,trigger.BLOCK_WAIT,trigger.EVENT_ANALOGTRIGGER,trigger.CLEAR_ENTER)");
             }
             pvPut(custom_sp, SYNC);
             // Block 3 - measurement 1
@@ -444,26 +444,26 @@ ss dcct_acquisition {
             }
             pvPut(custom_sp, SYNC);
             // Block 4 - soft trg 2
-            strcpy(custom_sp, "trigger.model.setblock(4,trigger.BLOCK_WAIT,trigger.EVENT_COMMAND)");
+            strcpy(custom_sp, "trigger.model.setblock(4,trigger.BLOCK_WAIT,trigger.EVENT_COMMAND,trigger.CLEAR_ENTER)");
             pvPut(custom_sp, SYNC);
             // Block 5 - hard trg 2
             if (meas_trg_sts == 1) {
                 strcpy(custom_sp, "trigger.model.setblock(5,trigger.BLOCK_WAIT,trigger.EVENT_EXTERNAL,trigger.CLEAR_ENTER)");
             }
             else{
-                strcpy(custom_sp, "trigger.model.setblock(5,trigger.BLOCK_WAIT,trigger.EVENT_ANALOGTRIGGER)");
+                strcpy(custom_sp, "trigger.model.setblock(5,trigger.BLOCK_WAIT,trigger.EVENT_ANALOGTRIGGER,trigger.CLEAR_ENTER)");
             }
             pvPut(custom_sp, SYNC);
             // Block 6 - measurement 2
             if (meas_mode_sts == 1){
-                sprintf(custom_sp, "trigger.model.setblock(6,trigger.BLOCK_MEASURE,defbuffer2,%d)", sample_cnt_rb);
+                sprintf(custom_sp, "trigger.model.setblock(6,trigger.BLOCK_MEASURE,defbuffer1,%d)", sample_cnt_rb);
             }
             else {
-                sprintf(custom_sp, "trigger.model.setblock(6,trigger.BLOCK_DIGITIZE,defbuffer2,%d)", fast_sample_cnt_rb);
+                sprintf(custom_sp, "trigger.model.setblock(6,trigger.BLOCK_DIGITIZE,defbuffer1,%d)", fast_sample_cnt_rb);
             }
             pvPut(custom_sp, SYNC);
             // Block 7 - back to start
-            strcpy(custom_sp, "trigger.model.setblock(7, trigger.BLOCK_BRANCH_ALWAYS, 1)");
+            strcpy(custom_sp, "trigger.model.setblock(7, trigger.BLOCK_BRANCH_ALWAYS, 4)");
             pvPut(custom_sp, SYNC);
         } state clear_buffer_1
         
@@ -789,24 +789,24 @@ ss dcct_acquisition {
                go to failure state */
         } state failure_test_acq_step_2
 
-        when (tm_idx_mon == 1 && meas_trg_sts != 3
-               && end_buff_2_mon != prev_buff_2_end_idx
-               && end_buff_2_mon % var_sample_cnt == 0){
+        when (tm_idx_mon == 4 && meas_trg_sts != 3
+               && end_buff_1_mon != prev_buff_1_end_idx
+               && end_buff_1_mon % var_sample_cnt == 0){
             // DEBUG
             printf("[sncDCCT] Before update: curr_end_buff2=%d, prev_buff2=%d\n",end_buff_2_mon,prev_buff_2_end_idx);
             // update previous buffer end index
-            prev_buff_2_end_idx = end_buff_2_mon;
+            prev_buff_1_end_idx = end_buff_1_mon;
             // update initial buffer position (for new values)
-            idx_buff_2_mon = end_buff_2_mon - var_sample_cnt + 1;
-            pvPut(idx_buff_2_mon, SYNC);
+            idx_buff_1_mon = end_buff_1_mon - var_sample_cnt + 1;
+            pvPut(idx_buff_1_mon, SYNC);
             printf("[sncDCCT] After update: curr_end_buff2=%d, prev_buff2=%d\n",end_buff_2_mon,prev_buff_2_end_idx);
             /* buffer 2 full:
                send soft trg and
                fetch reading */
             soft_trg_cmd = 1;
             pvPut(soft_trg_cmd, SYNC);
-            raw_buff_2_mon_proc = 1;
-            pvPut(raw_buff_2_mon_proc, SYNC);
+            raw_buff_1_mon_proc = 1;
+            pvPut(raw_buff_1_mon_proc, SYNC);
             // DEBUG
             printf("[sncDCCT] *TRG sent. TMIdx = 1/ Buff2 read /Trg Mode \n");
         } state acq_cycle_step_1
