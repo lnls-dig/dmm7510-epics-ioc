@@ -197,8 +197,8 @@ assign end_buff_1_mon_scan to "{Instrument}EndBuff1-Mon.SCAN";
 string end_buff_2_mon_scan;
 assign end_buff_2_mon_scan to "{Instrument}EndBuff2-Mon.SCAN";
 
-int idx_buff_1_mon_mon;
-assign idx_buff_1_mon_mon to "{P}{R}IdxBuff1-Mon";
+int idx_buff_1_mon;
+assign idx_buff_1_mon to "{P}{R}IdxBuff1-Mon";
 
 int idx_buff_2_mon;
 assign idx_buff_2_mon to "{P}{R}IdxBuff2-Mon";
@@ -699,8 +699,8 @@ ss dcct_acquisition {
             // update previous buffer end index
             prev_buff_1_end_idx = end_buff_1_mon;
             // update initial buffer position (for new values)
-            idx_buff_1_mon_mon = end_buff_1_mon - var_sample_cnt + 1;
-            pvPut(idx_buff_1_mon_mon, SYNC);
+            idx_buff_1_mon = end_buff_1_mon - var_sample_cnt + 1;
+            pvPut(idx_buff_1_mon, SYNC);
             // DEBUG
             printf("[sncDCCT] After update: curr_end_buff1=%d, prev_buff1=%d\n",end_buff_1_mon,prev_buff_1_end_idx);
             /* buffer 1 full:
@@ -722,8 +722,8 @@ ss dcct_acquisition {
             // update previous buffer end index
             prev_buff_1_end_idx = end_buff_1_mon;
             // update initial buffer position (for new values)
-            idx_buff_1_mon_mon = end_buff_1_mon - var_sample_cnt + 1;
-            pvPut(idx_buff_1_mon_mon, SYNC);
+            idx_buff_1_mon = end_buff_1_mon - var_sample_cnt + 1;
+            pvPut(idx_buff_1_mon, SYNC);
             printf("[sncDCCT] After update: curr_end_buff1=%d, prev_buff1=%d\n",end_buff_1_mon,prev_buff_1_end_idx);
             /* soft mode - buffer 1 full:
                send soft trg and
