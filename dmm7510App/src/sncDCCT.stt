@@ -218,6 +218,12 @@ monitor network_mon;
 evflag network_mon_flg;
 sync network_mon network_mon_flg;
 
+int size_buff_1_sp;
+assign size_buff_1_sp to "{Instrument}SizeBuff1-SP";
+
+int size_buff_2_sp;
+assign size_buff_2_sp to "{Instrument}SizeBuff2-SP";
+
 %%//----------------------------------------
 %%//        Escaped C Code
 %%//----------------------------------------
@@ -382,6 +388,33 @@ ss dcct_acquisition {
             // stop communication from DMM side
             strcpy(time_sec_mon_scan, "Passive");
             pvPut(time_sec_mon_scan, SYNC);
+        } state resize_buffers
+    }
+
+    state resize_buffers {
+        entry {
+            // buffers 1 and 2 of instrument
+            // should have at least 10 elements.
+            // set sizes to at least 2 x sample cnt
+            if (meas_mode_sts == 1){
+                size_buff_1_sp = sample_cnt_rb;
+                size_buff_2_sp = sample_cnt_rb;
+            }else{
+                size_buff_1_sp = fast_sample_cnt_rb;
+                size_buff_2_sp = fast_sample_cnt_rb;
+            }
+            if (size_buff_1_sp < 5){
+                size_buff_1_sp = 12;
+                size_buff_2_sp = 12;
+            }else{
+                size_buff_1_sp = 2 * size_buff_1_sp;
+                size_buff_2_sp = 2 * size_buff_2_sp;
+            }
+            pvPut(size_buff_1_sp, SYNC);
+            pvPut(size_buff_2_sp, SYNC);
+        }
+
+        when (){
         } state config_tm
     }
 

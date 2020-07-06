@@ -877,29 +877,16 @@ record(longout, "$(P)$(R)CorrectedSampleCnt"){
   field(DRVL, "1")
   field(VAL, "1")
   field(OUT, "$(Instrument)MeasCnt-SP PP")
-  field(FLNK, "$(P)$(R)SampleCntAux1")
+  field(FLNK, "$(P)$(R)SampleCntAux")
 }
 
-record(calc, "$(P)$(R)SampleCntAux1"){
-  field(DESC, "2 x sample count")
-  field(INPA, "$(P)$(R)CorrectedSampleCnt.VAL")
-  # buffer size cannot be < 10
-  field(CALC, "A*2>=10?A*2:(10+A-(10%A))")
-  field(FLNK, "$(P)$(R)SampleCntAux2")
-}
-
-# Set size of buffers equal to 2 x sample count
-# and set RawReadings nelm field
-record(seq, "$(P)$(R)SampleCntAux2"){
+# set RawReadings nelm field
+record(seq, "$(P)$(R)SampleCntAux"){
   field(ASG, "Reserved")
-  field(DESC, "Set buffers size equal to sample cnt")
+  field(DESC, "Set raw reading waveform nelm")
   field(SELM, "All")
-  field(DOL1, "$(P)$(R)SampleCntAux1.VAL")
-  field(LNK1, "$(Instrument)SizeBuff1-SP PP")
-  field(DOL2, "$(P)$(R)SampleCntAux1.VAL")
-  field(LNK2, "$(Instrument)SizeBuff2-SP PP")
-  field(DOL3, "$(P)$(R)CorrectedSampleCnt.VAL")
-  field(LNK3, "$(P)$(R)RawReadings-Mon.NELM")
+  field(DOL1, "$(P)$(R)CorrectedSampleCnt.VAL")
+  field(LNK1, "$(P)$(R)RawReadings-Mon.NELM")
 }
 
 # Input Impedance (high level)
@@ -1115,29 +1102,16 @@ record(longout, "$(P)$(R)CorrectedFastSampleCnt"){
   field(DRVL, "1")
   field(VAL, "1")
   field(OUT, "$(Instrument)DigtzeCnt-SP PP")
-  field(FLNK, "$(P)$(R)FastSampleCntAux1")
+  field(FLNK, "$(P)$(R)FastSampleCntAux")
 }
 
-record(calc, "$(P)$(R)FastSampleCntAux1"){
-  field(DESC, "2 x sample count")
-  field(INPA, "$(P)$(R)CorrectedFastSampleCnt.VAL")
-  # buffer size cannot be < 10
-  field(CALC, "A*2>=10?A*2:(10+A-(10%A))")
-  field(FLNK, "$(P)$(R)FastSampleCntAux2")
-}
-
-# Set size of buffers equal to 2 x sample count
-# and set RawReadings nelm field
-record(seq, "$(P)$(R)FastSampleCntAux2"){
+# set RawReadings nelm field
+record(seq, "$(P)$(R)FastSampleCntAux"){
   field(ASG, "Reserved")
-  field(DESC, "Set buffers size equal to sample cnt")
+  field(DESC, "Set raw readings waveform nelm")
   field(SELM, "All")
-  field(DOL1, "$(P)$(R)FastSampleCntAux1.VAL")
-  field(LNK1, "$(Instrument)SizeBuff1-SP PP")
-  field(DOL2, "$(P)$(R)FastSampleCntAux1.VAL")
-  field(LNK2, "$(Instrument)SizeBuff2-SP PP")
-  field(DOL3, "$(P)$(R)CorrectedFastSampleCnt.VAL")
-  field(LNK3, "$(P)$(R)RawReadings-Mon.NELM")
+  field(DOL1, "$(P)$(R)CorrectedFastSampleCnt.VAL")
+  field(LNK1, "$(P)$(R)RawReadings-Mon.NELM")
 }
 
 # Fast Mode Input Impedance (high level)
