@@ -1888,8 +1888,21 @@ record(waveform, "$(P)$(R)ReliableMeasLabels-Cte"){
 # Desc: Defines the processing order during download.
 # ----------------------------------------------------------
 
+# This record is set by sncDCCT program
+# when all download phases are finished
 record(bi, "$(P)$(R)DownloadDone-Mon"){
   field(DESC, "Download status")
+  field(ZNAM, "In Progress")
+  field(ONAM, "Finished")
+  field(VAL, "1")
+}
+
+# indicates when a download operation
+# has been completed. The sequencer
+# runs 2 downloads in sequence (called
+# 'phases')
+record(bi, "$(P)$(R)DownloadPhaseDone-Mon"){
+  field(DESC, "Download phase status")
   field(ZNAM, "In Progress")
   field(ONAM, "Finished")
   field(VAL, "1")
@@ -1913,7 +1926,6 @@ record(bo, "$(P)$(R)Download-Cmd"){
   field(PINI, "YES")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
-  field(VAL, "1")
 }
 
 # Download can only proceed after
@@ -1936,16 +1948,15 @@ record(sseq, "$(P)$(R)PreDownloadSeq"){
   field(LNK1, "$(P)$(R)DownloadDone-Mon PP") # download status
   field(DO2, "0")
   field(LNK2, "$(P)$(R)DownloadDoneFlag PP") # download internal sts
-  field(STR3, "ON")
-  field(LNK3, "$(P)$(R)TMAbort-Cmd PP") # Abort trigger model
-  field(DLY4, "1")
-  field(STR4, "ON")
-  field(LNK4, "$(Instrument)Reset-Cmd PP") # Reset instrument
+  field(DO3, "0")
+  field(LNK3, "$(P)$(R)DownloadPhaseDone-Mon PP") # download phase sts
+# reset is done in sncDCCT program
+#  field(DLY4, "1")
+#  field(STR4, "ON")
+#  field(LNK4, "$(Instrument)Reset-Cmd PP") # Reset instrument
+  field(DLY5, "3") # Wait 3 sec so DMM change function
   field(DO5, "1")
-  field(LNK5, "$(P)$(R)MeasMode-Sel.PROC PP") # process meas function
-  field(DLY6, "3") # Wait 3 sec so DMM change function
-  field(DO6, "1")
-  field(LNK6, "$(P)$(R)DownloadGetMode.PROC PP")
+  field(LNK5, "$(P)$(R)DownloadGetMode.PROC PP")
 }
 
 record(calcout, "$(P)$(R)DownloadGetMode"){
@@ -2191,8 +2202,8 @@ record(calcout, "$(P)$(R)ValidDownloadDone"){
   field(DESC, "Validate download end")
   field(INPA, "$(P)$(R)DownloadDoneFlag CPP")
   field(INPB, "$(P)$(R)MeasTrg-Sts CPP")
-  field(CALC, "A=1&&(B=1||B=2||B=3)?1:0")
+  field(CALC, "A=1&&(B=1||B=2||B=3||B=4)?1:0")
   field(OOPT, "When Non-zero")
-  field(OUT, "$(P)$(R)DownloadDone-Mon PP")
+  field(OUT, "$(P)$(R)DownloadPhaseDone-Mon PP")
 }
 

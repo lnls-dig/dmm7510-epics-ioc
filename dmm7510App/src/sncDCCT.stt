@@ -7,10 +7,18 @@ program sncDCCT
 int prev_buff_1_end_idx;
 int prev_buff_2_end_idx;
 int var_sample_cnt;
+int saved_meas_mode;
 
 %%//----------------------------------------
 %%// 	      Monitored PVs
 %%//----------------------------------------
+
+int reset_cmd;
+assign reset_cmd to "{Instrument}Reset-Cmd";
+
+int meas_mode_sel;
+assign meas_mode_sel to "{P}{R}MeasMode-Sel";
+monitor meas_mode_sel;
 
 int meas_mode_sts;
 assign meas_mode_sts to "{P}{R}MeasMode-Sts";
@@ -66,11 +74,17 @@ monitor tm_idx_mon;
 evflag tm_idx_mon_flg;
 sync tm_idx_mon tm_idx_mon_flg;
 
+int tm_idx_mon_mdel;
+assign tm_idx_mon_mdel to "{P}{R}TMIdx-Mon.MDEL";
+
+int download_phase_done_mon;
+assign download_phase_done_mon to "{P}{R}DownloadPhaseDone-Mon";
+monitor download_phase_done_mon;
+evflag download_phase_done_mon_flg;
+sync download_phase_done_mon download_phase_done_mon_flg;
+
 int download_done_mon;
 assign download_done_mon to "{P}{R}DownloadDone-Mon";
-monitor download_done_mon;
-evflag download_done_mon_flg;
-sync download_done_mon download_done_mon_flg;
 
 int download_cmd;
 assign download_cmd to "{P}{R}Download-Cmd";
@@ -214,6 +228,9 @@ sync network_mon network_mon_flg;
 %%#define SCAN_RATE ".02 second"
 %%#define NETWORK_SCAN_RATE "5 second"
 %%#define ACQ_TIMEOUT 15.0
+%%#define MDEL_ALWAYS -1
+%%#define MDEL_ON_CHANGE 0
+%%#define TIMEOUT_CONN_NOT_TRIG 0.5
 
 %%//----------------------------------------
 %%//        State Notation Language
@@ -221,25 +238,70 @@ sync network_mon network_mon_flg;
 
 ss dcct_acquisition {
     state init {
-	when (delay(5.0) && efTestAndClear(download_cmd_flg)
-              && download_cmd == 1) {
+	when (delay(5.0)) {
             printf("[sncDCCT] Initialization start\n");
+	} state download_phase_1
+    }
+
+    state download_phase_1 {
+        entry {
+            printf("[sncDCCT] Download phase 1\n");
+            // abort a Trigger Model if
+            // there is one running
+            tm_abort_cmd = 1;
+            pvPut(tm_abort_cmd, SYNC);
+            // sleep for 1 s
+            usleep(1000000);
+            // reset instrument
+            reset_cmd = 1;
+            pvPut(reset_cmd, SYNC);
+            // sleep for 1 s
+            usleep(1000000);
+            // save measure mode setting
+            saved_meas_mode = meas_mode_sel;
+            // config measure mode to setting that
+            // is NOT selected
+            if (saved_meas_mode == 1){ meas_mode_sel = 0;}
+            else{ meas_mode_sel = 1;}
+            pvPut(meas_mode_sel, SYNC);
+            // do download for this setting
+            download_cmd = 1;
+            pvPut(download_cmd, SYNC);
             // allow download to proceed
             valid_download_proc = 1;
             pvPut(valid_download_proc, SYNC);
-	} state wait_download
+        }
+
+        when (efTestAndClear(download_phase_done_mon_flg)
+              && download_phase_done_mon == 1){
+            /* Go to next state */
+        } state download_phase_2
     }
 
-    state wait_download {
+    state download_phase_2 {
         entry {
-            printf("[sncDCCT] Waiting download\n");
+            printf("[sncDCCT] Download phase 2\n");
+            // config measure mode that actually should
+            // be used
+            meas_mode_sel = saved_meas_mode;
+            pvPut(meas_mode_sel, SYNC);
+            // do download for this setting
+            download_cmd = 1;
+            pvPut(download_cmd, SYNC);
+            // allow download to proceed
+            valid_download_proc = 1;
+            pvPut(valid_download_proc, SYNC);
         }
-        when (efTestAndClear(download_done_mon_flg)
-              && download_done_mon == 1){
+
+        when (efTestAndClear(download_phase_done_mon_flg)
+              && download_phase_done_mon == 1){
             printf("[sncDCCT] Download finished\n");
             // put download PV low
             download_cmd = 0;
             pvPut(download_cmd, SYNC);
+            // update download done status
+            download_done_mon = 1;
+            pvPut(download_done_mon, SYNC);
         } state wait_enbl
     }
 
@@ -259,10 +321,7 @@ ss dcct_acquisition {
               && download_cmd == 1){
             /* Download requested */
             printf("[sncDCCT] Received request for download\n");
-            // allow download to proceed
-            valid_download_proc = 1;
-            pvPut(valid_download_proc, SYNC);
-        } state wait_download
+        } state download_phase_1
 
         when (enbl_sel == 1 && efTestAndClear(time_sec_mon_flg)
               && network_mon == 1){
@@ -569,10 +628,7 @@ ss dcct_acquisition {
             // update enbl status
             enbl_sts = 0;
             pvPut(enbl_sts, SYNC);
-            // allow download to proceed
-            valid_download_proc = 1;
-            pvPut(valid_download_proc, SYNC);
-        } state wait_download
+        } state download_phase_1
 
         when (efTestAndClear(enbl_sel_flg)
               && enbl_sel == 0){
@@ -600,7 +656,7 @@ ss dcct_acquisition {
         when (delay(ACQ_TIMEOUT)){
             /* give up after timeout and
                go to failure state */
-        } state failure_recovery
+        } state failure_test_acq_step_1
 
         when (tm_idx_mon == 4 && meas_trg_sts != 3
                && end_buff_1_mon != prev_buff_1_end_idx
@@ -670,10 +726,7 @@ ss dcct_acquisition {
             // update enbl status
             enbl_sts = 0;
             pvPut(enbl_sts, SYNC);
-            // allow download to proceed
-            valid_download_proc = 1;
-            pvPut(valid_download_proc, SYNC);
-        } state wait_download
+        } state download_phase_1
 
         when (efTestAndClear(enbl_sel_flg)
               && enbl_sel == 0){
@@ -701,7 +754,7 @@ ss dcct_acquisition {
         when (delay(ACQ_TIMEOUT)){
             /* give up after timeout and
                go to failure state */
-        } state failure_recovery
+        } state failure_test_acq_step_2
 
         when (tm_idx_mon == 1 && meas_trg_sts != 3
                && end_buff_2_mon != prev_buff_2_end_idx
@@ -748,6 +801,72 @@ ss dcct_acquisition {
         } state acq_cycle_step_1
     }
 
+    state failure_test_acq_step_1 {
+        entry {
+            printf("[sncDCCT] Acquisition timeout: checking connection\n");
+            // allow TM index monitors to
+            // be sent always (not only 
+            // on change).
+            tm_idx_mon_mdel = MDEL_ALWAYS;
+            pvPut(tm_idx_mon_mdel, SYNC);
+            // clear TM index mon flag.
+            // if it updates soon, then
+            // connection is fine
+            efClear(tm_idx_mon_flg);
+        }
+
+        when (efTestAndClear(tm_idx_mon_flg)){
+            /* connection is ok, so it is a trigger problem */
+            printf("[sncDCCT] Acquisition timeout: connection OK. Trigger may be missing\n");
+            // send TM index monitors
+            // only on change
+            tm_idx_mon_mdel = MDEL_ON_CHANGE;
+            pvPut(tm_idx_mon_mdel, SYNC);
+        } state acq_cycle_step_1
+
+        when (delay(TIMEOUT_CONN_NOT_TRIG)){
+            /* network connection problem */
+            printf("[sncDCCT] Acquisition timeout: no response, connection failure\n");
+            // send TM index monitors
+            // only on change
+            tm_idx_mon_mdel = MDEL_ON_CHANGE;
+            pvPut(tm_idx_mon_mdel, SYNC);
+        } state failure_recovery
+    }
+
+    state failure_test_acq_step_2 {
+        entry {
+            printf("[sncDCCT] Acquisition timeout: checking connection\n");
+            // allow TM index monitors to
+            // be sent always (not only 
+            // on change).
+            tm_idx_mon_mdel = MDEL_ALWAYS;
+            pvPut(tm_idx_mon_mdel, SYNC);
+            // clear TM index mon flag.
+            // if it updates soon, then
+            // connection is fine
+            efClear(tm_idx_mon_flg);
+        }
+
+        when (efTestAndClear(tm_idx_mon_flg)){
+            /* connection is ok, so it is a trigger problem */
+            printf("[sncDCCT] Acquisition timeout: connection OK. Trigger may be missing\n");
+            // send TM index monitors
+            // only on change
+            tm_idx_mon_mdel = MDEL_ON_CHANGE;
+            pvPut(tm_idx_mon_mdel, SYNC);
+        } state acq_cycle_step_2
+
+        when (delay(TIMEOUT_CONN_NOT_TRIG)){
+            /* network connection problem */
+            printf("[sncDCCT] Acquisition timeout: no response, connection failure\n");
+            // send TM index monitors
+            // only on change
+            tm_idx_mon_mdel = MDEL_ON_CHANGE;
+            pvPut(tm_idx_mon_mdel, SYNC);
+        } state failure_recovery
+    }
+
     state failure_recovery {
         entry{
             printf("[sncDCCT] Acquisition timeout: waiting for reconnection to start recovery\n");
@@ -776,19 +895,13 @@ ss dcct_acquisition {
         }
 
         when(efTestAndClear(time_sec_mon_flg) && network_mon == 1){
-            printf("[sncDCCT] Acquisition timeout: network OK, starting recovery\n");
+            printf("[sncDCCT] Acquisition timeout: connection reestablished, starting recovery\n");
             // disable output trg
             strcpy(ex_out_stim_sel, "NONE");
             pvPut(ex_out_stim_sel, SYNC);
             // abort TM
             tm_abort_cmd = 1;
             pvPut(tm_abort_cmd, SYNC);
-            // do download
-            download_cmd = 1;
-            pvPut(download_cmd, SYNC);
-            // allow download to proceed
-            valid_download_proc = 1;
-            pvPut(valid_download_proc, SYNC);
-        } state wait_download
+        } state download_phase_1
     }
 }
