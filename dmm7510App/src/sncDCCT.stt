@@ -389,6 +389,9 @@ ss dcct_acquisition {
             // stop communication from DMM side
             strcpy(time_sec_mon_scan, "Passive");
             pvPut(time_sec_mon_scan, SYNC);
+            // update enbl status: 'PREPARING'
+            enbl_sts = 2;
+            pvPut(enbl_sts, SYNC);
         } state resize_buffers
     }
 

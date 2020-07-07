@@ -389,13 +389,17 @@ record(bo, "$(P)$(R)Enbl-Sel"){
   field(ONAM, "ON")
 }
 
-record(bi, "$(P)$(R)Enbl-Sts"){
+record(mbbi, "$(P)$(R)Enbl-Sts"){
   # ------------------------------------
   # This record is set by sncDCCT
   # ------------------------------------
   field(DESC, "DCCT acquisition status")
-  field(ZNAM, "OFF")
-  field(ONAM, "ON")
+  field(ZRVL, "0")
+  field(ZRST, "OFF")
+  field(ONVL, "1")
+  field(ONST, "ON")
+  field(TWVL, "2")
+  field(TWST, "PREPARING")
   # check if records should be enbl/dsbl
   field(FLNK, "$(P)$(R)ProtectCalc")
 }
@@ -750,7 +754,7 @@ record(calcout, "$(P)$(R)MeasUpdatePeriodCalc2"){
   field(DESC, "Measurement update period calc 2")
   field(INPA, "$(P)$(R)MeasUpdatePeriodCalc1.A")
   field(INPB, "$(P)$(R)Enbl-Sts CPP")
-  field(CALC, "B")
+  field(CALC, "B=1")
   field(OOPT, "On Change")
   field(OCAL, "0")
   field(DOPT, "Use OCAL")
@@ -1839,7 +1843,7 @@ record(calcout, "$(P)$(R)ReliableMeas-Mon"){
   field(INPA, "$(Instrument)ACalWarn-Mon CPP")
   field(INPB, "$(Instrument)Network-Mon CPP")
   field(INPC, "$(P)$(R)Enbl-Sts CPP")
-  field(CALC, "((A&1)<<2)|(((!B)&1)<<1)|(C=0)")
+  field(CALC, "((A&1)<<2)|(((!B)&1)<<1)|(C#1)")
   field(HIHI, "1")
   field(HHSV, "MAJOR")
 }
