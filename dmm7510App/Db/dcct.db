@@ -1868,7 +1868,10 @@ record(bi, "$(P)$(R)DownloadDone-Mon"){
   field(DESC, "Download status")
   field(ZNAM, "In Progress")
   field(ONAM, "Finished")
-  field(VAL, "1")
+# start at zero.
+# sncDCCT should init instrument
+# and set this PV
+  field(VAL, "0")
 }
 
 # indicates when a download operation
