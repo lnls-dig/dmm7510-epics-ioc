@@ -1838,8 +1838,8 @@ record(calcout, "$(P)$(R)ReliableMeas-Mon"){
   field(DESC, "Measurement reliability")
   field(INPA, "$(Instrument)ACalWarn-Mon CPP")
   field(INPB, "$(Instrument)Network-Mon CPP")
-  field(INPC, "$(P)$(R)MeasTrg-Sts CPP")
-  field(CALC, "((A&1)<<2)|(((!B)&1)<<1)|(C=!1&&C!=2&&C!=3)")
+  field(INPC, "$(P)$(R)Enbl-Sts CPP")
+  field(CALC, "((A&1)<<2)|(((!B)&1)<<1)|(C=0)")
   field(HIHI, "1")
   field(HHSV, "MAJOR")
 }
