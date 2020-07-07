@@ -237,6 +237,7 @@ assign size_buff_2_sp to "{Instrument}SizeBuff2-SP";
 %%#define MDEL_ALWAYS -1
 %%#define MDEL_ON_CHANGE 0
 %%#define TIMEOUT_CONN_NOT_TRIG 0.5
+%%#define CONFIG_TIMEOUT 15.0
 
 %%//----------------------------------------
 %%//        State Notation Language
@@ -521,6 +522,11 @@ ss dcct_acquisition {
             strcpy(cnt_buff_2_mon_scan, SCAN_RATE);
             pvPut(cnt_buff_2_mon_scan, SYNC);
         } state prefill_buffer_1
+
+        when (delay(CONFIG_TIMEOUT)){
+            /* if configuration fails */
+            printf("[sncDCCT] Acquisition start failed: cannot clear buffer 1\n");
+        } state failure_recovery
     }
 
     state prefill_buffer_1{
@@ -536,6 +542,11 @@ ss dcct_acquisition {
                 pvPut(digtz_buff_1_cmd, SYNC);
             }
         } state prefill_buffer_2
+
+        when (delay(CONFIG_TIMEOUT)){
+            /* if configuration fails */
+            printf("[sncDCCT] Acquisition start failed: cannot clear buffer 2\n");
+        } state failure_recovery
     }
 
     state prefill_buffer_2{
@@ -557,6 +568,11 @@ ss dcct_acquisition {
                 pvPut(digtz_buff_2_cmd, SYNC);
             }
         } state buffers_ready
+
+        when (delay(CONFIG_TIMEOUT)){
+            /* if configuration fails */
+            printf("[sncDCCT] Acquisition start failed: cannot prefill buffer 1\n");
+        } state failure_recovery
     }
 
     state buffers_ready {
@@ -592,6 +608,11 @@ ss dcct_acquisition {
                 var_sample_cnt = fast_sample_cnt_rb;
             }
         } state buff_end_idx_ok
+
+        when (delay(CONFIG_TIMEOUT)){
+            /* if configuration fails */
+            printf("[sncDCCT] Acquisition start failed: cannot prefill buffer 2\n");
+        } state failure_recovery
     }
 
     state buff_end_idx_ok{
@@ -606,6 +627,11 @@ ss dcct_acquisition {
             strcpy(tm_mon_scan, SCAN_RATE);
             pvPut(tm_mon_scan, SYNC);
         } state run_tm
+
+        when (delay(CONFIG_TIMEOUT)){
+            /* if configuration fails */
+            printf("[sncDCCT] Acquisition start failed: cannot monitor buffer position\n");
+        } state failure_recovery
     }
 
     state run_tm{
@@ -615,6 +641,11 @@ ss dcct_acquisition {
             tm_start_cmd = 1;
             pvPut(tm_start_cmd, SYNC);
         } state start_acq
+
+        when (delay(CONFIG_TIMEOUT)){
+            /* if configuration fails */
+            printf("[sncDCCT] Acquisition start failed: cannot monitor Trigger Model\n");
+        } state failure_recovery
     }
 
     state start_acq{
@@ -637,6 +668,11 @@ ss dcct_acquisition {
             soft_trg_cmd = 1;
             pvPut(soft_trg_cmd, SYNC);
         } state acq_cycle_step_1
+
+        when (delay(CONFIG_TIMEOUT)){
+            /* if configuration fails */
+            printf("[sncDCCT] Acquisition start failed: Trigger Model cannot start\n");
+        } state failure_recovery
     }
 
     state acq_cycle_step_1{
@@ -902,7 +938,7 @@ ss dcct_acquisition {
 
     state failure_recovery {
         entry{
-            printf("[sncDCCT] Acquisition timeout: waiting for reconnection to start recovery\n");
+            printf("[sncDCCT] Failure recovery: waiting for connection to start recovery\n");
             // stop TM monitor
             strcpy(tm_mon_scan, "Passive");
             pvPut(tm_mon_scan, SYNC);
@@ -928,7 +964,7 @@ ss dcct_acquisition {
         }
 
         when(efTestAndClear(time_sec_mon_flg) && network_mon == 1){
-            printf("[sncDCCT] Acquisition timeout: connection reestablished, starting recovery\n");
+            printf("[sncDCCT] Failure recovery: connection established, starting recovery\n");
             // disable output trg
             strcpy(ex_out_stim_sel, "NONE");
             pvPut(ex_out_stim_sel, SYNC);
