@@ -3998,6 +3998,19 @@ count is not changed. \\
 			TSP command: print(trigger.model.getblocklist())
 		\end{tabular}
 
+		\begin{tabular}{N}
+			\hline
+			\bfseries SoftTrg-Cmd\label{pv:tmblocklist-mon} \\ \hline
+			\emph{Software Trigger Command} \\
+			Data type: bool\{\begin{itemize}[noitemsep]
+				\small
+				\item[] OFF
+				\item[] ON
+			\end{itemize}\} \\
+			Description: When set to 1 (\emph{ON}), this record sends a software trigger command to the instrument. When a measure function stimulus is set to \emph{COMMAND}, or when a Trigger Model is running with a WAIT block specifying \emph{trigger.EVENT\_COMMAND}, then this command triggers a measurement or allows the Trigger Model to continue. \\
+			TSP command: *TRG
+		\end{tabular}
+
 	% TABLE: General
 	\subsection{General}\label{pvgroup:general}
 
