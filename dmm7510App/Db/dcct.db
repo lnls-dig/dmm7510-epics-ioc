@@ -674,7 +674,7 @@ record(subArray, "$(P)$(R)RawReadings-Mon") {
   field(PREC, "3")
   field(EGU,  "mA")
   field(FTVL, "DOUBLE")
-  field(NELM, "1000")
+  field(NELM, "$(MAX_NUM_READINGS)")
   field(MALM, "$(MAX_NUM_READINGS)")
 }
 
