@@ -1857,6 +1857,29 @@ record(waveform, "$(P)$(R)ReliableMeasLabels-Cte"){
 }
 
 ########################################################################
+# Misconfiguration Monitoring
+#
+# Desc: Detect when the device could be misconfigured.
+
+# Cmd to set flag that monitors shutdown.
+# This PV should be proc only by sncDCCT
+record(longout, "$(P)$(R)SetHasShutDown"){
+  field(DESC, "cmd to set flag that monitors shutdown")
+  field(DTYP, "stream")
+  field(OUT, "@dcct.proto set_hasshutdown $(PORT)")
+}
+
+# read the shutdown monitor flag.
+# detects if device shut down and then was
+# turned on again.
+record(longin, "$(P)$(R)GetHasShutDown"){
+  field(DESC, "check if device has shut down before")
+  field(MDEL, "-1")
+  field(DTYP, "stream")
+  field(INP, "@dcct.proto get_hasshutdown $(PORT)")
+}
+
+########################################################################
 # Multimeter Setup
 #
 # Desc: General instrument initialization.

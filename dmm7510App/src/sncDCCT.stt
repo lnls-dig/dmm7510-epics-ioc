@@ -230,6 +230,18 @@ monitor reconnection_cnt;
 evflag reconnection_cnt_flg;
 sync reconnection_cnt reconnection_cnt_flg;
 
+int rst_shutdown_monitor;
+assign rst_shutdown_monitor to "{P}{R}SetHasShutDown";
+
+int get_shutdown_monitor;
+assign get_shutdown_monitor to "{P}{R}GetHasShutDown";
+monitor get_shutdown_monitor;
+evflag get_shutdown_monitor_flg;
+sync get_shutdown_monitor get_shutdown_monitor_flg;
+
+int get_shutdown_monitor_proc;
+assign get_shutdown_monitor_proc to "{P}{R}GetHasShutDown.PROC";
+
 %%//----------------------------------------
 %%//        Escaped C Code
 %%//----------------------------------------
@@ -312,6 +324,9 @@ ss dcct_acquisition {
         when (efTestAndClear(download_phase_done_mon_flg)
               && download_phase_done_mon == 1){
             printf("[sncDCCT] Download finished\n");
+            // reset shutdown monitor flag in device
+            rst_shutdown_monitor = 1;
+            pvPut(rst_shutdown_monitor, SYNC);
             // put download PV low
             download_cmd = 0;
             pvPut(download_cmd, SYNC);
@@ -547,7 +562,7 @@ ss dcct_acquisition {
         when (delay(CONFIG_TIMEOUT)){
             /* if configuration fails */
             printf("[sncDCCT] Acquisition start failed: cannot clear buffer 1\n");
-        } state failure_recovery
+        } state failure_recovery_init
     }
 
     state prefill_buffer_1{
@@ -567,7 +582,7 @@ ss dcct_acquisition {
         when (delay(CONFIG_TIMEOUT)){
             /* if configuration fails */
             printf("[sncDCCT] Acquisition start failed: cannot clear buffer 2\n");
-        } state failure_recovery
+        } state failure_recovery_init
     }
 
     state prefill_buffer_2{
@@ -593,7 +608,7 @@ ss dcct_acquisition {
         when (delay(CONFIG_TIMEOUT)){
             /* if configuration fails */
             printf("[sncDCCT] Acquisition start failed: cannot prefill buffer 1\n");
-        } state failure_recovery
+        } state failure_recovery_init
     }
 
     state buffers_ready {
@@ -633,7 +648,7 @@ ss dcct_acquisition {
         when (delay(CONFIG_TIMEOUT)){
             /* if configuration fails */
             printf("[sncDCCT] Acquisition start failed: cannot prefill buffer 2\n");
-        } state failure_recovery
+        } state failure_recovery_init
     }
 
     state buff_end_idx_ok{
@@ -652,7 +667,7 @@ ss dcct_acquisition {
         when (delay(CONFIG_TIMEOUT)){
             /* if configuration fails */
             printf("[sncDCCT] Acquisition start failed: cannot monitor buffer position\n");
-        } state failure_recovery
+        } state failure_recovery_init
     }
 
     state run_tm{
@@ -666,7 +681,7 @@ ss dcct_acquisition {
         when (delay(CONFIG_TIMEOUT)){
             /* if configuration fails */
             printf("[sncDCCT] Acquisition start failed: cannot monitor Trigger Model\n");
-        } state failure_recovery
+        } state failure_recovery_init
     }
 
     state start_acq{
@@ -693,7 +708,7 @@ ss dcct_acquisition {
         when (delay(CONFIG_TIMEOUT)){
             /* if configuration fails */
             printf("[sncDCCT] Acquisition start failed: Trigger Model cannot start\n");
-        } state failure_recovery
+        } state failure_recovery_init
     }
 
     state acq_cycle_step_1{
@@ -712,12 +727,14 @@ ss dcct_acquisition {
             pvPut(end_buff_1_mon_scan, SYNC);
             strcpy(end_buff_2_mon_scan, "Passive");
             pvPut(end_buff_2_mon_scan, SYNC);
-            // abort TM
-            tm_abort_cmd = 1;
-            pvPut(tm_abort_cmd, SYNC);
             // update enbl status
             enbl_sts = 0;
             pvPut(enbl_sts, SYNC);
+            // abort TM
+            tm_abort_cmd = 1;
+            pvPut(tm_abort_cmd, SYNC);
+            // sleep for 1 s
+            usleep(1000000);
         } state download_phase_1
 
         when (efTestAndClear(enbl_sel_flg)
@@ -735,12 +752,14 @@ ss dcct_acquisition {
             pvPut(end_buff_1_mon_scan, SYNC);
             strcpy(end_buff_2_mon_scan, "Passive");
             pvPut(end_buff_2_mon_scan, SYNC);
-            // abort TM
-            tm_abort_cmd = 1;
-            pvPut(tm_abort_cmd, SYNC);
             // update enbl status
             enbl_sts = 0;
             pvPut(enbl_sts, SYNC);
+            // abort TM
+            tm_abort_cmd = 1;
+            pvPut(tm_abort_cmd, SYNC);
+            // sleep for 1 s
+            usleep(1000000);
         } state wait_enbl
 
         when (delay(ACQ_TIMEOUT)){
@@ -810,12 +829,14 @@ ss dcct_acquisition {
             pvPut(end_buff_1_mon_scan, SYNC);
             strcpy(end_buff_2_mon_scan, "Passive");
             pvPut(end_buff_2_mon_scan, SYNC);
-            // abort TM
-            tm_abort_cmd = 1;
-            pvPut(tm_abort_cmd, SYNC);
             // update enbl status
             enbl_sts = 0;
             pvPut(enbl_sts, SYNC);
+            // abort TM
+            tm_abort_cmd = 1;
+            pvPut(tm_abort_cmd, SYNC);
+            // sleep for 1 s
+            usleep(1000000);
         } state download_phase_1
 
         when (efTestAndClear(enbl_sel_flg)
@@ -833,12 +854,14 @@ ss dcct_acquisition {
             pvPut(end_buff_1_mon_scan, SYNC);
             strcpy(end_buff_2_mon_scan, "Passive");
             pvPut(end_buff_2_mon_scan, SYNC);
-            // abort TM
-            tm_abort_cmd = 1;
-            pvPut(tm_abort_cmd, SYNC);
             // update enbl status
             enbl_sts = 0;
             pvPut(enbl_sts, SYNC);
+            // abort TM
+            tm_abort_cmd = 1;
+            pvPut(tm_abort_cmd, SYNC);
+            // sleep for 1 s
+            usleep(1000000);
         } state wait_enbl
 
         when (delay(ACQ_TIMEOUT)){
@@ -971,8 +994,122 @@ ss dcct_acquisition {
             // update enbl status
             enbl_sts = 0;
             pvPut(enbl_sts, SYNC);
+            // clear network monitoring flag
+            efClear(time_sec_mon_flg);
+            // start network connection monitoring
+            strcpy(time_sec_mon_scan, NETWORK_SCAN_RATE);
+            pvPut(time_sec_mon_scan, SYNC);
+        }
+
+        when(efTestAndClear(time_sec_mon_flg) && network_mon == 1){
+            printf("[sncDCCT] Failure recovery: connection established, starting recovery\n");
+            // DEBUG
+            time(&rawtime);
+            // DEBUG
+            printf("[sncDCCT] Timestamp: %s\n", asctime(localtime(&rawtime)));
+            // stop network connection monitoring
+            strcpy(time_sec_mon_scan, "Passive");
+            pvPut(time_sec_mon_scan, SYNC);
+        } state shutdown_detect
+    }
+
+    state shutdown_detect {
+        entry{
+            printf("[sncDCCT] Failure recovery: Verifying if device has shutdown\n");
+            // clear shutdown monitor flag
+            efClear(get_shutdown_monitor_flg);
+            // request update of shutdown flag value
+            get_shutdown_monitor_proc = 1;
+            pvPut(get_shutdown_monitor_proc, SYNC);
+        }
+
+        when(efTest(get_shutdown_monitor_flg) && get_shutdown_monitor == 0){
+            printf("[sncDCCT] Failure recovery: device has not shut down, restarting acquisition\n");
+            // clear shutdown monitor flag
+            efClear(get_shutdown_monitor_flg);
+            // DEBUG
+            time(&rawtime);
+            // DEBUG
+            printf("[sncDCCT] Timestamp: %s\n", asctime(localtime(&rawtime)));
+        } state find_acq_state
+
+        when(efTest(get_shutdown_monitor_flg) && get_shutdown_monitor == 1){
+            printf("[sncDCCT] Failure recovery: device has shut down, preparing download\n");
+            // clear shutdown monitor flag
+            efClear(get_shutdown_monitor_flg);
+            // DEBUG
+            time(&rawtime);
+            // DEBUG
+            printf("[sncDCCT] Timestamp: %s\n", asctime(localtime(&rawtime)));
+            // disable output trg
+            strcpy(ex_out_stim_sel, "NONE");
+            pvPut(ex_out_stim_sel, SYNC);
+            // abort TM
+            tm_abort_cmd = 1;
+            pvPut(tm_abort_cmd, SYNC);
+        } state download_phase_1
+    }
+
+    state find_acq_state {
+        entry{
+            // restart TM monitor
+            strcpy(tm_mon_scan, SCAN_RATE);
+            pvPut(tm_mon_scan, SYNC);
+            // clear TM index monitor flag
+            efClear(tm_idx_mon_flg);
+            // allow TM index monitors to
+            // be sent always (not only 
+            // on change).
+            tm_idx_mon_mdel = MDEL_ALWAYS;
+            pvPut(tm_idx_mon_mdel, SYNC);
+            // restart monitor buffers end index
+            strcpy(end_buff_1_mon_scan, SCAN_RATE);
+            pvPut(end_buff_1_mon_scan, SYNC);
+            strcpy(end_buff_2_mon_scan, SCAN_RATE);
+            pvPut(end_buff_2_mon_scan, SYNC);
+            // update enbl status
+            enbl_sts = 1;
+            pvPut(enbl_sts, SYNC);
+        }
+
+        when(efTest(tm_idx_mon_flg)
+             && (meas_trg_sts != 3) 
+             || (meas_trg_sts == 3 && tm_idx_mon > 1 && tm_idx_mon <= 3)
+            ){
+            /* go to acquisition cycle step 1 */
+            // send TM index monitors
+            // only on change
+            tm_idx_mon_mdel = MDEL_ON_CHANGE;
+            pvPut(tm_idx_mon_mdel, SYNC);
+        } state acq_cycle_step_1
+        
+        when(efTest(tm_idx_mon_flg)
+             && (meas_trg_sts == 3 && (tm_idx_mon == 1 || tm_idx_mon >= 4))
+            ){
+            /* go to acquisition cycle step 2 */
+            // send TM index monitors
+            // only on change
+            tm_idx_mon_mdel = MDEL_ON_CHANGE;
+            pvPut(tm_idx_mon_mdel, SYNC);
+        } state acq_cycle_step_2
+    }
+
+    state failure_recovery_init {
+        entry{
+            printf("[sncDCCT] Failure recovery: waiting for connection to start recovery\n");
+            // stop TM monitor
+            strcpy(tm_mon_scan, "Passive");
+            pvPut(tm_mon_scan, SYNC);
+            // stop monitor buffers end index
+            strcpy(end_buff_1_mon_scan, "Passive");
+            pvPut(end_buff_1_mon_scan, SYNC);
+            strcpy(end_buff_2_mon_scan, "Passive");
+            pvPut(end_buff_2_mon_scan, SYNC);
+            // update enbl status
+            enbl_sts = 0;
+            pvPut(enbl_sts, SYNC);
             // stop buffer fill monitor
-            // in case failure was at initialization
+            // since failure was at initialization
             strcpy(cnt_buff_1_mon_scan, "Passive");
             pvPut(cnt_buff_1_mon_scan, SYNC);
             strcpy(cnt_buff_2_mon_scan, "Passive");

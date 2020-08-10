@@ -13,5 +13,13 @@ buff_and_time_get{
     Separator = ", ";
     out "printbuffer(%(\$1IdxBuff\$2-Mon)i, %(\$3EndBuff\$2-Mon)i, defbuffer\$2.readings)";
     in "%f";
-#    out "*TRG";
+}
+
+set_hasshutdown{
+    out "hasShutDown = 0";
+}
+
+get_hasshutdown{
+    out "print('hasShutDown=' .. tostring(hasShutDown))";
+    in "%{hasShutDown=0|hasShutDown=}";
 }
