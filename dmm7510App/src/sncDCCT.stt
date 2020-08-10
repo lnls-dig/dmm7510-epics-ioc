@@ -13,6 +13,9 @@ int saved_meas_mode;
 %%// 	      Monitored PVs
 %%//----------------------------------------
 
+string error_list[3];
+assign error_list to "{P}{R}ReliableMeasLabels-Cte";
+
 int reset_cmd;
 assign reset_cmd to "{Instrument}Reset-Cmd";
 
@@ -256,6 +259,12 @@ assign get_shutdown_monitor_proc to "{P}{R}GetHasShutDown.PROC";
 %%#define MDEL_ON_CHANGE 0
 %%#define TIMEOUT_CONN_NOT_TRIG 0.5
 %%#define CONFIG_TIMEOUT 15.0
+%%#define TEMP_ERROR "Temperature difference warning"
+%%#define NETWORK_ERROR "Network disconnection"
+%%#define ENBL_WARNING "Acquisition disabled"
+
+// DEBUG
+%%time_t rawtime;
 
 %%//----------------------------------------
 %%//        State Notation Language
@@ -265,6 +274,12 @@ ss dcct_acquisition {
     state init {
 	when (delay(5.0)) {
             printf("[sncDCCT] Initialization start\n");
+	    printf("[sncDCCT] Initializing ReliableMeasLabels-Cte\n");
+            strcpy(error_list[0], ENBL_WARNING);
+            strcpy(error_list[1], NETWORK_ERROR);
+            strcpy(error_list[2], TEMP_ERROR);
+            pvPut(error_list, SYNC);
+	    printf("[sncDCCT]: Initialization of ReliableMeasLabels-Cte finished\n");
 	} state download_phase_1
     }
 
@@ -422,7 +437,7 @@ ss dcct_acquisition {
             // stop communication from DMM side
             strcpy(time_sec_mon_scan, "Passive");
             pvPut(time_sec_mon_scan, SYNC);
-            // update enbl status: 'PREPARING'
+            // update enbl status: 'Preparing'
             enbl_sts = 2;
             pvPut(enbl_sts, SYNC);
         } state resize_buffers
