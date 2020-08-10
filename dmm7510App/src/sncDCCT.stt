@@ -224,6 +224,12 @@ assign size_buff_1_sp to "{Instrument}SizeBuff1-SP";
 int size_buff_2_sp;
 assign size_buff_2_sp to "{Instrument}SizeBuff2-SP";
 
+int reconnection_cnt;
+assign reconnection_cnt to "{P}{R}ReconnectionCnt";
+monitor reconnection_cnt;
+evflag reconnection_cnt_flg;
+sync reconnection_cnt reconnection_cnt_flg;
+
 %%//----------------------------------------
 %%//        Escaped C Code
 %%//----------------------------------------
@@ -253,6 +259,9 @@ ss dcct_acquisition {
     state download_phase_1 {
         entry {
             printf("[sncDCCT] Download phase 1\n");
+            // update download done status
+            download_done_mon = 0;
+            pvPut(download_done_mon, SYNC);
             // abort a Trigger Model if
             // there is one running
             tm_abort_cmd = 1;
@@ -322,12 +331,21 @@ ss dcct_acquisition {
             // to make sure connection state is up-to-date
             // inside transition checks
             efClear(time_sec_mon_flg);
+            // clear reconnection flag. If it updates
+            // there was a reconnection
+            efClear(reconnection_cnt_flg);
         }
 
         when (efTestAndClear(download_cmd_flg)
               && download_cmd == 1){
             /* Download requested */
             printf("[sncDCCT] Received request for download\n");
+        } state download_phase_1
+
+        when (efTestAndClear(reconnection_cnt_flg)){
+            /* Reconnection detected.
+               Do download in case DMM is misconfigured */
+            printf("[sncDCCT] Reconnection detected while waiting for enable command. An automatic download will start.\n");
         } state download_phase_1
 
         when (enbl_sel == 1 && efTestAndClear(time_sec_mon_flg)
