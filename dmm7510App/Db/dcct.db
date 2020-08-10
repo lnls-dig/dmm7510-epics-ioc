@@ -1890,16 +1890,23 @@ record(bi, "$(P)$(R)DownloadPhaseDone-Mon"){
   field(VAL, "1")
 }
 
-# Auto download after reconnection
-record(calcout, "$(P)$(R)AutoDownload"){
-  field(DESC, "Auto download after reconnection")
+# Detect when a reconnection happens
+record(calcout, "$(P)$(R)DetectReconnection"){
+  field(DESC, "Detect reconnection with device")
   field(INPA, "$(Instrument)Network-Mon CPP")
   field(CALC, "A")
   field(OOPT, "Transition To Non-zero")
   field(OCAL, "1")
   field(DOPT, "Use OCAL")
-  field(ODLY, "6") # give some time to the multimeter after connection
-  field(OUT, "$(P)$(R)Download-Cmd PP")
+  field(ODLY, "3") # give some time to the multimeter after connection
+  field(OUT, "$(P)$(R)ReconnectionCnt.PROC PP")
+}
+
+# Flag increments at each device reconnection
+record(calc, "$(P)$(R)ReconnectionCnt"){
+  field(DESC, "Flag increments for each reconnection")
+  field(CALC, "VAL + 1")
+  field(VAL, "0")
 }
 
 # Download command
