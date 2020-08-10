@@ -1867,7 +1867,8 @@ record(waveform, "$(P)$(R)ReliableMeasLabels-Cte"){
 # ----------------------------------------------------------
 
 # This record is set by sncDCCT program
-# when all download phases are finished
+# when all download phases are finished.
+# Or set to 0 when download starts
 record(bi, "$(P)$(R)DownloadDone-Mon"){
   field(DESC, "Download status")
   field(ZNAM, "In Progress")
@@ -1925,8 +1926,6 @@ record(sseq, "$(P)$(R)PreDownloadSeq"){
   field(ASG, "Reserved")
   field(DESC, "Pre download sequence")
   field(SELM, "All")
-  field(DO1, "0")
-  field(LNK1, "$(P)$(R)DownloadDone-Mon PP") # download status
   field(DO2, "0")
   field(LNK2, "$(P)$(R)DownloadDoneFlag PP") # download internal sts
   field(DO3, "0")
