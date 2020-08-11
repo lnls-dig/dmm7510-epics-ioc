@@ -325,7 +325,7 @@ record(scalcout, "$(P)$(R)FastConfCheck2"){
   field(INBB, "$(P)$(R)MeasTrg-Sel")
   field(INCC, "$(P)$(R)LowLimEnbl-Sts")
   field(INDD, "$(Instrument)ExOutStim-Sts")
-  field(INEE, "$(Instrument)MATrEdgeSlp-Sts")
+  field(INEE, "$(Instrument)DATrEdgeSlp-Sts")
   field(INPF, "$(P)$(R)FastConfCheck1.VAL")
   field(CALC, "F=0&&(BB=='InLevel'&&CC=='OFF'&&DD=='NONE'&&EE=='Rising')?2:F")
   field(FLNK, "$(P)$(R)FastConfCheck3")
