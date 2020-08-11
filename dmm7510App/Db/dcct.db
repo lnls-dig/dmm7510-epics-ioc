@@ -810,7 +810,7 @@ record(seq, "$(P)$(R)ClearHstrSeq"){
 # Sample count (works along Meas Period)
 record(longout, "$(P)$(R)SampleCnt-SP"){
   field(DESC, "Normal mode sample count")
-  field(DRVH, "5000")
+  field(DRVH, "$(MAX_NUM_READINGS)")
   field(DRVL, "1")
   field(VAL, "1")
   field(FLNK, "$(P)$(R)CorrectSampleCnt1")
@@ -1025,7 +1025,7 @@ record(seq, "$(P)$(R)RelAcqSeq"){
 # Fast Sample count (works along Fast Meas Period)
 record(longout, "$(P)$(R)FastSampleCnt-SP"){
   field(DESC, "Fast mode sample count")
-  field(DRVH, "5000")
+  field(DRVH, "$(MAX_NUM_READINGS)")
   field(DRVL, "1")
   field(VAL, "1")
   field(FLNK, "$(P)$(R)CorrectFastSampleCnt1")
