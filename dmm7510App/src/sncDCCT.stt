@@ -263,9 +263,6 @@ assign get_shutdown_monitor_proc to "{P}{R}GetHasShutDown.PROC";
 %%#define NETWORK_ERROR "Network disconnection"
 %%#define ENBL_WARNING "Acquisition disabled"
 
-// DEBUG
-%%time_t rawtime;
-
 %%//----------------------------------------
 %%//        State Notation Language
 %%//----------------------------------------
@@ -785,15 +782,11 @@ ss dcct_acquisition {
         when (tm_idx_mon == 4 && meas_trg_sts != 3
                && end_buff_1_mon != prev_buff_1_end_idx
                && end_buff_1_mon % var_sample_cnt == 0){
-            // DEBUG
-            printf("[sncDCCT] Before update: curr_end_buff1=%d, prev_buff1=%d\n",end_buff_1_mon,prev_buff_1_end_idx);
             // update previous buffer end index
             prev_buff_1_end_idx = end_buff_1_mon;
             // update initial buffer position (for new values)
             idx_buff_1_mon = end_buff_1_mon - var_sample_cnt + 1;
             pvPut(idx_buff_1_mon, SYNC);
-            // DEBUG
-            printf("[sncDCCT] After update: curr_end_buff1=%d, prev_buff1=%d\n",end_buff_1_mon,prev_buff_1_end_idx);
             /* buffer 1 full:
                send soft trg and
                fetch reading */
@@ -801,21 +794,16 @@ ss dcct_acquisition {
             pvPut(soft_trg_cmd, SYNC);
             raw_buff_1_mon_proc = 1;
             pvPut(raw_buff_1_mon_proc, SYNC);
-            // DEBUG
-            printf("[sncDCCT] *TRG sent. TMIdx = 4/ Buff1 read /Trg Mode \n");
         } state acq_cycle_step_2
 
         when (tm_idx_mon == 3 && meas_trg_sts == 3
                && end_buff_1_mon != prev_buff_1_end_idx
                && end_buff_1_mon % var_sample_cnt == 0){
-            // DEBUG
-            printf("[sncDCCT] Before update: curr_end_buff1=%d, prev_buff1=%d\n",end_buff_1_mon,prev_buff_1_end_idx);
             // update previous buffer end index
             prev_buff_1_end_idx = end_buff_1_mon;
             // update initial buffer position (for new values)
             idx_buff_1_mon = end_buff_1_mon - var_sample_cnt + 1;
             pvPut(idx_buff_1_mon, SYNC);
-            printf("[sncDCCT] After update: curr_end_buff1=%d, prev_buff1=%d\n",end_buff_1_mon,prev_buff_1_end_idx);
             /* soft mode - buffer 1 full:
                send soft trg and
                fetch reading */
@@ -823,8 +811,6 @@ ss dcct_acquisition {
             pvPut(soft_trg_cmd, SYNC);
             raw_buff_1_mon_proc = 1;
             pvPut(raw_buff_1_mon_proc, SYNC);
-            // DEBUG
-            printf("[sncDCCT] *TRG sent. TMIdx = 3/ Buff1 read /Soft Mode \n");
         } state acq_cycle_step_2
     }
 
@@ -887,14 +873,11 @@ ss dcct_acquisition {
         when (tm_idx_mon == 4 && meas_trg_sts != 3
                && end_buff_1_mon != prev_buff_1_end_idx
                && end_buff_1_mon % var_sample_cnt == 0){
-            // DEBUG
-            printf("[sncDCCT] Before update: curr_end_buff2=%d, prev_buff2=%d\n",end_buff_2_mon,prev_buff_2_end_idx);
             // update previous buffer end index
             prev_buff_1_end_idx = end_buff_1_mon;
             // update initial buffer position (for new values)
             idx_buff_1_mon = end_buff_1_mon - var_sample_cnt + 1;
             pvPut(idx_buff_1_mon, SYNC);
-            printf("[sncDCCT] After update: curr_end_buff2=%d, prev_buff2=%d\n",end_buff_2_mon,prev_buff_2_end_idx);
             /* buffer 2 full:
                send soft trg and
                fetch reading */
@@ -902,21 +885,16 @@ ss dcct_acquisition {
             pvPut(soft_trg_cmd, SYNC);
             raw_buff_1_mon_proc = 1;
             pvPut(raw_buff_1_mon_proc, SYNC);
-            // DEBUG
-            printf("[sncDCCT] *TRG sent. TMIdx = 1/ Buff2 read /Trg Mode \n");
         } state acq_cycle_step_1
 
         when (tm_idx_mon == 1 && meas_trg_sts == 3
                && end_buff_2_mon != prev_buff_2_end_idx
                && end_buff_2_mon % var_sample_cnt == 0){
-            // DEBUG
-            printf("[sncDCCT] Before update: curr_end_buff2=%d, prev_buff2=%d\n",end_buff_2_mon,prev_buff_2_end_idx);
             // update previous buffer end index
             prev_buff_2_end_idx = end_buff_2_mon;
             // update initial buffer position (for new values)
             idx_buff_2_mon = end_buff_2_mon - var_sample_cnt + 1;
             pvPut(idx_buff_2_mon, SYNC);
-            printf("[sncDCCT] After update: curr_end_buff2=%d, prev_buff2=%d\n",end_buff_2_mon,prev_buff_2_end_idx);
             /* soft mode - buffer 2 full:
                send soft trg and
                fetch reading */
@@ -924,8 +902,6 @@ ss dcct_acquisition {
             pvPut(soft_trg_cmd, SYNC);
             raw_buff_2_mon_proc = 1;
             pvPut(raw_buff_2_mon_proc, SYNC);
-            // DEBUG
-            printf("[sncDCCT] *TRG sent. TMIdx = 1/ Buff2 read /Soft Mode \n");
         } state acq_cycle_step_1
     }
 
@@ -1018,10 +994,6 @@ ss dcct_acquisition {
 
         when(efTestAndClear(time_sec_mon_flg) && network_mon == 1){
             printf("[sncDCCT] Failure recovery: connection established, starting recovery\n");
-            // DEBUG
-            time(&rawtime);
-            // DEBUG
-            printf("[sncDCCT] Timestamp: %s\n", asctime(localtime(&rawtime)));
             // stop network connection monitoring
             strcpy(time_sec_mon_scan, "Passive");
             pvPut(time_sec_mon_scan, SYNC);
@@ -1042,20 +1014,12 @@ ss dcct_acquisition {
             printf("[sncDCCT] Failure recovery: device has not shut down, restarting acquisition\n");
             // clear shutdown monitor flag
             efClear(get_shutdown_monitor_flg);
-            // DEBUG
-            time(&rawtime);
-            // DEBUG
-            printf("[sncDCCT] Timestamp: %s\n", asctime(localtime(&rawtime)));
         } state find_acq_state
 
         when(efTest(get_shutdown_monitor_flg) && get_shutdown_monitor == 1){
             printf("[sncDCCT] Failure recovery: device has shut down, preparing download\n");
             // clear shutdown monitor flag
             efClear(get_shutdown_monitor_flg);
-            // DEBUG
-            time(&rawtime);
-            // DEBUG
-            printf("[sncDCCT] Timestamp: %s\n", asctime(localtime(&rawtime)));
             // disable output trg
             strcpy(ex_out_stim_sel, "NONE");
             pvPut(ex_out_stim_sel, SYNC);
