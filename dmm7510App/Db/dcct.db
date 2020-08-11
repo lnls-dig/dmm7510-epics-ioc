@@ -1812,28 +1812,6 @@ record(bi, "$(P)$(R)HFReject-Sts"){
 }
 
 ########################################################################
-# Save
-#
-# Desc: Save 'Sel' and 'SP' PV values.
-
-record(bo, "$(P)$(R)Save-Cmd"){
-  field(DESC, "Save PVs values cmd")
-  field(ZNAM, "OFF")
-  field(ONAM, "ON")
-  field(HIGH, "0.5")
-  field(FLNK, "$(P)$(R)SaveTrg")
-}
-
-# This PV is monitored by autosave
-record(calc, "$(P)$(R)SaveTrg"){
-  field(ASG, "Reserved")
-  field(DESC, "Save PVs values trigger")
-  field(INPA, "$(P)$(R)Save-Cmd.VAL")
-  field(CALC, "A=1?!VAL:VAL")
-  field(VAL, "0")
-}
-
-########################################################################
 # Measurement Reliability
 #
 # Desc: Combine critical parameters in one status.
