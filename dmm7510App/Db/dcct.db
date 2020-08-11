@@ -155,16 +155,7 @@ record(calcout, "$(P)$(R)MeasTrgCalc"){
   field(INPA, "$(P)$(R)MeasTrg-Sel.VAL")
   field(INPB, "$(P)$(R)MeasMode-Sts")
   field(CALC, "B=1?A:(B=2?(A+2):0)")
-  field(OUT, "$(P)$(R)MeasTrgSetUnknown.PROC PP")
-}
-
-record(sseq, "$(P)$(R)MeasTrgSetUnknown"){
-  field(ASG, "Reserved")
-  field(DESC, "Set meas trg temporarily to unknown")
-  field(SELM, "All")
-  field(STR1, "Unknown")
-  field(LNK1, "$(P)$(R)MeasTrg-Sts")                # Set meas trigger status to 'Unknown'
-  field(FLNK, "$(P)$(R)MeasTrgFout.PROC PP")
+  field(OUT, "$(P)$(R)MeasTrgFout.PROC PP")
 }
 
 # Fanout selects config branch to be executed
