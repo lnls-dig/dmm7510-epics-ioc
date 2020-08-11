@@ -78,11 +78,11 @@ include $(TOP)/configure/RULES
 
 dmm7510_DBD += drvAsynIPPort.dbd
 dmm7510_DBD += drvVxi11.dbd
-dmm7510_DBD += stream.dbd
 dmm7510_DBD += calcSupport.dbd
+dmm7510_DBD += stream.dbd
 dmm7510_DBD += asSupport.dbd
 
 dmm7510_LIBS += asyn
-dmm7510_LIBS += stream
 dmm7510_LIBS += calc
+dmm7510_LIBS += stream
 dmm7510_LIBS += autosave
