@@ -274,7 +274,7 @@ ss dcct_acquisition {
     state init {
 	when (delay(5.0)) {
             printf("[sncDCCT] Initialization start\n");
-	    printf("[sncDCCT] Initializing ReliableMeasLabels-Cte\n");
+	    printf("[sncDCCT]: Initializing ReliableMeasLabels-Cte\n");
             strcpy(error_list[0], ENBL_WARNING);
             strcpy(error_list[1], NETWORK_ERROR);
             strcpy(error_list[2], TEMP_ERROR);
