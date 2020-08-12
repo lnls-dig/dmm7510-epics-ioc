@@ -393,6 +393,14 @@
 	    					Timestamp history. This PV is a circular buffer holding the last 100 values of the PV \emph{Timestamp-Mon}.
 						\end{tabular} \\ \hline
 		% --- row ---
+		ClearHstr-Cmd & BOOL: Off, On & \begin{tabular}{@{}m{6cm}@{}}
+	    					Clears the \emph{CurrHstr-Mon} and \emph{TimestampHstr-Mon} PVs circular buffers. This PV can be useful when it is desirable to clean the measurement history from previous invalid measurements.
+						\end{tabular} \\ \hline
+		% --- row ---
+		MeasUpdatePeriod-Mon & FLOAT: 32-bit & \begin{tabular}{@{}m{6cm}@{}}
+	    					Measurement update period. This PV shows the difference between the timestamp of the 2 last \emph{Current-Mon} PV updates and can be used to monitor the real acquisition rate reached by the IOC. If the device cannot deliver the specified number of samples in the desired measurement window, or if some delay affects the measurements, this will be reflected in the monitored update period. The first update after acquisition is enabled is ignored, since at least two recent measurements are required to correctly calcute the update rate.
+						\end{tabular} \\ \hline
+		% --- row ---
 		StoredEBeam-Mon & BOOL: False, True & \begin{tabular}{@{}m{6cm}@{}}
 	    					Indicates if there is beam stored. If the measured current is above the threshold specified by the \emph{CurrThold-SP} PV, the value is \emph{True}, otherwise it is \emph{False}.
 						\end{tabular} \\ \hline
