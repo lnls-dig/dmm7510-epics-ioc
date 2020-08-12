@@ -315,6 +315,9 @@
 	\bigskip
 	\noindent\adjustbox{minipage=\textwidth,cfbox=red 1.0pt 2ex}{While acquisition is enabled, NO change is allowed to the DCCT settings. Any command apart from \emph{acquisition disable} and \emph{download} are ignored.}
 
+	\bigskip
+	\noindent\adjustbox{minipage=\textwidth,cfbox=teal 1.0pt 2ex}{It is recommended that, after enabling acquisition, the user checks if the measurements are updating at the intended rate. The information is provided by the \emph{MeasUpdatePeriod-Mon} PV. When measurement update rate is slower than desired, the solution may be to reduce the number of samples per measurement (\emph{SampleCnt-SP}) or the measurement period (\emph{MeasPeriod-SP}). If you are using external triggering, check if the external trigger source is correctly configured. Also, make sure that the \emph{Repeat} filter is disabled, and, when using more than 1 sample per measurement, check if the reading is not delayed by line synchronization (\emph{LineSync-Sel}).}
+
 			\begin{enumerate}
 				\item \emph{Enbl-Sel} enables/disables the DCCT acquisition and current level monitoring.
 				\item \emph{Enbl-Sts} indicates the DCCT acquisition enable status.
@@ -344,6 +347,7 @@
 			\item \emph{CurrHstr-Mon} is a circular buffer storing the last 1000 measurements from \emph{Current-Mon}.
 			\item \emph{Timestamp-Mon} stores the timestamp from \emph{Current-Mon} as a double representation of UTC in seconds and subseconds since 1 January 1970.
 			\item \emph{TimestampHstr-Mon} is a circular buffer storing the last 1000 values from \emph{Timestamp-Mon}.
+			\item \emph{ClearHstr-Cmd} clears both \emph{CurrHstr-Mon} and \emph{TimestampHstr-Mon} circular buffers, when set to 1. This command is useful when there are old or invalid values in the history that should be discarded before some high level task is executed.
 			\item \emph{ReliableMeas-Mon} indicates if the DCCT application measurements at each instant are reliable. This PV is an \emph{OR} of the \emph{temperature calibration warning}, \emph{network disconnect status} and \emph{acquisition disabled status}. If any of these conditions are true, a measurement update is not considered to be reliable.
 		\end{enumerate}
 
