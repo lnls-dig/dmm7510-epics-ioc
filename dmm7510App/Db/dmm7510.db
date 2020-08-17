@@ -3261,12 +3261,16 @@ record(calcout, "$(P)$(R)ClrBuff2Calc"){
 
 record(longin, "$(P)$(R)StartBuff1-Mon"){
   field(DESC, "Defbuffer1 start index")
+  field(ADEL, "-1")
+  field(MDEL, "-1")
   field(DTYP, "stream")
   field(INP, "@dmm7510.proto trace_start_get(1) $(PORT)")
 }
 
 record(longin, "$(P)$(R)EndBuff1-Mon"){
   field(DESC, "Defbuffer1 end index")
+  field(ADEL, "-1")
+  field(MDEL, "-1")
   field(DTYP, "stream")
   field(INP, "@dmm7510.proto trace_end_get(1) $(PORT)")
 }
@@ -3317,12 +3321,16 @@ record(ai, "$(P)$(R)FetchBuff1-Mon"){
 
 record(longin, "$(P)$(R)StartBuff2-Mon"){
   field(DESC, "Defbuffer2 start index")
+  field(ADEL, "-1")
+  field(MDEL, "-1")
   field(DTYP, "stream")
   field(INP, "@dmm7510.proto trace_start_get(2) $(PORT)")
 }
 
 record(longin, "$(P)$(R)EndBuff2-Mon"){
   field(DESC, "Defbuffer2 end index")
+  field(ADEL, "-1")
+  field(MDEL, "-1")
   field(DTYP, "stream")
   field(INP, "@dmm7510.proto trace_end_get(2) $(PORT)")
 }
@@ -4711,6 +4719,12 @@ record(calcout, "$(P)$(R)TMClearCalc"){
   field(OUT, "@dmm7510.proto tm_clear_set $(PORT)")
 }
 
+# set by TM-Mon stream protocol
+record(longin, "$(P)$(R)TMIdx-Mon"){
+  field(DESC, "Trigger model position index")
+  field(DTYP, "Soft Channel")
+}
+
 record(mbbi, "$(P)$(R)TM-Mon"){
   field(DESC, "Trigger model state")
   field(ZRST, "Idle")
@@ -4722,7 +4736,7 @@ record(mbbi, "$(P)$(R)TM-Mon"){
   field(SXST, "Aborting")
   field(SVST, "Aborted")
   field(DTYP, "stream")
-  field(INP, "@dmm7510.proto tm_state_get $(PORT)")
+  field(INP, "@dmm7510.proto tm_state_get($(P)$(R)) $(PORT)")
 }
 
 ########################################################################
@@ -6255,6 +6269,26 @@ record(fanout, "$(P)$(R)DATrFout2"){
   field(LNK3, "$(P)$(R)DATrWindDir-Sts")
   field(LNK4, "$(P)$(R)DATrWindHigh-RB")
   field(LNK5, "$(P)$(R)DATrWindLow-RB")
+}
+
+########################################################################
+# Debug commands
+# Desc: Commands useful for debugging procedures.
+
+record(bo, "$(P)$(R)SoftTrg-Cmd"){
+  field(DESC, "Send a *TRG to instrument")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(FLNK, "$(P)$(R)SoftTrgCalc")
+}
+
+record(calcout, "$(P)$(R)SoftTrgCalc"){
+  field(DESC, "Calc for soft trigger cmd")
+  field(INPA, "$(P)$(R)SoftTrg-Cmd")
+  field(CALC, "A")
+  field(OOPT, "When Non-zero")
+  field(DTYP, "stream")
+  field(OUT, "@dmm7510.proto soft_trg_set $(PORT)")
 }
 
 ########################################################################
