@@ -56,8 +56,8 @@
 \topskip0pt % perfectly centered
 \vspace*{\fill}
 \textbf{\Huge DCCT EPICS Application User Guide}\\[20pt]
-\textbf{\Huge Version 1.0}\\[20pt]
-\textbf{\Huge June/2017}
+\textbf{\Huge Version 2.0}\\[20pt]
+\textbf{\Huge August/2020}
 \vspace*{\fill}
 
 % footer of title page
@@ -114,13 +114,13 @@
 
 	\subsection{Storage Ring} 
 
-		\paragraph{} Storage Ring beam current is measured periodically in fixed time steps. The measurement trigger can be provided by software, or by an external trigger pulse. When software triggering is selected, the DCCT application issues measurement commands at a "as fast as possible" rate, which is constrained by the multimeter to a rate close to 30 Hz. When external triggering is selected, the multimeter starts a measurement once an external trigger is received, which is provided by the Timing System. The most recent measurement is retrieved by the IOC at a rate of 100 Hz.
+		\paragraph{} Storage Ring beam current is measured periodically in fixed time steps. The measurement trigger can be provided by software or by an external trigger pulse. When software triggering is selected, the DCCT application issues measurement commands at a "as fast as possible" rate, which is constrained by the measurement duration. Therefore, the software triggering rate is defined by the measurement period plus some latency, up to 50 Hz. When external triggering is selected, the multimeter starts a measurement once an external trigger is received from the Timing System. The IOC monitoring rate and data transfer latency limit the effective measurement rate, which cannot be as fast with external triggering as with software triggering.
 
-		\paragraph{} Another important task of the Storage Ring DCCT system is to inform the Timing System whenever the beam current falls below a minimum threshold. If configured to do so, the multimeter constantly monitors the DCCT output, comparing it to the specified threshold. When the current level falls below the threshold, the multimeter outputs a trigger pulse to the STD-EVE timing module in less than \SI{2}{\micro\second}.
+		\paragraph{} Another important task of the Storage Ring DCCT system is to inform the Timing System whenever the beam current falls below a minimum threshold. If configured to do so, the multimeter constantly monitors the DCCT output while acquisition is enabled, comparing it to the specified threshold. When the current level falls below the threshold, the multimeter outputs a trigger pulse to a STD-EVE timing module in less than \SI{2}{\micro\second}.
 
 	\subsection{Booster} 
 
-		\paragraph{} The Booster beam current measurements must be correlated to each separate Booster ramp cycle, requiring a triggering mechanism. The measurement trigger in this application can be provided by an external trigger pulse, or by the beam current level itself. When in external trigger mode, the multimeter measurements are triggered by the STD-EVE module at each Booster ramp cycle. When triggered by current level, a measurement starts when the input signal becomes greater than the specified threshold. For both triggering modes, there is an user-configurable delay that can be used for better positioning the measurement start in the ramp cycle.
+		\paragraph{} The Booster beam current measurements must be correlated to each separate Booster ramp cycle, requiring a triggering mechanism. The measurement trigger in this application can be provided by an external trigger pulse or by the beam current level itself. When in external trigger mode, the multimeter measurements are triggered by the STD-EVE module at each Booster ramp cycle. When triggered by current level, a measurement starts when the input signal becomes greater than the specified threshold.
 
 %--- Section: DCCT Software Configuration Steps ---
 \section{DCCT Software Configuration}
@@ -129,18 +129,18 @@
 
 	\bigskip
 	\noindent\adjustbox{minipage=\textwidth,cfbox=red 1.0pt 2ex}{
-		It is necessary to \hyperref[disable-triggering]{disable measurement triggering} before making any changes to the application settings. All of the set point and selection PVs are disabled while the trigger mode is different from \emph{None} or \emph{Unknown}. This avoids incorrect measurements, false post-mortem signal generation, temporary communication loss with the multimeter, or even the need to restart the multimeter (powering it off and on again).
+		It is necessary to \hyperref[acquisition-start]{disable acquisition} before making any changes to the application settings. All of the set point and selection PVs are disabled while the enble status is \emph{ON}. This avoids incorrect measurements, false post-mortem signal generation, temporary communication loss with the multimeter, or even the need to power cycle the multimeter.
 	}
 
 	\bigskip
-	\noindent\adjustbox{minipage=\textwidth,cfbox=red 1.0pt 2ex}{A new \hyperref[relative-offset]{voltage relative offset} should be acquired every time the range configuration is modified.}
+	\noindent\adjustbox{minipage=\textwidth,cfbox=red 1.0pt 2ex}{A new \hyperref[relative-offset]{voltage relative offset} should be acquired every time the range configuration or measurement mode are modified.}
 
 	\bigskip
-	\noindent\adjustbox{minipage=\textwidth,cfbox=red 1.0pt 2ex}{When the application is configured for either \emph{External} or \emph{Level-based} triggering, the interval between triggers MUST be greater than the measurement period. This is necessary to guarantee that the multimeter has enough time to acquire and send the data to the IOC. Triggers issued too soon can cause the IOC to stop acquiring and/or the data to be corrupted}.
+	\noindent\adjustbox{minipage=\textwidth,cfbox=red 1.0pt 2ex}{When the application is configured for either \emph{External} or \emph{Input-Level-based} triggering, the interval between triggers should be greater than the measurement period by roughly 100 ms. This is necessary to guarantee that the multimeter has enough time to acquire and send the data to the IOC, otherwise triggers issued too soon are ignored.}
 
 	\subsection{Mesurement Mode}\label{measurement-mode}
 
-		\paragraph{Measurement mode selection}\label{measurement-mode-selection} The DMM7510 multimeter can operate in two different acquisition modes, the \emph{Measure} and \emph{Digitize} modes. In the DCCT IOC these modes are referred to as \emph{Normal} and \emph{Fast} modes, respectively. The \emph{Normal} mode provides greater resolution (7 and 1/2 digits, compared to 4 digits for \emph{Fast} mode), while the \emph{Fast} mode can provide slightly higher sample rates and greater resolution (1 more digit than \emph{Normal} mode) for high sample rates (1 KHz to 1 MHz).
+		\paragraph{Measurement mode selection}\label{measurement-mode-selection} The DMM7510 multimeter can operate in two different acquisition modes, the \emph{Measure} and \emph{Digitize} modes. In the DCCT IOC these modes are referred to as \emph{Normal} and \emph{Fast} modes, respectively. The \emph{Normal} mode provides greater resolution (7 and 1/2 digits, compared to 4 digits for \emph{Fast} mode), while the \emph{Fast} mode can provide slightly higher sample rates and greater resolution (1 more digit than \emph{Normal} mode) for high sample rates (1 Ksamples/s to 1 Msamples/s).
 
 	\bigskip
 	\noindent\adjustbox{minipage=\textwidth,cfbox=teal 1.0pt 2ex}{The PVs in the \hyperref[measurement-settings]{Measurement Settings} section are divided in two groups, depending on the type of measurement they are associated with: PVs for the \emph{Normal Mode}, and PVs for the \emph{Fast Mode}.}
@@ -166,16 +166,14 @@
 				\item Wait until \emph{MeasTrg-Sts} has changed to \emph{Software}.
 			\end{enumerate}
 
-		\paragraph{External triggering} In the external triggering mode, the DMM7510 multimeter starts measurements in response to external trigger reception, while software periodic reads retrieve the newest measurement value available.
+		\paragraph{External triggering} In the external triggering mode, the DMM7510 multimeter starts measurements in response to external trigger reception, while software periodically monitors the device to retrieve the newest measurement available.
 
 			\begin{enumerate}
-				\item Set \emph{TrgDelay-SP} to the desired delay between trigger and measurement start.
-				\item Verify if \emph{TrgDelay-RB} value is correct.
 				\item Set \emph{MeasTrg-Sel} PV to \emph{External}.
 				\item Wait until \emph{MeasTrg-Sts} has changed to \emph{External}.
 			\end{enumerate}
 
-		\paragraph{Current level based triggering} In level based triggering mode, the DMM7510 multimeter starts measurements in response to any beam current rising edge that goes above the specified threshold.
+		\paragraph{Input level based triggering} In level based triggering mode, the DMM7510 multimeter starts measurements in response to any beam current rising edge that goes above the specified threshold.
 
 			\begin{enumerate}
 				\item Set \emph{Range-Sel} to the desired DCCT sensor range.
@@ -190,7 +188,7 @@
 
 	\subsection{DCCT Range selection}
 
-		\paragraph{} The selected DCCT sensor range should never be smaller than the current passing through the sensor. Currents exceeding the full scale range may saturate the sensor magnetic cores.
+		\paragraph{} The selected DCCT sensor range should never be smaller than the current passing through the sensor. Currents exceeding the full scale range may saturate the sensor magnetic cores. In order to desaturate it, power cycle the NPCT electronics.
 
 			\begin{enumerate}
 				\item Set \emph{Range-Sel} to the desired DCCT sensor range.
@@ -199,7 +197,7 @@
 
 	\subsection{Low beam current detection}
 
-		\paragraph{} Low beam current detection is used for post-mortem signal generation. \emph{This feature cannot be used along with current level based measurement triggering}.
+		\paragraph{} Low beam current detection is used for post-mortem signal generation. \emph{This feature cannot be used along with input-level-based measurement triggering}.
 
 			\begin{enumerate}
 				\item Set \emph{Range-Sel} to the desired DCCT sensor range.
@@ -216,18 +214,18 @@
 
 		% Measurement characteristcs figure 1
 		\begin{figure}[!h]
-			\caption{Measurement with NPLC=2, LineSync=ON}
+			\caption{Measurement with SampleCnt=3, MeasPeriod=0.6, LineSync=ON}
 			\label{fig:meas-param1}
 			\centering
-			\includegraphics[width=1.0\textwidth]{dcct-meas-param1-image}
+			\includegraphics[width=1.0\textwidth]{dcct-meas-param1}
 		\end{figure}
 
 		% Measurement characteristcs figure 2
 		\begin{figure}[!h]
-			\caption{Measurement with NPLC=2, AvgFilterEnbl=ON, AvgFilterCnt=3}
+			\caption{Measurement with SampleCnt=3, MeasPeriod=0.6, AvgFilterEnbl=ON, AvgFilterCnt=5}
 			\label{fig:meas-param2}
 			\centering
-			\includegraphics[width=1.0\textwidth]{dcct-meas-param2-image}
+			\includegraphics[width=1.0\textwidth]{dcct-meas-param2}
 		\end{figure}
 \FloatBarrier
 
@@ -265,9 +263,9 @@
 			\noindent\adjustbox{cfbox=darkgray 1.0pt 1ex}{Normal Mode PVs}
 
 			\begin{enumerate}
-				\item \emph{AvgFilterCnt-SP} sets the number of measurements that are used to produce a reading.
-				\item \emph{AvgFilterCnt-RB} indicates the configured number of measurements used to produce reading.
-				\item \emph{AvgFilterTyp-Sel} sets the average filter algorithm used.
+				\item \emph{AvgFilterCnt-SP} sets the number of measurements that are used to produce a reading. The change in acquisition time caused by this setting is not accounted for by the \emph{MeasPeriod-RB} PV value.
+				\item \emph{AvgFilterCnt-RB} indicates the configured number of measurements used to produce a reading.
+				\item \emph{AvgFilterTyp-Sel} sets the average filter algorithm used. The \emph{Repeat} algorithm affects the acquisition time, while the \emph{Moving average} algorithm does not.
 				\item \emph{AvgFilterTyp-Sts} indicates the configured average filter algorithm.
 				\item \emph{AvgFilterWind-SP} sets the average filter window. When a filter sample value exceeds the window threshold, the filter stack is filled immediately with that sample value.
 				\item \emph{AvgFilterWind-RB} indicates the filter configured window.
@@ -300,6 +298,31 @@
 				\item \emph{FastRelAcq-Cmd} sets the relative offset level equal to the multimeter input voltage level.
 			\end{enumerate}
 
+	\subsection{Stored Beam Status Configuration}
+
+		\paragraph{} The IOC provides a PV which indicates when there is stored beam. This is done by comparing the current measurement with an user-configurable threshold.
+
+		\begin{enumerate}
+			\item Set \emph{CurrThold-SP} to the desired current level threshold, if not already configured.
+			\item Verify if \emph{CurrThold-RB} is configured accordingly.
+			\item \emph{StoredEBeam-Mon} indicates if the current is above the configured threshold, meaning that there is stored beam.
+		\end{enumerate}
+
+	\subsection{Acquisition Start}\label{acquisition-start}
+
+		\paragraph{} The acquisition needs to be enabled for the instrument to start monitoring current. The acquisition can only start when valid configuration options have been selected.
+
+	\bigskip
+	\noindent\adjustbox{minipage=\textwidth,cfbox=red 1.0pt 2ex}{While acquisition is enabled, NO change is allowed to the DCCT settings. Any command apart from \emph{acquisition disable} and \emph{download} are ignored.}
+
+	\bigskip
+	\noindent\adjustbox{minipage=\textwidth,cfbox=teal 1.0pt 2ex}{It is recommended that, after enabling acquisition, the user checks if the measurements are updating at the intended rate. The information is provided by the \emph{MeasUpdatePeriod-Mon} PV. When measurement update rate is slower than desired, the solution may be to reduce the number of samples per measurement (\emph{SampleCnt-SP}) or the measurement period (\emph{MeasPeriod-SP}). If you are using external triggering, check if the external trigger source is correctly configured. Also, make sure that the \emph{Repeat} filter is disabled, and, when using more than 1 sample per measurement, check if the reading is not delayed by line synchronization (\emph{LineSync-Sel}).}
+
+			\begin{enumerate}
+				\item \emph{Enbl-Sel} enables/disables the DCCT acquisition and current level monitoring.
+				\item \emph{Enbl-Sts} indicates the DCCT acquisition enable status.
+			\end{enumerate}
+
 	\subsection{DCCT calibration}
 
 		\paragraph{} The DCCT has a test function which injects a +100mA test signal in the sensor head when enabled.
@@ -311,11 +334,7 @@
 
 	\subsection{Save function}
 
-		\paragraph{} The save function stores the current PV configurations and restore them when the IOC is restarted.
-
-			\begin{enumerate}
-				\item Set \emph{Save-Cmd} to \emph{ON} to cause the \emph{-SP} and \emph{-Sel} PVs' values to be saved. During IOC startup, the saved PV values are restored, recovering the previous configuration.
-			\end{enumerate}
+		\paragraph{} The EPICS autosave module periodically saves the current PV values and restore them when the IOC is restarted.
 
 %--- Section: Reading Measurements from PVs ---
 \section{Reading Measurements from PVs}
@@ -326,7 +345,10 @@
 			\item \emph{RawReadings-Mon} stores the last measurement waveform acquired.
 			\item \emph{Current-Mon} stores the average of the last waveform acquired, which represents the latest measurement.
 			\item \emph{CurrHstr-Mon} is a circular buffer storing the last 1000 measurements from \emph{Current-Mon}.
-			\item \emph{StoredEBeam-Mon} indicates if there is beam, i.e., if the current is above the threshold.
+			\item \emph{Timestamp-Mon} stores the timestamp from \emph{Current-Mon} as a double representation of UTC in seconds and subseconds since 1 January 1970.
+			\item \emph{TimestampHstr-Mon} is a circular buffer storing the last 1000 values from \emph{Timestamp-Mon}.
+			\item \emph{ClearHstr-Cmd} clears both \emph{CurrHstr-Mon} and \emph{TimestampHstr-Mon} circular buffers, when set to 1. This command is useful when there are old or invalid values in the history that should be discarded before some high level task is executed.
+			\item \emph{ReliableMeas-Mon} indicates if the DCCT application measurements at each instant are reliable. This PV is an \emph{OR} of the \emph{temperature calibration warning}, \emph{network disconnect status} and \emph{acquisition disabled status}. If any of these conditions are true, a measurement update is not considered to be reliable.
 		\end{enumerate}
 
 \newpage
@@ -338,6 +360,14 @@
 		\bfseries Name & \bfseries Data Type & \bfseries Description \label{tab:PV-description} \endfirsthead
 		\caption{Application Process Variables} \\ \hline
 		\bfseries Name & \bfseries Data Type & \bfseries Description \endhead \hline
+		% --- row ---
+		Enbl-Sel & BOOL: OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
+	    					Acquisition enable. This PV starts acquisition when set to \emph{ON} (1). When the selected instrument configuration is invalid, this PV is forced back to \emph{OFF}. This PV enables not only acquisition, but also low current level detection, when it is configured. While acquisition is enabled, the only PVs that accept changes are \emph{Enbl-Sel} itself and \emph{Download-Cmd}.
+						\end{tabular} \\ \hline
+		% --- row ---
+		Enbl-Sts & ENUM: OFF, ON, PREPARING & \begin{tabular}{@{}m{6cm}@{}}
+	    					Acquisition enable status. This PV indicates the acquisition status. When \emph{PREPARING} is displayed, the IOC is configuring the instrument to start acquisition. When the enable status is \emph{ON}, acquisition has started and \emph{NO change to DCCT settings is allowed}.
+						\end{tabular} \\ \hline
 		% --- row ---
 		MeasMode-Sel & ENUM: Normal, Fast & \begin{tabular}{@{}m{6cm}@{}}
 	    					Measurement acquisition mode. This PV selects the acquisition mode used by the multimeter, which can be 'Normal' or 'Fast'. When using 'Fast' acquisition, higher sample rates (1 KHz to 1 MHz) have greater resolution when compared to the 'Normal' mode. On the other hand, 'Normal' acquisition provides the best resolution as long as the sample period is long enough. Some PVs are specific to a given measurement mode and, when this is the case, this will be indicated at the PV description.
@@ -359,12 +389,28 @@
 	    					Latest measurement raw waveform. This PV holds the last waveform fetched from the multimeter. The waveform count is defined by the \emph{SampleCnt-SP} PV for \emph{Normal} acquisition, and by the \emph{FastSampleCnt-SP} PV for \emph{Fast} acquisition.
 						\end{tabular} \\ \hline
 		% --- row ---
+		Timestamp-Mon & FLOAT: 32-bit & \begin{tabular}{@{}m{6cm}@{}}
+	    					Timestamp of latest current measurement. This PV holds the timestamp of the latest update of the \emph{Current-Mon} PV. The timestamp is a floating point representing UTC as the seconds and subseconds since 1 January 1970.
+						\end{tabular} \\ \hline
+		% --- row ---
+		TimestampHstr-Mon & FLOAT[1000] & \begin{tabular}{@{}m{6cm}@{}}
+	    					Timestamp history. This PV is a circular buffer holding the last 100 values of the PV \emph{Timestamp-Mon}.
+						\end{tabular} \\ \hline
+		% --- row ---
+		ClearHstr-Cmd & BOOL: Off, On & \begin{tabular}{@{}m{6cm}@{}}
+	    					Clears the \emph{CurrHstr-Mon} and \emph{TimestampHstr-Mon} PVs circular buffers. This PV can be useful when it is desirable to clean the measurement history from previous invalid measurements.
+						\end{tabular} \\ \hline
+		% --- row ---
+		MeasUpdatePeriod-Mon & FLOAT: 32-bit & \begin{tabular}{@{}m{6cm}@{}}
+	    					Measurement update period. This PV shows the difference between the timestamp of the 2 last \emph{Current-Mon} PV updates and can be used to monitor the real acquisition rate reached by the IOC. If the device cannot deliver the specified number of samples in the desired measurement window, or if some delay affects the measurements, this will be reflected in the monitored update period. The first update after acquisition is enabled is ignored, since at least two recent measurements are required to correctly calcute the update rate.
+						\end{tabular} \\ \hline
+		% --- row ---
 		StoredEBeam-Mon & BOOL: False, True & \begin{tabular}{@{}m{6cm}@{}}
 	    					Indicates if there is beam stored. If the measured current is above the threshold specified by the \emph{CurrThold-SP} PV, the value is \emph{True}, otherwise it is \emph{False}.
 						\end{tabular} \\ \hline
 		% --- row ---
 		ReliableMeas-Mon & LONG: Min=0, Max=7 & \begin{tabular}{@{}m{6cm}@{}}
-	    					Indicates any condition that makes readings invalid or impossible. Each bit of this PV indicates a different problem, when set: Bit 0 = "Invalid/disabled measurement trigger"; Bit 1 = "Network disconnected"; Bit 2 = "Temperature variation is too large, multimeter calibration required". An alarm is raised when any of the bits is set.
+	    					Indicates any condition that makes readings invalid or impossible. Each bit of this PV indicates a different problem, when set: Bit 0 = "Disabled acquisition"; Bit 1 = "Network disconnected"; Bit 2 = "Temperature variation is too large, multimeter calibration required". An alarm is raised when any of the bits is set.
 						\end{tabular} \\ \hline
 		% --- row ---
 		ReliableMeasLabels-Cte & STRING[3] & \begin{tabular}{@{}m{6cm}@{}}
@@ -377,14 +423,6 @@
 		% --- row ---
 		MeasTrg-Sts & ENUM: Unknown, External, InLevel, Software, None & \begin{tabular}{@{}m{6cm}@{}}
 	    					Trigger source selection status.
-						\end{tabular} \\ \hline
-		% --- row ---
-		TrgDelay-SP & FLOAT: Min=0.000008, Max=100000 & \begin{tabular}{@{}m{6cm}@{}}
-	    					Trigger delay. The trigger delay specifies, in seconds, the delay between the external or level based trigger and the measurement start.
-						\end{tabular} \\ \hline
-		% --- row ---
-		TrgDelay-RB & FLOAT: Min=0.000008, Max=100000 & \begin{tabular}{@{}m{6cm}@{}}
-	    					Trigger delay readback value.
 						\end{tabular} \\ \hline
 		% --- row ---
 		Range-Sel & ENUM: 20 A, 2 A, 200 mA, 20 mA & \begin{tabular}{@{}m{6cm}@{}}
@@ -555,12 +593,8 @@
  						DCCT test current enable status.
 						\end{tabular} \\ \hline
 		% --- row ---
-		Save-Cmd & BOOL: OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
- 						Save command. When set to \emph{ON}, this PV causes all \emph{-SP} and \emph{-Sel} PVs values to be saved. During IOC initialization, the saved PV values are restored.
-						\end{tabular} \\ \hline
-		% --- row ---
 		Download-Cmd & BOOL: OFF, ON & \begin{tabular}{@{}m{6cm}@{}}
- 						Download command. When set to \emph{ON}, this PV causes all \emph{-SP} and \emph{-Sel} PVs' values to be transferred to hardware. This PV is set automatically during IOC initialization and when the IOC recovers from a communication problem with the hardware.
+ 						Download command. When set to \emph{ON}, this PV causes the instrument to reset and all \emph{-SP} and \emph{-Sel} PVs' values to be transferred to hardware. This PV is set automatically during IOC initialization and when the IOC recovers from a communication problem with the hardware. Sending a download command during acquisition pauses it until the download is finished.
 						\end{tabular} \\ \hline
 	\end{longtable}
 

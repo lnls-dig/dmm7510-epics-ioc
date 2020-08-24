@@ -2,8 +2,6 @@
 $(P)$(R)MeasMode-Sel
 # Measurement Trigger source
 $(P)$(R)MeasTrg-Sel
-# Timer configuration
-$(P)$(R)TrgDelay-SP
 # Normal Measurement Settings
 $(P)$(R)SampleCnt-SP
 $(P)$(R)MeasPeriod-SP
@@ -33,3 +31,5 @@ $(P)$(R)Test-Sel
 $(P)$(R)LowLimEnbl-Sel
 $(P)$(R)CurrThold-SP
 $(P)$(R)HFReject-Sel
+# DCCT enable
+$(P)$(R)Enbl-Sel

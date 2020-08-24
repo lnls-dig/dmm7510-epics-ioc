@@ -50,6 +50,20 @@ ifneq ($(SNCSEQ),)
     sncDMM7510Program_SRCS += sncDMM7510Program.st
     sncDMM7510Program_LIBS += seq pv
     sncDMM7510Program_LIBS += $(EPICS_BASE_HOST_LIBS)
+    
+    # Build sncDCCT into dmm7510Support
+    sncDCCT_SNCFLAGS += +r
+    dmm7510_DBD += sncDCCT.dbd
+    dmm7510Support_SRCS += sncDCCT.stt
+    dmm7510Support_LIBS += seq pv
+    dmm7510_LIBS += seq pv
+
+    # Build sncDCCTProgram as a standalone program
+    PROD_HOST += sncDCCTProgram
+    sncDCCTProgram_SNCFLAGS += +m
+    sncDCCTProgram_SRCS += sncDCCTProgram.st
+    sncDCCTProgram_LIBS += seq pv
+    sncDCCTProgram_LIBS += $(EPICS_BASE_HOST_LIBS)
 endif
 
 # Link in the code from our support library
@@ -64,11 +78,11 @@ include $(TOP)/configure/RULES
 
 dmm7510_DBD += drvAsynIPPort.dbd
 dmm7510_DBD += drvVxi11.dbd
-dmm7510_DBD += stream.dbd
 dmm7510_DBD += calcSupport.dbd
+dmm7510_DBD += stream.dbd
 dmm7510_DBD += asSupport.dbd
 
 dmm7510_LIBS += asyn
-dmm7510_LIBS += stream
 dmm7510_LIBS += calc
+dmm7510_LIBS += stream
 dmm7510_LIBS += autosave
