@@ -369,6 +369,24 @@ record(mbbi, "$(P)$(R)MeasTrg-Sts"){
 #
 # Desc: Start measurement according to settings.
 
+# Abort command (only set Enbl-Sel to 0)
+record(bo, "$(P)$(R)Abort-Cmd"){
+    field(DESC, "Abort acquisition, same as disabling")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.5")
+    field(OUT, "$(P)$(R)ValidAbort.A PP")
+}
+record(calcout, "$(P)$(R)ValidAbort"){
+  field(DESC, "Validate abort cmd")
+  field(INPA, "0")
+  field(CALC, "A")
+  field(OOPT, "When Non-zero")
+  field(DOPT, "Use OCAL")
+  field(OCAL, "0")
+  field(OUT, "$(P)$(R)Enbl-Sel PP")
+}
+
 # Start measurements
 record(bo, "$(P)$(R)Enbl-Sel"){
   # ------------------------------------
