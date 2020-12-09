@@ -1828,7 +1828,7 @@ record(bi, "$(P)$(R)HFReject-Sts"){
 record(calcout, "$(P)$(R)OutOfRange-Mon"){
   field(DESC, "Check if curr meas is out of range")
   field(INPA, "$(P)$(R)Current-Mon CPP")
-  field(INPB, "$(P)$(R)Range-Sts")
+  field(INPB, "$(P)$(R)Range-Sts CPP")
   field(CALC, "(B<1||B>4)?1:( A>(2*(10^5)/(10^B)) )")
 }
 
