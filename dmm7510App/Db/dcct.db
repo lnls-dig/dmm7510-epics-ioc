@@ -369,6 +369,24 @@ record(mbbi, "$(P)$(R)MeasTrg-Sts"){
 #
 # Desc: Start measurement according to settings.
 
+# Abort command (only set Enbl-Sel to 0)
+record(bo, "$(P)$(R)Abort-Cmd"){
+    field(DESC, "Abort acquisition, same as disabling")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.5")
+    field(OUT, "$(P)$(R)ValidAbort.A PP")
+}
+record(calcout, "$(P)$(R)ValidAbort"){
+  field(DESC, "Validate abort cmd")
+  field(INPA, "0")
+  field(CALC, "A")
+  field(OOPT, "When Non-zero")
+  field(DOPT, "Use OCAL")
+  field(OCAL, "0")
+  field(OUT, "$(P)$(R)Enbl-Sel PP")
+}
+
 # Start measurements
 record(bo, "$(P)$(R)Enbl-Sel"){
   # ------------------------------------
@@ -1807,13 +1825,21 @@ record(bi, "$(P)$(R)HFReject-Sts"){
 #
 # Desc: Combine critical parameters in one status.
 
+record(calcout, "$(P)$(R)OutOfRange-Mon"){
+  field(DESC, "Check if curr meas is out of range")
+  field(INPA, "$(P)$(R)Current-Mon CPP")
+  field(INPB, "$(P)$(R)Range-Sts CPP")
+  field(CALC, "(B<1||B>4)?1:( A>(2*(10^5)/(10^B)) )")
+}
+
 # Measurement reliability
 record(calcout, "$(P)$(R)ReliableMeas-Mon"){
   field(DESC, "Measurement reliability")
-  field(INPA, "$(Instrument)ACalWarn-Mon CPP")
-  field(INPB, "$(Instrument)Network-Mon CPP")
-  field(INPC, "$(P)$(R)Enbl-Sts CPP")
-  field(CALC, "((A&1)<<2)|(((!B)&1)<<1)|(C#1)")
+  field(INPA, "$(P)$(R)OutOfRange-Mon CPP")
+  field(INPB, "$(Instrument)ACalWarn-Mon CPP")
+  field(INPC, "$(Instrument)Network-Mon CPP")
+  field(INPD, "$(P)$(R)Enbl-Sts CPP")
+  field(CALC, "((A&1)<<3)|((B&1)<<2)|(((!C)&1)<<1)|(D#1)")
   field(HIHI, "1")
   field(HHSV, "MAJOR")
 }
@@ -1823,7 +1849,7 @@ record(calcout, "$(P)$(R)ReliableMeas-Mon"){
 record(waveform, "$(P)$(R)ReliableMeasLabels-Cte"){
   field(DESC, "Labels for each bit in ReliableMeas-Mon")
   field(FTVL, "STRING")
-  field(NELM, "3")
+  field(NELM, "4")
 }
 
 ########################################################################

@@ -13,7 +13,7 @@ int saved_meas_mode;
 %%// 	      Monitored PVs
 %%//----------------------------------------
 
-string error_list[3];
+string error_list[4];
 assign error_list to "{P}{R}ReliableMeasLabels-Cte";
 
 int reset_cmd;
@@ -262,6 +262,7 @@ assign get_shutdown_monitor_proc to "{P}{R}GetHasShutDown.PROC";
 %%#define TEMP_ERROR "Temperature difference warning"
 %%#define NETWORK_ERROR "Network disconnection"
 %%#define ENBL_WARNING "Acquisition disabled"
+%%#define RANGE_WARNING "Measurement out of range"
 
 %%//----------------------------------------
 %%//        State Notation Language
@@ -275,6 +276,7 @@ ss dcct_acquisition {
             strcpy(error_list[0], ENBL_WARNING);
             strcpy(error_list[1], NETWORK_ERROR);
             strcpy(error_list[2], TEMP_ERROR);
+            strcpy(error_list[3], RANGE_WARNING);
             pvPut(error_list, SYNC);
 	    printf("[sncDCCT]: Initialization of ReliableMeasLabels-Cte finished\n");
 	} state download_phase_1
