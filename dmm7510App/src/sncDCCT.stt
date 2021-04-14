@@ -251,6 +251,7 @@ assign get_shutdown_monitor_proc to "{P}{R}GetHasShutDown.PROC";
 
 %%#include <unistd.h>
 %%#include <string.h>
+%%#include "Logger.h"
 
 %%#define SCAN_RATE ".02 second"
 %%#define NETWORK_SCAN_RATE "5 second"
@@ -271,20 +272,20 @@ assign get_shutdown_monitor_proc to "{P}{R}GetHasShutDown.PROC";
 ss dcct_acquisition {
     state init {
 	when (delay(5.0)) {
-            printf("[sncDCCT] Initialization start\n");
-	    printf("[sncDCCT]: Initializing ReliableMeasLabels-Cte\n");
+            LOG_INFO("[sncDCCT] Initialization start\n");
+	    LOG_INFO("[sncDCCT] Initializing ReliableMeasLabels-Cte\n");
             strcpy(error_list[0], ENBL_WARNING);
             strcpy(error_list[1], NETWORK_ERROR);
             strcpy(error_list[2], TEMP_ERROR);
             strcpy(error_list[3], RANGE_WARNING);
             pvPut(error_list, SYNC);
-	    printf("[sncDCCT]: Initialization of ReliableMeasLabels-Cte finished\n");
+	    LOG_INFO("[sncDCCT] Initialization of ReliableMeasLabels-Cte finished\n");
 	} state download_phase_1
     }
 
     state download_phase_1 {
         entry {
-            printf("[sncDCCT] Download phase 1\n");
+            LOG_INFO("[sncDCCT] Download phase 1\n");
             // update download done status
             download_done_mon = 0;
             pvPut(download_done_mon, SYNC);
@@ -322,7 +323,7 @@ ss dcct_acquisition {
 
     state download_phase_2 {
         entry {
-            printf("[sncDCCT] Download phase 2\n");
+            LOG_INFO("[sncDCCT] Download phase 2\n");
             // config measure mode that actually should
             // be used
             meas_mode_sel = saved_meas_mode;
@@ -337,7 +338,7 @@ ss dcct_acquisition {
 
         when (efTestAndClear(download_phase_done_mon_flg)
               && download_phase_done_mon == 1){
-            printf("[sncDCCT] Download finished\n");
+            LOG_INFO("[sncDCCT] Download finished\n");
             // reset shutdown monitor flag in device
             rst_shutdown_monitor = 1;
             pvPut(rst_shutdown_monitor, SYNC);
@@ -368,13 +369,13 @@ ss dcct_acquisition {
         when (efTestAndClear(download_cmd_flg)
               && download_cmd == 1){
             /* Download requested */
-            printf("[sncDCCT] Received request for download\n");
+            LOG_INFO("[sncDCCT] Received request for download\n");
         } state download_phase_1
 
         when (efTestAndClear(reconnection_cnt_flg)){
             /* Reconnection detected.
                Do download in case DMM is misconfigured */
-            printf("[sncDCCT] Reconnection detected while waiting for enable command. An automatic download will start.\n");
+            LOG_MINOR("[sncDCCT] Reconnection detected while waiting for enable command. An automatic download will start.\n");
         } state download_phase_1
 
         when (enbl_sel == 1 && efTestAndClear(time_sec_mon_flg)
@@ -388,7 +389,7 @@ ss dcct_acquisition {
             // disable output trg
             strcpy(ex_out_stim_sel, "NONE");
             pvPut(ex_out_stim_sel, SYNC);
-            printf("[sncDCCT] Error: No valid meas mode is selected\n");
+            LOG_MAJOR("[sncDCCT] Error: No valid meas mode is selected\n");
             // update enbl status
             enbl_sts = 0;
             pvPut(enbl_sts, SYNC);
@@ -403,7 +404,7 @@ ss dcct_acquisition {
             // disable output trg
             strcpy(ex_out_stim_sel, "NONE");
             pvPut(ex_out_stim_sel, SYNC);
-            printf("[sncDCCT] Error: No valid trigger is selected\n");
+            LOG_MAJOR("[sncDCCT] Error: No valid trigger is selected\n");
             // update enbl status
             enbl_sts = 0;
             pvPut(enbl_sts, SYNC);
@@ -418,7 +419,7 @@ ss dcct_acquisition {
             // disable output trg
             strcpy(ex_out_stim_sel, "NONE");
             pvPut(ex_out_stim_sel, SYNC);
-            printf("[sncDCCT] Error: LowLimEnbl and InLevel trig are both ON\n");
+            LOG_MAJOR("[sncDCCT] Error: LowLimEnbl and InLevel trig are both ON\n");
             // update enbl status
             enbl_sts = 0;
             pvPut(enbl_sts, SYNC);
@@ -430,7 +431,7 @@ ss dcct_acquisition {
         } state wait_enbl
         when (){
             // Success
-            printf("[sncDCCT] Enabling acquisition\n");
+            LOG_INFO("[sncDCCT] Enabling acquisition\n");
             // disable network connection monitoring
             // since long measurements can momentarily
             // stop communication from DMM side
@@ -575,7 +576,7 @@ ss dcct_acquisition {
 
         when (delay(CONFIG_TIMEOUT)){
             /* if configuration fails */
-            printf("[sncDCCT] Acquisition start failed: cannot clear buffer 1\n");
+            LOG_MAJOR("[sncDCCT] Acquisition start failed: cannot clear buffer 1\n");
         } state failure_recovery_init
     }
 
@@ -595,7 +596,7 @@ ss dcct_acquisition {
 
         when (delay(CONFIG_TIMEOUT)){
             /* if configuration fails */
-            printf("[sncDCCT] Acquisition start failed: cannot clear buffer 2\n");
+            LOG_MAJOR("[sncDCCT] Acquisition start failed: cannot clear buffer 2\n");
         } state failure_recovery_init
     }
 
@@ -621,7 +622,7 @@ ss dcct_acquisition {
 
         when (delay(CONFIG_TIMEOUT)){
             /* if configuration fails */
-            printf("[sncDCCT] Acquisition start failed: cannot prefill buffer 1\n");
+            LOG_MAJOR("[sncDCCT] Acquisition start failed: cannot prefill buffer 1\n");
         } state failure_recovery_init
     }
 
@@ -661,7 +662,7 @@ ss dcct_acquisition {
 
         when (delay(CONFIG_TIMEOUT)){
             /* if configuration fails */
-            printf("[sncDCCT] Acquisition start failed: cannot prefill buffer 2\n");
+            LOG_MAJOR("[sncDCCT] Acquisition start failed: cannot prefill buffer 2\n");
         } state failure_recovery_init
     }
 
@@ -680,7 +681,7 @@ ss dcct_acquisition {
 
         when (delay(CONFIG_TIMEOUT)){
             /* if configuration fails */
-            printf("[sncDCCT] Acquisition start failed: cannot monitor buffer position\n");
+            LOG_MAJOR("[sncDCCT] Acquisition start failed: cannot monitor buffer position\n");
         } state failure_recovery_init
     }
 
@@ -694,14 +695,14 @@ ss dcct_acquisition {
 
         when (delay(CONFIG_TIMEOUT)){
             /* if configuration fails */
-            printf("[sncDCCT] Acquisition start failed: cannot monitor Trigger Model\n");
+            LOG_MAJOR("[sncDCCT] Acquisition start failed: cannot monitor Trigger Model\n");
         } state failure_recovery_init
     }
 
     state start_acq{
         when (tm_mon == 2){
             // when TM-Mon == Waiting
-            printf("[sncDCCT] Acquisition start\n");
+            LOG_INFO("[sncDCCT] Acquisition start\n");
             // update enable status
             enbl_sts = 1;
             pvPut(enbl_sts, SYNC);
@@ -721,7 +722,7 @@ ss dcct_acquisition {
 
         when (delay(CONFIG_TIMEOUT)){
             /* if configuration fails */
-            printf("[sncDCCT] Acquisition start failed: Trigger Model cannot start\n");
+            LOG_MAJOR("[sncDCCT] Acquisition start failed: Trigger Model cannot start\n");
         } state failure_recovery_init
     }
 
@@ -729,7 +730,7 @@ ss dcct_acquisition {
         when (efTestAndClear(download_cmd_flg)
               && download_cmd == 1){
             /* Download requested */
-            printf("[sncDCCT] Acquisition stopped\n");
+            LOG_INFO("[sncDCCT] Acquisition stopped\n");
             // disable output trg
             strcpy(ex_out_stim_sel, "NONE");
             pvPut(ex_out_stim_sel, SYNC);
@@ -754,7 +755,7 @@ ss dcct_acquisition {
         when (efTestAndClear(enbl_sel_flg)
               && enbl_sel == 0){
             /* Acquisition disabled */
-            printf("[sncDCCT] Acquisition stopped\n");
+            LOG_INFO("[sncDCCT] Acquisition stopped\n");
             // disable output trg
             strcpy(ex_out_stim_sel, "NONE");
             pvPut(ex_out_stim_sel, SYNC);
@@ -820,7 +821,7 @@ ss dcct_acquisition {
         when (efTestAndClear(download_cmd_flg)
               && download_cmd == 1){
             /* Download requested */
-            printf("[sncDCCT] Acquisition stopped\n");
+            LOG_INFO("[sncDCCT] Acquisition stopped\n");
             // disable output trg
             strcpy(ex_out_stim_sel, "NONE");
             pvPut(ex_out_stim_sel, SYNC);
@@ -845,7 +846,7 @@ ss dcct_acquisition {
         when (efTestAndClear(enbl_sel_flg)
               && enbl_sel == 0){
             /* Acquisition disabled */
-            printf("[sncDCCT] Acquisition stopped\n");
+            LOG_INFO("[sncDCCT] Acquisition stopped\n");
             // disable output trg
             strcpy(ex_out_stim_sel, "NONE");
             pvPut(ex_out_stim_sel, SYNC);
@@ -909,7 +910,7 @@ ss dcct_acquisition {
 
     state failure_test_acq_step_1 {
         entry {
-            printf("[sncDCCT] Acquisition timeout: checking connection\n");
+            LOG_MINOR("[sncDCCT] Acquisition timeout: checking connection\n");
             // allow TM index monitors to
             // be sent always (not only 
             // on change).
@@ -923,7 +924,7 @@ ss dcct_acquisition {
 
         when (efTestAndClear(tm_idx_mon_flg)){
             /* connection is ok, so it is a trigger problem */
-            printf("[sncDCCT] Acquisition timeout: connection OK. Trigger may be missing\n");
+            LOG_MINOR("[sncDCCT] Acquisition timeout: connection OK. Trigger may be missing\n");
             // send TM index monitors
             // only on change
             tm_idx_mon_mdel = MDEL_ON_CHANGE;
@@ -932,7 +933,7 @@ ss dcct_acquisition {
 
         when (delay(TIMEOUT_CONN_NOT_TRIG)){
             /* network connection problem */
-            printf("[sncDCCT] Acquisition timeout: no response, connection failure\n");
+            LOG_MAJOR("[sncDCCT] Acquisition timeout: no response, connection failure\n");
             // send TM index monitors
             // only on change
             tm_idx_mon_mdel = MDEL_ON_CHANGE;
@@ -942,7 +943,7 @@ ss dcct_acquisition {
 
     state failure_test_acq_step_2 {
         entry {
-            printf("[sncDCCT] Acquisition timeout: checking connection\n");
+            LOG_MINOR("[sncDCCT] Acquisition timeout: checking connection\n");
             // allow TM index monitors to
             // be sent always (not only 
             // on change).
@@ -956,7 +957,7 @@ ss dcct_acquisition {
 
         when (efTestAndClear(tm_idx_mon_flg)){
             /* connection is ok, so it is a trigger problem */
-            printf("[sncDCCT] Acquisition timeout: connection OK. Trigger may be missing\n");
+            LOG_MINOR("[sncDCCT] Acquisition timeout: connection OK. Trigger may be missing\n");
             // send TM index monitors
             // only on change
             tm_idx_mon_mdel = MDEL_ON_CHANGE;
@@ -965,7 +966,7 @@ ss dcct_acquisition {
 
         when (delay(TIMEOUT_CONN_NOT_TRIG)){
             /* network connection problem */
-            printf("[sncDCCT] Acquisition timeout: no response, connection failure\n");
+            LOG_MAJOR("[sncDCCT] Acquisition timeout: no response, connection failure\n");
             // send TM index monitors
             // only on change
             tm_idx_mon_mdel = MDEL_ON_CHANGE;
@@ -975,7 +976,7 @@ ss dcct_acquisition {
 
     state failure_recovery {
         entry{
-            printf("[sncDCCT] Failure recovery: waiting for connection to start recovery\n");
+            LOG_MINOR("[sncDCCT] Failure recovery: waiting for connection to start recovery\n");
             // stop TM monitor
             strcpy(tm_mon_scan, "Passive");
             pvPut(tm_mon_scan, SYNC);
@@ -995,7 +996,7 @@ ss dcct_acquisition {
         }
 
         when(efTestAndClear(time_sec_mon_flg) && network_mon == 1){
-            printf("[sncDCCT] Failure recovery: connection established, starting recovery\n");
+            LOG_MINOR("[sncDCCT] Failure recovery: connection established, starting recovery\n");
             // stop network connection monitoring
             strcpy(time_sec_mon_scan, "Passive");
             pvPut(time_sec_mon_scan, SYNC);
@@ -1004,7 +1005,7 @@ ss dcct_acquisition {
 
     state shutdown_detect {
         entry{
-            printf("[sncDCCT] Failure recovery: Verifying if device has shutdown\n");
+            LOG_MINOR("[sncDCCT] Failure recovery: Verifying if device has shutdown\n");
             // clear shutdown monitor flag
             efClear(get_shutdown_monitor_flg);
             // request update of shutdown flag value
@@ -1013,13 +1014,13 @@ ss dcct_acquisition {
         }
 
         when(efTest(get_shutdown_monitor_flg) && get_shutdown_monitor == 0){
-            printf("[sncDCCT] Failure recovery: device has not shut down, restarting acquisition\n");
+            LOG_MINOR("[sncDCCT] Failure recovery: device has not shut down, restarting acquisition\n");
             // clear shutdown monitor flag
             efClear(get_shutdown_monitor_flg);
         } state find_acq_state
 
         when(efTest(get_shutdown_monitor_flg) && get_shutdown_monitor == 1){
-            printf("[sncDCCT] Failure recovery: device has shut down, preparing download\n");
+            LOG_MINOR("[sncDCCT] Failure recovery: device has shut down, preparing download\n");
             // clear shutdown monitor flag
             efClear(get_shutdown_monitor_flg);
             // disable output trg
@@ -1077,7 +1078,7 @@ ss dcct_acquisition {
 
     state failure_recovery_init {
         entry{
-            printf("[sncDCCT] Failure recovery: waiting for connection to start recovery\n");
+            LOG_MINOR("[sncDCCT] Failure recovery: waiting for connection to start recovery\n");
             // stop TM monitor
             strcpy(tm_mon_scan, "Passive");
             pvPut(tm_mon_scan, SYNC);
@@ -1103,7 +1104,7 @@ ss dcct_acquisition {
         }
 
         when(efTestAndClear(time_sec_mon_flg) && network_mon == 1){
-            printf("[sncDCCT] Failure recovery: connection established, starting recovery\n");
+            LOG_MINOR("[sncDCCT] Failure recovery: connection established, starting recovery\n");
             // disable output trg
             strcpy(ex_out_stim_sel, "NONE");
             pvPut(ex_out_stim_sel, SYNC);
