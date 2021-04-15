@@ -38,7 +38,7 @@ Afterwards, from the root repository directory, run `make install`. At any time,
 
 To run the IOC application, at the iocBoot/iocdmm7510 directory, run:
 
-    ./runGenericCT.sh -i IPADDR -d DEVICE [-p IPPORT] [-P PREFIX1] [-R PREFIX2]
+    ./runGenericCT.sh -i IPADDR -d DEVICE [-p IPPORT] [-P PREFIX1] [-R PREFIX2] [-l EPICS_IOC_LOG_INET] [-L EPICS_IOC_LOG_PORT]
 
 where the options are:
 
@@ -47,6 +47,8 @@ where the options are:
 - `-d DEVICE`: device identifier ([DCCT<number>|ICT<number>|DMM<number>]) (required)
 - `-P PREFIX1`: the value of the EPICS `$(P)` macro used to prefix the PV names
 - `-R PREFIX2`: the value of the EPICS `$(R)` macro used to prefix the PV names
+- `-l EPICS_IOC_LOG_INET`: the IP address of the IOC log server
+- `-L EPICS_IOC_LOG_PORT`: the port number of the IOC log server
 
 ## Running the OPIs
 

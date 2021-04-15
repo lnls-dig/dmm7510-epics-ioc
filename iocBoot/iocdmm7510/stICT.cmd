@@ -12,6 +12,8 @@ epicsEnvSet("STREAM_PROTOCOL_PATH", "$(TOP)/dmm7510App/Db")
 dbLoadDatabase ("${TOP}/dbd/dmm7510.dbd")
 dmm7510_registerRecordDeviceDriver pdbbase
 
+< logEnv.config
+
 asSetFilename("$(TOP)/dmm7510App/Db/accessSecurityFile.acf")
 
 drvAsynIPPortConfigure("${PORT}", "${IPADDR}:${IPPORT} TCP",0,0,0)
